@@ -30,6 +30,11 @@ header.site .wrap{display:flex;align-items:center;justify-content:space-between;
 .brand{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:1.35rem;text-decoration:none;display:flex;align-items:center;gap:10px}
 .brand .dot{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:.8rem}
 .navbtn{background:none;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.9rem;display:flex;gap:8px;align-items:center;text-decoration:none}
+.nav{display:flex;gap:8px;align-items:center}
+.navbtn.share{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+@media (max-width:520px){.brand-name{display:none}.shop-label{display:none}}
+.share-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;background:var(--accent-soft);border-radius:16px;padding:18px 20px;margin:0 0 56px}
+.share-cta p{margin:0}
 .navbtn .count{background:var(--accent);color:#fff;border-radius:999px;padding:0 7px;font-size:.75rem;font-weight:600}
 .hero{padding:48px 0 24px}
 .hero h1{font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,6vw,3.2rem);line-height:1.1;margin:0 0 10px}
@@ -107,11 +112,14 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 <body>
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="#/"><span class="dot">FR</span>Family Recipes</a>
+    <a class="brand" href="#/"><span class="dot">FR</span><span class="brand-name">Family Recipes</span></a>
+    <nav class="nav">
+    <a class="navbtn share" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener">+ Share a recipe</a>
     <a class="navbtn" href="#/shopping" id="shopLink">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6 5 3H2"/></svg>
-      Shopping list <span class="count" id="shopCount" hidden>0</span>
+      <span class="shop-label">Shopping list</span> <span class="count" id="shopCount" hidden>0</span>
     </a>
+    </nav>
   </div>
 </header>
 <main class="wrap" id="app"></main>
@@ -155,7 +163,11 @@ function home(){
         ${cats.map(c=>`<button class="chip" aria-pressed="${c===state.cat}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}
       </div>
     </div>
-    <div class="grid" id="grid"></div>`;
+    <div class="grid" id="grid"></div>
+    <div class="share-cta">
+      <p><strong>Have a family favorite?</strong> Type it in or just snap a photo of the recipe card. No account needed.</p>
+      <a class="btn primary" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener" style="text-decoration:none">+ Share a recipe</a>
+    </div>`;
   const q = document.getElementById('q');
   q.addEventListener('input', e => { state.q = e.target.value; renderGrid(); });
   app.querySelectorAll('.chip').forEach(b => b.onclick = () => {
