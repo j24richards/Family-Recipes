@@ -18,3 +18,16 @@ firebase.messaging();
 
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
+
+// Lets Android Chrome treat the admin page as an installable app (like the derby site).
+self.addEventListener('fetch', () => {});
+
+// Tapping an alert the admin page showed itself (page was open) opens/focuses the admin page.
+self.addEventListener('notificationclick', event => {
+  if (event.notification.tag !== 'fr-new-recipe') return; // FCM handles its own notifications
+  event.notification.close();
+  event.waitUntil(clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+    for (const c of list) { if (c.url.indexOf('admin.html') >= 0 && 'focus' in c) return c.focus(); }
+    return clients.openWindow('./admin.html');
+  }));
+});

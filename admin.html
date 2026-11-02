@@ -247,23 +247,36 @@ function setupNotify(){
   $('notifyOffBtn').onclick = disableAlerts;
 }
 
-function getMessagingToken(){
-  return navigator.serviceWorker.register('firebase-messaging-sw.js', { scope: './' })
-    .then(function(){ return navigator.serviceWorker.ready; })
-    .then(function(reg){ return firebase.messaging().getToken({ vapidKey: VAPID_KEY, serviceWorkerRegistration: reg }); });
+// Same flow as the derby site: register the worker, wait until it's ACTIVE,
+// then ask permission, then get the FCM token (only that step talks to Google,
+// so it's the only one with a timeout).
+function requestNotifyPermission(){
+  return new Promise(function(resolve){
+    var r = Notification.requestPermission(resolve);
+    if (r && r.then) r.then(resolve);
+  });
 }
 
 function enableAlerts(silent){
   $('notifyBtn').disabled = true;
   if (!silent) setNotifyStatus('Setting up alerts…');
-  var perm = Notification.permission === 'granted' ? Promise.resolve('granted') : Notification.requestPermission();
-  return Promise.resolve(perm).then(function(p){
-    if (p !== 'granted') throw new Error(p === 'denied'
-      ? 'Notifications are blocked for this site. Turn them on in your browser or phone settings, then try again.'
-      : 'Notifications weren’t allowed.');
-    return getMessagingToken();
+  var timer = null;
+  return navigator.serviceWorker.register('firebase-messaging-sw.js').then(function(){
+    return navigator.serviceWorker.ready;
+  }).then(function(reg){
+    return requestNotifyPermission().then(function(p){
+      if (p !== 'granted') throw new Error(p === 'denied'
+        ? 'Notifications are blocked for this site. In Chrome: tap the icon left of the address, then Permissions → Notifications → Allow. Then try again.'
+        : 'Notifications weren’t allowed. Tap the button again and choose Allow.');
+      if (!silent) setNotifyStatus('Almost there…');
+      return Promise.race([
+        firebase.messaging().getToken({ vapidKey: VAPID_KEY, serviceWorkerRegistration: reg }),
+        new Promise(function(_, rej){ timer = setTimeout(function(){ rej(new Error('Timed out talking to Google’s push service. Check your connection, turn off any ad/tracker blocker for this site, and try again.')); }, 15000); })
+      ]);
+    });
   }).then(function(token){
-    if (!token) throw new Error('No push token was returned.');
+    clearTimeout(timer);
+    if (!token) throw new Error('No push token was returned. Try again.');
     var old = lsGet(TOKEN_KEY);
     var writes = [db.collection('adminTokens').doc(token).set({
       device: navigator.userAgent.slice(0, 200),
@@ -276,9 +289,25 @@ function enableAlerts(silent){
     refreshNotifyButtons();
     if (!silent) setNotifyStatus('Alerts are on for this device. You’ll get a notification for each new recipe.');
   }).catch(function(err){
-    if (!silent) setNotifyStatus(err.message || String(err));
+    clearTimeout(timer);
+    console.warn('Alert setup failed:', err);
+    if (!silent) setNotifyStatus('Couldn’t turn on alerts: ' + (err && err.message || err) + (err && err.code ? ' [' + err.code + ']' : ''));
   }).then(function(){ $('notifyBtn').disabled = false; });
 }
+
+// Pushes that arrive while this page is open and in front aren't shown by the
+// system automatically, so show them here (same as the derby site does).
+try {
+  firebase.messaging().onMessage(function(payload){
+    if (!window.Notification || Notification.permission !== 'granted') return;
+    var n = payload.notification || {};
+    var title = n.title || 'New recipe shared';
+    var opts = { body: n.body || '', icon: 'icon-192.png', badge: 'icon-192.png', tag: 'fr-new-recipe', data: { link: 'admin.html' } };
+    navigator.serviceWorker.getRegistration().then(function(reg){
+      if (reg) reg.showNotification(title, opts); else new Notification(title, opts);
+    }).catch(function(){ try { new Notification(title, opts); } catch(e){} });
+  });
+} catch (e) { console.warn('Foreground alerts unavailable:', e); }
 
 function disableAlerts(){
   var token = lsGet(TOKEN_KEY);
