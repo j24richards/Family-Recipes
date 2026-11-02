@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Family Recipes</title>
+<meta name="description" content="Our family's go-to recipes, some our own and others we've found.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23b4532a'/><text x='32' y='43' font-size='30' text-anchor='middle' fill='white' font-family='Georgia'>FR</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f3ea; --paper:#fffdf8; --ink:#2b2420; --muted:#6f645c; --line:#e7dccb;
+  --accent:#b4532a; --accent-soft:#f3dfd2; --sage:#5f7a5a; --sage-soft:#e1eadc;
+  --shadow:0 1px 2px rgba(60,40,20,.06),0 6px 20px rgba(60,40,20,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#1b1715;--paper:#24201d;--ink:#f1e9df;--muted:#a99d92;--line:#3a332e;
+  --accent:#e0855a;--accent-soft:#3d2a20;--sage:#9cba94;--sage-soft:#26301f;--shadow:none}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.site{border-bottom:1px solid var(--line);background:var(--paper)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:64px}
+.brand{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:1.35rem;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand .dot{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:.8rem}
+.navbtn{background:none;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.9rem;display:flex;gap:8px;align-items:center;text-decoration:none}
+.navbtn .count{background:var(--accent);color:#fff;border-radius:999px;padding:0 7px;font-size:.75rem;font-weight:600}
+.hero{padding:48px 0 24px}
+.hero h1{font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,6vw,3.2rem);line-height:1.1;margin:0 0 10px}
+.hero p{color:var(--muted);margin:0;max-width:560px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:24px 0}
+.search{flex:1 1 260px;position:relative}
+.search input{width:100%;padding:12px 14px 12px 40px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);font:inherit}
+.search input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 14px;font-size:.9rem}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;padding-bottom:56px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px;text-decoration:none;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent)}
+.cat{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--accent)}
+.card h2{font-family:Fraunces,Georgia,serif;font-size:1.3rem;line-height:1.25;margin:0}
+.card p{margin:0;color:var(--muted);font-size:.93rem}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.tag{font-size:.75rem;background:var(--sage-soft);color:var(--sage);padding:3px 9px;border-radius:999px}
+.empty{color:var(--muted);padding:40px 0;text-align:center}
+
+/* recipe page */
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;margin:24px 0 8px;font-size:.92rem}
+.r-head h1{font-family:Fraunces,Georgia,serif;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.12;margin:6px 0 4px}
+.r-head .sub{font-family:Fraunces,Georgia,serif;color:var(--muted);font-size:1.15rem;margin:0 0 12px}
+.r-head .summary{max-width:680px;margin:0 0 14px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:.92rem;align-items:center}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 8px}
+.btn{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:9px 14px;font-size:.9rem;display:inline-flex;gap:7px;align-items:center}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn[aria-pressed=true]{background:var(--sage);border-color:var(--sage);color:#fff}
+.tip{background:var(--accent-soft);border-radius:12px;padding:12px 16px;margin:16px 0;font-size:.93rem}
+.r-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:32px;margin:24px 0 40px}
+@media (max-width:760px){.r-body{grid-template-columns:1fr;gap:20px}}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.ing{position:sticky;top:16px;align-self:start}
+@media (max-width:760px){.ing{position:static}}
+.panel h2{font-family:Fraunces,Georgia,serif;font-size:1.3rem;margin:0 0 10px}
+.panel h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:18px 0 6px}
+.checklist{list-style:none;margin:0;padding:0}
+.checklist li{border-bottom:1px dashed var(--line)}
+.checklist li:last-child{border-bottom:0}
+.checklist label{display:flex;gap:10px;align-items:flex-start;padding:8px 0;cursor:pointer;font-size:.95rem}
+.checklist input{margin-top:4px;accent-color:var(--sage);width:17px;height:17px;flex:none}
+.checklist input:checked + span{color:var(--muted);text-decoration:line-through}
+ol.steps{list-style:none;counter-reset:s;margin:0;padding:0}
+ol.steps li{counter-increment:s;position:relative;padding:12px 10px 12px 48px;border-radius:12px;cursor:pointer;transition:background .15s}
+ol.steps li:hover{background:var(--bg)}
+ol.steps li::before{content:counter(s);position:absolute;left:8px;top:12px;width:28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:600;display:grid;place-items:center;font-size:.85rem}
+ol.steps li.done{opacity:.45}
+ol.steps li.done::before{content:"✓";background:var(--sage);color:#fff}
+.hint{font-size:.8rem;color:var(--muted);margin:-4px 0 8px}
+.notes{margin-top:22px}
+.notes ul{margin:0;padding-left:18px}
+.notes li{margin:0 0 9px;font-size:.94rem}
+
+/* shopping */
+.shop-group{margin-bottom:18px}
+.shop-group h3{display:flex;justify-content:space-between;align-items:center;font-family:Fraunces,Georgia,serif;text-transform:none;letter-spacing:0;font-size:1.05rem;color:var(--ink)}
+.linkbtn{background:none;border:0;color:var(--accent);font-size:.85rem;padding:0}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padding:24px 0 40px}
+
+@media print{
+  header.site,.actions,.back,footer,.hint{display:none!important}
+  body{background:#fff;color:#000}
+  .panel{border:0;padding:0}
+  .r-body{grid-template-columns:1fr 1.5fr;gap:24px}
+  ol.steps li{padding:6px 0 6px 36px}
+  ol.steps li::before{top:6px;left:0}
+  .checklist input{display:none}
+}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#/"><span class="dot">FR</span>Family Recipes</a>
+    <a class="navbtn" href="#/shopping" id="shopLink">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6 5 3H2"/></svg>
+      Shopping list <span class="count" id="shopCount" hidden>0</span>
+    </a>
+  </div>
+</header>
+<main class="wrap" id="app"></main>
+<footer><div class="wrap">Family Recipes · some our own, others we've found.</div></footer>
+
+<script src="recipes.js"></script>
+<script>
+(function(){
+const R = window.RECIPES || [];
+const app = document.getElementById('app');
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem('fr:'+k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem('fr:'+k, JSON.stringify(v)); }catch(e){} }
+};
+let state = { q:'', cat:'All' };
+let wakeLock = null;
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const md = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+const allText = r => [r.title, r.subtitle, r.summary, r.category, ...(r.tags||[]), ...r.ingredients.flatMap(g=>g.items)].join(' ').toLowerCase();
+
+function shopList(){ return store.get('shop', []); }
+function updateShopCount(){
+  const n = shopList().length, el = document.getElementById('shopCount');
+  el.hidden = !n; el.textContent = n;
+}
+
+function home(){
+  const cats = ['All', ...Array.from(new Set(R.map(r=>r.category)))];
+  app.innerHTML = `
+    <section class="hero">
+      <h1>What are we cooking?</h1>
+      <p>Our go-to recipes, some our own and others we've found. Tap a recipe to cook from it, check off ingredients, or add it to the shopping list.</p>
+    </section>
+    <div class="controls">
+      <label class="search" aria-label="Search recipes">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search recipes or ingredients…" value="${esc(state.q)}">
+      </label>
+      <div class="chips" role="group" aria-label="Category">
+        ${cats.map(c=>`<button class="chip" aria-pressed="${c===state.cat}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>`;
+  const q = document.getElementById('q');
+  q.addEventListener('input', e => { state.q = e.target.value; renderGrid(); });
+  app.querySelectorAll('.chip').forEach(b => b.onclick = () => {
+    state.cat = b.dataset.cat;
+    app.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x===b));
+    renderGrid();
+  });
+  renderGrid();
+}
+
+function renderGrid(){
+  const terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+  const list = R.filter(r => (state.cat==='All' || r.category===state.cat) && terms.every(t => allText(r).includes(t)));
+  const g = document.getElementById('grid');
+  g.innerHTML = list.length ? list.map(r => `
+    <a class="card" href="#/recipe/${r.slug}">
+      <span class="cat">${esc(r.category)}</span>
+      <h2>${esc(r.title)}</h2>
+      <p>${esc(r.summary)}</p>
+      <div class="meta"><span class="tag">Serves ${esc(r.serves)}</span>${(r.tags||[]).slice(0,3).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+    </a>`).join('') : `<p class="empty">No recipes match that search.</p>`;
+}
+
+function recipe(slug){
+  const r = R.find(x => x.slug === slug);
+  if(!r){ app.innerHTML = `<a class="back" href="#/">← All recipes</a><p class="empty">Recipe not found.</p>`; return; }
+  document.title = r.title + ' · Family Recipes';
+  const checks = store.get('chk:'+slug, {});
+  const inList = shopList().includes(slug);
+  let n = 0;
+  const ingHtml = r.ingredients.map(g => `
+    ${g.name ? `<h3>${esc(g.name)}</h3>` : ''}
+    <ul class="checklist">${g.items.map(it => { const id = 'i'+(n++); return `<li><label><input type="checkbox" data-k="${id}" ${checks[id]?'checked':''}><span>${esc(it)}</span></label></li>`; }).join('')}</ul>`).join('');
+  app.innerHTML = `
+    <a class="back" href="#/">← All recipes</a>
+    <div class="r-head">
+      <span class="cat">${esc(r.category)}</span>
+      <h1>${esc(r.title)}</h1>
+      ${r.subtitle ? `<p class="sub">${esc(r.subtitle)}</p>` : ''}
+      <p class="summary">${esc(r.summary)}</p>
+      <div class="facts"><span><strong>Serves</strong> ${esc(r.serves)}</span>${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+    </div>
+    <div class="actions">
+      <button class="btn ${inList?'':'primary'}" id="addShop">${inList ? '✓ On shopping list' : '+ Add to shopping list'}</button>
+      <button class="btn" id="cook" aria-pressed="${!!wakeLock}" title="Keeps your screen from going to sleep while you cook">Cook mode</button>
+      <button class="btn" id="reset">Reset checks</button>
+      <button class="btn" onclick="window.print()">Print</button>
+    </div>
+    ${r.tip ? `<div class="tip">${md(r.tip)}</div>` : ''}
+    <div class="r-body">
+      <section class="panel ing"><h2>Ingredients</h2>${ingHtml}</section>
+      <section>
+        <div class="panel">
+          <h2>Instructions</h2>
+          <p class="hint">Tap a step to mark it done.</p>
+          <ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(s)}</li>`).join('')}</ol>
+        </div>
+        ${r.notes && r.notes.length ? `<div class="panel notes"><h2>Notes</h2><ul>${r.notes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
+      </section>
+    </div>`;
+  const save = () => store.set('chk:'+slug, checks);
+  app.querySelectorAll('.checklist input').forEach(i => i.onchange = () => { checks[i.dataset.k] = i.checked; save(); });
+  app.querySelectorAll('ol.steps li').forEach(li => li.onclick = () => { const k = li.dataset.k; checks[k] = !checks[k]; li.classList.toggle('done', checks[k]); save(); });
+  document.getElementById('reset').onclick = () => { store.set('chk:'+slug, {}); recipe(slug); };
+  document.getElementById('addShop').onclick = () => {
+    let l = shopList();
+    l = l.includes(slug) ? l.filter(s=>s!==slug) : [...l, slug];
+    store.set('shop', l); updateShopCount(); recipe(slug);
+  };
+  const cookBtn = document.getElementById('cook');
+  if(!('wakeLock' in navigator)) cookBtn.hidden = true;
+  cookBtn.onclick = async () => {
+    try{
+      if(wakeLock){ await wakeLock.release(); wakeLock = null; }
+      else { wakeLock = await navigator.wakeLock.request('screen'); wakeLock.addEventListener('release', () => { wakeLock = null; cookBtn.setAttribute('aria-pressed', false); }); }
+    }catch(e){ wakeLock = null; }
+    cookBtn.setAttribute('aria-pressed', !!wakeLock);
+  };
+  window.scrollTo(0,0);
+}
+
+function shopping(){
+  document.title = 'Shopping list · Family Recipes';
+  const slugs = shopList().filter(s => R.some(r=>r.slug===s));
+  const got = store.get('shopchk', {});
+  if(!slugs.length){
+    app.innerHTML = `<a class="back" href="#/">← All recipes</a><div class="r-head"><h1>Shopping list</h1></div>
+      <p class="empty">Nothing here yet. Open a recipe and tap “Add to shopping list”.</p>`;
+    return;
+  }
+  app.innerHTML = `
+    <a class="back" href="#/">← All recipes</a>
+    <div class="r-head"><h1>Shopping list</h1><p class="summary">Ingredients from ${slugs.length} recipe${slugs.length>1?'s':''}. Check off what you already have or have grabbed.</p></div>
+    <div class="actions"><button class="btn" id="clearChecks">Uncheck all</button><button class="btn" id="clearAll">Clear list</button><button class="btn" onclick="window.print()">Print</button></div>
+    <div class="panel" style="margin:16px 0 48px">
+      ${slugs.map(s => { const r = R.find(x=>x.slug===s); let n=0; return `
+        <div class="shop-group">
+          <h3><a href="#/recipe/${s}">${esc(r.title)}</a> <button class="linkbtn" data-rm="${s}">Remove</button></h3>
+          <ul class="checklist">${r.ingredients.flatMap(g=>g.items).map(it => { const k = s+':'+(n++); return `<li><label><input type="checkbox" data-k="${esc(k)}" ${got[k]?'checked':''}><span>${esc(it)}</span></label></li>`; }).join('')}</ul>
+        </div>`; }).join('')}
+    </div>`;
+  app.querySelectorAll('.checklist input').forEach(i => i.onchange = () => { got[i.dataset.k] = i.checked; store.set('shopchk', got); });
+  app.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => { store.set('shop', shopList().filter(x=>x!==b.dataset.rm)); updateShopCount(); shopping(); });
+  document.getElementById('clearChecks').onclick = () => { store.set('shopchk', {}); shopping(); };
+  document.getElementById('clearAll').onclick = () => { store.set('shop', []); store.set('shopchk', {}); updateShopCount(); shopping(); };
+}
+
+function route(){
+  const h = location.hash.replace(/^#\/?/, '');
+  document.title = 'Family Recipes';
+  if(h.startsWith('recipe/')) recipe(h.slice(7));
+  else if(h === 'shopping') shopping();
+  else home();
+  updateShopCount();
+}
+window.addEventListener('hashchange', route);
+route();
+})();
+</script>
+</body>
+</html>
