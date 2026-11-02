@@ -61,8 +61,17 @@ dd{margin:2px 0 0;white-space:pre-wrap}
 <main class="wrap">
   <section id="signedOut" hidden>
     <h1>Admin sign-in</h1>
-    <p class="muted">This page is just for the site admin. Sign in with your Google account to see new recipe submissions and turn on phone alerts.</p>
-    <button class="btn primary" id="signInBtn">Sign in with Google</button>
+    <p class="muted">This page is just for the site admin. Sign in to see new recipe submissions and turn on phone alerts.</p>
+    <form id="pwForm" class="panel" style="max-width:420px" autocomplete="on">
+      <label style="display:block;font-size:.85rem;color:var(--muted)">Email
+        <input id="pwEmail" type="email" autocomplete="username" value="j24richards@gmail.com" required style="display:block;width:100%;margin:4px 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit">
+      </label>
+      <label style="display:block;font-size:.85rem;color:var(--muted)">Password
+        <input id="pwPass" type="password" autocomplete="current-password" required style="display:block;width:100%;margin:4px 0 14px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit">
+      </label>
+      <button class="btn primary" type="submit" id="pwBtn">Sign in</button>
+    </form>
+    <p class="muted" style="font-size:.88rem">On a computer you can also <button class="btn small" id="signInBtn" type="button">Sign in with Google</button></p>
     <p class="status" id="signInStatus" hidden></p>
   </section>
 
@@ -89,6 +98,16 @@ dd{margin:2px 0 0;white-space:pre-wrap}
         <li>Tap <strong>🔔 Notify me about new recipes</strong> and tap <strong>Allow</strong>.</li>
       </ol>
     </div>
+
+    <details class="panel" id="pwPanel">
+      <summary style="cursor:pointer"><strong>🔑 Password for phone sign-in</strong> <span class="muted" id="pwState" style="font-size:.88rem"></span></summary>
+      <p class="muted" style="font-size:.92rem;margin:10px 0">Set a password so you can sign in on browsers that block Google’s sign-in window (like Samsung Internet). Use your email and this password there.</p>
+      <form id="setPwForm" class="row">
+        <input id="newPw" type="password" autocomplete="new-password" minlength="8" placeholder="New password (8+ characters)" required style="flex:1 1 220px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit">
+        <button class="btn primary" type="submit" id="setPwBtn">Save password</button>
+      </form>
+      <p class="status" id="setPwStatus" hidden></p>
+    </details>
 
     <div class="tabs" role="group" aria-label="Filter">
       <button class="tab" data-f="new" aria-pressed="true">New</button>
@@ -138,7 +157,46 @@ $('signInBtn').onclick = function(){
     $('signInStatus').textContent = 'Sign-in didn’t finish: ' + (err && err.message || err);
   });
 };
+// Email + password sign-in (like the derby's staff login): no pop-up, so it
+// works in Samsung Internet and other browsers that block Google's sign-in window.
+$('pwForm').onsubmit = function(e){
+  e.preventDefault();
+  $('pwBtn').disabled = true;
+  $('signInStatus').hidden = true;
+  auth.signInWithEmailAndPassword($('pwEmail').value.trim(), $('pwPass').value).catch(function(err){
+    var c = err && err.code || '';
+    $('signInStatus').hidden = false;
+    $('signInStatus').textContent = (c === 'auth/invalid-credential' || c === 'auth/wrong-password' || c === 'auth/user-not-found' || c === 'auth/invalid-login-credentials')
+      ? 'That email and password didn’t match. Try again.'
+      : (c === 'auth/too-many-requests' ? 'Too many tries. Wait a few minutes and try again.' : 'Sign-in didn’t work: ' + (err.message || err));
+  }).then(function(){ $('pwBtn').disabled = false; });
+};
 $('signOutBtn').onclick = function(){ auth.signOut(); };
+
+function hasPassword(user){ return (user.providerData || []).some(function(p){ return p.providerId === 'password'; }); }
+function refreshPwState(user){
+  $('pwState').textContent = hasPassword(user) ? '· set' : '· not set yet';
+  $('setPwBtn').textContent = hasPassword(user) ? 'Change password' : 'Save password';
+}
+$('setPwForm').onsubmit = function(e){
+  e.preventDefault();
+  var user = auth.currentUser, pw = $('newPw').value;
+  if (!user) return;
+  var st = $('setPwStatus'); st.hidden = false; st.textContent = 'Saving…';
+  $('setPwBtn').disabled = true;
+  var p = hasPassword(user)
+    ? user.updatePassword(pw)
+    : user.linkWithCredential(firebase.auth.EmailAuthProvider.credential(user.email, pw));
+  p.then(function(){ return user.reload(); }).then(function(){
+    $('newPw').value = '';
+    refreshPwState(auth.currentUser);
+    st.textContent = 'Saved. On your phone, sign in with ' + user.email + ' and this password.';
+  }).catch(function(err){
+    st.textContent = err && err.code === 'auth/requires-recent-login'
+      ? 'For security, sign out and back in, then try again.'
+      : (err && err.code === 'auth/weak-password' ? 'Pick a longer password (8+ characters).' : 'Couldn’t save: ' + (err.message || err));
+  }).then(function(){ $('setPwBtn').disabled = false; });
+};
 
 auth.onAuthStateChanged(function(user){
   if (unsub) { unsub(); unsub = null; }
@@ -148,6 +206,7 @@ auth.onAuthStateChanged(function(user){
   if ((user.email || '').toLowerCase() !== ADMIN_EMAIL) { $('badEmail').textContent = user.email; return show('notAdmin'); }
   show('adminView');
   setupNotify();
+  refreshPwState(user);
   var timer = setTimeout(function(){ if (!docs.length) $('list').innerHTML = '<p class="empty">Still loading… check your connection.</p>'; }, 10000);
   unsub = db.collection('submissions').orderBy('receivedAt','desc').limit(100).onSnapshot(function(snap){
     clearTimeout(timer);
