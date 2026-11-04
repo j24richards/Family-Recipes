@@ -89,6 +89,15 @@ ol.steps li.done{opacity:.45}
 ol.steps li.done::before{content:"✓";background:var(--sage);color:#fff}
 .hint{font-size:.8rem;color:var(--muted);margin:-4px 0 8px}
 .notes{margin-top:22px}
+.credit{margin:0 0 6px;color:var(--muted)}
+.credit strong{color:var(--ink)}
+.unsure{font-size:.85em}
+.muted{color:var(--muted)}
+.adj{border-left:4px solid var(--sage)}
+.gaps{border-left:4px solid var(--accent);background:var(--accent-soft)}
+.gaps .btn{margin-top:8px}
+.tag.gap{background:var(--accent-soft);color:var(--accent)}
+.suggest-line{color:var(--muted);font-size:.9rem;margin:18px 4px 0}
 .notes ul{margin:0;padding-left:18px}
 .notes li{margin:0 0 9px;font-size:.94rem}
 
@@ -126,6 +135,7 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 <footer><div class="wrap">Family Recipes · some our own, others we've found.</div></footer>
 
 <script src="recipes.js"></script>
+<script src="cards.js"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -139,7 +149,10 @@ let wakeLock = null;
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const md = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
-const allText = r => [r.title, r.subtitle, r.summary, r.category, ...(r.tags||[]), ...r.ingredients.flatMap(g=>g.items)].join(' ').toLowerCase();
+const SUGGEST_URL = ''; // set once the "suggest a fill-in" Tally form exists
+const CAT_ORDER = ['Breakfast','Appetizers','Dinner','Meats & Seafood','Casseroles','Soups','Salads','Breads','Desserts','Beverages','Thanksgiving'];
+const suggestLink = r => SUGGEST_URL + '?recipe=' + encodeURIComponent(r.title);
+const allText = r => [r.title, r.subtitle, r.summary, r.category, r.credit, ...(r.tags||[]), ...r.ingredients.flatMap(g=>g.items)].join(' ').toLowerCase();
 
 function shopList(){ return store.get('shop', []); }
 function updateShopCount(){
@@ -148,11 +161,11 @@ function updateShopCount(){
 }
 
 function home(){
-  const cats = ['All', ...Array.from(new Set(R.map(r=>r.category)))];
+  const cats = ['All', ...Array.from(new Set(R.map(r=>r.category))).sort((a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j);})];
   app.innerHTML = `
     <section class="hero">
       <h1>What are we cooking?</h1>
-      <p>Our go-to recipes, some our own and others we've found. Tap a recipe to cook from it, check off ingredients, or add it to the shopping list.</p>
+      <p>Our go-to recipes, plus the cards from the family recipe box, kept just as they were written. Tap a recipe to cook from it, check off ingredients, or add it to the shopping list.</p>
     </section>
     <div class="controls">
       <label class="search" aria-label="Search recipes">
@@ -187,7 +200,7 @@ function renderGrid(){
       <span class="cat">${esc(r.category)}</span>
       <h2>${esc(r.title)}</h2>
       <p>${esc(r.summary)}</p>
-      <div class="meta"><span class="tag">Serves ${esc(r.serves)}</span>${(r.tags||[]).slice(0,3).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+      <div class="meta">${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.tags||[]).slice(0,3).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}</div>
     </a>`).join('') : `<p class="empty">No recipes match that search.</p>`;
 }
 
@@ -207,8 +220,10 @@ function recipe(slug){
       <span class="cat">${esc(r.category)}</span>
       <h1>${esc(r.title)}</h1>
       ${r.subtitle ? `<p class="sub">${esc(r.subtitle)}</p>` : ''}
-      <p class="summary">${esc(r.summary)}</p>
-      <div class="facts"><span><strong>Serves</strong> ${esc(r.serves)}</span>${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+      ${r.fromBox ? '' : `<p class="summary">${esc(r.summary)}</p>`}
+      ${r.fromBox ? `<p class="credit">${r.credit ? `From the kitchen of <strong>${esc(r.credit)}</strong>${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}</p>` : ''}
+      ${r.source ? `<p class="credit">Source: ${r.source.url ? `<a href="${esc(r.source.url)}" target="_blank" rel="noopener">${esc(r.source.text)}</a>` : esc(r.source.text)}</p>` : ''}
+      <div class="facts">${r.serves?`<span><strong>Serves</strong> ${esc(r.serves)}</span>`:''}${r.time?`<span>${esc(r.time)}</span>`:''}${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
     </div>
     <div class="actions">
       <button class="btn ${inList?'':'primary'}" id="addShop">${inList ? '✓ On shopping list' : '+ Add to shopping list'}</button>
@@ -222,9 +237,12 @@ function recipe(slug){
       <section>
         <div class="panel">
           <h2>Instructions</h2>
-          <p class="hint">Tap a step to mark it done.</p>
-          <ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(s)}</li>`).join('')}</ol>
+          ${r.steps.length ? `<p class="hint">Tap a step to mark it done.</p><ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(s)}</li>`).join('')}</ol>` : '<p class="muted">No instructions on the card.</p>'}
         </div>
+        ${r.adjustments && r.adjustments.length ? `<div class="panel notes adj"><h2>Adjustments</h2><p class="hint">Later notes added to the card. The recipe above is the original.</p><ul>${r.adjustments.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
+        ${r.cardNotes && r.cardNotes.length ? `<div class="panel notes"><h2>On the card</h2><ul>${r.cardNotes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
+        ${r.gaps && r.gaps.length ? `<div class="panel notes gaps"><h2>Missing from the card</h2><ul>${r.gaps.map(x=>`<li>${md(x)}</li>`).join('')}</ul>${SUGGEST_URL ? `<a class="btn primary" href="${suggestLink(r)}" target="_blank" rel="noopener" style="text-decoration:none">I know this — suggest a fill-in</a>` : '<p class="hint">Know the answer? Let Jimmie know.</p>'}</div>` : ''}
+        ${SUGGEST_URL && r.fromBox && !(r.gaps && r.gaps.length) ? `<p class="suggest-line">Know something about this recipe — who it came from or the story behind it? <a href="${suggestLink(r)}" target="_blank" rel="noopener">Share it</a></p>` : ''}
         ${r.notes && r.notes.length ? `<div class="panel notes"><h2>Notes</h2><ul>${r.notes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
       </section>
     </div>`;
