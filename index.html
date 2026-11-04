@@ -36,7 +36,9 @@ header.site .wrap{display:flex;align-items:center;justify-content:space-between;
 .share-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;background:var(--accent-soft);border-radius:16px;padding:18px 20px;margin:0 0 56px}
 .share-cta p{margin:0}
 .navbtn .count{background:var(--accent);color:#fff;border-radius:999px;padding:0 7px;font-size:.75rem;font-weight:600}
-.hero{padding:48px 0 24px}
+.hero{padding:24px 0 24px}
+.hearth{margin:0 0 28px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:16/7;background:#3a2a20}
+.hearth img{width:100%;height:100%;object-fit:cover;display:block}
 .hero h1{font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,6vw,3.2rem);line-height:1.1;margin:0 0 10px}
 .hero p{color:var(--muted);margin:0;max-width:560px}
 .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:24px 0}
@@ -149,7 +151,7 @@ let wakeLock = null;
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const md = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
-const SUGGEST_URL = ''; // set once the "suggest a fill-in" Tally form exists
+const SUGGEST_URL = 'https://tally.so/r/6DeJLe';
 const CAT_ORDER = ['Breakfast','Appetizers','Dinner','Meats & Seafood','Casseroles','Soups','Salads','Breads','Desserts','Beverages','Thanksgiving'];
 const suggestLink = r => SUGGEST_URL + '?recipe=' + encodeURIComponent(r.title);
 const allText = r => [r.title, r.subtitle, r.summary, r.category, r.credit, ...(r.tags||[]), ...r.ingredients.flatMap(g=>g.items)].join(' ').toLowerCase();
@@ -164,6 +166,7 @@ function home(){
   const cats = ['All', ...Array.from(new Set(R.map(r=>r.category))).sort((a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j);})];
   app.innerHTML = `
     <section class="hero">
+      <figure class="hearth"><img src="hearth.webp" alt="Painting of an old colonial kitchen hearth, from the front of the family recipe box" width="1600" height="929"></figure>
       <h1>What are we cooking?</h1>
       <p>Our go-to recipes, plus the cards from the family recipe box, kept just as they were written. Tap a recipe to cook from it, check off ingredients, or add it to the shopping list.</p>
     </section>

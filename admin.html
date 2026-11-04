@@ -81,7 +81,7 @@ dd{margin:2px 0 0;white-space:pre-wrap}
   </section>
 
   <section id="adminView" hidden>
-    <h1>New recipes</h1>
+    <h1>New recipes &amp; fill-ins</h1>
     <p class="muted">Submissions from the “Share a recipe” form show up here. Tell Claude “add the new recipes” to put them on the site, then mark them added.</p>
 
     <div class="panel">
@@ -242,7 +242,7 @@ function render(){
     var added = d.status === 'added';
     var fields = (d.fields || []).filter(function(f){ return f.text || (f.files && f.files.length); });
     return '<article class="panel sub">' +
-      '<h3>' + esc(d.title || 'Untitled recipe') + (added ? '<span class="badge done">Added</span>' : '<span class="badge">New</span>') + '</h3>' +
+      '<h3>' + (d.kind === 'suggestion' ? '<span class="badge done" style="margin:0 6px 0 0">Fill-in</span>Suggestion for: ' : '') + esc(d.title || 'Untitled recipe') + (added ? '<span class="badge done">Added</span>' : '<span class="badge">New</span>') + '</h3>' +
       '<div class="meta">' + (d.who ? 'From ' + esc(d.who) + ' · ' : '') + esc(fmtDate(d.receivedAt)) + '</div>' +
       '<dl>' + fields.map(function(f){
         if (f.files && f.files.length) {
