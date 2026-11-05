@@ -51,6 +51,7 @@ header.site .wrap{display:flex;align-items:center;justify-content:space-between;
 .search input{width:100%;padding:12px 14px 12px 40px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);font:inherit}
 .search input:focus{outline:2px solid var(--accent);outline-offset:1px}
 .search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.cat-head{grid-column:1/-1;margin:22px 0 2px;padding-bottom:6px;border-bottom:1px solid var(--line);font-size:1.25rem}.cat-head:first-child{margin-top:4px}.cat-head .n{font-size:.8rem;font-weight:400;opacity:.6;margin-left:6px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 14px;font-size:.9rem}
 .chip[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
@@ -336,8 +337,8 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   Family Recipes · some our own, others we've found.
 </div></footer>
 
-<script src="recipes.js?v=20261116"></script>
-<script src="cards.js?v=20261116"></script>
+<script src="recipes.js?v=20261117"></script>
+<script src="cards.js?v=20261117"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -555,7 +556,15 @@ function renderGrid(){
   if (onHome && !terms.length) { document.getElementById('grid').innerHTML = ''; return; }
   const list = R.slice().sort((a,b)=>a.title.localeCompare(b.title)).filter(r => (onHome || r.section===state.sec) && (state.cat==='All' || r.category===state.cat) && terms.every(t => allText(r).includes(t)));
   const g = document.getElementById('grid');
-  g.innerHTML = list.length ? list.map(r => cardHTML(r, onHome)).join('') : `<p class="empty">No recipes match that search.</p>`;
+  if (!list.length) { g.innerHTML = `<p class="empty">No recipes match that search.</p>`; return; }
+  if (state.cat === 'All' && !onHome) {
+    const order = [...document.querySelectorAll('.chips [data-cat]')].map(b => b.dataset.cat).filter(c => c !== 'All');
+    const groups = {}; list.forEach(r => (groups[r.category] = groups[r.category] || []).push(r));
+    const keys = Object.keys(groups).sort((x, y) => { const i = order.indexOf(x), j = order.indexOf(y); return (i<0?99:i) - (j<0?99:j); });
+    g.innerHTML = keys.map(c => `<h2 class="cat-head">${esc(c)} <span class="n">${groups[c].length}</span></h2>` + groups[c].map(r => cardHTML(r, false)).join('')).join('');
+    return;
+  }
+  g.innerHTML = list.map(r => cardHTML(r, onHome)).join('');
 }
 
 function recipe(slug){
@@ -588,7 +597,7 @@ function recipe(slug){
     <div class="r-body">
       <section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>
       <section>
-        ${r.cardImg ? `<div class="panel origcard"><h2>The original card</h2><button type="button" class="photo-btn" data-zoom="${esc(r.cardImg)}?v=20261116" data-cap="The original recipe card for ${esc(r.title)}"><img src="${esc(r.cardImg)}?v=20261116" alt="The handwritten recipe card for ${esc(r.title)}" loading="lazy"></button><p class="hint">Tap to zoom in on the handwriting.</p></div>` : ''}
+        ${r.cardImg ? `<div class="panel origcard"><h2>The original card</h2><button type="button" class="photo-btn" data-zoom="${esc(r.cardImg)}?v=20261117" data-cap="The original recipe card for ${esc(r.title)}"><img src="${esc(r.cardImg)}?v=20261117" alt="The handwritten recipe card for ${esc(r.title)}" loading="lazy"></button><p class="hint">Tap to zoom in on the handwriting.</p></div>` : ''}
         <div class="panel">
           <h2>Instructions</h2>
           ${r.steps.length ? `<p class="hint">Tap a step to mark it done.</p><ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(s)}</li>`).join('')}</ol>` : '<p class="muted">No instructions on the card.</p>'}
