@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Family Recipes</title>
 <meta name="description" content="Our family's go-to recipes, some our own and others we've found.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23b4532a'/><text x='32' y='43' font-size='30' text-anchor='middle' fill='white' font-family='Georgia'>FR</text></svg>">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -123,7 +124,7 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 <body>
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="#/"><span class="dot">FR</span><span class="brand-name">Family Recipes</span></a>
+    <a class="brand" href="#/"><img src="icon-192.png" alt="" width="30" height="30" style="border-radius:50%;object-fit:cover"><span class="brand-name">Family Recipes</span></a>
     <nav class="nav">
     <a class="navbtn share" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener">+ Share a recipe</a>
     <a class="navbtn" href="#/shopping" id="shopLink">
@@ -196,7 +197,7 @@ function home(){
 
 function renderGrid(){
   const terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
-  const list = R.filter(r => (state.cat==='All' || r.category===state.cat) && terms.every(t => allText(r).includes(t)));
+  const list = R.slice().sort((a,b)=>a.title.localeCompare(b.title)).filter(r => (state.cat==='All' || r.category===state.cat) && terms.every(t => allText(r).includes(t)));
   const g = document.getElementById('grid');
   g.innerHTML = list.length ? list.map(r => `
     <a class="card" href="#/recipe/${r.slug}">

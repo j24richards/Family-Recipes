@@ -192,10 +192,56 @@ var C = [
     ingredients:[{items:["¼ cup butter","1 cup sifted confectioners sugar, plus ⅓ cup more","White of 1 egg, stiffly beaten","2 tbsp. fruit juice (any kind)","½ tsp vanilla","Nutmeg"]}],
     steps:["Cream butter - add 1 cup confectioners sugar.","Beat in stiffly beaten egg white.","Add fruit juice combined with vanilla, beating constantly.","Beat in ⅓ cup more confectioners sugar.","Put in bowl & sprinkle with nutmeg. Chill."] }
 ];
+var BLURBS = {
+"artichoke-appetizer": "Warm, cheesy artichoke-and-parmesan dip, baked till brown.",
+"dads-creamed-onions": "Whole onions in a sharp-cheddar white sauce, dusted with paprika.",
+"tomato-rabbit": "A tomato and melted-cheese sauce with sautéed celery, onion and pepper, thickened with egg.",
+"shells-ham-casserole": "Pasta shells and diced ham in a cheddar cream sauce.",
+"sloppy-joe-casserole": "Layers of shells, cottage cheese and sloppy joe sauce topped with mozzarella. Freezes well.",
+"baked-beans": "Slow-baked overnight beans with salt pork, molasses and dry mustard.",
+"raspberry-chicken": "Pan-seared chicken in a quick raspberry-vinegar cream sauce.",
+"beef-skillet-fiesta": "One-skillet ground beef, corn, tomatoes and rice with a little chili powder.",
+"chicken-and-dumplings": "Stewed chicken with rolled-out strip dumplings and hard-boiled egg.",
+"haddock-pudding-old-boston": "Layered haddock and potatoes baked in a nutmeg custard under buttered crumbs.",
+"baked-chicken-sour-cream": "Tarragon baked chicken finished with a sour cream and parmesan sauce.",
+"mushroom-pot-roast": "Chuck roast baked low and slow in mushroom gravy with pimento and lemon.",
+"aztec-chili": "Quick beef chili with kidney beans and corn.",
+"hamburg-soup": "Hearty hamburg and vegetable soup with turnip and tomatoes.",
+"italian-sausage-zucchini-soup": "Big pot of Italian sausage, zucchini, celery and tomato soup with red wine.",
+"summer-salad": "Pistachio pudding, pineapple, marshmallow and nut fluff. Better made a day ahead.",
+"jordan-marsh-blueberry-muffins": "The big Boston department-store blueberry muffins with sugared tops.",
+"cranberry-orange-nut-bread": "Classic quick bread with fresh cranberries, orange and nuts.",
+"spicy-pumpkin-trio": "Spiced pumpkin bread that makes three loaves.",
+"earlenes-banana-nut-bread": "Two loaves of banana bread with pecans. Great toasted with butter.",
+"pumpkin-bread": "Spiced pumpkin nut bread for three loaf pans or a tube pan.",
+"old-family-recipe-biscuits": "Yeast-raised buttermilk biscuits.",
+"weight-watchers-milk-shakes": "Skim milk and fruit blender shake. Frozen fruit makes it like a frappe.",
+"strawberry-orange-cooler": "Strawberry yogurt and fresh orange blended into a cold drink.",
+"apple-crisp": "Cinnamon apples under a buttery crumb topping. Great warm with ice cream.",
+"carob-chip-cookies": "Whole-wheat and wheat germ cookies with carob chips.",
+"holiday-butter-cookies": "Almond butter cookies for the cookie press, decorated for the holidays.",
+"brownies": "Chocolate walnut brownies in an 8x8 pan.",
+"chocolate-chip-blond-brownies": "Brown sugar blondies with nuts and chocolate chips.",
+"chanukah-cake": "Sour cream coffee cake swirled with cinnamon-walnut sugar.",
+"chocolate-layer-cookies": "Almond brownie bars with a mint cream layer and chocolate glaze.",
+"king-arthur-pie-crust": "Flaky two-crust shortening pastry with a splash of vinegar.",
+"spicy-raisin-bars": "Moist spiced raisin bars in a 9x13 pan.",
+"peanut-butter-cookies": "Classic fork-pressed peanut butter cookies. Makes a big batch.",
+"cranberry-coffee-cake": "Almond sour cream tube cake swirled with cranberry sauce and glazed.",
+"angel-gingerbread": "Light molasses-spice cake (no ginger!). Serve with whipped cream or orange sauce.",
+"orange-sauce-for-gingerbread": "Fluffy orange custard folded with cream and fruit cocktail.",
+"lemon-squares": "Tangy lemon filling baked on a buttery shortbread crust.",
+"banana-split-cake": "No-bake layered graham crust, bananas, pineapple, cream, nuts and cherries.",
+"apple-cake": "Bundt cake layered with cinnamon apples.",
+"peanut-butter-scotchies": "Peanut butter rice crispy bars topped with chocolate and butterscotch.",
+"nana-cranberry-cake": "Simple cake studded with cranberries.",
+"hard-sauce-fluffy": "Whipped butter-sugar sauce with fruit juice and nutmeg."
+};
 C.forEach(function(r){
+  if (BLURBS[r.slug]) r.blurb = BLURBS[r.slug];
   r.fromBox = true;
   r.tags = ["recipe box"];
-  if (!r.summary) r.summary = (r.credit ? "From the kitchen of " + r.credit + (/[.!?]$/.test(r.credit) ? "" : ".") : "From the family recipe box.") + (r.cardNote ? " Card says: “" + r.cardNote + "”" : "");
+  if (!r.summary) r.summary = (r.blurb ? r.blurb + " " : "") + (r.credit ? "From the kitchen of " + r.credit + (/[.!?]$/.test(r.credit) ? "" : ".") : "From the family recipe box.") + (r.cardNote ? " Card says: “" + r.cardNote + "”" : "");
   if (!r.serves) r.serves = "";
 });
 window.RECIPES = (window.RECIPES || []).concat(C);
