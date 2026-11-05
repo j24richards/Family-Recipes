@@ -243,7 +243,7 @@ C.forEach(function(r){
   if (BLURBS[r.slug]) r.blurb = BLURBS[r.slug];
   r.fromBox = true;
   r.tags = ["recipe box"];
-  if (!r.summary) r.summary = (r.blurb ? r.blurb + " " : "") + (r.credit ? "From the kitchen of " + r.credit + (/[.!?]$/.test(r.credit) ? "" : ".") : "From the family recipe box.") + (r.cardNote ? " Card says: “" + r.cardNote + "”" : "");
+  if (!r.summary) r.summary = (r.blurb ? r.blurb + " " : "") + (r.credit ? (r.section === "found" ? "From " : "From the kitchen of ") + r.credit + (/[.!?]$/.test(r.credit) ? "" : ".") : "From the family recipe box.") + (r.cardNote ? " Card says: “" + r.cardNote + "”" : "");
   if (!r.serves) r.serves = "";
 });
 window.RECIPES = (window.RECIPES || []).concat(C);

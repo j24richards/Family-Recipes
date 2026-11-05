@@ -97,6 +97,29 @@ ol.steps li.done::before{content:"✓";background:var(--sage);color:#fff}
 .hint{font-size:.8rem;color:var(--muted);margin:-4px 0 8px}
 .notes{margin-top:22px}
 .credit{margin:0 0 6px;color:var(--muted)}
+header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;min-height:0;padding-bottom:8px;overflow-x:auto}
+.secnav a{text-decoration:none;font-weight:600;font-size:.93rem;padding:7px 12px;border-radius:10px;color:var(--muted);white-space:nowrap}
+.secnav a[aria-current=page]{background:var(--accent-soft);color:var(--accent)}
+.secnav a[data-sec=found][aria-current=page]{background:var(--sage-soft);color:var(--sage)}
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.door{display:flex;flex-direction:column;gap:8px;text-decoration:none;border-radius:18px;padding:24px;border:1px solid var(--line);background:var(--paper);box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.door:hover{transform:translateY(-2px);border-color:var(--accent)}
+.door h2{font-family:Fraunces,Georgia,serif;font-size:1.7rem;line-height:1.15;margin:0}
+.door p{margin:0;color:var(--muted)}
+.door-kicker{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--accent)}
+.door.found .door-kicker{color:var(--sage)}
+.door.family{border-top:5px solid var(--accent)}
+.door.found{border-top:5px solid var(--sage)}
+.door-try{font-size:.88rem;color:var(--ink);font-style:italic}
+.door-go{margin-top:auto;padding-top:8px;font-weight:600;color:var(--accent)}
+.door.found .door-go{color:var(--sage)}
+.sec-head{padding:8px 0 4px}
+.sec-head h1{font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,6vw,3rem);line-height:1.1;margin:6px 0 8px}
+.sec-head p{color:var(--muted);margin:0;max-width:620px}
+.tagline{font-family:Fraunces,Georgia,serif;font-style:italic;font-size:1.15rem;color:var(--ink)!important;margin:-2px 0 6px!important}
+.sec-head.family h1{color:var(--accent)}
+.sec-head.found h1{color:var(--sage)}
+
 .sections{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin:8px 0 4px;padding:4px;background:var(--paper);border:1px solid var(--line);border-radius:14px;max-width:460px}
 .sec{border:0;background:none;border-radius:10px;padding:9px 12px;font-size:.93rem;font-weight:500;color:var(--muted)}
 .sec[aria-selected=true]{background:var(--accent);color:#fff}
@@ -149,6 +172,10 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
     </a>
     </nav>
   </div>
+  <nav class="secnav wrap" aria-label="Sections">
+    <a href="#/family" data-sec="family">Family Recipe Box</a>
+    <a href="#/shelf" data-sec="found">The Cookbook Shelf</a>
+  </nav>
 </header>
 <main class="wrap" id="app"></main>
 <footer><div class="wrap">
@@ -159,8 +186,8 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   Family Recipes · some our own, others we've found.
 </div></footer>
 
-<script src="recipes.js?v=20261104"></script>
-<script src="cards.js?v=20261104"></script>
+<script src="recipes.js?v=20261105"></script>
+<script src="cards.js?v=20261105"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -170,8 +197,7 @@ const store = {
   set(k, v){ try{ localStorage.setItem('fr:'+k, JSON.stringify(v)); }catch(e){} }
 };
 let state = { q:'', cat:'All', sec:'all' };
-try { var savedSec = localStorage.getItem('fr:sec'); if (savedSec) state.sec = savedSec; } catch(e){}
-const SECTIONS = [['all','All'],['family','Family'],['found','Found']];
+
 let wakeLock = null;
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -187,32 +213,79 @@ function updateShopCount(){
   el.hidden = !n; el.textContent = n;
 }
 
+const SEC = {
+  family: { name:'Family Recipe Box', route:'family', tagline:'Passed down, card by card', blurb:'Recipes from our own kitchens and the cards in the family recipe box, kept just as they were written.' },
+  found:  { name:'The Cookbook Shelf', route:'shelf', tagline:'Recipes gathered along the way', blurb:'Recipes from magazines, newspapers, cookbooks and the web that earned a spot on the shelf.' }
+};
+const secCount = k => R.filter(r=>r.section===k).length;
+const catsFor = list => ['All', ...Array.from(new Set(list.map(r=>r.category))).sort((a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j);})];
+
+function setNav(active){
+  document.querySelectorAll('.secnav a').forEach(a => a.setAttribute('aria-current', a.dataset.sec === active ? 'page' : 'false'));
+}
+
 function home(){
-  const cats = ['All', ...Array.from(new Set(R.map(r=>r.category))).sort((a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j);})];
+  setNav('');
+  const pick = k => { const l = R.filter(r=>r.section===k); return l.length ? l[Math.floor(Math.random()*l.length)] : null; };
   app.innerHTML = `
     <section class="hero">
       <figure class="hearth"><img src="hearth.webp" alt="Painting of an old colonial kitchen hearth, from the front of the family recipe box" width="1600" height="917"></figure>
       <h1>What are we cooking?</h1>
-      <p>Our go-to recipes, plus the cards from the family recipe box, kept just as they were written. Tap a recipe to cook from it, check off ingredients, or add it to the shopping list.</p>
+      <p>Two shelves in our kitchen: the cards from the family recipe box, and the recipes we've collected from everywhere else.</p>
     </section>
-    <div class="sections" role="tablist" aria-label="Section">
-      ${SECTIONS.map(([k,l])=>`<button class="sec" role="tab" aria-selected="${state.sec===k}" data-sec="${k}">${l} <span class="n">${k==='all'?R.length:R.filter(r=>r.section===k).length}</span></button>`).join('')}
+    <div class="doors">
+      ${['family','found'].map(k => { const s = SEC[k], p = pick(k); return `
+      <a class="door ${k}" href="#/${s.route}">
+        <span class="door-kicker">${secCount(k)} recipes</span>
+        <h2>${s.name}</h2>
+        <p class="tagline">${s.tagline}</p>
+        <p>${s.blurb}</p>
+        ${p ? `<span class="door-try">Try: ${esc(p.title)}</span>` : ''}
+        <span class="door-go">Open ${s.name} →</span>
+      </a>`; }).join('')}
     </div>
-    <p class="sec-note" id="secNote"></p>
+    <label class="search" aria-label="Search all recipes" style="display:block;margin:28px 0 0">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search both: a recipe, an ingredient, or who it's from…" value="${esc(state.q)}">
+    </label>
+    <div class="grid" id="grid" style="margin-top:18px"></div>
+    <div class="share-cta">
+      <p><strong>Have a family favorite?</strong> Type it in or just snap a photo of the recipe card. No account needed.</p>
+      <a class="btn primary" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener" style="text-decoration:none">+ Share a recipe</a>
+    </div>`;
+  state.sec = 'all'; state.cat = 'All';
+  const q = document.getElementById('q');
+  q.addEventListener('input', e => { state.q = e.target.value; renderGrid(); });
+  renderGrid();
+}
+
+function sectionPage(k){
+  const s = SEC[k]; setNav(k);
+  document.title = s.name + ' · Family Recipes';
+  if (state.sec !== k) { state.sec = k; state.cat = 'All'; }
+  const cats = catsFor(R.filter(r=>r.section===k));
+  if (!cats.includes(state.cat)) state.cat = 'All';
+  app.innerHTML = `
+    <section class="sec-head ${k}">
+      <a class="back" href="#/">← Home</a>
+      <h1>${s.name}</h1>
+      <p class="tagline">${s.tagline}</p>
+      <p>${s.blurb}</p>
+    </section>
     <div class="controls">
-      <label class="search" aria-label="Search recipes">
+      <label class="search" aria-label="Search ${s.name}">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="Search recipes or ingredients…" value="${esc(state.q)}">
+        <input id="q" type="search" placeholder="Search ${s.name}…" value="${esc(state.q)}">
       </label>
       <div class="chips" role="group" aria-label="Category">
         ${cats.map(c=>`<button class="chip" aria-pressed="${c===state.cat}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}
       </div>
     </div>
     <div class="grid" id="grid"></div>
-    <div class="share-cta">
-      <p><strong>Have a family favorite?</strong> Type it in or just snap a photo of the recipe card. No account needed.</p>
+    ${k==='family' ? `<div class="share-cta">
+      <p><strong>Have a card that belongs in the box?</strong> Type it in or just snap a photo of it. No account needed.</p>
       <a class="btn primary" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener" style="text-decoration:none">+ Share a recipe</a>
-    </div>`;
+    </div>` : ''}`;
   const q = document.getElementById('q');
   q.addEventListener('input', e => { state.q = e.target.value; renderGrid(); });
   app.querySelectorAll('.chip').forEach(b => b.onclick = () => {
@@ -220,33 +293,28 @@ function home(){
     app.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x===b));
     renderGrid();
   });
-  app.querySelectorAll('.sec').forEach(b => b.onclick = () => {
-    state.sec = b.dataset.sec;
-    try { localStorage.setItem('fr:sec', state.sec); } catch(e){}
-    app.querySelectorAll('.sec').forEach(x => x.setAttribute('aria-selected', x===b));
-    renderGrid();
-  });
   renderGrid();
+  window.scrollTo(0,0);
 }
 
-const SEC_NOTES = { all:'', family:'Recipes from our own kitchens and the family recipe box, kept as they were written.', found:'Recipes we found in magazines, newspapers, packages and online, and liked enough to keep.' };
 function renderGrid(){
-  const note = document.getElementById('secNote'); if (note) { note.textContent = SEC_NOTES[state.sec] || ''; note.hidden = !note.textContent; }
   const terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
-  const list = R.slice().sort((a,b)=>a.title.localeCompare(b.title)).filter(r => (state.sec==='all' || r.section===state.sec) && (state.cat==='All' || r.category===state.cat) && terms.every(t => allText(r).includes(t)));
+  const onHome = state.sec === 'all';
+  if (onHome && !terms.length) { document.getElementById('grid').innerHTML = ''; return; }
+  const list = R.slice().sort((a,b)=>a.title.localeCompare(b.title)).filter(r => (onHome || r.section===state.sec) && (state.cat==='All' || r.category===state.cat) && terms.every(t => allText(r).includes(t)));
   const g = document.getElementById('grid');
   g.innerHTML = list.length ? list.map(r => `
     <a class="card" href="#/recipe/${r.slug}">
-      <span class="cat">${esc(r.category)}${r.section?` <span class="secbadge ${r.section}">${r.section==="family"?"Family":"Found"}</span>`:""}</span>
+      <span class="cat">${esc(r.category)}${onHome && r.section?` <span class="secbadge ${r.section}">${r.section==="family"?"Recipe Box":"Cookbook Shelf"}</span>`:""}</span>
       <h2>${esc(r.title)}</h2>
       <p>${esc(r.summary)}</p>
-      <div class="meta">${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.tags||[]).slice(0,3).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}</div>
+      <div class="meta">${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.tags||[]).filter(t=>t!=='recipe box').slice(0,3).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}</div>
     </a>`).join('') : `<p class="empty">No recipes match that search.</p>`;
 }
 
 function recipe(slug){
-  const r = R.find(x => x.slug === slug);
-  if(!r){ app.innerHTML = `<a class="back" href="#/">← All recipes</a><p class="empty">Recipe not found.</p>`; return; }
+  const r = R.find(x => x.slug === slug); setNav(r ? r.section : '');
+  if(!r){ app.innerHTML = `<a class="back" href="#/">← Home</a><p class="empty">Recipe not found.</p>`; return; }
   document.title = r.title + ' · Family Recipes';
   const checks = store.get('chk:'+slug, {});
   const inList = shopList().includes(slug);
@@ -255,13 +323,13 @@ function recipe(slug){
     ${g.name ? `<h3>${esc(g.name)}</h3>` : ''}
     <ul class="checklist">${g.items.map(it => { const id = 'i'+(n++); return `<li><label><input type="checkbox" data-k="${id}" ${checks[id]?'checked':''}><span>${esc(it)}</span></label></li>`; }).join('')}</ul>`).join('');
   app.innerHTML = `
-    <a class="back" href="#/">← All recipes</a>
+    <a class="back" href="#/${r.section ? SEC[r.section].route : ''}">← ${r.section ? SEC[r.section].name : 'Home'}</a>
     <div class="r-head">
-      <span class="cat">${esc(r.category)}${r.section?` <span class="secbadge ${r.section}">${r.section==="family"?"Family recipe":"Found recipe"}</span>`:""}</span>
+      <span class="cat">${esc(r.category)}${r.section?` <span class="secbadge ${r.section}">${SEC[r.section].name}</span>`:""}</span>
       <h1>${esc(r.title)}</h1>
       ${r.subtitle ? `<p class="sub">${esc(r.subtitle)}</p>` : ''}
       ${r.fromBox ? '' : `<p class="summary">${esc(r.summary)}</p>`}
-      ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `From the kitchen of <strong>${esc(r.credit)}</strong>${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}</p>` : ''}
+      ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `${r.section==='found' ? 'From' : 'From the kitchen of'} <strong>${esc(r.credit)}</strong>${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}</p>` : ''}
       ${r.source ? `<p class="credit">Source: ${r.source.url ? `<a href="${esc(r.source.url)}" target="_blank" rel="noopener">${esc(r.source.text)}</a>` : esc(r.source.text)}</p>` : ''}
       <div class="facts">${r.serves?`<span><strong>Serves</strong> ${esc(r.serves)}</span>`:''}${r.time?`<span>${esc(r.time)}</span>`:''}${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
     </div>
@@ -312,12 +380,12 @@ function shopping(){
   const slugs = shopList().filter(s => R.some(r=>r.slug===s));
   const got = store.get('shopchk', {});
   if(!slugs.length){
-    app.innerHTML = `<a class="back" href="#/">← All recipes</a><div class="r-head"><h1>Shopping list</h1></div>
+    app.innerHTML = `<a class="back" href="#/">← Home</a><div class="r-head"><h1>Shopping list</h1></div>
       <p class="empty">Nothing here yet. Open a recipe and tap “Add to shopping list”.</p>`;
     return;
   }
   app.innerHTML = `
-    <a class="back" href="#/">← All recipes</a>
+    <a class="back" href="#/">← Home</a>
     <div class="r-head"><h1>Shopping list</h1><p class="summary">Ingredients from ${slugs.length} recipe${slugs.length>1?'s':''}. Check off what you already have or have grabbed.</p></div>
     <div class="actions"><button class="btn" id="clearChecks">Uncheck all</button><button class="btn" id="clearAll">Clear list</button><button class="btn" onclick="window.print()">Print</button></div>
     <div class="panel" style="margin:16px 0 48px">
@@ -337,7 +405,9 @@ function route(){
   const h = location.hash.replace(/^#\/?/, '');
   document.title = 'Family Recipes';
   if(h.startsWith('recipe/')) recipe(h.slice(7));
-  else if(h === 'shopping') shopping();
+  else if(h === 'shopping') { setNav(''); shopping(); }
+  else if(h === 'family') sectionPage('family');
+  else if(h === 'shelf') sectionPage('found');
   else home();
   updateShopCount();
 }
