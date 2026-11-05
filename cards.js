@@ -195,7 +195,7 @@ var C = [
 C.forEach(function(r){
   r.fromBox = true;
   r.tags = ["recipe box"];
-  if (!r.summary) r.summary = (r.credit ? "From the kitchen of " + r.credit + "." : "From the family recipe box.") + (r.cardNote ? " Card says: “" + r.cardNote + "”" : "");
+  if (!r.summary) r.summary = (r.credit ? "From the kitchen of " + r.credit + (/[.!?]$/.test(r.credit) ? "" : ".") : "From the family recipe box.") + (r.cardNote ? " Card says: “" + r.cardNote + "”" : "");
   if (!r.serves) r.serves = "";
 });
 window.RECIPES = (window.RECIPES || []).concat(C);
