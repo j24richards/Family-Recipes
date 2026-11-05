@@ -133,29 +133,33 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 
 /* ---- The recipe stand (Family Recipe Box header) ---- */
 :root{--wood1:#3a2316;--wood2:#5b3a25;--wood3:#2a180e}
-.stand{display:flex;flex-direction:column;align-items:center;margin:10px 0 8px}
-.stand-post{width:46px;height:54px;margin-top:-2px;background:linear-gradient(90deg,var(--wood3),var(--wood2) 45%,var(--wood1));border-radius:6px 6px 0 0;box-shadow:inset 0 6px 6px rgba(0,0,0,.35)}
-.stand-base{width:min(300px,60%);height:40px;border-radius:50%;background:radial-gradient(ellipse at 50% 35%,var(--wood2),var(--wood1) 60%,var(--wood3));box-shadow:0 8px 14px rgba(40,20,10,.35),inset 0 -6px 8px rgba(0,0,0,.35);margin-top:-6px}
-@media (max-width:520px){.stand-post{width:34px;height:36px}.stand-base{height:30px}}
-.stand-board{position:relative;width:100%;max-width:760px;padding:22px 22px 26px;border-radius:38px 38px 18px 18px / 30px 30px 18px 18px;
+.stand{display:grid;grid-template-columns:minmax(0,440px) 1fr;gap:44px;align-items:center;margin:14px 0 4px}
+.stand-obj{display:flex;flex-direction:column;align-items:center;filter:drop-shadow(0 16px 16px rgba(30,15,8,.28))}
+.stand-board{position:relative;width:100%;padding:7% 7% 8%;border-radius:46px 46px 12px 12px / 36px 36px 12px 12px;
   background:
-    repeating-linear-gradient(92deg,rgba(255,255,255,.035) 0 2px,transparent 2px 9px),
-    repeating-linear-gradient(88deg,rgba(0,0,0,.10) 0 1px,transparent 1px 13px),
-    linear-gradient(180deg,var(--wood2),var(--wood1) 55%,var(--wood3));
-  box-shadow:0 10px 30px rgba(40,20,10,.35),inset 0 2px 0 rgba(255,255,255,.08),inset 0 -4px 10px rgba(0,0,0,.35)}
-.stand-painting{margin:0;border-radius:14px;overflow:hidden;box-shadow:0 2px 0 rgba(255,255,255,.06),0 3px 10px rgba(0,0,0,.45);outline:3px solid rgba(240,220,170,.25);outline-offset:-3px}
-.stand-painting img{display:block;width:100%;height:auto;filter:sepia(.08)}
-.stand-cover{position:relative;margin-top:22px;border-radius:4px;background:url(box-pattern.webp) center/cover;min-height:190px;box-shadow:0 3px 8px rgba(0,0,0,.5),inset 0 0 0 1px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;padding:28px 18px 34px}
-.ring{position:absolute;top:-18px;width:24px;height:34px;border:5px solid #1c120c;border-radius:12px;background:transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
-.ring.l{left:16%}.ring.r{right:16%}
-.stand-label{background:#fbf3dc;border:1px solid #c9a95c;border-radius:6px;padding:14px 22px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.35);max-width:90%}
-.stand-label h1{font-family:Fraunces,Georgia,serif;color:#7a2f1d!important;font-size:clamp(1.6rem,5vw,2.4rem);margin:0;line-height:1.1}
-.stand-label .tagline{color:#3b2a1f!important;font-size:1rem;margin:6px 0 0!important}
-.stand-tabs{position:absolute;left:8%;right:8%;bottom:-12px;display:flex;justify-content:space-between}
-.stand-tabs i{display:block;width:16%;height:12px;background:#e8d6ad;border-radius:0 0 4px 4px;box-shadow:0 2px 2px rgba(0,0,0,.35)}
-.stand-blurb{color:var(--muted);margin:18px 0 0;max-width:620px}
-@media (max-width:520px){.stand-board{padding:14px 14px 20px}.stand-cover{min-height:150px;margin-top:20px}.ring{top:-15px;height:26px}}
-/* divider-tab chips on the Family page */
+    repeating-linear-gradient(91deg,rgba(255,255,255,.028) 0 1px,transparent 1px 6px),
+    repeating-linear-gradient(89deg,rgba(0,0,0,.14) 0 1px,transparent 1px 11px),
+    linear-gradient(150deg,#52331f 0%,#3a2316 45%,#2b190f 100%);
+  box-shadow:0 0 0 1px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,225,190,.22),inset 0 0 0 2px rgba(0,0,0,.18),inset 0 -12px 20px rgba(0,0,0,.35)}
+.stand-painting{margin:0 auto;width:78%;aspect-ratio:2/1;overflow:hidden;border-radius:2px;background:#e9dcc0;padding:3px;box-shadow:0 0 0 1px rgba(0,0,0,.65),0 2px 6px rgba(0,0,0,.55)}
+.stand-painting img{display:block;width:100%;height:100%;object-fit:cover;border-radius:1px}
+.rings{position:relative;height:0;z-index:3}
+.rings i{position:absolute;top:3px;width:16px;height:34px;border-radius:9px;border:3px solid #5d5d63;border-right-color:#2c2c30;border-bottom-color:#1e1e22;background:transparent;box-shadow:0 1px 2px rgba(0,0,0,.7),inset 0 0 1px rgba(255,255,255,.6)}
+.rings i:nth-child(1){left:11%}.rings i:nth-child(2){right:11%}
+.stand-cover{position:relative;margin-top:20px;aspect-ratio:1.78;border-radius:3px;background:url(box-cover.webp) center/cover;box-shadow:0 0 0 1px rgba(0,0,0,.6),0 4px 8px rgba(0,0,0,.5)}
+.stand-cover::after{content:"";position:absolute;inset:0;border-radius:3px;background:linear-gradient(118deg,rgba(255,255,255,.16),transparent 38%),radial-gradient(ellipse at center,transparent 55%,rgba(70,35,0,.28));pointer-events:none}
+.idx-edge{position:absolute;right:-9px;top:7%;bottom:7%;width:12px;display:flex;flex-direction:column;gap:3px;z-index:2}
+.idx-edge i{flex:1;border-radius:0 4px 4px 0;background:linear-gradient(90deg,#e8d8ad,#cdb57a);box-shadow:1px 1px 2px rgba(0,0,0,.55)}
+.stand-neck{width:38px;height:48px;margin-top:-1px;background:linear-gradient(90deg,#1a0e08,#4e3220 30%,#6e4a32 50%,#40281a 72%,#170c07);box-shadow:inset 0 8px 8px rgba(0,0,0,.45)}
+.stand-foot{display:flex;flex-direction:column;align-items:center;margin-top:-1px;width:100%}
+.stand-foot b{display:block;border-radius:8px/6px;background:linear-gradient(180deg,#6e4a32 0,#4a2f1e 30%,#2d1a10 100%);box-shadow:inset 0 1px 0 rgba(255,225,190,.3),0 1px 0 rgba(0,0,0,.5)}
+.stand-foot b:nth-child(1){width:92px;height:10px;border-radius:6px 6px 2px 2px}
+.stand-foot b:nth-child(2){width:150px;height:12px;border-radius:50%/60%;margin-top:-1px}
+.stand-foot b:nth-child(3){width:206px;height:18px;border-radius:50%/55%;margin-top:-2px}
+.stand-text h1{margin:0 0 6px}
+.stand-text .tagline{font-size:1.3rem;margin:0 0 14px!important}
+.stand-text p{color:var(--muted);margin:0;max-width:34ch}
+@media (max-width:760px){.stand{grid-template-columns:1fr;gap:20px}.stand-obj{max-width:400px;margin:0 auto;width:100%}.stand-text{text-align:center}.stand-text p{margin:0 auto}}
 .chips.tabs{gap:6px;border-bottom:3px solid #c9a95c;padding-bottom:0;align-items:flex-end}
 .chips.tabs .chip{border-radius:10px 10px 0 0;background:#efe2c0;border:1px solid #d8c08a;border-bottom:0;color:#5a3b1d;margin-bottom:-1px}
 .chips.tabs .chip[aria-pressed=true]{background:#c9a95c;border-color:#c9a95c;color:#2a180e;font-weight:600}
@@ -164,7 +168,7 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 .door-art.box-thumb{display:flex!important;flex-direction:column;align-items:center;justify-content:flex-end;margin:-6px -6px 6px;padding:8px 0 6px;border-radius:12px;height:160px;background:linear-gradient(180deg,rgba(90,58,37,.06),rgba(90,58,37,.12))}
 .mini-board{width:54%;max-width:220px;height:104px;border-radius:16px 16px 6px 6px;padding:8px;background:linear-gradient(180deg,var(--wood2),var(--wood1));box-shadow:0 4px 10px rgba(40,20,10,.3);display:flex;flex-direction:column;gap:7px}
 .mini-board::before{content:"";display:block;height:48px;border-radius:6px;background:url(hearth.webp) center/cover}
-.mini-cover{flex:1;border-radius:2px;background:url(box-pattern.webp) center/cover}
+.mini-cover{flex:1;border-radius:2px;background:url(box-cover.webp) center/cover}
 .door-art.box-thumb::before{content:none}
 .mini-post{display:block;width:16px;height:16px;background:var(--wood1)}
 .mini-base{display:block;width:90px;height:14px;border-radius:50%;background:var(--wood2);margin-top:-2px}
@@ -422,18 +426,17 @@ function sectionPage(k){
       <a class="back" href="#/">← Home</a>
       ${k==='family' ? `
       <div class="stand">
-        <div class="stand-board">
-          <figure class="stand-painting"><img src="hearth.webp" alt="The fireplace painting on the family recipe box stand" width="1600" height="917"></figure>
-          <div class="stand-cover">
-            <span class="ring l" aria-hidden="true"></span><span class="ring r" aria-hidden="true"></span>
-            <div class="stand-label"><h1>${s.name}</h1><p class="tagline">${s.tagline}</p></div>
-            <div class="stand-tabs" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div class="stand-obj" aria-hidden="true">
+          <div class="stand-board">
+            <figure class="stand-painting"><img src="hearth.webp" alt="" width="1600" height="917"></figure>
+            <div class="rings"><i></i><i></i></div>
+            <div class="stand-cover"><div class="idx-edge"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
           </div>
+          <div class="stand-neck"></div>
+          <div class="stand-foot"><b></b><b></b><b></b></div>
         </div>
-        <div class="stand-post" aria-hidden="true"></div>
-        <div class="stand-base" aria-hidden="true"></div>
-      </div>
-      <p class="stand-blurb">${s.blurb}</p>` : `<div class="shelf-art" aria-hidden="true">${SPINES}</div>
+        <div class="stand-text"><h1>${s.name}</h1><p class="tagline">${s.tagline}</p><p>${s.blurb}</p></div>
+      </div>` : `<div class="shelf-art" aria-hidden="true">${SPINES}</div>
       <h1>${s.name}</h1>
       <p class="tagline">${s.tagline}</p>
       <p>${s.blurb}</p>`}
