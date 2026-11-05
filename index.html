@@ -166,7 +166,7 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 .stand-text h1{margin:0 0 6px}
 .stand-text .tagline{font-size:1.3rem;margin:0 0 14px!important}
 .stand-text p{color:var(--muted);margin:0;max-width:34ch}
-@media (max-width:760px){.stand{grid-template-columns:1fr;gap:20px}.stand-obj{max-width:400px;margin:0 auto;width:100%}.stand-text{text-align:center}.stand-text p{margin:0 auto}}
+@media (max-width:760px){.stand{grid-template-columns:1fr;gap:20px}.stand-obj{max-width:400px;margin:0 auto;width:100%}@media (max-width:520px){.stand-obj{max-width:310px}.stand-foot{zoom:.72}.stand{gap:8px}}.stand-text{text-align:center}.stand-text p{margin:0 auto}}
 .chips.tabs{gap:6px;border-bottom:3px solid #c9a95c;padding-bottom:0;align-items:flex-end}
 .chips.tabs .chip{border-radius:10px 10px 0 0;background:#efe2c0;border:1px solid #d8c08a;border-bottom:0;color:#5a3b1d;margin-bottom:-1px}
 .chips.tabs .chip[aria-pressed=true]{background:#c9a95c;border-color:#c9a95c;color:#2a180e;font-weight:600}
@@ -337,8 +337,8 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   Family Recipes · some our own, others we've found.
 </div></footer>
 
-<script src="recipes.js?v=20261117"></script>
-<script src="cards.js?v=20261117"></script>
+<script src="recipes.js?v=20261118"></script>
+<script src="cards.js?v=20261118"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -597,7 +597,7 @@ function recipe(slug){
     <div class="r-body">
       <section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>
       <section>
-        ${r.cardImg ? `<div class="panel origcard"><h2>The original card</h2><button type="button" class="photo-btn" data-zoom="${esc(r.cardImg)}?v=20261117" data-cap="The original recipe card for ${esc(r.title)}"><img src="${esc(r.cardImg)}?v=20261117" alt="The handwritten recipe card for ${esc(r.title)}" loading="lazy"></button><p class="hint">Tap to zoom in on the handwriting.</p></div>` : ''}
+        ${r.cardImg ? `<div class="panel origcard"><h2>The original card</h2><button type="button" class="photo-btn" data-zoom="${esc(r.cardImg)}?v=20261118" data-cap="The original recipe card for ${esc(r.title)}"><img src="${esc(r.cardImg)}?v=20261118" alt="The handwritten recipe card for ${esc(r.title)}" loading="lazy"></button><p class="hint">Tap to zoom in on the handwriting.</p></div>` : ''}
         <div class="panel">
           <h2>Instructions</h2>
           ${r.steps.length ? `<p class="hint">Tap a step to mark it done.</p><ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(s)}</li>`).join('')}</ol>` : '<p class="muted">No instructions on the card.</p>'}
