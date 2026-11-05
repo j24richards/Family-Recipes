@@ -134,13 +134,15 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 /* ---- The recipe stand (Family Recipe Box header) ---- */
 :root{--wood1:#3a2316;--wood2:#5b3a25;--wood3:#2a180e}
 .stand{display:grid;grid-template-columns:minmax(0,440px) 1fr;gap:44px;align-items:center;margin:14px 0 4px}
-.stand-obj{display:flex;flex-direction:column;align-items:center;padding-right:10px}
-.stand-board{position:relative;width:100%;padding:7% 7% 8%;border-radius:64px 64px 10px 10px / 46px 46px 10px 10px;
+.stand-obj{display:flex;flex-direction:column;align-items:center;padding-right:10px;filter:drop-shadow(0 18px 14px rgba(25,10,3,.35))}
+.stand-plaque{position:relative;width:100%;z-index:2}
+.stand-plaque::before{content:"";position:absolute;inset:0;transform:translate(0,9px);background:#150a04;clip-path:url(#plaqueClip)}
+.stand-board{position:relative;width:100%;padding:9% 7% 11%;clip-path:url(#plaqueClip);
   background:
-    radial-gradient(130% 80% at 22% 0%,rgba(255,220,180,.18),transparent 58%),
-    linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.28)),
-    url(wood.webp) center/cover;
-  box-shadow:1px 1px 0 #241309,2px 2px 0 #241309,3px 3px 0 #241309,4px 4px 0 #241309,5px 5px 0 #241309,6px 6px 0 #241309,7px 7px 0 #241309,8px 8px 0 #241309,9px 9px 0 #1a0d06,22px 26px 26px rgba(20,8,2,.45),inset 2px 2px 0 rgba(255,225,190,.28),inset -2px -3px 3px rgba(0,0,0,.5),inset 0 0 22px rgba(0,0,0,.25)}
+    radial-gradient(130% 80% at 22% 0%,rgba(255,220,180,.16),transparent 58%),
+    linear-gradient(180deg,rgba(0,0,0,0) 62%,rgba(0,0,0,.34)),
+    linear-gradient(90deg,rgba(0,0,0,.30),transparent 9%,transparent 91%,rgba(0,0,0,.30)),
+    url(wood.webp) center/cover}
 .stand-painting{margin:0 auto;width:92%;aspect-ratio:2/1;overflow:hidden;border-radius:2px;background:#e8dbbd;padding:3px;box-shadow:0 0 0 2px #1c0f07,0 0 0 3px rgba(255,225,190,.22),inset 0 0 6px rgba(0,0,0,.4),3px 4px 7px rgba(0,0,0,.6)}
 .stand-painting img{display:block;width:100%;height:100%;object-fit:cover;box-shadow:inset 0 0 8px rgba(0,0,0,.45)}
 .rings{position:relative;height:0;z-index:3}
@@ -150,14 +152,14 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 .stand-cover::after{content:"";position:absolute;inset:0;border-radius:3px;background:linear-gradient(118deg,rgba(255,255,255,.2),transparent 36%,rgba(0,0,0,.14) 100%),radial-gradient(ellipse at center,transparent 55%,rgba(70,35,0,.3));pointer-events:none}
 .idx-edge{position:absolute;left:5%;right:5%;bottom:-17px;height:16px;display:flex;flex-direction:row;gap:5px;z-index:2}
 .idx-edge i{flex:1;border-radius:0 0 5px 5px;background:linear-gradient(180deg,#f2e5bf,#d4bd84 80%,#bfa66c);box-shadow:2px 3px 3px rgba(0,0,0,.55),inset 1px 0 0 rgba(255,255,255,.5)}
-.stand-neck{position:relative;width:40px;height:52px;margin-top:-2px;background:linear-gradient(90deg,rgba(8,3,1,.85),rgba(8,3,1,.15) 30%,rgba(255,220,180,.18) 48%,rgba(8,3,1,.35) 72%,rgba(8,3,1,.9)),url(wood.webp) 20% 0/260px;box-shadow:inset 0 10px 10px rgba(0,0,0,.55);z-index:0}
-.stand-neck::after{content:"";position:absolute;left:-3px;right:-3px;bottom:12px;height:8px;border-radius:50%/60%;background:linear-gradient(90deg,rgba(8,3,1,.85),rgba(8,3,1,.15) 30%,rgba(255,220,180,.2) 48%,rgba(8,3,1,.35) 72%,rgba(8,3,1,.9)),url(wood.webp) 60% 40%/200px;box-shadow:0 2px 3px rgba(0,0,0,.5)}
-.stand-foot{position:relative;display:flex;flex-direction:column;align-items:center;margin-top:-4px;width:100%}
-.stand-foot b{position:relative;display:block;background:linear-gradient(90deg,rgba(8,3,1,.85),rgba(8,3,1,.1) 28%,rgba(255,220,180,.2) 45%,rgba(8,3,1,.3) 70%,rgba(8,3,1,.9)),url(wood-h.webp) center/cover;box-shadow:0 2px 2px rgba(0,0,0,.5)}
-.stand-foot b::before{content:"";position:absolute;left:1.5%;right:1.5%;top:-45%;height:90%;border-radius:50%;background:radial-gradient(ellipse at 38% 30%,rgba(255,215,170,.35),rgba(0,0,0,.25) 75%),repeating-radial-gradient(ellipse at 50% 60%,rgba(0,0,0,.0) 0 5px,rgba(0,0,0,.18) 5px 6px),url(wood.webp) center/cover}
-.stand-foot b:nth-child(1){width:96px;height:14px;border-radius:50%/50%;z-index:3}
-.stand-foot b:nth-child(2){width:156px;height:16px;border-radius:50%/50%;margin-top:-3px;z-index:2}
-.stand-foot b:nth-child(3){width:216px;height:22px;border-radius:50%/55%;margin-top:-3px;z-index:1;box-shadow:0 14px 16px -4px rgba(15,6,2,.55)}
+.stand-foot{position:relative;width:236px;height:108px;margin-top:50px;z-index:1}
+.stand-foot b{position:absolute;left:50%;display:block;transform:translateX(-50%);border-radius:50%}
+.f-side{width:236px;height:88px;top:18px;background:linear-gradient(90deg,#0b0502,#2e1a0f 25%,#4a2d1a 45%,#2a170c 70%,#080301)}
+.f-top{width:236px;height:88px;top:0;background:radial-gradient(ellipse at 40% 30%,rgba(255,215,170,.18),rgba(0,0,0,.5) 80%),url(wood.webp) center/cover;box-shadow:inset 0 -5px 8px rgba(0,0,0,.55),inset 0 3px 3px rgba(255,220,180,.2)}
+.f-ring{width:196px;height:68px;top:10px;background:transparent;box-shadow:0 0 0 2px rgba(0,0,0,.45),0 3px 3px rgba(255,220,180,.13),inset 0 3px 5px rgba(0,0,0,.5),inset 0 -2px 2px rgba(255,220,180,.12)}
+.f-step{width:128px;height:46px;top:22px;background:radial-gradient(ellipse at 40% 30%,rgba(255,215,170,.2),rgba(0,0,0,.3) 85%),url(wood.webp) 30% 60%/cover;box-shadow:0 5px 4px rgba(0,0,0,.55),inset 0 2px 2px rgba(255,220,180,.2)}
+.stand-neck{position:absolute;left:50%;bottom:62px;width:38px;height:112px;transform:translateX(-50%);clip-path:polygon(14% 0,86% 0,100% 100%,0 100%);background:linear-gradient(90deg,rgba(6,2,1,.9),rgba(6,2,1,.2) 30%,rgba(255,220,180,.16) 46%,rgba(6,2,1,.4) 72%,rgba(6,2,1,.92)),url(wood.webp) 20% 0/230px;z-index:3}
+.stand-bulb{position:absolute;left:50%;bottom:50px;width:58px;height:46px;transform:translateX(-50%);border-radius:50% 50% 46% 46%/52% 52% 48% 48%;background:radial-gradient(ellipse at 38% 30%,rgba(255,220,180,.32),rgba(0,0,0,0) 55%),linear-gradient(90deg,rgba(6,2,1,.85),rgba(6,2,1,.1) 35%,rgba(6,2,1,.4) 70%,rgba(6,2,1,.9)),url(wood.webp) 40% 30%/200px;box-shadow:0 4px 5px rgba(0,0,0,.6);z-index:4}
 .stand-text h1{margin:0 0 6px}
 .stand-text .tagline{font-size:1.3rem;margin:0 0 14px!important}
 .stand-text p{color:var(--muted);margin:0;max-width:34ch}
@@ -429,13 +431,13 @@ function sectionPage(k){
       ${k==='family' ? `
       <div class="stand">
         <div class="stand-obj" aria-hidden="true">
-          <div class="stand-board">
+          <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="plaqueClip" clipPathUnits="objectBoundingBox"><path d="M0.13,0.03 C0.30,0.0 0.70,0.0 0.87,0.03 C0.96,0.055 0.985,0.12 0.99,0.2 L1,0.8 C1,0.89 0.985,0.92 0.95,0.93 C0.82,0.955 0.66,1 0.5,1 C0.34,1 0.18,0.955 0.05,0.93 C0.015,0.92 0,0.89 0,0.8 L0.01,0.2 C0.015,0.12 0.04,0.055 0.13,0.03 Z"/></clipPath></defs></svg>
+          <div class="stand-plaque"><div class="stand-board">
             <figure class="stand-painting"><img src="hearth.webp" alt="" width="1600" height="917"></figure>
             <div class="rings"><i></i><i></i></div>
             <div class="stand-cover"><div class="idx-edge"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-          </div>
-          <div class="stand-neck"></div>
-          <div class="stand-foot"><b></b><b></b><b></b></div>
+          </div></div>
+          <div class="stand-foot"><b class="f-side"></b><b class="f-top"></b><b class="f-ring"></b><b class="f-step"></b><div class="stand-neck"></div><div class="stand-bulb"></div></div>
         </div>
         <div class="stand-text"><h1>${s.name}</h1><p class="tagline">${s.tagline}</p><p>${s.blurb}</p></div>
       </div>` : `<div class="shelf-art" aria-hidden="true">${SPINES}</div>
