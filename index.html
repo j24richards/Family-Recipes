@@ -143,7 +143,7 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
     linear-gradient(180deg,rgba(0,0,0,0) 62%,rgba(0,0,0,.34)),
     linear-gradient(90deg,rgba(0,0,0,.30),transparent 9%,transparent 91%,rgba(0,0,0,.30)),
     url(wood.webp) center/cover}
-.stand-painting{margin:0 auto;width:92%;aspect-ratio:2/1;overflow:hidden;border-radius:4px 7px 5px 8px / 6px 4px 7px 5px;background:#e8dbbd;padding:2px;box-shadow:0 0 0 1px rgba(40,22,10,.45),2px 3px 6px rgba(0,0,0,.55)}
+.stand-painting{margin:0 auto;width:100%;aspect-ratio:1.75/1;overflow:hidden;border-radius:4px 7px 5px 8px / 6px 4px 7px 5px;background:#e8dbbd;padding:2px;box-shadow:0 0 0 1px rgba(40,22,10,.45),2px 3px 6px rgba(0,0,0,.55)}
 .stand-painting img{display:block;width:100%;height:100%;object-fit:cover;box-shadow:inset 0 0 8px rgba(0,0,0,.45)}
 .rings{position:relative;height:0;z-index:3}
 .rings i{position:absolute;top:2px;width:18px;height:38px;padding:4px;border-radius:11px;background:linear-gradient(90deg,#f0f0f4,#9a9aa2 30%,#4a4a52 70%,#1c1c20);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;filter:drop-shadow(2px 3px 2px rgba(0,0,0,.65))}
@@ -336,8 +336,8 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   Family Recipes · some our own, others we've found.
 </div></footer>
 
-<script src="recipes.js?v=20261115"></script>
-<script src="cards.js?v=20261115"></script>
+<script src="recipes.js?v=20261116"></script>
+<script src="cards.js?v=20261116"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -588,7 +588,7 @@ function recipe(slug){
     <div class="r-body">
       <section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>
       <section>
-        ${r.cardImg ? `<div class="panel origcard"><h2>The original card</h2><button type="button" class="photo-btn" data-zoom="${esc(r.cardImg)}?v=20261115" data-cap="The original recipe card for ${esc(r.title)}"><img src="${esc(r.cardImg)}?v=20261115" alt="The handwritten recipe card for ${esc(r.title)}" loading="lazy"></button><p class="hint">Tap to zoom in on the handwriting.</p></div>` : ''}
+        ${r.cardImg ? `<div class="panel origcard"><h2>The original card</h2><button type="button" class="photo-btn" data-zoom="${esc(r.cardImg)}?v=20261116" data-cap="The original recipe card for ${esc(r.title)}"><img src="${esc(r.cardImg)}?v=20261116" alt="The handwritten recipe card for ${esc(r.title)}" loading="lazy"></button><p class="hint">Tap to zoom in on the handwriting.</p></div>` : ''}
         <div class="panel">
           <h2>Instructions</h2>
           ${r.steps.length ? `<p class="hint">Tap a step to mark it done.</p><ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(s)}</li>`).join('')}</ol>` : '<p class="muted">No instructions on the card.</p>'}
