@@ -37,8 +37,8 @@ header.site .wrap{display:flex;align-items:center;justify-content:space-between;
 .share-cta p{margin:0}
 .navbtn .count{background:var(--accent);color:#fff;border-radius:999px;padding:0 7px;font-size:.75rem;font-weight:600}
 .hero{padding:24px 0 24px}
-.hearth{margin:0 0 28px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:16/7;background:#3a2a20}
-.hearth img{width:100%;height:100%;object-fit:cover;display:block}
+.hearth{margin:0 0 28px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);background:#3a2a20}
+.hearth img{width:100%;height:auto;display:block}
 .hero h1{font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,6vw,3.2rem);line-height:1.1;margin:0 0 10px}
 .hero p{color:var(--muted);margin:0;max-width:560px}
 .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:24px 0}
@@ -166,7 +166,7 @@ function home(){
   const cats = ['All', ...Array.from(new Set(R.map(r=>r.category))).sort((a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j);})];
   app.innerHTML = `
     <section class="hero">
-      <figure class="hearth"><img src="hearth.webp" alt="Painting of an old colonial kitchen hearth, from the front of the family recipe box" width="1600" height="929"></figure>
+      <figure class="hearth"><img src="hearth.webp" alt="Painting of an old colonial kitchen hearth, from the front of the family recipe box" width="1600" height="917"></figure>
       <h1>What are we cooking?</h1>
       <p>Our go-to recipes, plus the cards from the family recipe box, kept just as they were written. Tap a recipe to cook from it, check off ingredients, or add it to the shopping list.</p>
     </section>
