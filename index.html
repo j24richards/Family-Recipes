@@ -178,6 +178,14 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 .door-art.box-thumb::before{content:none}
 .mini-post{display:block;width:16px;height:16px;background:var(--wood1)}
 .mini-base{display:block;width:90px;height:14px;border-radius:50%;background:var(--wood2);margin-top:-2px}
+/* ---- Favorites ---- */
+.card{position:relative}
+.fav{position:absolute;top:8px;right:8px;z-index:2;border:0;background:transparent;font-size:1.45rem;line-height:1;cursor:pointer;color:var(--muted);padding:6px 8px;border-radius:999px;transition:transform .12s}
+.fav:hover{transform:scale(1.15)}
+.fav[aria-pressed=true]{color:#c23a3a}
+.card .cat{padding-right:34px}
+.btn.faved{border-color:#c23a3a;color:#c23a3a}
+.fav-note{color:var(--muted);font-size:.9rem;margin:-4px 0 14px}
 /* ---- Cookbook Shelf: book look ---- */
 .card.book{border-radius:4px 14px 14px 4px;border-left:10px solid var(--sage);background:var(--paper);padding-left:18px}
 .card.book .src{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--sage)}
@@ -276,6 +284,7 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6 5 3H2"/></svg>
       <span class="shop-label">Shopping list</span> <span class="count" id="shopCount" hidden>0</span>
     </a>
+    <a class="navbtn" href="#/favorites" id="favLink" aria-label="Favorites"><span class="fav-heart" aria-hidden="true">♥</span> <span class="shop-label">Favorites</span> <span class="count" id="favCount" hidden>0</span></a>
     </nav>
   </div>
   <nav class="secnav wrap" aria-label="Sections">
@@ -315,6 +324,11 @@ const suggestLink = r => SUGGEST_URL + '?recipe=' + encodeURIComponent(r.title);
 const allText = r => [r.title, r.subtitle, r.summary, r.category, r.credit, ...(r.tags||[]), ...r.ingredients.flatMap(g=>g.items)].join(' ').toLowerCase();
 
 function shopList(){ return store.get('shop', []); }
+function favList(){ return store.get('fav', []); }
+function isFav(slug){ return favList().includes(slug); }
+function updateFavCount(){ const n = favList().filter(s=>R.some(r=>r.slug===s)).length, el = document.getElementById('favCount'); el.hidden = !n; el.textContent = n; }
+function favBtn(slug){ const on = isFav(slug); return `<button type="button" class="fav" data-fav="${slug}" aria-pressed="${on}" aria-label="${on?'Remove from favorites':'Add to favorites'}" title="${on?'Remove from favorites':'Favorite this recipe'}">${on?'♥':'♡'}</button>`; }
+function toggleFav(slug){ const l = favList(); store.set('fav', l.includes(slug) ? l.filter(s=>s!==slug) : [...l, slug]); updateFavCount(); }
 function updateShopCount(){
   const n = shopList().length, el = document.getElementById('shopCount');
   el.hidden = !n; el.textContent = n;
@@ -481,6 +495,7 @@ function cardHTML(r, showSec){
   const meta = `${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.holidays||[]).map(x=>`<span class="tag hol">${esc(HOLIDAY_BY_KEY[x] ? HOLIDAY_BY_KEY[x].emoji+' '+HOLIDAY_BY_KEY[x].name : x)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}`;
   if (fam) return `
     <a class="card idx" href="#/recipe/${r.slug}">
+      ${favBtn(r.slug)}
       <span class="cat">📇 ${esc(r.category)}${showSec?' · Recipe Box':''}</span>
       <h2>${esc(r.title)}</h2>
       <p>${esc(text)}</p>
@@ -489,6 +504,7 @@ function cardHTML(r, showSec){
     </a>`;
   return `
     <a class="card book" href="#/recipe/${r.slug}">
+      ${favBtn(r.slug)}
       <span class="src">📖 ${credit || 'Cookbook Shelf'}</span>
       <span class="cat">${esc(r.category)}${showSec?' · Cookbook Shelf':''}</span>
       <h2>${esc(r.title)}</h2>
@@ -529,6 +545,7 @@ function recipe(slug){
       <div class="facts">${r.serves?`<span><strong>Serves</strong> ${esc(r.serves)}</span>`:''}${r.time?`<span>${esc(r.time)}</span>`:''}${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
     </div>
     <div class="actions">
+      <button class="btn ${isFav(slug)?'faved':''}" id="favBtn" aria-pressed="${isFav(slug)}">${isFav(slug)?'♥ Favorited':'♡ Favorite'}</button>
       <button class="btn ${inList?'':'primary'}" id="addShop">${inList ? '✓ On shopping list' : '+ Add to shopping list'}</button>
       <button class="btn" id="cook" aria-pressed="${!!wakeLock}" title="Keeps your screen from going to sleep while you cook">Cook mode</button>
       <button class="btn" id="reset">Reset checks</button>
@@ -553,6 +570,7 @@ function recipe(slug){
   const save = () => store.set('chk:'+slug, checks);
   app.querySelectorAll('.checklist input').forEach(i => i.onchange = () => { checks[i.dataset.k] = i.checked; save(); });
   app.querySelectorAll('ol.steps li').forEach(li => li.onclick = () => { const k = li.dataset.k; checks[k] = !checks[k]; li.classList.toggle('done', checks[k]); save(); });
+  document.getElementById('favBtn').onclick = () => { toggleFav(slug); recipe(slug); };
   document.getElementById('reset').onclick = () => { store.set('chk:'+slug, {}); recipe(slug); };
   document.getElementById('addShop').onclick = () => {
     let l = shopList();
@@ -597,18 +615,36 @@ function shopping(){
   document.getElementById('clearAll').onclick = () => { store.set('shop', []); store.set('shopchk', {}); updateShopCount(); shopping(); };
 }
 
+function favoritesPage(){
+  setNav(''); document.title = 'Favorites · Family Recipes';
+  const list = favList().map(s => R.find(r=>r.slug===s)).filter(Boolean).sort((a,b)=>a.title.localeCompare(b.title));
+  app.innerHTML = `<a class="back" href="#/">← Home</a>
+    <div class="r-head"><h1>♥ Favorites</h1><p class="summary">${list.length ? 'Your favorite recipes, all in one place.' : 'Tap the heart on any recipe to save it here.'}</p></div>
+    ${list.length ? `<p class="fav-note">Saved on this phone or computer only.</p><div class="grid">${list.map(r=>cardHTML(r,true)).join('')}</div>` : `<p class="empty">No favorites yet. Look for the ♡ on any recipe.</p>`}`;
+}
+
 function route(){
   const h = location.hash.replace(/^#\/?/, '');
   document.title = 'Family Recipes';
   if(h.startsWith('recipe/')) recipe(h.slice(7));
   else if(h === 'shopping') { setNav(''); shopping(); }
+  else if(h === 'favorites') favoritesPage();
   else if(h === 'family') sectionPage('family');
   else if(h === 'shelf') sectionPage('found');
   else if(h === 'holidays' || h.startsWith('holidays/')) holidaysPage(h.split('/')[1]);
   else home();
-  updateShopCount();
+  updateShopCount(); updateFavCount();
 }
 window.addEventListener('hashchange', route);
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('[data-fav]');
+  if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  const slug = b.dataset.fav; toggleFav(slug);
+  if (location.hash.replace(/^#\/?/, '') === 'favorites') { favoritesPage(); return; }
+  const on = isFav(slug);
+  document.querySelectorAll('[data-fav="'+slug+'"]').forEach(x => { x.setAttribute('aria-pressed', on); x.textContent = on ? '♥' : '♡'; x.setAttribute('aria-label', on ? 'Remove from favorites' : 'Add to favorites'); });
+}, true);
 holNavLabel();
 
 // ---- Install as an app (anyone, no login) ----
