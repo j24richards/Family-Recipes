@@ -119,6 +119,34 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 .tagline{font-family:Fraunces,Georgia,serif;font-style:italic;font-size:1.15rem;color:var(--ink)!important;margin:-2px 0 6px!important}
 .sec-head.family h1{color:var(--accent)}
 .sec-head.found h1{color:var(--sage)}
+.hol-banner{display:flex;align-items:center;gap:14px;margin:18px 0 0;padding:16px 20px;border-radius:16px;background:var(--paper);border:1px solid var(--line);text-decoration:none;box-shadow:var(--shadow)}
+.hol-banner:hover{border-color:var(--accent)}
+.hol-banner .hol-emoji{font-size:1.8rem}
+.hol-banner .door-go{margin:0 0 0 auto;padding:0;white-space:nowrap}
+@media (max-width:560px){.hol-banner{flex-wrap:wrap}.hol-banner .door-go{margin-left:0}}
+.secnav a[data-sec=holidays][aria-current=page]{background:#efe3c8;color:#8a5a12}
+.sec-head.holidays h1{color:#8a5a12}
+.hol-picker{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;margin:14px 0 4px;scrollbar-width:thin}
+.hol-chip{flex:none;text-decoration:none;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:8px 14px;font-size:.92rem;white-space:nowrap}
+.hol-chip[aria-selected=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.hol-chip .n{font-size:.75rem;opacity:.7}
+.hol-title h2{font-family:Fraunces,Georgia,serif;font-size:1.9rem;margin:14px 0 2px}
+.hol-title p{margin:0 0 8px;color:var(--muted)}
+.hol-group{margin:22px 0 0}
+.hol-group > h2{font-family:Fraunces,Georgia,serif;font-size:1.25rem;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.hol-group.family > h2{color:var(--accent)}
+.hol-group.found > h2{color:var(--sage)}
+.hol-group > h2 .n{font-family:Inter,system-ui,sans-serif;font-size:.8rem;color:var(--muted);font-weight:500}
+.hol-group .grid{padding-bottom:8px}
+.hol-group ~ .share-cta{margin-top:26px}
+@media (max-width:420px){.secnav .long{display:none}.secnav a{padding:7px 10px}}
+.empty-soft{color:var(--muted);background:var(--paper);border:1px dashed var(--line);border-radius:14px;padding:16px 18px;margin:0}
+.row-btns{display:flex;gap:8px;flex-wrap:wrap}
+.tag.hol{background:#efe3c8;color:#8a5a12}
+.hol-line{margin:2px 0 8px;display:flex;gap:8px;flex-wrap:wrap}
+.hol-line a{font-size:.85rem;text-decoration:none;background:#efe3c8;color:#8a5a12;padding:3px 10px;border-radius:999px}
+@media (prefers-color-scheme:dark){.tag.hol,.hol-line a{background:#3a2e1a;color:#e8c27a}.secnav a[data-sec=holidays][aria-current=page]{background:#3a2e1a;color:#e8c27a}.sec-head.holidays h1{color:#e8c27a}}
+
 
 .sections{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin:8px 0 4px;padding:4px;background:var(--paper);border:1px solid var(--line);border-radius:14px;max-width:460px}
 .sec{border:0;background:none;border-radius:10px;padding:9px 12px;font-size:.93rem;font-weight:500;color:var(--muted)}
@@ -173,8 +201,9 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
     </nav>
   </div>
   <nav class="secnav wrap" aria-label="Sections">
-    <a href="#/family" data-sec="family">Family Recipe Box</a>
-    <a href="#/shelf" data-sec="found">The Cookbook Shelf</a>
+    <a href="#/family" data-sec="family"><span class="long">Family </span>Recipe Box</a>
+    <a href="#/shelf" data-sec="found"><span class="long">The </span>Cookbook Shelf</a>
+    <a href="#/holidays" data-sec="holidays">Holidays</a>
   </nav>
 </header>
 <main class="wrap" id="app"></main>
@@ -186,8 +215,8 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   Family Recipes · some our own, others we've found.
 </div></footer>
 
-<script src="recipes.js?v=20261105"></script>
-<script src="cards.js?v=20261105"></script>
+<script src="recipes.js?v=20261106"></script>
+<script src="cards.js?v=20261106"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -217,6 +246,59 @@ const SEC = {
   family: { name:'Family Recipe Box', route:'family', tagline:'Recipes with a family history, tested by generations', blurb:'Recipes from our own kitchens and the cards in the family recipe box, kept just as they were written.' },
   found:  { name:'The Cookbook Shelf', route:'shelf', tagline:'Recipes gathered along the way', blurb:'Recipes from magazines, newspapers, cookbooks and the web that earned a spot on the shelf.' }
 };
+const HOLIDAYS = [
+  { key:'thanksgiving', name:'Thanksgiving', emoji:'🦃', note:'The big table: sides, breads and pies.' },
+  { key:'hanukkah', name:'Hanukkah', emoji:'🕎', note:'Eight nights of good cooking.' },
+  { key:'christmas', name:'Christmas', emoji:'🎄', note:'Cookies, breakfasts and the holiday dinner.' },
+  { key:'new-years', name:"New Year's", emoji:'🎆', note:'Appetizers and something warm for the first day of the year.' },
+  { key:'valentines', name:"Valentine's Day", emoji:'❤️', note:'Something sweet to share.' },
+  { key:'easter', name:'Easter', emoji:'🐣', note:'Spring dinners, brunch and treats.' },
+  { key:'fourth-of-july', name:'Fourth of July', emoji:'🎇', note:'Cookout sides, salads and summer desserts.' },
+  { key:'halloween', name:'Halloween', emoji:'🎃', note:'Fall treats and something hearty before trick-or-treating.' }
+];
+const HOLIDAY_BY_KEY = Object.fromEntries(HOLIDAYS.map(x=>[x.key,x]));
+// Next holiday on the calendar is shown first.
+function upcomingHoliday(){
+  const m = new Date().getMonth(), d = new Date().getDate();
+  const order = [['valentines',1,14],['easter',3,10],['fourth-of-july',6,4],['halloween',9,31],['thanksgiving',10,28],['hanukkah',11,20],['christmas',11,25],['new-years',11,31]];
+  for (const [k,mm,dd] of order) if (m < mm || (m === mm && d <= dd)) return k;
+  return 'valentines';
+}
+function holidaysPage(key){
+  setNav('holidays');
+  const hol = HOLIDAY_BY_KEY[key] || HOLIDAY_BY_KEY[upcomingHoliday()];
+  document.title = hol.name + ' · Holidays · Family Recipes';
+  const inHol = R.filter(r => (r.holidays||[]).includes(hol.key)).sort((a,b)=>a.title.localeCompare(b.title));
+  const group = k => { const l = inHol.filter(r=>r.section===k); const s = SEC[k]; return `
+    <section class="hol-group ${k}">
+      <h2>${s.name} <span class="n">${l.length}</span></h2>
+      ${l.length ? `<div class="grid">${l.map(r=>cardHTML(r,false)).join('')}</div>`
+        : `<p class="empty-soft">${k==='family' ? `No family ${esc(hol.name)} recipes yet. Is there one we always make?` : `Nothing on the shelf for ${esc(hol.name)} yet.`}</p>`}
+    </section>`; };
+  const suggest = SUGGEST_URL + '?recipe=' + encodeURIComponent('Holiday: ' + hol.name);
+  app.innerHTML = `
+    <section class="sec-head holidays">
+      <a class="back" href="#/">← Home</a>
+      <h1>Holidays</h1>
+      <p class="tagline">The dishes that show up every year</p>
+    </section>
+    <div class="hol-picker" role="tablist" aria-label="Pick a holiday">
+      ${HOLIDAYS.map(x=>{ const n = R.filter(r=>(r.holidays||[]).includes(x.key)).length; return `<a class="hol-chip" role="tab" aria-selected="${x.key===hol.key}" href="#/holidays/${x.key}"><span>${x.emoji}</span> ${esc(x.name)}${n?` <span class="n">${n}</span>`:''}</a>`; }).join('')}
+    </div>
+    <div class="hol-title"><h2>${hol.emoji} ${esc(hol.name)}</h2><p>${esc(hol.note)}</p></div>
+    ${group('family')}
+    ${group('found')}
+    <div class="share-cta">
+      <p><strong>What do you make for ${esc(hol.name)}?</strong> Tell us a recipe from the site that belongs here, or share a new one. Family memories welcome.</p>
+      <div class="row-btns">
+        <a class="btn primary" href="${suggest}" target="_blank" rel="noopener" style="text-decoration:none">Suggest one for ${esc(hol.name)}</a>
+        <a class="btn" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener" style="text-decoration:none">+ Share a new recipe</a>
+      </div>
+    </div>`;
+  const sel = app.querySelector('.hol-chip[aria-selected=true]'); if (sel) sel.scrollIntoView({block:'nearest', inline:'center'});
+  window.scrollTo(0,0);
+}
+
 const secCount = k => R.filter(r=>r.section===k).length;
 const catsFor = list => ['All', ...Array.from(new Set(list.map(r=>r.category))).sort((a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j);})];
 
@@ -244,6 +326,7 @@ function home(){
         <span class="door-go">Open ${s.name} →</span>
       </a>`; }).join('')}
     </div>
+    ${(()=>{ const u = HOLIDAY_BY_KEY[upcomingHoliday()]; return `<a class="hol-banner" href="#/holidays/${u.key}"><span class="hol-emoji">${u.emoji}</span><span><strong>Holidays</strong> · ${esc(u.name)} is coming up. See what we make, or tell us yours.</span><span class="door-go">Holidays →</span></a>`; })()}
     <label class="search" aria-label="Search all recipes" style="display:block;margin:28px 0 0">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="q" type="search" placeholder="Search both: a recipe, an ingredient, or who it's from…" value="${esc(state.q)}">
@@ -297,19 +380,23 @@ function sectionPage(k){
   window.scrollTo(0,0);
 }
 
+function cardHTML(r, showSec){
+  return `
+    <a class="card" href="#/recipe/${r.slug}">
+      <span class="cat">${esc(r.category)}${showSec && r.section?` <span class="secbadge ${r.section}">${r.section==="family"?"Recipe Box":"Cookbook Shelf"}</span>`:""}</span>
+      <h2>${esc(r.title)}</h2>
+      <p>${esc(r.summary)}</p>
+      <div class="meta">${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.holidays||[]).map(x=>`<span class="tag hol">${esc(HOLIDAY_BY_KEY[x] ? HOLIDAY_BY_KEY[x].emoji+' '+HOLIDAY_BY_KEY[x].name : x)}</span>`).join('')}${(r.tags||[]).filter(t=>t!=='recipe box').slice(0,2).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}</div>
+    </a>`;
+}
+
 function renderGrid(){
   const terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
   const onHome = state.sec === 'all';
   if (onHome && !terms.length) { document.getElementById('grid').innerHTML = ''; return; }
   const list = R.slice().sort((a,b)=>a.title.localeCompare(b.title)).filter(r => (onHome || r.section===state.sec) && (state.cat==='All' || r.category===state.cat) && terms.every(t => allText(r).includes(t)));
   const g = document.getElementById('grid');
-  g.innerHTML = list.length ? list.map(r => `
-    <a class="card" href="#/recipe/${r.slug}">
-      <span class="cat">${esc(r.category)}${onHome && r.section?` <span class="secbadge ${r.section}">${r.section==="family"?"Recipe Box":"Cookbook Shelf"}</span>`:""}</span>
-      <h2>${esc(r.title)}</h2>
-      <p>${esc(r.summary)}</p>
-      <div class="meta">${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.tags||[]).filter(t=>t!=='recipe box').slice(0,3).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}</div>
-    </a>`).join('') : `<p class="empty">No recipes match that search.</p>`;
+  g.innerHTML = list.length ? list.map(r => cardHTML(r, onHome)).join('') : `<p class="empty">No recipes match that search.</p>`;
 }
 
 function recipe(slug){
@@ -331,6 +418,7 @@ function recipe(slug){
       ${r.fromBox ? '' : `<p class="summary">${esc(r.summary)}</p>`}
       ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `${r.section==='found' ? 'From' : 'From the kitchen of'} <strong>${esc(r.credit)}</strong>${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}</p>` : ''}
       ${r.source ? `<p class="credit">Source: ${r.source.url ? `<a href="${esc(r.source.url)}" target="_blank" rel="noopener">${esc(r.source.text)}</a>` : esc(r.source.text)}</p>` : ''}
+      ${(r.holidays||[]).length ? `<p class="hol-line">${r.holidays.map(x=>HOLIDAY_BY_KEY[x]?`<a href="#/holidays/${x}">${HOLIDAY_BY_KEY[x].emoji} ${esc(HOLIDAY_BY_KEY[x].name)}</a>`:"").join(" ")}</p>` : ""}
       <div class="facts">${r.serves?`<span><strong>Serves</strong> ${esc(r.serves)}</span>`:''}${r.time?`<span>${esc(r.time)}</span>`:''}${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
     </div>
     <div class="actions">
@@ -351,6 +439,7 @@ function recipe(slug){
         ${r.cardNotes && r.cardNotes.length ? `<div class="panel notes"><h2>On the card</h2><ul>${r.cardNotes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
         ${r.gaps && r.gaps.length ? `<div class="panel notes gaps"><h2>Missing from the card</h2><ul>${r.gaps.map(x=>`<li>${md(x)}</li>`).join('')}</ul>${SUGGEST_URL ? `<a class="btn primary" href="${suggestLink(r)}" target="_blank" rel="noopener" style="text-decoration:none">I know this — suggest a fill-in</a>` : '<p class="hint">Know the answer? Let Jimmie know.</p>'}</div>` : ''}
         ${SUGGEST_URL && r.fromBox && !(r.gaps && r.gaps.length) ? `<p class="suggest-line">Know something about this recipe — who it came from or the story behind it? <a href="${suggestLink(r)}" target="_blank" rel="noopener">Share it</a></p>` : ''}
+        ${SUGGEST_URL ? `<p class="suggest-line">🎉 Do you make this for a holiday? <a href="${suggestLink(r)}" target="_blank" rel="noopener">Tell us which one</a></p>` : ''}
         ${r.notes && r.notes.length ? `<div class="panel notes"><h2>Notes</h2><ul>${r.notes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
       </section>
     </div>`;
@@ -408,6 +497,7 @@ function route(){
   else if(h === 'shopping') { setNav(''); shopping(); }
   else if(h === 'family') sectionPage('family');
   else if(h === 'shelf') sectionPage('found');
+  else if(h === 'holidays' || h.startsWith('holidays/')) holidaysPage(h.split('/')[1]);
   else home();
   updateShopCount();
 }

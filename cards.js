@@ -135,7 +135,7 @@ var C = [
     ingredients:[{items:["1 cup sifted flour","½ tsp baking powder","⅛ tsp baking soda","½ tsp salt","½ cup chopped nuts","⅓ cup shortening or butter","1 cup brown sugar, packed","1 egg, slightly beaten","1 tsp vanilla","⅓ pkg. (item not named on the card — chocolate chips?)"]}],
     steps:[],
     gaps:["Instructions — none on the card","What the \"⅓ pkg.\" is (chocolate chips?)"] },
-  { slug:"chanukah-cake", title:"Chanukah Cake", category:"Desserts", credit:"", cardNote:"delicious",
+  { slug:"chanukah-cake", holidays:["hanukkah"], title:"Chanukah Cake", category:"Desserts", credit:"", cardNote:"delicious",
     ingredients:[{name:"Cake", items:["1 stick margarine (cream)","1 cup sugar","2 eggs","2 cups flour","1 tsp. b.p.","1 tsp. b.s.","1½ tsp salt","1 cup sour cream","1 tsp vanilla"]},{name:"Topping", items:["3 tbsp sugar","¼ cup chopped walnuts","1 tbsp cinnamon"]}],
     steps:["After all ingredients are blended, beat for 2 minutes. Batter will be thick.","Put ½ in greased & floured 10\" angel food cake pan. Sprinkle with almost all topping & swirl into batter.","Put remaining batter over this & sprinkle on rest of topping & pat down.","Bake at 350° 40 min."],
     gaps:["Who it came from — no name on the card"] },
