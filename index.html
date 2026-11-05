@@ -143,7 +143,7 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
     linear-gradient(180deg,rgba(0,0,0,0) 62%,rgba(0,0,0,.34)),
     linear-gradient(90deg,rgba(0,0,0,.30),transparent 9%,transparent 91%,rgba(0,0,0,.30)),
     url(wood.webp) center/cover}
-.stand-painting{margin:0 auto;width:92%;aspect-ratio:2/1;overflow:hidden;border-radius:2px;background:#e8dbbd;padding:3px;box-shadow:0 0 0 2px #1c0f07,0 0 0 3px rgba(255,225,190,.22),inset 0 0 6px rgba(0,0,0,.4),3px 4px 7px rgba(0,0,0,.6)}
+.stand-painting{margin:0 auto;width:92%;aspect-ratio:2/1;overflow:hidden;border-radius:4px 7px 5px 8px / 6px 4px 7px 5px;background:#e8dbbd;padding:2px;box-shadow:0 0 0 1px rgba(40,22,10,.45),2px 3px 6px rgba(0,0,0,.55)}
 .stand-painting img{display:block;width:100%;height:100%;object-fit:cover;box-shadow:inset 0 0 8px rgba(0,0,0,.45)}
 .rings{position:relative;height:0;z-index:3}
 .rings i{position:absolute;top:2px;width:18px;height:38px;padding:4px;border-radius:11px;background:linear-gradient(90deg,#f0f0f4,#9a9aa2 30%,#4a4a52 70%,#1c1c20);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;filter:drop-shadow(2px 3px 2px rgba(0,0,0,.65))}
@@ -336,8 +336,8 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   Family Recipes · some our own, others we've found.
 </div></footer>
 
-<script src="recipes.js?v=20261111"></script>
-<script src="cards.js?v=20261111"></script>
+<script src="recipes.js?v=20261112"></script>
+<script src="cards.js?v=20261112"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -483,7 +483,7 @@ function sectionPage(k){
       ${k==='family' ? `
       <div class="stand">
         <div class="stand-obj" aria-hidden="true">
-          <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="plaqueClip" clipPathUnits="objectBoundingBox"><path d="M0.06,0.10 C0.07,0.05 0.12,0.025 0.17,0.03 C0.22,0.035 0.26,0.055 0.31,0.05 C0.37,0.04 0.43,0.015 0.5,0.015 C0.58,0.015 0.62,0.045 0.70,0.045 C0.76,0.04 0.80,0.01 0.88,0.01 C0.95,0.01 0.99,0.07 0.98,0.16 C0.96,0.20 0.95,0.26 0.97,0.32 C0.995,0.38 1.0,0.46 0.995,0.54 C0.985,0.60 0.975,0.64 0.975,0.70 C0.98,0.75 1.0,0.80 0.995,0.88 C0.985,0.92 0.95,0.93 0.9,0.94 C0.78,0.97 0.64,1.0 0.5,1.0 C0.36,1.0 0.22,0.97 0.10,0.94 C0.05,0.93 0.015,0.92 0.005,0.88 C0.0,0.80 0.02,0.75 0.025,0.70 C0.025,0.64 0.015,0.60 0.005,0.54 C0.0,0.46 0.005,0.38 0.03,0.32 C0.05,0.26 0.04,0.20 0.02,0.16 C0.01,0.13 0.05,0.12 0.06,0.10 Z"/></clipPath></defs></svg>
+          <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="plaqueClip" clipPathUnits="objectBoundingBox"><path d="M0.04,0.075 C0.04,0.04 0.07,0.03 0.11,0.03 C0.17,0.03 0.21,0.028 0.26,0.016 C0.33,0.0 0.42,0.004 0.5,0.004 C0.58,0.004 0.67,0 0.74,0.016 C0.79,0.028 0.83,0.03 0.89,0.03 C0.935,0.03 0.965,0.045 0.965,0.085 C0.962,0.3 0.96,0.5 0.968,0.7 C0.972,0.8 0.985,0.9 0.98,0.94 C0.975,0.975 0.95,0.985 0.9,0.985 C0.8,0.985 0.7,0.995 0.6,0.995 C0.5,0.995 0.4,0.98 0.3,0.985 C0.2,0.99 0.12,0.995 0.07,0.985 C0.02,0.97 0.01,0.94 0.012,0.9 C0.016,0.8 0.005,0.7 0.012,0.55 C0.025,0.35 0.035,0.2 0.04,0.075 Z"/></clipPath></defs></svg>
           <div class="stand-plaque"><div class="stand-board">
             <figure class="stand-painting"><img src="hearth.webp" alt="" width="1600" height="917"></figure>
             <div class="rings"><i></i><i></i></div>
@@ -588,7 +588,7 @@ function recipe(slug){
     <div class="r-body">
       <section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>
       <section>
-        ${r.cardImg ? `<div class="panel origcard"><h2>The original card</h2><button type="button" class="photo-btn" data-zoom="${esc(r.cardImg)}?v=20261111" data-cap="The original recipe card for ${esc(r.title)}"><img src="${esc(r.cardImg)}?v=20261111" alt="The handwritten recipe card for ${esc(r.title)}" loading="lazy"></button><p class="hint">Tap to zoom in on the handwriting.</p></div>` : ''}
+        ${r.cardImg ? `<div class="panel origcard"><h2>The original card</h2><button type="button" class="photo-btn" data-zoom="${esc(r.cardImg)}?v=20261112" data-cap="The original recipe card for ${esc(r.title)}"><img src="${esc(r.cardImg)}?v=20261112" alt="The handwritten recipe card for ${esc(r.title)}" loading="lazy"></button><p class="hint">Tap to zoom in on the handwriting.</p></div>` : ''}
         <div class="panel">
           <h2>Instructions</h2>
           ${r.steps.length ? `<p class="hint">Tap a step to mark it done.</p><ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(s)}</li>`).join('')}</ol>` : '<p class="muted">No instructions on the card.</p>'}
