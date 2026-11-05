@@ -126,6 +126,7 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 @media (max-width:560px){.hol-banner{flex-wrap:wrap}.hol-banner .door-go{margin-left:0}}
 .secnav a[data-sec=holidays][aria-current=page]{background:#efe3c8;color:#8a5a12}
 .sec-head.holidays h1{color:#8a5a12}
+.hol-picker[hidden]{display:none}
 .hol-picker{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;margin:14px 0 4px;scrollbar-width:thin}
 .hol-chip{flex:none;text-decoration:none;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:8px 14px;font-size:.92rem;white-space:nowrap}
 .hol-chip[aria-selected=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
@@ -203,7 +204,7 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   <nav class="secnav wrap" aria-label="Sections">
     <a href="#/family" data-sec="family"><span class="long">Family </span>Recipe Box</a>
     <a href="#/shelf" data-sec="found"><span class="long">The </span>Cookbook Shelf</a>
-    <a href="#/holidays" data-sec="holidays">Holidays</a>
+    <a href="#/holidays" data-sec="holidays" id="holNav">Holidays</a>
   </nav>
 </header>
 <main class="wrap" id="app"></main>
@@ -215,8 +216,8 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   Family Recipes · some our own, others we've found.
 </div></footer>
 
-<script src="recipes.js?v=20261106"></script>
-<script src="cards.js?v=20261106"></script>
+<script src="recipes.js?v=20261107"></script>
+<script src="cards.js?v=20261107"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -246,24 +247,24 @@ const SEC = {
   family: { name:'Family Recipe Box', route:'family', tagline:'Recipes with a family history, tested by generations', blurb:'Recipes from our own kitchens and the cards in the family recipe box, kept just as they were written.' },
   found:  { name:'The Cookbook Shelf', route:'shelf', tagline:'Recipes gathered along the way', blurb:'Recipes from magazines, newspapers, cookbooks and the web that earned a spot on the shelf.' }
 };
-const HOLIDAYS = [
-  { key:'thanksgiving', name:'Thanksgiving', emoji:'🦃', note:'The big table: sides, breads and pies.' },
-  { key:'hanukkah', name:'Hanukkah', emoji:'🕎', note:'Eight nights of good cooking.' },
-  { key:'christmas', name:'Christmas', emoji:'🎄', note:'Cookies, breakfasts and the holiday dinner.' },
-  { key:'new-years', name:"New Year's", emoji:'🎆', note:'Appetizers and something warm for the first day of the year.' },
-  { key:'valentines', name:"Valentine's Day", emoji:'❤️', note:'Something sweet to share.' },
-  { key:'easter', name:'Easter', emoji:'🐣', note:'Spring dinners, brunch and treats.' },
-  { key:'fourth-of-july', name:'Fourth of July', emoji:'🎇', note:'Cookout sides, salads and summer desserts.' },
-  { key:'halloween', name:'Halloween', emoji:'🎃', note:'Fall treats and something hearty before trick-or-treating.' }
+// Holidays: only "on" ones show on the site. The others are ready to switch on (set on:true).
+const ALL_HOLIDAYS = [
+  { key:'thanksgiving', on:true,  name:'Thanksgiving', emoji:'🦃', note:'The big table: sides, breads and pies.' },
+  { key:'christmas',    on:false, name:'Christmas', emoji:'🎄', note:'Cookies, breakfasts and the holiday dinner.' },
+  { key:'new-years',    on:false, name:"New Year's", emoji:'🎆', note:'Appetizers and something warm for the first day of the year.' },
+  { key:'easter',       on:false, name:'Easter', emoji:'🐣', note:'Spring dinners, brunch and treats.' },
+  { key:'fourth-of-july', on:false, name:'Fourth of July', emoji:'🎇', note:'Cookout sides, salads and summer desserts.' }
 ];
+const HOLIDAYS = ALL_HOLIDAYS.filter(x => x.on);
 const HOLIDAY_BY_KEY = Object.fromEntries(HOLIDAYS.map(x=>[x.key,x]));
 // Next holiday on the calendar is shown first.
 function upcomingHoliday(){
   const m = new Date().getMonth(), d = new Date().getDate();
-  const order = [['valentines',1,14],['easter',3,10],['fourth-of-july',6,4],['halloween',9,31],['thanksgiving',10,28],['hanukkah',11,20],['christmas',11,25],['new-years',11,31]];
+  const order = [['new-years',0,1],['easter',3,20],['fourth-of-july',6,4],['thanksgiving',10,28],['christmas',11,25]].filter(([k]) => HOLIDAY_BY_KEY[k]);
   for (const [k,mm,dd] of order) if (m < mm || (m === mm && d <= dd)) return k;
-  return 'valentines';
+  return (order[0] || [HOLIDAYS[0].key])[0];
 }
+function holNavLabel(){ const n=document.getElementById('holNav'); if(n && HOLIDAYS.length===1) n.textContent = HOLIDAYS[0].name; }
 function holidaysPage(key){
   setNav('holidays');
   const hol = HOLIDAY_BY_KEY[key] || HOLIDAY_BY_KEY[upcomingHoliday()];
@@ -279,13 +280,13 @@ function holidaysPage(key){
   app.innerHTML = `
     <section class="sec-head holidays">
       <a class="back" href="#/">← Home</a>
-      <h1>Holidays</h1>
+      <h1>${HOLIDAYS.length < 2 ? esc(hol.name) : 'Holidays'}</h1>
       <p class="tagline">The dishes that show up every year</p>
     </section>
-    <div class="hol-picker" role="tablist" aria-label="Pick a holiday">
+    <div class="hol-picker" role="tablist" aria-label="Pick a holiday"${HOLIDAYS.length < 2 ? ' hidden' : ''}>
       ${HOLIDAYS.map(x=>{ const n = R.filter(r=>(r.holidays||[]).includes(x.key)).length; return `<a class="hol-chip" role="tab" aria-selected="${x.key===hol.key}" href="#/holidays/${x.key}"><span>${x.emoji}</span> ${esc(x.name)}${n?` <span class="n">${n}</span>`:''}</a>`; }).join('')}
     </div>
-    <div class="hol-title"><h2>${hol.emoji} ${esc(hol.name)}</h2><p>${esc(hol.note)}</p></div>
+    <div class="hol-title">${HOLIDAYS.length < 2 ? '' : `<h2>${hol.emoji} ${esc(hol.name)}</h2>`}<p>${esc(hol.note)}</p></div>
     ${group('family')}
     ${group('found')}
     <div class="share-cta">
@@ -326,7 +327,7 @@ function home(){
         <span class="door-go">Open ${s.name} →</span>
       </a>`; }).join('')}
     </div>
-    ${(()=>{ const u = HOLIDAY_BY_KEY[upcomingHoliday()]; return `<a class="hol-banner" href="#/holidays/${u.key}"><span class="hol-emoji">${u.emoji}</span><span><strong>Holidays</strong> · ${esc(u.name)} is coming up. See what we make, or tell us yours.</span><span class="door-go">Holidays →</span></a>`; })()}
+    ${(()=>{ const u = HOLIDAY_BY_KEY[upcomingHoliday()]; return `<a class="hol-banner" href="#/holidays/${u.key}"><span class="hol-emoji">${u.emoji}</span><span><strong>${HOLIDAYS.length < 2 ? esc(u.name) : 'Holidays'}</strong> · ${esc(u.name)} is coming up. See what we make, or tell us yours.</span><span class="door-go">${HOLIDAYS.length < 2 ? esc(u.name) : 'Holidays'} →</span></a>`; })()}
     <label class="search" aria-label="Search all recipes" style="display:block;margin:28px 0 0">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="q" type="search" placeholder="Search both: a recipe, an ingredient, or who it's from…" value="${esc(state.q)}">
@@ -502,6 +503,7 @@ function route(){
   updateShopCount();
 }
 window.addEventListener('hashchange', route);
+holNavLabel();
 
 // ---- Install as an app (anyone, no login) ----
 (function(){
