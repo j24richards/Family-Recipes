@@ -12,6 +12,10 @@ var C = [
     cardNotes:["Can add bacon bits."] },
 
   // ---------- Casseroles & sides ----------
+  { slug:"turnip-souffle", title:"Turnip Soufflé", category:"Casseroles", holidays:["thanksgiving"], cardImg:"cards/turnip-souffle.jpg",
+    ingredients:[{items:["4 c turnip or rutabaga, cut up, 1½–2\" cubes","2 tsp sugar (or pk Sweet'n Low), for boiling","1 pt. sour cream","4 TBS butter or margarine","2 tsp BK pdr (baking powder)","3 egg yolks","3 egg whites, beaten","Salt & pepper, to taste"]},{name:"Crumb topping",items:["2 c Ritz crackers, crumbled","¼ stick melted margarine or butter"]}],
+    steps:["Boil the turnip in the sugar until able to mash.","Add the sour cream, butter, baking powder and egg yolks. Stir above.","Fold in the beaten egg whites. Add salt & pepper to taste.","Crumb topping: mix the crumbled Ritz crackers with the melted margarine or butter.","Grease a 2–4 qt soufflé dish or Pyrex. Add the turnip mixture. Cover with crumb topping.","Bake at 350° for 25 min., till golden brown."],
+    cardNotes:["The baking time reads \"25 min.\" (hard to read)."] },
   { slug:"dads-creamed-onions", title:"Dad's Creamed Onions", category:"Casseroles", credit:"Dad G.",
     ingredients:[{items:["Peeled whole onions","Evap. milk (for white sauce)","Extra sharp cheddar, grated, to taste","Paprika"]}],
     steps:["Pressure cook peeled whole onions til not too mushy (about 10 min.). Save some juice.","Make white sauce w/ evap. milk. Grate in extra sharp cheddar to taste.","Pour in casserole over onions. Sprinkle w/ paprika & cook til hot thru. (350°)"],
@@ -193,6 +197,7 @@ var C = [
     steps:["Cream butter - add 1 cup confectioners sugar.","Beat in stiffly beaten egg white.","Add fruit juice combined with vanilla, beating constantly.","Beat in ⅓ cup more confectioners sugar.","Put in bowl & sprinkle with nutmeg. Chill."] }
 ];
 var BLURBS = {
+"turnip-souffle": "Mashed turnip lightened with beaten egg whites and sour cream, under a buttery Ritz-cracker crumb topping.",
 "artichoke-appetizer": "Warm, cheesy artichoke-and-parmesan dip, baked till brown.",
 "dads-creamed-onions": "Whole onions in a sharp-cheddar white sauce, dusted with paprika.",
 "tomato-rabbit": "A tomato and melted-cheese sauce with sautéed celery, onion and pepper, thickened with egg.",
