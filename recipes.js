@@ -3,6 +3,7 @@
 window.RECIPES = [
   {
     slug: "corn-hash-corned-beef",
+    section: "found",
     title: "Corn Hash with Corned Beef",
     subtitle: "Classic Diner Style",
     category: "Breakfast",
@@ -53,6 +54,7 @@ window.RECIPES = [
 
   {
     slug: "veggie-frittata",
+    section: "found",
     title: "Veggie Frittata",
     category: "Breakfast",
     tags: ["oven", "make-ahead", "eggs"],
@@ -97,6 +99,9 @@ window.RECIPES = [
 
   {
     slug: "loaded-hash-brown-egg-bake",
+    section: "family",
+    credit: "Jordan",
+    creditNote: "Jordan's own recipe",
     title: "Loaded Hash Brown & Veggie Egg Bake",
     category: "Breakfast",
     tags: ["oven", "crowd", "eggs", "vegetarian option"],
@@ -137,6 +142,7 @@ window.RECIPES = [
 
   {
     slug: "chicken-fajitas",
+    section: "found",
     title: "Chicken Fajitas",
     subtitle: "Griddle or Sheet Pan",
     category: "Dinner",
@@ -194,6 +200,8 @@ window.RECIPES = [
 
   {
     slug: "grandmas-hamburger-green-bean-skillet",
+    section: "family",
+    credit: "Grandma",
     title: "Grandma's Hamburger & Green Bean Skillet",
     category: "Dinner",
     tags: ["family classic", "crowd", "beef", "freezer-friendly"],
@@ -234,6 +242,7 @@ window.RECIPES = [
 
   {
     slug: "game-day-chicken-ham-bacon-chowder",
+    section: "found",
     title: "Game Day Creamy Chicken, Ham & Bacon Chowder",
     category: "Soups",
     tags: ["crowd", "game day", "chicken", "make-ahead"],

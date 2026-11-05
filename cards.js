@@ -237,7 +237,9 @@ var BLURBS = {
 "nana-cranberry-cake": "Simple cake studded with cranberries.",
 "hard-sauce-fluffy": "Whipped butter-sugar sauce with fruit juice and nutmeg."
 };
+var PUBLISHED = /Better Homes|Yankee|Herald American|Globe|King Arthur|Weight Watchers/i;
 C.forEach(function(r){
+  r.section = PUBLISHED.test(r.credit || '') ? 'found' : 'family';
   if (BLURBS[r.slug]) r.blurb = BLURBS[r.slug];
   r.fromBox = true;
   r.tags = ["recipe box"];
