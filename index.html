@@ -7,6 +7,10 @@
 <meta name="description" content="Our family's go-to recipes, some our own and others we've found.">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest-site.json">
+<meta name="theme-color" content="#b4532a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Recipes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -109,6 +113,9 @@ ol.steps li.done::before{content:"✓";background:var(--sage);color:#fff}
 .shop-group h3{display:flex;justify-content:space-between;align-items:center;font-family:Fraunces,Georgia,serif;text-transform:none;letter-spacing:0;font-size:1.05rem;color:var(--ink)}
 .linkbtn{background:none;border:0;color:var(--accent);font-size:.85rem;padding:0}
 footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padding:24px 0 40px}
+.install{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 0 18px;color:var(--ink);font-size:.92rem}
+.install[hidden]{display:none}
+@media print{.install{display:none!important}}
 
 @media print{
   header.site,.actions,.back,footer,.hint{display:none!important}
@@ -135,7 +142,13 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   </div>
 </header>
 <main class="wrap" id="app"></main>
-<footer><div class="wrap">Family Recipes · some our own, others we've found.</div></footer>
+<footer><div class="wrap">
+  <div class="install" id="installBox">
+    <div><strong>📲 Put Family Recipes on your phone</strong><br><span id="installHow">Opens like an app, right from your home screen.</span></div>
+    <button class="btn primary" id="installBtn" type="button">Add to home screen</button>
+  </div>
+  Family Recipes · some our own, others we've found.
+</div></footer>
 
 <script src="recipes.js"></script>
 <script src="cards.js"></script>
@@ -306,6 +319,27 @@ function route(){
   updateShopCount();
 }
 window.addEventListener('hashchange', route);
+
+// ---- Install as an app (anyone, no login) ----
+(function(){
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('firebase-messaging-sw.js').catch(function(){});
+  var box = document.getElementById('installBox'), btn = document.getElementById('installBtn'), how = document.getElementById('installHow');
+  var standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  if (standalone) { box.hidden = true; return; }
+  var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var samsung = /SamsungBrowser/.test(navigator.userAgent);
+  var deferred = null;
+  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferred = e; });
+  window.addEventListener('appinstalled', function(){ box.hidden = true; });
+  btn.onclick = function(){
+    if (deferred) { deferred.prompt(); deferred.userChoice.then(function(){ deferred = null; }); return; }
+    how.textContent = ios
+      ? 'In Safari, tap the Share icon in the toolbar, then “Add to Home Screen.”'
+      : samsung
+        ? 'Tap ☰ at the bottom right, then “Add page to” → “Home screen.”'
+        : 'Open your browser menu (⋮) and choose “Install app” or “Add to Home screen.”';
+  };
+})();
 route();
 })();
 </script>
