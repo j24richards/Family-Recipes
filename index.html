@@ -336,8 +336,8 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   Family Recipes · some our own, others we've found.
 </div></footer>
 
-<script src="recipes.js?v=20261114"></script>
-<script src="cards.js?v=20261114"></script>
+<script src="recipes.js?v=20261115"></script>
+<script src="cards.js?v=20261115"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -483,7 +483,7 @@ function sectionPage(k){
       ${k==='family' ? `
       <div class="stand">
         <div class="stand-obj" aria-hidden="true">
-          <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="plaqueClip" clipPathUnits="objectBoundingBox"><path d="M0.5,0.008 C0.62,0.008 0.73,0.018 0.81,0.03 C0.9,0.035 0.955,0.065 0.955,0.12 C0.96,0.4 0.985,0.7 0.985,0.9 C0.985,0.96 0.955,0.985 0.9,0.985 C0.8,0.985 0.65,0.992 0.5,0.992 C0.35,0.992 0.2,0.985 0.1,0.985 C0.045,0.985 0.015,0.96 0.015,0.9 C0.015,0.7 0.04,0.4 0.045,0.12 C0.045,0.065 0.1,0.035 0.19,0.03 C0.27,0.018 0.38,0.008 0.5,0.008 Z"/></clipPath></defs></svg>
+          <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="plaqueClip" clipPathUnits="objectBoundingBox"><path d="M0.0459,0.0416 L0.0283,0.057 L0.0156,0.0762 L0.0107,0.1024 L0.0078,0.184 L0.0117,0.2063 L0.0137,0.2433 L0.0137,0.3164 L0.0088,0.3972 L0.0029,0.4511 L0.001,0.5296 L0.0088,0.6351 L0.0107,0.7136 L0.002,0.8253 L0.0,0.8822 L0.002,0.9053 L0.0068,0.9238 L0.0137,0.9392 L0.0263,0.9561 L0.041,0.9677 L0.0556,0.9746 L0.0976,0.9831 L0.1873,0.99 L0.2546,0.9915 L0.3776,0.9985 L0.6215,0.9985 L0.7444,0.9915 L0.8117,0.99 L0.9132,0.9815 L0.9385,0.9761 L0.958,0.9677 L0.9756,0.953 L0.9873,0.9353 L0.9961,0.9107 L0.999,0.8822 L0.9971,0.8253 L0.9883,0.7136 L0.9902,0.6351 L0.998,0.5296 L0.9961,0.4511 L0.9902,0.3972 L0.9854,0.3164 L0.9854,0.2433 L0.9873,0.2063 L0.9912,0.184 L0.9912,0.1555 L0.9854,0.0824 L0.9795,0.0685 L0.9678,0.0539 L0.9532,0.0416 L0.9434,0.0362 L0.9268,0.03 L0.9024,0.0254 L0.8322,0.02 L0.719,0.0162 L0.5278,0.0008 L0.4537,0.0015 L0.28,0.0162 L0.119,0.0231 L0.078,0.0285 L0.0556,0.0362 Z"/></clipPath></defs></svg>
           <div class="stand-plaque"><div class="stand-board">
             <figure class="stand-painting"><img src="hearth.webp" alt="" width="1600" height="917"></figure>
             <div class="rings"><i></i><i></i></div>
@@ -588,7 +588,7 @@ function recipe(slug){
     <div class="r-body">
       <section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>
       <section>
-        ${r.cardImg ? `<div class="panel origcard"><h2>The original card</h2><button type="button" class="photo-btn" data-zoom="${esc(r.cardImg)}?v=20261114" data-cap="The original recipe card for ${esc(r.title)}"><img src="${esc(r.cardImg)}?v=20261114" alt="The handwritten recipe card for ${esc(r.title)}" loading="lazy"></button><p class="hint">Tap to zoom in on the handwriting.</p></div>` : ''}
+        ${r.cardImg ? `<div class="panel origcard"><h2>The original card</h2><button type="button" class="photo-btn" data-zoom="${esc(r.cardImg)}?v=20261115" data-cap="The original recipe card for ${esc(r.title)}"><img src="${esc(r.cardImg)}?v=20261115" alt="The handwritten recipe card for ${esc(r.title)}" loading="lazy"></button><p class="hint">Tap to zoom in on the handwriting.</p></div>` : ''}
         <div class="panel">
           <h2>Instructions</h2>
           ${r.steps.length ? `<p class="hint">Tap a step to mark it done.</p><ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(s)}</li>`).join('')}</ol>` : '<p class="muted">No instructions on the card.</p>'}
