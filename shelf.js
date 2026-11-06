@@ -16,7 +16,7 @@
     '.shelf-art .shelf-real,.door-art .shelf-real{position:relative;width:100%}'+
     '.shelf-real .shelf-book{position:absolute}'+
     '.shelf-art .shelf-hint{text-align:center;font-size:.78rem;opacity:.7;margin:-4px 0 12px;width:auto;height:auto;position:static}'+
-    '@media (max-width:640px){.shelf-art{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}.shelf-art::-webkit-scrollbar{display:none}.shelf-art .shelf-real{min-width:640px}.shelf-art .shelf-hint{position:sticky;left:0;width:calc(100vw - 32px);box-sizing:border-box}}';
+    '@media (max-width:640px){.shelf-art{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}.shelf-art::-webkit-scrollbar{display:none}.shelf-art .shelf-real{min-width:640px}.shelf-art .shelf-hint{position:sticky;left:0;width:calc(100vw - 52px);box-sizing:border-box}}';
     document.head.appendChild(st);
   }catch(e){}
   window.shelfArt=function(interactive){
