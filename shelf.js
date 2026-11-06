@@ -1,7 +1,7 @@
 /* Cookbook Shelf art: baked images + clickable category books */
 (function(){
-  var V='?v=1';
-  var B=[[78,44,114,'Breakfast'],[148.8,46,124,'Dinner'],[219.6,46,128,'Meats & Seafood'],[292.4,44,116,'Comfort Food'],[365.2,42,120,'Soups'],[432,44,112,'Desserts'],[502.8,44,122,'Beverages']];
+  var V='?v=2';
+  var B=[[78, 48, 150, 'Breakfast'], [154.8, 50, 162, 'Dinner'], [231.6, 52, 170, 'Meats & Seafood'], [312.4, 48, 152, 'Comfort Food'], [391.2, 46, 158, 'Soups'], [464.0, 48, 148, 'Desserts'], [513.4, 48, 160, 'Beverages']];
   try{
     var st=document.createElement('style');
     st.textContent='.shelf-real{position:relative;display:block;width:100%}'+
@@ -19,9 +19,9 @@
     document.head.appendChild(st);
   }catch(e){}
   window.shelfArt=function(interactive){
-    var h='<span class="shelf-real"><img class="shelf-base" src="shelf-base.webp'+V+'" alt="" width="720" height="176">';
+    var h='<span class="shelf-real"><img class="shelf-base" src="shelf-base.webp'+V+'" alt="" width="720" height="214">';
     B.forEach(function(b,i){
-      var s='left:'+((b[0]-8)/7.2).toFixed(3)+'%;width:'+((b[1]+16)/7.2).toFixed(3)+'%;top:'+((140-b[2])/1.76).toFixed(3)+'%;height:'+((b[2]+4)/1.76).toFixed(3)+'%';
+      var s='left:'+((b[0]-8)/7.2).toFixed(3)+'%;width:'+((b[1]+16)/7.2).toFixed(3)+'%;top:'+((178-b[2])/2.14).toFixed(3)+'%;height:'+((b[2]+4)/2.14).toFixed(3)+'%';
       var img='<img src="shelf-b'+i+'.webp'+V+'" alt="">';
       h+=interactive
         ? '<button type="button" class="shelf-book" data-shelf-cat="'+b[3]+'" style="'+s+'" aria-label="Show '+b[3]+' recipes" title="'+b[3]+'">'+img+'</button>'
