@@ -12,7 +12,10 @@
     'button.shelf-book:hover,button.shelf-book:focus-visible{transform:translateY(-8px)}'+
     'button.shelf-book.out{transform:translateY(-12px)}'+
     'button.shelf-book:focus-visible{outline:2px solid #e0bd78;outline-offset:1px}'+
-    '.shelf-hint{display:block;text-align:center;font-size:.78rem;opacity:.7;margin:-4px 0 12px}';
+    '.shelf-art .shelf-real,.door-art .shelf-real,.shelf-art .shelf-hint,.door-art .shelf-book,.shelf-art span.shelf-book{flex:none;height:auto;background:none;writing-mode:horizontal-tb;display:block;box-shadow:none;border-radius:0;text-transform:none;letter-spacing:normal;font-weight:400;color:inherit}'+
+    '.shelf-art .shelf-real,.door-art .shelf-real{position:relative;width:100%}'+
+    '.shelf-real .shelf-book{position:absolute}'+
+    '.shelf-art .shelf-hint{text-align:center;font-size:.78rem;opacity:.7;margin:-4px 0 12px;width:auto;height:auto;position:static}';
     document.head.appendChild(st);
   }catch(e){}
   window.shelfArt=function(interactive){
