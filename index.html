@@ -303,6 +303,13 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   ol.steps li::before{top:6px;left:0}
   .checklist input{display:none}
 }
+.sub-head{grid-column:1/-1;margin:14px 0 0;font-size:1rem;font-weight:700;color:var(--sage)}
+.sub-head .n{font-weight:500;color:var(--muted);font-size:.85rem}
+.tips{grid-column:1/-1;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 16px;margin:6px 0 4px}
+.tips summary{cursor:pointer;font-weight:700;color:var(--accent)}
+.tips ul{margin:8px 0 2px;padding-left:20px}.tips li{margin:4px 0}
+.shelf-art,.door-art.spines{display:block;height:auto;padding:0;border-bottom:0;margin:10px 0 18px;border-radius:0}
+.shelf-art svg,.door-art.spines svg{display:block;width:100%;height:auto}
 </style>
 </head>
 <body>
@@ -335,6 +342,7 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 
 <script src="recipes.js?v=20261130"></script>
 <script src="cards.js?v=20261130"></script>
+<script src="grilled-cheese.js?v=20261105"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -350,7 +358,7 @@ let wakeLock = null;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const md = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
 const SUGGEST_URL = 'https://tally.so/r/6DeJLe';
-const CAT_ORDER = ['Breakfast','Appetizers','Dinner','Meats & Seafood','Casseroles','Soups','Salads','Breads','Desserts','Beverages','Thanksgiving'];
+const CAT_ORDER = ['Breakfast','Appetizers','Dinner','Meats & Seafood','Casseroles','Comfort Food','Soups','Salads','Breads','Desserts','Beverages','Thanksgiving'];
 const suggestLink = r => SUGGEST_URL + '?recipe=' + encodeURIComponent(r.title);
 const allText = r => [r.title, r.subtitle, r.summary, r.category, r.credit, ...(r.tags||[]), ...r.ingredients.flatMap(g=>g.items)].join(' ').toLowerCase();
 
@@ -422,7 +430,46 @@ function holidaysPage(key){
   window.scrollTo(0,0);
 }
 
-const SPINES = [['#5f7a5a',62,'Soups'],['#b4532a',78,'Breads'],['#2f4858',70,''],['#c9a227',56,'Pies'],['#7a4b3a',84,'Dinners'],['#8fa98a',66,''],['#9c6b30',74,'Sweets'],['#3e5a4a',60,''],['#a8442a',80,'Sides'],['#6b7f99',68,'']].map(([c,hgt,t])=>`<span style="--c:${c};--h:${hgt}%">${t}</span>`).join('');
+const SHELF_SVG=(function(){
+var Y=140,o=[];
+function r(x,y,w,h,f,x2){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+f+'"'+(x2||'')+'/>';}
+function book(x,w,h,c,t,rot){
+  var s='<g transform="translate('+x+' '+(Y-h)+')'+(rot?' rotate('+rot+' 0 '+h+')':'')+'">';
+  s+=r(0,0,w,h,c,' rx="2"')+r(0,0,w,h,'url(#gsp)',' rx="2"');
+  s+=r(0,0,w,5,'#000',' opacity=".22"')+r(0,h-5,w,5,'#000',' opacity=".26"');
+  s+=r(1,7,w-2,1.4,'#e0bd78',' opacity=".75"')+r(1,h-9,w-2,1.4,'#e0bd78',' opacity=".75"');
+  if(t){s+='<text transform="translate('+(w/2+3)+' '+(h/2)+') rotate(-90)" text-anchor="middle" font-family="Georgia,serif" font-size="'+(w>34?9:8)+'" font-weight="700" letter-spacing="1.6" fill="#ecd59b" opacity=".92">'+t+'</text>';}
+  else{s+=r(5,h*.38,w-10,1,'#e0bd78',' opacity=".6"')+r(5,h*.62,w-10,1,'#e0bd78',' opacity=".6"')+'<path d="M'+(w/2)+' '+(h*.46)+' l3 3 l-3 3 l-3 -3z" fill="#e0bd78" opacity=".7"/>';}
+  return s+'</g>';
+}
+function flat(x,y,w,h,c){return r(x,y,w,h,c,' rx="1.5"')+r(x+4,y+h*.2,w-7,h*.6,'#eadfc4')+r(x+4,y+h*.2,w-7,h*.6,'url(#gfl)',' opacity=".5"')+r(x,y,w,h,'url(#gfl)',' rx="1.5" opacity=".6"');}
+o.push('<svg viewBox="0 0 720 176" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">');
+o.push('<defs><linearGradient id="gsp" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".42"/><stop offset=".18" stop-color="#fff" stop-opacity=".10"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset=".85" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></linearGradient>'+
+ '<linearGradient id="gwd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a7449"/><stop offset=".12" stop-color="#7d5a35"/><stop offset=".7" stop-color="#5e4026"/><stop offset="1" stop-color="#4a3019"/></linearGradient>'+
+ '<linearGradient id="gsh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'+
+ '<linearGradient id="gfl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient>'+
+ '<linearGradient id="gcr" x1="0" x2="1"><stop offset="0" stop-color="#7a3a1e"/><stop offset=".35" stop-color="#c9774a"/><stop offset="1" stop-color="#6a3018"/></linearGradient></defs>');
+o.push('<path d="M30 '+(Y-92)+' L36 '+(Y-46)+'" stroke="#c9a06a" stroke-width="3" stroke-linecap="round"/><ellipse cx="29" cy="'+(Y-96)+'" rx="5" ry="8" fill="#c9a06a" transform="rotate(10 29 '+(Y-96)+')"/>');
+o.push('<path d="M40 '+(Y-104)+' L40 '+(Y-46)+'" stroke="#b98c55" stroke-width="3" stroke-linecap="round"/><ellipse cx="40" cy="'+(Y-108)+'" rx="5.5" ry="8" fill="#b98c55"/>');
+o.push('<path d="M50 '+(Y-90)+' L44 '+(Y-46)+'" stroke="#d2ab74" stroke-width="3" stroke-linecap="round"/><ellipse cx="51" cy="'+(Y-94)+'" rx="5" ry="8" fill="#d2ab74" transform="rotate(-10 51 '+(Y-94)+')"/>');
+o.push('<path d="M16 '+Y+' L18 '+(Y-46)+' Q37 '+(Y-40)+' 56 '+(Y-46)+' L58 '+Y+' Z" fill="url(#gcr)"/>');
+o.push('<ellipse cx="37" cy="'+(Y-46)+'" rx="19.5" ry="4.5" fill="#8a4524"/><ellipse cx="37" cy="'+(Y-46.5)+'" rx="16" ry="3" fill="#2a140a"/>');
+o.push(r(17,Y-26,40,9,'#efe3c6',' opacity=".88"')+r(17,Y-26,40,9,'url(#gsp)',' opacity=".7"'));
+var B=[[34,108,'#6b2d2d','SOUPS'],[26,90,'#2f4b3a',''],[38,122,'#c29b3c','BREADS'],[30,100,'#38486a',''],[36,114,'#7b4125','DINNERS'],[24,84,'#d9cba8',''],[36,110,'#3f5a42','PIES'],[32,124,'#8c2f2c','SWEETS'],[27,96,'#2a3b52',''],[38,116,'#a6733a','SIDES'],[30,102,'#5a2b3a',''],[36,112,'#4d6a5e','SALADS'],[26,88,'#c9b27a',''],[34,120,'#6e3b2a','GRILL'],[30,98,'#34455e','']];
+var x=78,i;
+for(i=0;i<B.length;i++){o.push('<ellipse cx="'+(x+B[i][0]/2)+'" cy="'+Y+'" rx="'+(B[i][0]/2+5)+'" ry="3" fill="#000" opacity=".35"/>');o.push(book(x,B[i][0],B[i][1],B[i][2],B[i][3]));x+=B[i][0]+1.5;}
+o.push(book(x+2,30,104,'#566b4a','',8));
+o.push(flat(612,Y-15,96,15,'#6b3a2a')+flat(618,Y-29,84,14,'#2f4b3a')+flat(614,Y-45,90,16,'#a6733a'));
+o.push('<rect x="640" y="'+(Y-74)+'" width="32" height="28" rx="6" fill="#d9d2c0"/><rect x="640" y="'+(Y-74)+'" width="32" height="28" rx="6" fill="url(#gsp)"/><rect x="644" y="'+(Y-80)+'" width="24" height="7" rx="3" fill="#8a6a4a"/>');
+o.push(r(0,Y,720,6,'url(#gsh)',' opacity=".55"'));
+o.push(r(0,Y+1,720,21,'url(#gwd)'));
+o.push(r(0,Y,720,2.5,'#c29a68',' opacity=".75"'));
+for(i=0;i<9;i++){o.push('<path d="M'+((i*89)%640)+' '+(Y+6+(i%3)*5)+' q50 -2.5 110 1" stroke="#000" stroke-opacity=".22" fill="none"/>');}
+o.push(r(0,Y+22,720,2,'#2a190b'));
+o.push(r(0,Y+24,720,14,'url(#gsh)',' opacity=".6"'));
+o.push('</svg>');
+return o.join('');
+})();
 const secCount = k => R.filter(r=>r.section===k).length;
 const catsFor = list => ['All', ...Array.from(new Set(list.map(r=>r.category))).sort((a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j);})];
 
@@ -442,7 +489,7 @@ function home(){
     <div class="doors">
       ${['family','found'].map(k => { const s = SEC[k], p = pick(k); return `
       <a class="door ${k}" href="#/${s.route}">
-        ${k==='family' ? `<span class="door-art box-thumb" aria-hidden="true"><span class="mini-board"><span class="mini-cover"></span></span><span class="mini-post"></span><span class="mini-base"></span></span>` : `<span class="door-art spines" aria-hidden="true">${SPINES}</span>`}
+        ${k==='family' ? `<span class="door-art box-thumb" aria-hidden="true"><span class="mini-board"><span class="mini-cover"></span></span><span class="mini-post"></span><span class="mini-base"></span></span>` : `<span class="door-art spines" aria-hidden="true">${SHELF_SVG}</span>`}
         <span class="door-kicker">${k==='family'?'📇':'📖'} ${secCount(k)} recipes</span>
         <h2>${s.name}</h2>
         <p class="tagline">${s.tagline}</p>
@@ -489,7 +536,7 @@ function sectionPage(k){
           <img class="stand-foot" src="pedestal.webp?v=9" width="250" height="280" alt="">
         </div>
         <div class="stand-text"><h1>${s.name}</h1><p class="tagline">${s.tagline}</p><p>${s.blurb}</p></div>
-      </div>` : `<div class="shelf-art" aria-hidden="true">${SPINES}</div>
+      </div>` : `<div class="shelf-art" aria-hidden="true">${SHELF_SVG}</div>
       <h1>${s.name}</h1>
       <p class="tagline">${s.tagline}</p>
       <p>${s.blurb}</p>`}
@@ -557,12 +604,18 @@ function renderGrid(){
     const order = [...document.querySelectorAll('.chips [data-cat]')].map(b => b.dataset.cat).filter(c => c !== 'All');
     const groups = {}; list.forEach(r => (groups[r.category] = groups[r.category] || []).push(r));
     const keys = Object.keys(groups).sort((x, y) => { const i = order.indexOf(x), j = order.indexOf(y); return (i<0?99:i) - (j<0?99:j); });
-    g.innerHTML = keys.map(c => `<h2 class="cat-head">${esc(c)} <span class="n">${groups[c].length}</span></h2>` + groups[c].map(r => cardHTML(r, false)).join('')).join('');
+    g.innerHTML = keys.map(c => `<h2 class="cat-head">${esc(c)} <span class="n">${groups[c].length}</span></h2>` + subCards(groups[c], false)).join('');
     return;
   }
-  g.innerHTML = list.map(r => cardHTML(r, onHome)).join('');
+  g.innerHTML = subCards(list, onHome);
 }
 
+function subCards(arr,onHome){
+  if(!arr.length||!arr.every(r=>r.category==='Comfort Food')) return arr.map(r=>cardHTML(r,onHome)).join('');
+  const g={}; arr.forEach(r=>(g[r.subtitle]=g[r.subtitle]||[]).push(r));
+  const tips=(window.GC_TIPS||[]).length?'<details class="tips" open><summary>Grilled cheese tips</summary><ul>'+window.GC_TIPS.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></details>':'';
+  return Object.keys(g).map((k,i)=>(i===0?tips:'')+'<h3 class="sub-head">'+esc(k)+' <span class="n">'+g[k].length+'</span></h3>'+g[k].map(r=>cardHTML(r,onHome)).join('')).join('');
+}
 function recipe(slug){
   const r = R.find(x => x.slug === slug); setNav(r ? r.section : '');
   if(!r){ app.innerHTML = `<a class="back" href="#/">← Home</a><p class="empty">Recipe not found.</p>`; return; }
