@@ -6,16 +6,17 @@
     var st=document.createElement('style');
     st.textContent='.shelf-real{position:relative;display:block;width:100%}'+
     '.shelf-real .shelf-base{display:block;width:100%;height:auto}'+
-    '.shelf-book{position:absolute;display:block;margin:0;padding:0;border:0;background:none;cursor:pointer;transition:transform .18s ease;-webkit-tap-highlight-color:transparent}'+
+    '.shelf-book{position:absolute;display:block;margin:0;padding:0;border:0;background:none;cursor:pointer;transform-origin:50% 100%;transition:transform .18s ease,filter .18s ease;-webkit-tap-highlight-color:transparent}'+
     'span.shelf-book{cursor:inherit}'+
     '.shelf-book img{display:block;width:100%;height:100%;pointer-events:none}'+
-    'button.shelf-book:hover,button.shelf-book:focus-visible{transform:translateY(-8px)}'+
-    'button.shelf-book.out{transform:translateY(-12px)}'+
+    'button.shelf-book.out,button.shelf-book:focus-visible{transform:scale(1.06);filter:brightness(1.18) drop-shadow(0 0 7px rgba(224,189,120,.6))}'+
+    '@media (hover:hover){button.shelf-book:hover{transform:scale(1.05);filter:brightness(1.12) drop-shadow(0 0 6px rgba(224,189,120,.5))}}'+
     'button.shelf-book:focus-visible{outline:2px solid #e0bd78;outline-offset:1px}'+
     '.shelf-art .shelf-real,.door-art .shelf-real,.shelf-art .shelf-hint,.door-art .shelf-book,.shelf-art span.shelf-book{flex:none;height:auto;background:none;writing-mode:horizontal-tb;display:block;box-shadow:none;border-radius:0;text-transform:none;letter-spacing:normal;font-weight:400;color:inherit}'+
     '.shelf-art .shelf-real,.door-art .shelf-real{position:relative;width:100%}'+
     '.shelf-real .shelf-book{position:absolute}'+
-    '.shelf-art .shelf-hint{text-align:center;font-size:.78rem;opacity:.7;margin:-4px 0 12px;width:auto;height:auto;position:static}';
+    '.shelf-art .shelf-hint{text-align:center;font-size:.78rem;opacity:.7;margin:-4px 0 12px;width:auto;height:auto;position:static}'+
+    '@media (max-width:640px){.shelf-art{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}.shelf-art::-webkit-scrollbar{display:none}.shelf-art .shelf-real{min-width:640px}.shelf-art .shelf-hint{position:sticky;left:0;width:calc(100vw - 32px);box-sizing:border-box}}';
     document.head.appendChild(st);
   }catch(e){}
   window.shelfArt=function(interactive){
@@ -28,7 +29,7 @@
         : '<span class="shelf-book" style="'+s+'">'+img+'</span>';
     });
     h+='</span>';
-    if(interactive) h+='<span class="shelf-hint">Tap a book to browse that category</span>';
+    if(interactive) h+='<span class="shelf-hint">Swipe the shelf and tap a book to browse that category</span>';
     return h;
   };
   function chip(cat){
