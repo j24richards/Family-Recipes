@@ -343,6 +343,7 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 <script src="recipes.js?v=20261130"></script>
 <script src="cards.js?v=20261130"></script>
 <script src="grilled-cheese.js?v=20261105"></script>
+<script src="shelf.js?v=1"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -489,7 +490,7 @@ function home(){
     <div class="doors">
       ${['family','found'].map(k => { const s = SEC[k], p = pick(k); return `
       <a class="door ${k}" href="#/${s.route}">
-        ${k==='family' ? `<span class="door-art box-thumb" aria-hidden="true"><span class="mini-board"><span class="mini-cover"></span></span><span class="mini-post"></span><span class="mini-base"></span></span>` : `<span class="door-art spines" aria-hidden="true">${SHELF_SVG}</span>`}
+        ${k==='family' ? `<span class="door-art box-thumb" aria-hidden="true"><span class="mini-board"><span class="mini-cover"></span></span><span class="mini-post"></span><span class="mini-base"></span></span>` : `<span class="door-art spines" aria-hidden="true">${window.shelfArt?window.shelfArt(false):SHELF_SVG}</span>`}
         <span class="door-kicker">${k==='family'?'📇':'📖'} ${secCount(k)} recipes</span>
         <h2>${s.name}</h2>
         <p class="tagline">${s.tagline}</p>
@@ -536,7 +537,7 @@ function sectionPage(k){
           <img class="stand-foot" src="pedestal.webp?v=9" width="250" height="280" alt="">
         </div>
         <div class="stand-text"><h1>${s.name}</h1><p class="tagline">${s.tagline}</p><p>${s.blurb}</p></div>
-      </div>` : `<div class="shelf-art" aria-hidden="true">${SHELF_SVG}</div>
+      </div>` : `<div class="shelf-art" aria-hidden="true">${window.shelfArt?window.shelfArt(true):SHELF_SVG}</div>
       <h1>${s.name}</h1>
       <p class="tagline">${s.tagline}</p>
       <p>${s.blurb}</p>`}
