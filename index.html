@@ -349,16 +349,17 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   Family Recipes · some our own, others we've found.
 </div></footer>
 
-<script src="recipes.js?v=20261124"></script>
-<script src="cards.js?v=20261124"></script>
-<script src="gifts.js?v=20261124"></script>
-<script src="cards2.js?v=20261124"></script>
-<script src="cards3.js?v=20261124"></script>
-<script src="cards4.js?v=20261124"></script>
-<script src="cards5.js?v=20261124"></script>
-<script src="cards6.js?v=20261124"></script>
-<script src="cards7.js?v=20261124"></script>
-<script src="cards8.js?v=20261124"></script>
+<script src="recipes.js?v=20261125"></script>
+<script src="cards.js?v=20261125"></script>
+<script src="gifts.js?v=20261125"></script>
+<script src="cards2.js?v=20261125"></script>
+<script src="cards3.js?v=20261125"></script>
+<script src="cards4.js?v=20261125"></script>
+<script src="cards5.js?v=20261125"></script>
+<script src="cards6.js?v=20261125"></script>
+<script src="cards7.js?v=20261125"></script>
+<script src="cards8.js?v=20261125"></script>
+<script src="simply5.js?v=20261125"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -745,15 +746,61 @@ function fmtQty(v){
   if (!whole && !best[1]) return '⅛';
   return (whole || '') + best[1];
 }
+const COUNT_UNITS = [['can','cans'],['stick','sticks'],['square','squares'],['jar','jars'],['package','packages'],['envelope','envelopes'],['box','boxes'],['bar','bars'],['egg yolk','egg yolks'],['egg white','egg whites'],['egg','eggs'],['clove','cloves'],['carton','cartons'],['container','containers'],['bag','bags'],['loaf','loaves'],['slice','slices'],['bottle','bottles'],['head','heads'],['bunch','bunches'],['pint','pints'],['quart','quarts']];
+const TB_FRAC = [0,.25,1/3,.5,2/3,.75];
+// Scale later amounts in the same line ("sifted with 1 tsp soda", "or 1 tsp dried"), but never package sizes in parentheses.
+const QN = String.raw`(?:\d+\s+)?\d+\/\d+|\d*[¼½¾⅓⅔⅛⅜⅝⅞]|\d+(?:\.\d+)?`;
+const INNER_Q = new RegExp(String.raw`(^|[\s,])(${QN})(?:(\s*(?:to|–|-)\s*)(${QN}))?\s+(tsp\.?|tbsp\.?|teaspoons?|tablespoons?|cups?|c\.?|oz\.?|ounces?|lbs?\.?|pounds?|qts?\.?|quarts?|pints?|sticks?)(?![a-z])`, 'g');
+function scaleInner(rest, k){
+  return rest.split(/(\([^)]*\))/).map(part => part.startsWith('(') ? part : part.replace(INNER_Q, (m0, pre, q1, sep, q2, unit) => {
+    const a = takeQty(q1), b = q2 ? takeQty(q2) : null; if (!a) return m0;
+    const v = a.v * k;
+    if (!b && /^(cups?|c\.?)$/i.test(unit)) return pre + cupText(v, !/^cup/i.test(unit));
+    if (!b && /^(tbsp\.?|tablespoons?)$/i.test(unit) && v < 1) return pre + fmtQty(v * 3) + ' tsp';
+    if (b && /^(cups?|c\.?)$/i.test(unit) && b.v * k < .25) return pre + fmtQty(v * 16) + sep + fmtQty(b.v * k * 16) + ' tbsp';
+    if (b && /^cups?$/i.test(unit)) unit = 'cups';
+    if (!b && /^(tsp\.?|teaspoons?)$/i.test(unit) && v >= 3 && Math.abs(v / 3 * 2 - Math.round(v / 3 * 2)) < .01) return pre + fmtQty(v / 3) + ' tbsp';
+    return pre + fmtQty(v) + (b ? sep + fmtQty(b.v * k) : '') + ' ' + unit;
+  })).join('');
+}
+function cupText(v, abbr){
+  // Cups: keep everyday fractions; odd amounts become cups + tablespoons so they can be measured.
+  const whole = Math.floor(v + 1e-9), f = v - whole;
+  if (TB_FRAC.some(x => Math.abs(f - x) < .02) || Math.abs(f - 1) < .02) { const t = fmtQty(v); return t + ' ' + (abbr ? 'c' : (v > 1 ? 'cups' : 'cup')); }
+  if (f * 16 > 15.8) return fmtQty(whole + 1) + ' ' + (abbr ? 'c' : 'cups');
+  if (!whole && f < .25) return fmtQty(f * 16) + ' tbsp';
+  const base = [.75, .5, .25, 0].find(x => x <= f + .01), cups = whole + base, tb = (f - base) * 16;
+  return `${fmtQty(cups)} ${abbr ? 'c' : (cups > 1 ? 'cups' : 'cup')}` + (tb > .2 ? ` + ${fmtQty(tb)} tbsp` : '');
+}
 function scaleItem(it, k){
   if (k === 1) return it;
   const a = takeQty(it); if (!a) return it;
-  let rest = it.slice(a.len), out = fmtQty(a.v * k);
+  const v = a.v * k;
+  // "¾ cup plus 2 tbsp": scale the total, then write it back as cups + tablespoons
+  const pl = it.slice(a.len).match(/^\s+(cups?|c\.?)\s+(?:plus|\+)\s+/i);
+  if (pl) { const rest0 = it.slice(a.len + pl[0].length), b = takeQty(rest0), tu = b && rest0.slice(b.len).match(/^\s+(?:tbsp\.?|T\.?|tablespoons?)(?=[\s,.)]|$)/);
+    if (b && tu) return cupText((a.v + b.v / 16) * k, !/^cup/i.test(pl[1])) + scaleInner(rest0.slice(b.len + tu[0].length), k); }
+  let rest = it.slice(a.len), out = fmtQty(v);
   const r = rest.match(/^(\s*(?:–|-|to)\s*)(?=[\d¼½¾⅓⅔⅛⅜⅝⅞⅕])/);
   if (r) { const b = takeQty(rest.slice(r[0].length)); if (b) { out += r[1] + fmtQty(b.v * k); rest = rest.slice(r[0].length + b.len); } }
-  rest = rest.replace(/^(\s+)(cups?|c\.?)(?=[\s,.)]|$)/i, (m0, sp, u) => /^c/i.test(u) && !/^cup/i.test(u) ? m0 : sp + (a.v * k > 1 ? 'cups' : 'cup'));
-  if (!r && /^\s+cups?\b/i.test(rest) && a.v * k < .25 && a.v * k > 0) { return fmtQty(a.v * k * 16) + rest.replace(/^(\s+)cups?/i, '$1tbsp'); }
-  if (!r && /^\s+(?:tbsp|T)\b/.test(rest) && a.v * k < 1 && a.v * k > 0) { return fmtQty(a.v * k * 3) + rest.replace(/^(\s+)(?:tbsp|T)\.?/, '$1tsp'); }
+  if (!r) {
+    const cu = rest.match(/^\s+(cups?|c\.?)(?=[\s,.)]|$)/i);
+    if (cu) return cupText(v, !/^cup/i.test(cu[1])) + scaleInner(rest.slice(cu[0].length), k);
+    if (/^\s+(?:tbsp\.?|T\.?|tablespoons?)(?=[\s,.)]|$)/.test(rest) && v < 1 && v > 0) return fmtQty(v * 3) + rest.replace(/^(\s+)(?:tbsp\.?|T\.?|tablespoons?)/, '$1tsp');
+    if (/^\s+(?:tsp\.?|teaspoons?)(?=[\s,.)]|$)/.test(rest) && v >= 3 && Math.abs(v / 3 * 2 - Math.round(v / 3 * 2)) < .01) return fmtQty(v / 3) + scaleInner(rest.replace(/^(\s+)(?:tsp\.?|teaspoons?)/, '$1tbsp'), k);
+    if (/^\s+(?:tsp\.?|t\.?|teaspoons?)(?=[\s,.)]|$)/.test(rest) && v < .1) return 'Pinch of' + rest.replace(/^\s+(?:tsp\.?|t\.?|teaspoons?)\s*(of\s+)?/, ' ');
+  } else {
+    rest = rest.replace(/^(\s+)(cups?)(?=[\s,.)]|$)/i, (m0, sp) => sp + 'cups');
+  }
+  // count words (can, stick, egg…) after an optional size in parentheses
+  const plural = v > 1 || !!r;
+  const cw = rest.match(/^(\s*(?:\([^)]*\)\s*)?(?:(?:large|medium|small|extra-large|jumbo|whole|fresh)\s+)?)/i)[0];
+  for (const [one, many] of COUNT_UNITS) {
+    const m = rest.slice(cw.length).match(new RegExp('^(' + many + '|' + one + ')(?![a-z])', 'i'));
+    if (m) { rest = cw + (plural ? many : one) + rest.slice(cw.length + m[0].length); break; }
+  }
+  rest = scaleInner(rest, k);
+  if (/^\s+(?:[a-z-]+\s+)?egg/i.test(rest) && Math.abs(v - Math.round(v)) > .01) rest += ' (beat, then use part)';
   return out + rest;
 }
 function baseServes(r){

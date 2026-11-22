@@ -626,11 +626,11 @@ var R = [
     gaps:[] },
 
   { slug:"7-layer-bars-audrey-boone", title:"7 Layer Bars", category:"Bars & Brownies", credit:"Audrey Boone", serves:"",
-    summary:"Layered no-fuss bars: graham crumbs, coconut, chocolate and butterscotch bits, condensed milk and nuts.",
+    summary:"Seven-layer no-fuss bars: graham crumbs, coconut, chocolate and butterscotch bits, condensed milk and nuts.",
     ingredients:[{items:["¼ cup (½ stick) oleo","1 cup graham cracker crumbs","1 cup shredded coconut","1 package (6 oz) semi-sweet chocolate bits","1 package (6 oz) butterscotch bits","1 can sweetened condensed milk","1 cup chopped nuts"]}],
     steps:["Preheat the oven to 350°. Melt the butter in a 13x9x2-inch pan.","Sprinkle the graham cracker crumbs evenly in the pan and press down. Sprinkle on the coconut, then the chocolate bits, then the butterscotch bits.","Pour the condensed milk evenly over all. Sprinkle on the nuts and press lightly.","Bake for 30 minutes. Cool in the pan on a rack. Cut into 1x2-inch bars."],
-    cardNotes:[],
-    gaps:["The title is hard to read; it looks like “7 Layer Bars.”"] },
+    cardNotes:["The 7 in the title is written so it looks like a 1."],
+    gaps:[] },
 
   { slug:"chocolate-chip-blond-brownies-marge-drown", title:"Chocolate Chip Blond Brownies", category:"Bars & Brownies", credit:"Marge Drown", serves:"",
     summary:"Brown sugar blond brownies with nuts and chocolate chips sprinkled on top.",
@@ -705,11 +705,11 @@ var R = [
 
   { slug:"chocolate-wows", title:"Chocolate Wows", category:"Cookies", credit:"", serves:"about 8 dozen",
     summary:"Thin, shiny, crackled chocolate cookies loaded with chopped chocolate, pecans and chocolate bits.",
-    ingredients:[{items:["⅔ cup flour","½ cup unsweetened cocoa","2 tsp baking powder","½ tsp salt","12 oz semi-sweet chocolate, chopped","1 cup margarine or butter","4 large eggs","1½ cups sugar","3 tsp vanilla","Chopped pecans (amount hard to read)","12 oz chocolate bits"]}],
+    ingredients:[{items:["⅔ cup flour","½ cup unsweetened cocoa","2 tsp baking powder","½ tsp salt","12 oz semi-sweet chocolate, chopped","1 cup margarine or butter","4 large eggs","1½ cups sugar","3 tsp vanilla","4 cups chopped pecans","12 oz chocolate bits"]}],
     steps:["Preheat the oven to 325°. Grease 2 large cookie sheets. In a small bowl combine the flour, cocoa, baking powder and salt.","In a heavy saucepan melt the chopped chocolate and butter over low heat, stirring frequently until smooth. Remove from the heat and cool.","In a large bowl, at medium speed, beat the eggs and sugar until light and lemon-colored, about 2 minutes, scraping the bowl often with a rubber spatula. Reduce the speed to low. Add the cooled chocolate mixture, the flour mixture and the vanilla; beat just until blended. Increase the speed to medium and beat 2 minutes.","With a wooden spoon, stir in the pecans and chocolate bits. Drop by teaspoonfuls about 2 inches apart onto the prepared cookie sheets. With a small metal spatula, spread the batter into 2-inch rounds.","Place the cookie sheets on 2 oven racks and bake about 15 minutes, rotating the sheets between the upper and lower racks halfway through, until the tops are shiny and cracked. Let the cookies remain on the sheets on wire racks 10 minutes to cool slightly. With a wide spatula transfer the cookies to a wire rack to cool completely. Repeat with the remaining batter.","Store in a tightly covered container up to 1 week, or freeze up to 2 months."],
     notes:["Handwritten at the top: “Good — cook on parchment or Silpat — don’t overcook.”"],
     cardNotes:["Source written on the card: Good Housekeeping, Oct 2001","The method continues on the back of the card."],
-    gaps:["The amount of chopped pecans is hard to read (it looks like “¼ c” or “4 c”)."] },
+    gaps:[] },
 
   { slug:"hersheys-premium-chocolate-chunk-cookies", title:"Chocolate Chunk Cookies", category:"Cookies", credit:"", serves:"about 2 dozen",
     summary:"Classic drop cookies with brown sugar and semi-sweet chocolate chunks. Also made as bars.",
