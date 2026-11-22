@@ -30,7 +30,7 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
 a{color:inherit}
 button{font:inherit;color:inherit;cursor:pointer}
-.wrap{max-width:1320px;margin:0 auto;padding:0 16px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
 header.site{border-bottom:1px solid var(--line);background:var(--paper)}
 header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:64px}
 .brand{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:1.35rem;text-decoration:none;display:flex;align-items:center;gap:10px}
@@ -173,7 +173,6 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 .mini-board::before{content:"";display:block;height:48px;border-radius:6px;background:url(hearth.webp) center/cover}
 .mini-cover{flex:1;border-radius:2px;background:url(box-cover.webp) center/cover}
 .door-art.box-thumb::before{content:none}
-.door-art.box-thumb{justify-content:center;height:auto;padding:0}.door-art.box-thumb .mini-cover,.door-art.box-thumb .mini-post,.door-art.box-thumb .mini-base{display:none}.door-art.box-thumb .mini-board{width:100%;max-width:none;height:auto;aspect-ratio:1600/917;padding:0;background:none;box-shadow:0 3px 10px rgba(40,20,10,.35);border-radius:10px;overflow:hidden;display:block}.door-art.box-thumb .mini-board::before{height:100%;border-radius:10px}
 .mini-post{display:block;width:16px;height:16px;background:var(--wood1)}
 .mini-base{display:block;width:90px;height:14px;border-radius:50%;background:var(--wood2);margin-top:-2px}
 /* ---- Scaling, photos, pantry, daily pick ---- */
@@ -188,6 +187,21 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 .serv b{min-width:1.6em;text-align:center}
 .scale-note{flex-basis:100%;margin:0;color:var(--muted);font-size:.82rem}
 .photo-btn{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+.boxlabel{white-space:nowrap;font-weight:600;color:var(--wood2,#7a5236);text-decoration:underline;text-decoration-color:rgba(122,82,54,.35);text-underline-offset:3px}
+.box-banner{display:flex;align-items:center;gap:14px;margin:18px 0 0;padding:16px 20px;border-radius:16px;background:var(--paper);border:1px solid var(--line);text-decoration:none;color:inherit;box-shadow:var(--shadow)}
+.box-banner:hover{border-color:var(--accent)}
+.box-banner .em{font-size:1.8rem}
+.box-banner .sub{display:block;font-size:.9rem;color:var(--muted);margin-top:2px}
+.box-banner .door-go{margin:0 0 0 auto;padding:0;white-space:nowrap}
+@media (max-width:560px){.box-banner{flex-wrap:wrap}.box-banner .door-go{margin:4px 0 0}}
+.box-tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;margin-top:14px}
+.box-tab{flex:0 0 auto;text-decoration:none;color:var(--ink);background:#f4e9d4;border:1px solid #d9c3a0;border-bottom:none;border-radius:12px 12px 0 0;padding:9px 14px 8px;font-weight:600;font-size:.93rem;white-space:nowrap}
+.box-tab .n{font-weight:400;opacity:.6;margin-left:5px;font-size:.82rem}
+.box-tab[aria-selected=true]{background:var(--paper);color:var(--accent);box-shadow:0 -2px 0 var(--accent) inset}
+.sec-head.boxa .box-note{color:var(--muted);font-size:.95rem}
+.box-sec-head{grid-column:1/-1;margin:28px 0 0;font-size:1.5rem;font-family:inherit}.box-sec-head:first-child{margin-top:4px}
+.box-sec-head .n{font-size:.85rem;font-weight:400;opacity:.6;margin-left:6px}
+@media (prefers-color-scheme:dark){.box-tab{background:#3a2e22;border-color:#5a4632;color:inherit}.box-tab[aria-selected=true]{background:var(--paper)}}
 .origcard img{display:block;width:100%;height:auto;border-radius:6px;box-shadow:0 3px 10px rgba(0,0,0,.25);transform:rotate(-.6deg);border:1px solid var(--line)}
 .gallery{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px;margin:6px 0 4px}
 .gallery .photo-btn{width:auto;flex:0 0 auto}
@@ -304,14 +318,6 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   ol.steps li::before{top:6px;left:0}
   .checklist input{display:none}
 }
-.sub-head{grid-column:1/-1;margin:14px 0 0;font-size:1rem;font-weight:700;color:var(--sage)}
-.sub-head .n{font-weight:500;color:var(--muted);font-size:.85rem}
-.tips{grid-column:1/-1;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 16px;margin:6px 0 4px}
-.tips summary{cursor:pointer;font-weight:700;color:var(--accent)}
-.tips ul{margin:8px 0 2px;padding-left:20px}.tips li{margin:4px 0}
-.shelf-art,.door-art.spines{display:block;height:auto;padding:0;border-bottom:0;margin:10px 0 18px;border-radius:0}
-.shelf-art svg,.door-art.spines svg{display:block;width:100%;height:auto}
-  .shelf-art{max-width:980px;margin-left:auto;margin-right:auto}
 </style>
 </head>
 <body>
@@ -329,6 +335,7 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   </div>
   <nav class="secnav wrap" aria-label="Sections">
     <a href="#/family" data-sec="family"><span class="long">Family </span>Recipe Box</a>
+    <a href="#/box-a" data-sec="boxa">Mom’s Box A</a>
     <a href="#/shelf" data-sec="found"><span class="long">The </span>Cookbook Shelf</a>
     <a href="#/holidays" data-sec="holidays" id="holNav">Holidays</a>
   </nav>
@@ -342,10 +349,16 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   Family Recipes · some our own, others we've found.
 </div></footer>
 
-<script src="recipes.js?v=20261130"></script>
-<script src="cards.js?v=20261130"></script>
-<script src="grilled-cheese.js?v=20261105"></script>
-<script src="shelf.js?v=5"></script>
+<script src="recipes.js?v=20261124"></script>
+<script src="cards.js?v=20261124"></script>
+<script src="gifts.js?v=20261124"></script>
+<script src="cards2.js?v=20261124"></script>
+<script src="cards3.js?v=20261124"></script>
+<script src="cards4.js?v=20261124"></script>
+<script src="cards5.js?v=20261124"></script>
+<script src="cards6.js?v=20261124"></script>
+<script src="cards7.js?v=20261124"></script>
+<script src="cards8.js?v=20261124"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -361,9 +374,12 @@ let wakeLock = null;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const md = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
 const SUGGEST_URL = 'https://tally.so/r/6DeJLe';
-const CAT_ORDER = ['Breakfast','Appetizers','Dinner','Meats & Seafood','Casseroles','Comfort Food','Soups','Salads','Breads','Desserts','Beverages','Thanksgiving'];
+const CAT_ORDER = ['Breakfast','Appetizers','Dinner','Meats & Seafood','Casseroles','Soups','Salads','Sides','Breads','Cookies','Bars & Brownies','Cakes','Pies & Crisps','Candy & Treats','Desserts','Beverages','Gift Ideas','Tips','Thanksgiving'];
+const SWEETS = ['Cookies','Bars & Brownies','Cakes','Pies & Crisps','Candy & Treats','Desserts'];
+const BOX_SECTIONS = ['Gift Ideas','Appetizers & Dips','Biscuits & Breads','Cookies & Cakes'];
+const boxKey = s => s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const suggestLink = r => SUGGEST_URL + '?recipe=' + encodeURIComponent(r.title);
-const allText = r => [r.title, r.subtitle, r.summary, r.category, r.credit, ...(r.tags||[]), ...r.ingredients.flatMap(g=>g.items)].join(' ').toLowerCase();
+const allText = r => [r.title, r.subtitle, r.summary, r.category, SWEETS.includes(r.category)?'dessert':'', r.boxSection, r.credit, ...(r.tags||[]), ...r.ingredients.flatMap(g=>g.items)].join(' ').toLowerCase();
 
 function shopList(){ return store.get('shop', []); }
 function favList(){ return store.get('fav', []); }
@@ -433,46 +449,7 @@ function holidaysPage(key){
   window.scrollTo(0,0);
 }
 
-const SHELF_SVG=(function(){
-var Y=140,o=[];
-function r(x,y,w,h,f,x2){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+f+'"'+(x2||'')+'/>';}
-function book(x,w,h,c,t,rot){
-  var s='<g transform="translate('+x+' '+(Y-h)+')'+(rot?' rotate('+rot+' 0 '+h+')':'')+'">';
-  s+=r(0,0,w,h,c,' rx="2"')+r(0,0,w,h,'url(#gsp)',' rx="2"');
-  s+=r(0,0,w,5,'#000',' opacity=".22"')+r(0,h-5,w,5,'#000',' opacity=".26"');
-  s+=r(1,7,w-2,1.4,'#e0bd78',' opacity=".75"')+r(1,h-9,w-2,1.4,'#e0bd78',' opacity=".75"');
-  if(t){s+='<text transform="translate('+(w/2+3)+' '+(h/2)+') rotate(-90)" text-anchor="middle" font-family="Georgia,serif" font-size="'+(w>34?9:8)+'" font-weight="700" letter-spacing="1.6" fill="#ecd59b" opacity=".92">'+t+'</text>';}
-  else{s+=r(5,h*.38,w-10,1,'#e0bd78',' opacity=".6"')+r(5,h*.62,w-10,1,'#e0bd78',' opacity=".6"')+'<path d="M'+(w/2)+' '+(h*.46)+' l3 3 l-3 3 l-3 -3z" fill="#e0bd78" opacity=".7"/>';}
-  return s+'</g>';
-}
-function flat(x,y,w,h,c){return r(x,y,w,h,c,' rx="1.5"')+r(x+4,y+h*.2,w-7,h*.6,'#eadfc4')+r(x+4,y+h*.2,w-7,h*.6,'url(#gfl)',' opacity=".5"')+r(x,y,w,h,'url(#gfl)',' rx="1.5" opacity=".6"');}
-o.push('<svg viewBox="0 0 720 176" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">');
-o.push('<defs><linearGradient id="gsp" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".42"/><stop offset=".18" stop-color="#fff" stop-opacity=".10"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset=".85" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></linearGradient>'+
- '<linearGradient id="gwd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a7449"/><stop offset=".12" stop-color="#7d5a35"/><stop offset=".7" stop-color="#5e4026"/><stop offset="1" stop-color="#4a3019"/></linearGradient>'+
- '<linearGradient id="gsh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'+
- '<linearGradient id="gfl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient>'+
- '<linearGradient id="gcr" x1="0" x2="1"><stop offset="0" stop-color="#7a3a1e"/><stop offset=".35" stop-color="#c9774a"/><stop offset="1" stop-color="#6a3018"/></linearGradient></defs>');
-o.push('<path d="M30 '+(Y-92)+' L36 '+(Y-46)+'" stroke="#c9a06a" stroke-width="3" stroke-linecap="round"/><ellipse cx="29" cy="'+(Y-96)+'" rx="5" ry="8" fill="#c9a06a" transform="rotate(10 29 '+(Y-96)+')"/>');
-o.push('<path d="M40 '+(Y-104)+' L40 '+(Y-46)+'" stroke="#b98c55" stroke-width="3" stroke-linecap="round"/><ellipse cx="40" cy="'+(Y-108)+'" rx="5.5" ry="8" fill="#b98c55"/>');
-o.push('<path d="M50 '+(Y-90)+' L44 '+(Y-46)+'" stroke="#d2ab74" stroke-width="3" stroke-linecap="round"/><ellipse cx="51" cy="'+(Y-94)+'" rx="5" ry="8" fill="#d2ab74" transform="rotate(-10 51 '+(Y-94)+')"/>');
-o.push('<path d="M16 '+Y+' L18 '+(Y-46)+' Q37 '+(Y-40)+' 56 '+(Y-46)+' L58 '+Y+' Z" fill="url(#gcr)"/>');
-o.push('<ellipse cx="37" cy="'+(Y-46)+'" rx="19.5" ry="4.5" fill="#8a4524"/><ellipse cx="37" cy="'+(Y-46.5)+'" rx="16" ry="3" fill="#2a140a"/>');
-o.push(r(17,Y-26,40,9,'#efe3c6',' opacity=".88"')+r(17,Y-26,40,9,'url(#gsp)',' opacity=".7"'));
-var B=[[34,108,'#6b2d2d','SOUPS'],[26,90,'#2f4b3a',''],[38,122,'#c29b3c','BREADS'],[30,100,'#38486a',''],[36,114,'#7b4125','DINNERS'],[24,84,'#d9cba8',''],[36,110,'#3f5a42','PIES'],[32,124,'#8c2f2c','SWEETS'],[27,96,'#2a3b52',''],[38,116,'#a6733a','SIDES'],[30,102,'#5a2b3a',''],[36,112,'#4d6a5e','SALADS'],[26,88,'#c9b27a',''],[34,120,'#6e3b2a','GRILL'],[30,98,'#34455e','']];
-var x=78,i;
-for(i=0;i<B.length;i++){o.push('<ellipse cx="'+(x+B[i][0]/2)+'" cy="'+Y+'" rx="'+(B[i][0]/2+5)+'" ry="3" fill="#000" opacity=".35"/>');o.push(book(x,B[i][0],B[i][1],B[i][2],B[i][3]));x+=B[i][0]+1.5;}
-o.push(book(x+2,30,104,'#566b4a','',8));
-o.push(flat(612,Y-15,96,15,'#6b3a2a')+flat(618,Y-29,84,14,'#2f4b3a')+flat(614,Y-45,90,16,'#a6733a'));
-o.push('<rect x="640" y="'+(Y-74)+'" width="32" height="28" rx="6" fill="#d9d2c0"/><rect x="640" y="'+(Y-74)+'" width="32" height="28" rx="6" fill="url(#gsp)"/><rect x="644" y="'+(Y-80)+'" width="24" height="7" rx="3" fill="#8a6a4a"/>');
-o.push(r(0,Y,720,6,'url(#gsh)',' opacity=".55"'));
-o.push(r(0,Y+1,720,21,'url(#gwd)'));
-o.push(r(0,Y,720,2.5,'#c29a68',' opacity=".75"'));
-for(i=0;i<9;i++){o.push('<path d="M'+((i*89)%640)+' '+(Y+6+(i%3)*5)+' q50 -2.5 110 1" stroke="#000" stroke-opacity=".22" fill="none"/>');}
-o.push(r(0,Y+22,720,2,'#2a190b'));
-o.push(r(0,Y+24,720,14,'url(#gsh)',' opacity=".6"'));
-o.push('</svg>');
-return o.join('');
-})();
+const SPINES = [['#5f7a5a',62,'Soups'],['#b4532a',78,'Breads'],['#2f4858',70,''],['#c9a227',56,'Pies'],['#7a4b3a',84,'Dinners'],['#8fa98a',66,''],['#9c6b30',74,'Sweets'],['#3e5a4a',60,''],['#a8442a',80,'Sides'],['#6b7f99',68,'']].map(([c,hgt,t])=>`<span style="--c:${c};--h:${hgt}%">${t}</span>`).join('');
 const secCount = k => R.filter(r=>r.section===k).length;
 const catsFor = list => ['All', ...Array.from(new Set(list.map(r=>r.category))).sort((a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j);})];
 
@@ -492,7 +469,7 @@ function home(){
     <div class="doors">
       ${['family','found'].map(k => { const s = SEC[k], p = pick(k); return `
       <a class="door ${k}" href="#/${s.route}">
-        ${k==='family' ? `<span class="door-art box-thumb" aria-hidden="true"><span class="mini-board"><span class="mini-cover"></span></span><span class="mini-post"></span><span class="mini-base"></span></span>` : `<span class="door-art spines" aria-hidden="true">${window.shelfArt?window.shelfArt(false):SHELF_SVG}</span>`}
+        ${k==='family' ? `<span class="door-art box-thumb" aria-hidden="true"><span class="mini-board"><span class="mini-cover"></span></span><span class="mini-post"></span><span class="mini-base"></span></span>` : `<span class="door-art spines" aria-hidden="true">${SPINES}</span>`}
         <span class="door-kicker">${k==='family'?'📇':'📖'} ${secCount(k)} recipes</span>
         <h2>${s.name}</h2>
         <p class="tagline">${s.tagline}</p>
@@ -502,6 +479,7 @@ function home(){
       </a>`; }).join('')}
     </div>
     ${(()=>{ const u = HOLIDAY_BY_KEY[upcomingHoliday()]; return `<a class="hol-banner" href="#/holidays/${u.key}"><span class="hol-emoji">${u.emoji}</span><span><strong>${esc(u.name)} is coming up.</strong> See what we make, or tell us yours.</span><span class="door-go">${HOLIDAYS.length < 2 ? esc(u.name) : 'Holidays'} →</span></a>`; })()}
+    <a class="box-banner" href="#/box-a"><span class="em">📇</span><span><strong>Mom’s Recipe Box · Box A</strong><span class="sub">${R.filter(r=>r.box==='A').length} cards, filed the way they are in the box.</span></span><span class="door-go">Open Box A →</span></a>
     <a class="pantry-banner" href="#/pantry"><span class="em">🥕</span><span><strong>What's in the fridge?</strong><span class="sub">Tap the ingredients you have and see what you can make.</span></span></a>
     <label class="search" aria-label="Search all recipes" style="display:block;margin:28px 0 0">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -539,7 +517,8 @@ function sectionPage(k){
           <img class="stand-foot" src="pedestal.webp?v=9" width="250" height="280" alt="">
         </div>
         <div class="stand-text"><h1>${s.name}</h1><p class="tagline">${s.tagline}</p><p>${s.blurb}</p></div>
-      </div>` : `<div class="shelf-art" aria-hidden="true">${window.shelfArt?window.shelfArt(true):SHELF_SVG}</div>
+      </div>
+      <a class="box-banner" href="#/box-a"><span class="em">📇</span><span><strong>Mom’s Recipe Box · Box A</strong><span class="sub">Browse the cards the way they’re filed in the box: ${BOX_SECTIONS.join(', ')}.</span></span><span class="door-go">Open Box A →</span></a>` : `<div class="shelf-art" aria-hidden="true">${SPINES}</div>
       <h1>${s.name}</h1>
       <p class="tagline">${s.tagline}</p>
       <p>${s.blurb}</p>`}
@@ -566,6 +545,45 @@ function sectionPage(k){
     renderGrid();
   });
   renderGrid();
+  window.scrollTo(0,0);
+}
+
+function boxPage(key){
+  setNav('boxa');
+  const box = R.filter(r=>r.box==='A');
+  const secs = BOX_SECTIONS.filter(x=>box.some(r=>r.boxSection===x));
+  const cur = secs.find(x=>boxKey(x)===key) || null;
+  document.title = 'Mom’s Recipe Box · Box A' + (cur ? ' · '+cur : '') + ' · Family Recipes';
+  app.innerHTML = `
+    <section class="sec-head boxa">
+      <a class="back" href="#/family">← Family Recipe Box</a>
+      <h1>Mom’s Recipe Box · Box A</h1>
+      <p class="tagline">Filed just the way they are in the box</p>
+      <p class="box-note">Each tab matches a divider in Mom’s box, so you can find the original card. On the rest of the site, the same recipes are sorted by what they are (Beverages, Appetizers, Cookies, Cakes and so on).</p>
+      <div class="box-tabs" role="tablist" aria-label="Box A sections">
+        <a class="box-tab" role="tab" aria-selected="${!cur}" href="#/box-a">All<span class="n">${box.length}</span></a>
+        ${secs.map(x=>`<a class="box-tab" role="tab" aria-selected="${x===cur}" href="#/box-a/${boxKey(x)}">${esc(x)}<span class="n">${box.filter(r=>r.boxSection===x).length}</span></a>`).join('')}
+      </div>
+    </section>
+    <div class="controls">
+      <label class="search" aria-label="Search Box A">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search ${cur ? esc(cur) : 'Box A'}…" value="${esc(state.q)}">
+      </label>
+    </div>
+    <div class="grid" id="grid"></div>`;
+  const catSort = (a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j)||a.localeCompare(b);};
+  const draw = () => {
+    const terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+    const list = box.filter(r => (!cur || r.boxSection===cur) && terms.every(t=>allText(r).includes(t))).sort((a,b)=>a.title.localeCompare(b.title));
+    const g = document.getElementById('grid');
+    if (!list.length) { g.innerHTML = `<p class="empty">No cards match that search.</p>`; return; }
+    const block = items => { const groups = {}; items.forEach(r=>(groups[r.category]=groups[r.category]||[]).push(r));
+      return Object.keys(groups).sort(catSort).map(c=>`<h3 class="cat-head">${esc(c)} <span class="n">${groups[c].length}</span></h3>` + groups[c].map(r=>cardHTML(r,false)).join('')).join(''); };
+    g.innerHTML = cur ? block(list) : secs.map(x=>{ const items = list.filter(r=>r.boxSection===x); return items.length ? `<h2 class="box-sec-head">📇 ${esc(x)} <span class="n">${items.length}</span></h2>` + block(items) : ''; }).join('');
+  };
+  document.getElementById('q').addEventListener('input', e => { state.q = e.target.value; draw(); });
+  draw();
   window.scrollTo(0,0);
 }
 
@@ -607,18 +625,12 @@ function renderGrid(){
     const order = [...document.querySelectorAll('.chips [data-cat]')].map(b => b.dataset.cat).filter(c => c !== 'All');
     const groups = {}; list.forEach(r => (groups[r.category] = groups[r.category] || []).push(r));
     const keys = Object.keys(groups).sort((x, y) => { const i = order.indexOf(x), j = order.indexOf(y); return (i<0?99:i) - (j<0?99:j); });
-    g.innerHTML = keys.map(c => `<h2 class="cat-head">${esc(c)} <span class="n">${groups[c].length}</span></h2>` + subCards(groups[c], false)).join('');
+    g.innerHTML = keys.map(c => `<h2 class="cat-head">${esc(c)} <span class="n">${groups[c].length}</span></h2>` + groups[c].map(r => cardHTML(r, false)).join('')).join('');
     return;
   }
-  g.innerHTML = subCards(list, onHome);
+  g.innerHTML = list.map(r => cardHTML(r, onHome)).join('');
 }
 
-function subCards(arr,onHome){
-  if(!arr.length||!arr.every(r=>r.category==='Comfort Food')) return arr.map(r=>cardHTML(r,onHome)).join('');
-  const g={}; arr.forEach(r=>(g[r.subtitle]=g[r.subtitle]||[]).push(r));
-  const tips=(window.GC_TIPS||[]).length?'<details class="tips" open><summary>Grilled cheese tips</summary><ul>'+window.GC_TIPS.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></details>':'';
-  return Object.keys(g).map((k,i)=>(i===0?tips:'')+'<h3 class="sub-head">'+esc(k)+' <span class="n">'+g[k].length+'</span></h3>'+g[k].map(r=>cardHTML(r,onHome)).join('')).join('');
-}
 function recipe(slug){
   const r = R.find(x => x.slug === slug); setNav(r ? r.section : '');
   if(!r){ app.innerHTML = `<a class="back" href="#/">← Home</a><p class="empty">Recipe not found.</p>`; return; }
@@ -633,7 +645,7 @@ function recipe(slug){
       <h1>${esc(r.title)}</h1>
       ${r.subtitle ? `<p class="sub">${esc(r.subtitle)}</p>` : ''}
       ${r.fromBox ? '' : `<p class="summary">${esc(r.summary)}</p>`}
-      ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `${r.section==='found' ? 'From' : 'From the kitchen of'} <strong>${esc(r.credit)}</strong>${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}</p>` : ''}
+      ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `${r.section==='found' ? 'From' : 'From the kitchen of'} <strong>${esc(r.credit)}</strong>${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}${r.box ? ` · <a class="boxlabel" href="#/box-a${r.boxSection ? '/'+boxKey(r.boxSection) : ''}">Mom’s recipe box · Box ${esc(r.box)}${r.boxSection ? ' · '+esc(r.boxSection) : ''}</a>` : ''}</p>` : ''}
       ${r.source ? `<p class="credit">Source: ${r.source.url ? `<a href="${esc(r.source.url)}" target="_blank" rel="noopener">${esc(r.source.text)}</a>` : esc(r.source.text)}</p>` : ''}
       ${(r.holidays||[]).length ? `<p class="hol-line">${r.holidays.map(x=>HOLIDAY_BY_KEY[x]?`<a href="#/holidays/${x}">${HOLIDAY_BY_KEY[x].emoji} ${esc(HOLIDAY_BY_KEY[x].name)}</a>`:"").join(" ")}</p>` : ""}
       <div class="facts">${r.serves?`<span><strong>Serves</strong> ${esc(r.serves)}</span>`:''}${r.time?`<span>${esc(r.time)}</span>`:''}${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
@@ -866,18 +878,18 @@ function pickList(w){
     if (period === 'morning') { if (cat === 'Breakfast') add(wkend ? 5 : 4, wkend ? 'a weekend morning, perfect for breakfast' : 'a good morning for breakfast'); else if (cat === 'Beverages') add(1); }
     else { if (cat === 'Breakfast') s -= 3; }
     if (period === 'midday') { if (['Soups','Salads','Breads','Appetizers','Dinner'].includes(cat)) add(1.5, 'a good lunchtime pick'); }
-    if (period === 'evening') { if (['Dinner','Meats & Seafood','Casseroles','Soups'].includes(cat)) add(2, 'what\'s for dinner tonight'); if (cat === 'Desserts') add(.8, 'something sweet after dinner'); }
-    if (period !== 'evening' && cat === 'Desserts') s -= .5;
+    if (period === 'evening') { if (['Dinner','Meats & Seafood','Casseroles','Soups'].includes(cat)) add(2, 'what\'s for dinner tonight'); if (SWEETS.includes(cat)) add(.8, 'something sweet after dinner'); }
+    if (period !== 'evening' && SWEETS.includes(cat)) s -= .5;
     if (w) {
       const where = `${w.t}°F${w.wx && w.wx!=='clear' && w.wx!=='cloudy' ? ' and '+w.wx : ''} in Amesbury`;
       if (cold) { if (cat === 'Soups') add(3.5, `${where}, soup weather`); if (cat === 'Casseroles') add(2.5, `${where}, comfort-food weather`); if (cat === 'Breads') add(1.2, `${where}, a good day to bake`); if (cat === 'Salads') s -= 2; if (cat === 'Beverages') add(1, `${where}, something warm`); }
       else if (cool) { if (cat === 'Soups' || cat === 'Casseroles') add(1.2, `a cool ${w.t}°F day`); }
       if (hot) { if (cat === 'Salads') add(3.5, `${where}, keep it light`); if (cat === 'Beverages') add(3, `${where}, time for something cold`); if (cat === 'Soups') s -= 2.5; if (cat === 'Casseroles') s -= 2; if (cat === 'Meats & Seafood') add(1, `${where}, good grilling weather`); }
-      if (wet) { if (cat === 'Soups' || cat === 'Casseroles') add(1.5, `${w.wx} out, stay in and cook`); if (cat === 'Breads' || cat === 'Desserts') add(1, `${w.wx} out, a good day to bake`); }
+      if (wet) { if (cat === 'Soups' || cat === 'Casseroles') add(1.5, `${w.wx} out, stay in and cook`); if (cat === 'Breads' || SWEETS.includes(cat)) add(1, `${w.wx} out, a good day to bake`); }
     }
     if (SEASON_RE[season].test(txt)) add(2, { fall:'fall flavors are in season', winter:'a winter-kitchen favorite', spring:'a fresh spring flavor', summer:'a taste of summer' }[season]);
     if (hol && (r.holidays||[]).includes(hk)) add(5, `${hol.name} is coming up`);
-    if (wkend && (cat === 'Breads' || cat === 'Desserts' || cat === 'Casseroles')) add(.8, 'a weekend for slow cooking');
+    if (wkend && (cat === 'Breads' || SWEETS.includes(cat) || cat === 'Casseroles')) add(.8, 'a weekend for slow cooking');
     if (favs.includes(r.slug)) add(1, 'one of your favorites');
     s += (hash(r.slug + dateKey) % 100) / 100 * 1.6;
     return { r, s, why: why.sort((a,b) => b[0]-a[0]).map(x => x[1]) };
@@ -915,6 +927,7 @@ function route(){
   else if(h === 'shopping') { setNav(''); shopping(); }
   else if(h === 'favorites') favoritesPage();
   else if(h === 'pantry') pantryPage();
+  else if(h === 'box-a' || h.startsWith('box-a/')) boxPage(h.split('/')[1]);
   else if(h === 'family') sectionPage('family');
   else if(h === 'shelf') sectionPage('found');
   else if(h === 'holidays' || h.startsWith('holidays/')) holidaysPage(h.split('/')[1]);
@@ -956,7 +969,5 @@ holNavLabel();
 route();
 })();
 </script>
-<a class="btn primary fab" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener" aria-label="Add a recipe: snap a photo, upload a screenshot, or type it in"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="fab-t">Add a recipe</span></a>
-<style>.fab{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:60;display:inline-flex;align-items:center;gap:8px;padding:14px 20px;border-radius:999px;font-size:1rem;font-weight:700;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.35)}.fab:hover{transform:translateY(-2px)}@media (max-width:520px){.fab{padding:14px 16px}}@media print{.fab{display:none}}</style>
 </body>
 </html>
