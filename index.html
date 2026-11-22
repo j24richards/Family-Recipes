@@ -349,17 +349,17 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   Family Recipes · some our own, others we've found.
 </div></footer>
 
-<script src="recipes.js?v=20261125"></script>
-<script src="cards.js?v=20261125"></script>
-<script src="gifts.js?v=20261125"></script>
-<script src="cards2.js?v=20261125"></script>
-<script src="cards3.js?v=20261125"></script>
-<script src="cards4.js?v=20261125"></script>
-<script src="cards5.js?v=20261125"></script>
-<script src="cards6.js?v=20261125"></script>
-<script src="cards7.js?v=20261125"></script>
-<script src="cards8.js?v=20261125"></script>
-<script src="simply5.js?v=20261125"></script>
+<script src="recipes.js?v=20261126"></script>
+<script src="cards.js?v=20261126"></script>
+<script src="gifts.js?v=20261126"></script>
+<script src="cards2.js?v=20261126"></script>
+<script src="cards3.js?v=20261126"></script>
+<script src="cards4.js?v=20261126"></script>
+<script src="cards5.js?v=20261126"></script>
+<script src="cards6.js?v=20261126"></script>
+<script src="cards7.js?v=20261126"></script>
+<script src="cards8.js?v=20261126"></script>
+<script src="simply5.js?v=20261126"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -748,11 +748,11 @@ function fmtQty(v){
 }
 const COUNT_UNITS = [['can','cans'],['stick','sticks'],['square','squares'],['jar','jars'],['package','packages'],['envelope','envelopes'],['box','boxes'],['bar','bars'],['egg yolk','egg yolks'],['egg white','egg whites'],['egg','eggs'],['clove','cloves'],['carton','cartons'],['container','containers'],['bag','bags'],['loaf','loaves'],['slice','slices'],['bottle','bottles'],['head','heads'],['bunch','bunches'],['pint','pints'],['quart','quarts']];
 const TB_FRAC = [0,.25,1/3,.5,2/3,.75];
-// Scale later amounts in the same line ("sifted with 1 tsp soda", "or 1 tsp dried"), but never package sizes in parentheses.
+// Scale later amounts in the same line ("sifted with 1 tsp soda", "or 1 tsp dried", "(½ cup)"), but never package sizes like "(12 oz)".
 const QN = String.raw`(?:\d+\s+)?\d+\/\d+|\d*[¼½¾⅓⅔⅛⅜⅝⅞]|\d+(?:\.\d+)?`;
-const INNER_Q = new RegExp(String.raw`(^|[\s,])(${QN})(?:(\s*(?:to|–|-)\s*)(${QN}))?\s+(tsp\.?|tbsp\.?|teaspoons?|tablespoons?|cups?|c\.?|oz\.?|ounces?|lbs?\.?|pounds?|qts?\.?|quarts?|pints?|sticks?)(?![a-z])`, 'g');
+const INNER_Q = new RegExp(String.raw`(^|[\s,(])(${QN})(?:(\s*(?:to|–|-)\s*)(${QN}))?\s+(tsp\.?|tbsp\.?|teaspoons?|tablespoons?|cups?|c\.?|oz\.?|ounces?|lbs?\.?|pounds?|qts?\.?|quarts?|pints?|sticks?)(?![a-z])`, 'g');
 function scaleInner(rest, k){
-  return rest.split(/(\([^)]*\))/).map(part => part.startsWith('(') ? part : part.replace(INNER_Q, (m0, pre, q1, sep, q2, unit) => {
+  return rest.split(/(\([^)]*\))/).map(part => (part.startsWith('(') && /oz|ounce|lb|pound|inch|"|”|\bg\b|ml|quart|qt/i.test(part)) ? part : part.replace(INNER_Q, (m0, pre, q1, sep, q2, unit) => {
     const a = takeQty(q1), b = q2 ? takeQty(q2) : null; if (!a) return m0;
     const v = a.v * k;
     if (!b && /^(cups?|c\.?)$/i.test(unit)) return pre + cupText(v, !/^cup/i.test(unit));
