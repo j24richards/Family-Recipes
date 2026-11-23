@@ -190,6 +190,13 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 .boxlabel{white-space:nowrap;font-weight:600;color:var(--wood2,#7a5236);text-decoration:underline;text-decoration-color:rgba(122,82,54,.35);text-underline-offset:3px}
 .box-banner{display:flex;align-items:center;gap:14px;margin:18px 0 0;padding:16px 20px;border-radius:16px;background:var(--paper);border:1px solid var(--line);text-decoration:none;color:inherit;box-shadow:var(--shadow)}
 .box-banner:hover{border-color:var(--accent)}
+.tag.fam{background:#f3e3d3;color:#7a4a22}
+.fam-note{margin:0 0 12px;padding:12px 16px;border-radius:12px;background:#f8ecdf;border:1px solid #e6cdb2;color:#5a3517;font-size:.95rem}
+.box-switch{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px}
+.box-pick{text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:600;font-size:.92rem;background:var(--paper)}
+.box-pick .n{font-weight:400;opacity:.6;margin-left:4px}
+.box-pick[aria-selected=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme:dark){.tag.fam{background:#3a2a1c;color:#e8c39a}.fam-note{background:#2e2116;border-color:#4d3725;color:#ecd3b6}}
 .tag.gf{background:#e6efd9;color:#4b6a2a}
 .gf-note{margin:0 0 18px;padding:12px 16px;border-radius:12px;background:#eef4e4;border:1px solid #cfdcb8;color:#33461d;font-size:.95rem}
 .gf-note a{color:inherit}
@@ -352,7 +359,7 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   </div>
   <nav class="secnav wrap" aria-label="Sections">
     <a href="#/family" data-sec="family"><span class="long">Family </span>Recipe Box</a>
-    <a href="#/box-a" data-sec="boxa">Mom’s Box A</a>
+    <a href="#/box-a" data-sec="boxa">Mom’s Recipe Boxes</a>
     <a href="#/shelf" data-sec="found"><span class="long">The </span>Cookbook Shelf</a>
     <a href="#/gluten-free" data-sec="gf">Gluten-Free</a>
     <a href="#/holidays" data-sec="holidays" id="holNav">Holidays</a>
@@ -379,7 +386,9 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 <script src="cards8.js?v=20261126"></script>
 <script src="simply5.js?v=20261126"></script>
 <script src="breadbowls.js?v=20261129"></script>
-<script src="gluten-free.js?v=20261129"></script>
+<script src="cards9.js?v=20261130"></script>
+<script src="family.js?v=20261130"></script>
+<script src="gluten-free.js?v=20261130"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -397,7 +406,9 @@ const md = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/
 const SUGGEST_URL = 'https://tally.so/r/6DeJLe';
 const CAT_ORDER = ['Breakfast','Appetizers','Dinner','Meats & Seafood','Casseroles','Soups','Salads','Sides','Breads','Cookies','Bars & Brownies','Cakes','Pies & Crisps','Candy & Treats','Desserts','Beverages','Gift Ideas','Tips','Thanksgiving'];
 const SWEETS = ['Cookies','Bars & Brownies','Cakes','Pies & Crisps','Candy & Treats','Desserts'];
-const BOX_SECTIONS = ['Gift Ideas','Appetizers & Dips','Biscuits & Breads','Cookies & Cakes'];
+const BOXES = { 'A': ['Gift Ideas','Appetizers & Dips','Biscuits & Breads','Cookies & Cakes'], '2': ['Casseroles'] };
+const BOX_SECTIONS = BOXES['A'];
+const boxRoute = b => 'box-' + String(b).toLowerCase();
 const boxKey = s => s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const suggestLink = r => SUGGEST_URL + '?recipe=' + encodeURIComponent(r.title);
 const allText = r => [r.title, r.subtitle, r.summary, r.category, SWEETS.includes(r.category)?'dessert':'', r.boxSection, r.credit, ...(r.tags||[]), ...r.ingredients.flatMap(g=>g.items)].join(' ').toLowerCase();
@@ -500,7 +511,7 @@ function home(){
       </a>`; }).join('')}
     </div>
     ${(()=>{ const u = HOLIDAY_BY_KEY[upcomingHoliday()]; return `<a class="hol-banner" href="#/holidays/${u.key}"><span class="hol-emoji">${u.emoji}</span><span><strong>${esc(u.name)} is coming up.</strong> See what we make, or tell us yours.</span><span class="door-go">${HOLIDAYS.length < 2 ? esc(u.name) : 'Holidays'} →</span></a>`; })()}
-    <a class="box-banner" href="#/box-a"><span class="em">📇</span><span><strong>Mom’s Recipe Box · Box A</strong><span class="sub">${R.filter(r=>r.box==='A').length} cards, filed the way they are in the box.</span></span><span class="door-go">Open Box A →</span></a>
+    <a class="box-banner" href="#/box-a"><span class="em">📇</span><span><strong>Mom’s Recipe Boxes</strong><span class="sub">${R.filter(r=>r.box).length} cards from Box A and Box 2, filed the way they are in the boxes.</span></span><span class="door-go">Open the boxes →</span></a>
     <a class="box-banner gf" href="#/gluten-free"><span class="em">🌾</span><span><strong>Gluten-Free</strong><span class="sub">${R.filter(r=>r.glutenFree).length} recipes with no wheat, barley, rye or oats as written.</span></span><span class="door-go">Open Gluten-Free →</span></a>
     <a class="pantry-banner" href="#/pantry"><span class="em">🥕</span><span><strong>What's in the fridge?</strong><span class="sub">Tap the ingredients you have and see what you can make.</span></span></a>
     <label class="search" aria-label="Search all recipes" style="display:block;margin:28px 0 0">
@@ -540,7 +551,7 @@ function sectionPage(k){
         </div>
         <div class="stand-text"><h1>${s.name}</h1><p class="tagline">${s.tagline}</p><p>${s.blurb}</p></div>
       </div>
-      <a class="box-banner" href="#/box-a"><span class="em">📇</span><span><strong>Mom’s Recipe Box · Box A</strong><span class="sub">Browse the cards the way they’re filed in the box: ${BOX_SECTIONS.join(', ')}.</span></span><span class="door-go">Open Box A →</span></a>` : `<div class="shelf-art" aria-hidden="true">${SPINES}</div>
+      <a class="box-banner" href="#/box-a"><span class="em">📇</span><span><strong>Mom’s Recipe Boxes</strong><span class="sub">Browse the cards the way they’re filed: Box A (${BOXES['A'].join(', ')}) and Box 2 (${BOXES['2'].join(', ')}).</span></span><span class="door-go">Open the boxes →</span></a>` : `<div class="shelf-art" aria-hidden="true">${SPINES}</div>
       <h1>${s.name}</h1>
       <p class="tagline">${s.tagline}</p>
       <p>${s.blurb}</p>`}
@@ -570,27 +581,29 @@ function sectionPage(k){
   window.scrollTo(0,0);
 }
 
-function boxPage(key){
+function boxPage(boxId, key){
+  boxId = Object.keys(BOXES).find(k => k.toLowerCase() === String(boxId||'a').toLowerCase()) || 'A';
   setNav('boxa');
-  const box = R.filter(r=>r.box==='A');
-  const secs = BOX_SECTIONS.filter(x=>box.some(r=>r.boxSection===x));
+  const box = R.filter(r=>r.box===boxId);
+  const secs = BOXES[boxId].filter(x=>box.some(r=>r.boxSection===x));
   const cur = secs.find(x=>boxKey(x)===key) || null;
-  document.title = 'Mom’s Recipe Box · Box A' + (cur ? ' · '+cur : '') + ' · Family Recipes';
+  document.title = 'Mom’s Recipe Box · Box ' + boxId + (cur ? ' · '+cur : '') + ' · Family Recipes';
   app.innerHTML = `
     <section class="sec-head boxa">
       <a class="back" href="#/family">← Family Recipe Box</a>
-      <h1>Mom’s Recipe Box · Box A</h1>
+      <h1>Mom’s Recipe Box · Box ${esc(boxId)}</h1>
+      <div class="box-switch" role="tablist" aria-label="Which box">${Object.keys(BOXES).map(b=>`<a class="box-pick" role="tab" aria-selected="${b===boxId}" href="#/${boxRoute(b)}">📇 Box ${esc(b)} <span class="n">${R.filter(r=>r.box===b).length}</span></a>`).join('')}</div>
       <p class="tagline">Filed just the way they are in the box</p>
-      <p class="box-note">Each tab matches a divider in Mom’s box, so you can find the original card. On the rest of the site, the same recipes are sorted by what they are (Beverages, Appetizers, Cookies, Cakes and so on).</p>
-      <div class="box-tabs" role="tablist" aria-label="Box A sections">
-        <a class="box-tab" role="tab" aria-selected="${!cur}" href="#/box-a">All<span class="n">${box.length}</span></a>
-        ${secs.map(x=>`<a class="box-tab" role="tab" aria-selected="${x===cur}" href="#/box-a/${boxKey(x)}">${esc(x)}<span class="n">${box.filter(r=>r.boxSection===x).length}</span></a>`).join('')}
+      <p class="box-note">Each tab matches a divider in this box, so you can find the original card. On the rest of the site, the same recipes are sorted by what they are (Beverages, Appetizers, Cookies, Cakes and so on).</p>
+      <div class="box-tabs" role="tablist" aria-label="Box ${esc(boxId)} sections">
+        <a class="box-tab" role="tab" aria-selected="${!cur}" href="#/${boxRoute(boxId)}">All<span class="n">${box.length}</span></a>
+        ${secs.map(x=>`<a class="box-tab" role="tab" aria-selected="${x===cur}" href="#/${boxRoute(boxId)}/${boxKey(x)}">${esc(x)}<span class="n">${box.filter(r=>r.boxSection===x).length}</span></a>`).join('')}
       </div>
     </section>
     <div class="controls">
-      <label class="search" aria-label="Search Box A">
+      <label class="search" aria-label="Search Box ${esc(boxId)}">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="Search ${cur ? esc(cur) : 'Box A'}…" value="${esc(state.q)}">
+        <input id="q" type="search" placeholder="Search ${cur ? esc(cur) : 'Box '+esc(boxId)}…" value="${esc(state.q)}">
       </label>
     </div>
     <div class="grid" id="grid"></div>`;
@@ -655,7 +668,7 @@ function cardHTML(r, showSec){
   const credit = r.credit
     ? (fam ? `From the kitchen of ${esc(r.credit)}` : esc(r.credit))
     : (fam ? (r.fromBox ? 'From the family recipe box' : '') : '');
-  const meta = `${r.glutenFree?'<span class="tag gf">Gluten-free</span>':''}${r.cardImg?'<span class="tag">📇 original card</span>':''}${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.holidays||[]).map(x=>`<span class="tag hol">${esc(HOLIDAY_BY_KEY[x] ? HOLIDAY_BY_KEY[x].emoji+' '+HOLIDAY_BY_KEY[x].name : x)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}`;
+  const meta = `${r.familyMember?'<span class="tag fam">👪 Family</span>':''}${r.glutenFree?'<span class="tag gf">Gluten-free</span>':''}${r.cardImg?'<span class="tag">📇 original card</span>':''}${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.holidays||[]).map(x=>`<span class="tag hol">${esc(HOLIDAY_BY_KEY[x] ? HOLIDAY_BY_KEY[x].emoji+' '+HOLIDAY_BY_KEY[x].name : x)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}`;
   if (fam) return `
     <a class="card idx" href="#/recipe/${r.slug}">
       ${favBtn(r.slug)}
@@ -707,7 +720,7 @@ function recipe(slug){
       <h1>${esc(r.title)}</h1>
       ${r.subtitle ? `<p class="sub">${esc(r.subtitle)}</p>` : ''}
       ${r.fromBox ? '' : `<p class="summary">${esc(r.summary)}</p>`}
-      ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `${r.section==='found' ? 'From' : 'From the kitchen of'} <strong>${esc(r.credit)}</strong>${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}${r.box ? ` · <a class="boxlabel" href="#/box-a${r.boxSection ? '/'+boxKey(r.boxSection) : ''}">Mom’s recipe box · Box ${esc(r.box)}${r.boxSection ? ' · '+esc(r.boxSection) : ''}</a>` : ''}</p>` : ''}
+      ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `${r.section==='found' ? 'From' : 'From the kitchen of'} <strong>${esc(r.credit)}</strong>${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}${r.box ? ` · <a class="boxlabel" href="#/${boxRoute(r.box)}${r.boxSection ? '/'+boxKey(r.boxSection) : ''}">Mom’s recipe box · Box ${esc(r.box)}${r.boxSection ? ' · '+esc(r.boxSection) : ''}</a>` : ''}</p>` : ''}
       ${r.source ? `<p class="credit">Source: ${r.source.url ? `<a href="${esc(r.source.url)}" target="_blank" rel="noopener">${esc(r.source.text)}</a>` : esc(r.source.text)}</p>` : ''}
       ${(r.holidays||[]).length ? `<p class="hol-line">${r.holidays.map(x=>HOLIDAY_BY_KEY[x]?`<a href="#/holidays/${x}">${HOLIDAY_BY_KEY[x].emoji} ${esc(HOLIDAY_BY_KEY[x].name)}</a>`:"").join(" ")}</p>` : ""}
       <div class="facts">${r.serves?`<span><strong>Serves</strong> ${esc(r.serves)}</span>`:''}${r.time?`<span>${esc(r.time)}</span>`:''}${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
@@ -720,6 +733,7 @@ function recipe(slug){
       <button class="btn" onclick="window.print()">Print</button>
     </div>
     ${r.tip ? `<div class="tip">${md(r.tip)}</div>` : ''}
+    ${r.familyMember ? `<div class="fam-note">👪 <strong>A family recipe</strong> — from ${r.familyNames.map(x=>esc(x)).join(', ')}.</div>` : ''}
     ${r.glutenFree ? `<div class="gf-note"><strong>🌾 Gluten-free as written.</strong> ${r.gfCheck && r.gfCheck.length ? `Check the label and buy these labeled gluten-free: ${r.gfCheck.map(x=>esc(x)).join('; ')}.` : 'No ingredients here normally contain gluten.'} <a href="#/gluten-free">More gluten-free recipes</a></div>` : ''}
     <div class="r-body">
       <section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>
@@ -1036,7 +1050,7 @@ function route(){
   else if(h === 'shopping') { setNav(''); shopping(); }
   else if(h === 'favorites') favoritesPage();
   else if(h === 'pantry') pantryPage();
-  else if(h === 'box-a' || h.startsWith('box-a/')) boxPage(h.split('/')[1]);
+  else if(/^box-[a-z0-9]+(\/|$)/.test(h)) boxPage(h.split('/')[0].slice(4), h.split('/')[1]);
   else if(h === 'gluten-free') gfPage();
   else if(h === 'family') sectionPage('family');
   else if(h === 'shelf') sectionPage('found');
