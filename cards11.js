@@ -25,7 +25,7 @@ var R = [
     cardNotes:["Source: newspaper clipping, recipe from Kathy Beaulieu, Salem"],
     gaps:[] },
 
-  { slug:"custard-mom-goucher", title:"Custard", category:"Desserts", credit:"Mom Goucher", serves:"",
+  { slug:"custard-mom-goucher", title:"Custard", category:"Desserts", credit:"Mom Goucher", creditNote:"Pat Goucher", serves:"",
     summary:"Simple baked custard with scalded milk, lightly sweetened and topped with nutmeg.",
     ingredients:[{items:["3 eggs, lightly beaten","2 cups milk, scalded","¼ tsp salt","⅓ cup sugar (skimp)","Nutmeg, for the top"]}],
     steps:["Add the hot milk very slowly to the eggs, then add the sugar and salt.","Pour into a baking dish and sprinkle nutmeg on top.","Set in a pan of warm water and bake 1 hour at 325°."],
