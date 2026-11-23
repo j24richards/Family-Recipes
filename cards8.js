@@ -134,7 +134,7 @@ var R = [
     cardNotes:["Written beside the name: “(Gail’s friend).”"],
     gaps:["No yield is given."] },
 
-  { slug:"holiday-nuggets-mom-g", title:"Holiday Nuggets", category:"Cookies", credit:"Mom G.", serves:"",
+  { slug:"holiday-nuggets-mom-g", title:"Holiday Nuggets", category:"Cookies", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher", serves:"",
     summary:"Small buttery nut cookie balls rolled in confectioners’ sugar.",
     ingredients:[{items:["¾ cup shortening","¼ cup butter or margarine","½ cup confectioners’ sugar","1 tsp almond extract","1 tsp vanilla","½ cup fine nuts","2 cups flour","½ tsp salt","Confectioners’ sugar, to sprinkle"]}],
     steps:["Cream the shortening, butter and confectioners’ sugar. Blend in the almond extract, vanilla and nuts.","Add the flour and salt gradually.","Shape into small balls (1 tsp each). Sprinkle with confectioners’ sugar.","Bake at 325° for 25 minutes."],

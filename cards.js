@@ -6,7 +6,7 @@
 var BOX = "Family recipe box";
 var C = [
   // ---------- Appetizers ----------
-  { slug:"artichoke-appetizer", cardImg:"cards/artichoke-appetizer.jpg", title:"Artichoke Appetizer", category:"Appetizers", credit:"Mom G.", cardNote:"good",
+  { slug:"artichoke-appetizer", cardImg:"cards/artichoke-appetizer.jpg", title:"Artichoke Appetizer", category:"Appetizers", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher", cardNote:"good",
     ingredients:[{items:["1 lg can (8½ oz) artichokes (Pastene) — drained & squeezed","1 cup parmesan cheese","1 cup mayo (Miracle Whip)"]}],
     steps:["Mix w/ steel blade (artichokes first) til blended & artichokes are chopped small.","Bake @ 375° for ½ hr. til brown."],
     cardNotes:["Can add bacon bits."] },
@@ -23,7 +23,7 @@ var C = [
   { slug:"tomato-rabbit", cardImg:"cards/tomato-rabbit.jpg", title:"Tomato Rabbit", category:"Casseroles", credit:"Gram Goucher", cardNote:"good",
     ingredients:[{items:["2 tbsp butter","½ cup celery","½ sm. onion","½ green pepper","2 eggs (beaten)","2 tbsp flour","1 pt canned tomatoes","½ lb. cheese (grated)","½ tsp salt"]}],
     steps:["Melt butter, add celery, onion & pepper. Sauté.","Sprinkle flour over mixture & stir.","Add tomatoes, then cheese & salt. Cook slowly until thickened & cheese is melted.","Pour small amount over beaten eggs, then return to pan & cook until thick over low heat."] },
-  { slug:"shells-ham-casserole", cardImg:"cards/shells-ham-casserole.jpg", title:"Shells & Ham Casserole", category:"Casseroles", credit:"Mom G.",
+  { slug:"shells-ham-casserole", cardImg:"cards/shells-ham-casserole.jpg", title:"Shells & Ham Casserole", category:"Casseroles", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher",
     ingredients:[{items:["4 tbsp. butter","3 tbsp. flour","½ tsp. salt","½ tsp. dry mustard","⅛ tsp. white pepper","3 cups milk","3 cups shells","1½–2 cups cooked ham, diced","3 tbsp. onion, chopped","½ cup cheddar cheese, grated"]}],
     steps:[],
     gaps:["Instructions — the card has ingredients only"] },
@@ -160,7 +160,7 @@ var C = [
     ingredients:[{items:["1 cup margarine","1 cup peanut butter","1 cup brown sugar","1 cup white sugar","2 cups sifted flour","2 tsp soda","2 eggs, well beaten"]}],
     steps:["Combine margarine, soda, p'nut butter - mix well.","Add white sugar, then brown. Add beaten eggs then flour.","Shape into balls & flatten with fork.","Bake at 325° on greased cookie sheet for 12 minutes."],
     adjustments:["\"TRY CUTTING BACK SUGAR TO ¾ C EA\" (faint pencil)"] },
-  { slug:"cranberry-coffee-cake", cardImg:"cards/cranberry-coffee-cake.jpg", title:"Cranberry Coffee Cake", category:"Cakes", credit:"Mom G.", cardNote:"good",
+  { slug:"cranberry-coffee-cake", cardImg:"cards/cranberry-coffee-cake.jpg", title:"Cranberry Coffee Cake", category:"Cakes", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher", cardNote:"good",
     ingredients:[{name:"Cake", items:["¼ lb. oleo (½ cup)","1 c sugar","1 tsp baking powder","1 tsp baking soda","2 cups flour","2 eggs","½ pt sour cream (1 cup) (or plain yogurt)","1 tsp almond extract","½ cup walnuts","1 lg can of whole berry cranberry sauce"]},{name:"Topping", items:["¾ cup confectioners sugar","2 tbsp. warm water","½ tsp almond extract"]}],
     steps:["Cream oleo, sugar and eggs. Add dry ingredients. Add sour cream & extract.","Put ½ batter in greased & floured tube pan. Spread ½ cranberry sauce over top.","Put rest of batter on & then rest of sauce. Put nuts on top.","Bake 350° 55 minutes.","Mix the topping and drizzle over top while still warm."],
     cardNotes:["Remove cake from pan while still warm - after 10 to 15 minutes."] },
@@ -184,7 +184,7 @@ var C = [
     ingredients:[{name:"Apples", items:["5-8 apples (peeled, cored & sliced)","½ cup sugar","1½ tsp cinnamon"]},{name:"Batter", items:["3 cups flour","2 cups sugar","1 tsp. baking soda","2 tsp vanilla","2 tsp baking powder","1 cup veg. oil","4 eggs","⅓ cup orange juice","Chopped walnuts, if desired"]}],
     steps:["Mix sugar + cinnamon; sprinkle over apples, set aside.","Beat all batter ingredients together 1 minute at low speed and 4 minutes at medium speed. Add chopped walnuts to batter, if desired.","Divide batter into 3 parts. Use bundt pan, well greased & floured. Pour into pan - batter, apples, batter, apples (top layer: apples)."],
     gaps:["Oven temperature and baking time — not on the card"] },
-  { slug:"peanut-butter-scotchies", cardImg:"cards/peanut-butter-scotchies.jpg", title:"Peanut Butter Scotchies", category:"Bars & Brownies", credit:"Mom G.",
+  { slug:"peanut-butter-scotchies", cardImg:"cards/peanut-butter-scotchies.jpg", title:"Peanut Butter Scotchies", category:"Bars & Brownies", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher",
     ingredients:[{items:["1 cup Karo (white)","1 cup peanut butter","4½ cups rice crispies","Chocolate bits","Butterscotch bits"]}],
     steps:["Put Karo in lg pan, heat until it comes to a boil.","Add peanut butter & mix. Add rice crispies and mix.","Spread in greased pan.","Melt chocolate & butterscotch bits & spread on top."],
     gaps:["How much chocolate and butterscotch bits","Pan size"] },

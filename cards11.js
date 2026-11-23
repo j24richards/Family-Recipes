@@ -66,7 +66,7 @@ var R = [
     cardNotes:["Printed “Here’s what’s cookin’” card, “Recipe from the kitchen of Juliet West.”"],
     gaps:[] },
 
-  { slug:"sunny-ham-and-eggs-mom-r", title:"Sunny Ham & Eggs", category:"Breakfast", credit:"Mom R", serves:"",
+  { slug:"sunny-ham-and-eggs-mom-r", title:"Sunny Ham & Eggs", category:"Breakfast", credit:"Mom R", creditNote:"Barbara Richards", serves:"",
     summary:"A hash brown crust baked crisp, then layered with Swiss, ham, Jack cheese and mushrooms and baked in an egg custard.",
     ingredients:[{items:["1 package (15 oz) hash brown potatoes, thawed","⅓ cup butter, melted","1½ cups shredded Swiss cheese","1½ cups diced cooked ham","1½ cups Monterey Jack cheese","1 can (4 oz) mushrooms, drained","½ cup milk","3 eggs","½ tsp seasoned salt","¼ tsp paprika","1 tbsp chopped parsley"]}],
     steps:["Press the potatoes firmly into a greased 9-inch deep-dish pie plate to make a crust. Brush with the butter.","Bake at 425° for 25 minutes. Take it out and lower the oven to 350°.","Layer the Swiss cheese, ham, Jack cheese and mushrooms on the crust.","Whisk the eggs, milk and seasoned salt and slowly pour over the pie. Sprinkle with paprika and parsley.","Bake 30 to 40 minutes, until the center is set. Let stand 10 minutes before cutting."],

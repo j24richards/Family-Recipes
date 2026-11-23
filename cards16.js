@@ -178,7 +178,7 @@ var R = [
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook"],
     gaps:[] },
 
-  { slug:"hershey-chocolate-cream-pie-mom-g", title:"Hershey Chocolate Cream Pie", category:"Pies & Crisps", credit:"Mom G.", serves:"",
+  { slug:"hershey-chocolate-cream-pie-mom-g", title:"Hershey Chocolate Cream Pie", category:"Pies & Crisps", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher", serves:"",
     summary:"A homemade cooked chocolate pudding pie, chilled in a baked shell and topped with whipped cream.",
     ingredients:[{items:["3 squares unsweetened chocolate","3 cups milk","½ tsp salt","2 tbsp butter","1 cup sugar","3 tbsp flour","3 tbsp cornstarch","3 egg yolks","1½ tsp vanilla","Baked 9- or 12-inch pie shell","Whipped cream"]}],
     steps:["Put the chocolate, milk, salt and butter in a pan and bring to a boil over medium heat.","Sift the sugar, flour and cornstarch into the pudding and stir.","Stir some of the hot chocolate into the egg yolks, then add them to the pan. Bring to a boil and boil 1 minute.","Add the vanilla. Pour into the baked shell and chill until cold.","Garnish with whipped cream."],
@@ -341,12 +341,12 @@ var R = [
     cardNotes:["Source: Nestlé printed recipe card (filed with the pies)","The glaze method isn’t printed on the card; it’s the usual way to melt it together."],
     gaps:[] },
 
-  { slug:"key-lime-pie-postcard", title:"Key Lime Pie (Postcard)", category:"Pies & Crisps", credit:"", serves:"",
+  { slug:"key-lime-pie-postcard", title:"Key Lime Pie (Postcard)", category:"Pies & Crisps", credit:"Pat & Don Goucher", creditNote:"sent this postcard (we think)", serves:"",
     summary:"The original Florida Keys key lime pie from a vintage postcard: condensed milk, yolks and lime juice under meringue.",
     ingredients:[{items:["1 can sweetened condensed milk","4 egg yolks","½ cup lime juice","1 egg white, beaten stiff","3 egg whites (for the meringue)","6 tbsp sugar","½ tsp cream of tartar","Baked pie shell"]}],
     steps:["Mix the condensed milk, egg yolks and lime juice.","Beat 1 egg white stiff and fold into the mixture. Pour into the baked pie shell.","Beat 3 egg whites stiff, gradually adding the sugar and cream of tartar.","Spread over the pie and bake at 350° until the meringue is golden brown."],
     notes:["The postcard says key lime pie was created by thrifty “conch” settlers’ wives in the early days of the Florida Keys, using juice from wild limes."],
-    cardNotes:["This is a postcard from Florida with the recipe printed on the front. It was mailed to Mr. & Mrs. Earl Richards in Tewksbury, Mass., with a handwritten note to the family on the back.","The filling isn’t cooked, so the yolks stay raw."],
+    cardNotes:["This is a postcard from Florida with the recipe printed on the front. It was mailed to Mr. & Mrs. Earl Richards in Tewksbury, Mass., with a handwritten note to the family on the back. We think Pat and Don Goucher sent it.","The filling isn’t cooked, so the yolks stay raw."],
     gaps:["Who wrote the postcard isn’t clear from the photo."] },
 
   { slug:"cranberry-delight-shepherd-girl", title:"Cranberry Delight", category:"Pies & Crisps", credit:"", serves:"6",

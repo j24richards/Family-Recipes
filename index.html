@@ -375,25 +375,25 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 </div></footer>
 
 <script src="recipes.js?v=20261126"></script>
-<script src="cards.js?v=20261126"></script>
+<script src="cards.js?v=20261123c"></script>
 <script src="gifts.js?v=20261126"></script>
 <script src="cards2.js?v=20261126"></script>
 <script src="cards3.js?v=20261126"></script>
 <script src="cards4.js?v=20261126"></script>
 <script src="cards5.js?v=20261126"></script>
-<script src="cards6.js?v=20261126"></script>
-<script src="cards7.js?v=20261126"></script>
-<script src="cards8.js?v=20261126"></script>
+<script src="cards6.js?v=20261123c"></script>
+<script src="cards7.js?v=20261123c"></script>
+<script src="cards8.js?v=20261123c"></script>
 <script src="simply5.js?v=20261126"></script>
 <script src="breadbowls.js?v=20261129"></script>
-<script src="cards9.js?v=20261131"></script>
-<script src="cards10.js?v=20261123"></script>
-<script src="cards11.js?v=20261123"></script>
+<script src="cards9.js?v=20261123c"></script>
+<script src="cards10.js?v=20261123c"></script>
+<script src="cards11.js?v=20261123c"></script>
 <script src="cards12.js?v=20261123"></script>
 <script src="cards13.js?v=20261123"></script>
 <script src="cards14.js?v=20261123"></script>
-<script src="cards15.js?v=20261123"></script>
-<script src="cards16.js?v=20261123"></script>
+<script src="cards15.js?v=20261123c"></script>
+<script src="cards16.js?v=20261123c"></script>
 <script src="family.js?v=20261123b"></script>
 <script src="gluten-free.js?v=20261130"></script>
 <script>
@@ -418,7 +418,7 @@ const BOX_SECTIONS = BOXES['A'];
 const boxRoute = b => 'box-' + String(b).toLowerCase();
 const boxKey = s => s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const suggestLink = r => SUGGEST_URL + '?recipe=' + encodeURIComponent(r.title);
-const allText = r => [r.title, r.subtitle, r.summary, r.category, SWEETS.includes(r.category)?'dessert':'', r.boxSection, r.credit, ...(r.tags||[]), ...r.ingredients.flatMap(g=>g.items)].join(' ').toLowerCase();
+const allText = r => [r.title, r.subtitle, r.summary, r.category, SWEETS.includes(r.category)?'dessert':'', r.boxSection, r.credit, r.creditNote||"", ...(r.tags||[]), ...r.ingredients.flatMap(g=>g.items)].join(' ').toLowerCase();
 
 function shopList(){ return store.get('shop', []); }
 function favList(){ return store.get('fav', []); }

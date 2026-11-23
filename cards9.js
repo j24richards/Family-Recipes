@@ -77,7 +77,7 @@ var R = [
     cardNotes:["Printed recipe from Salmon Falls Stoneware, Dover, NH, for their 10-inch pie plate, pasted on the card."],
     gaps:[] },
 
-  { slug:"steak-pizzaiola-mom-r", title:"Steak Pizzaiola", category:"Casseroles", credit:"Mom R.", serves:"",
+  { slug:"steak-pizzaiola-mom-r", title:"Steak Pizzaiola", category:"Casseroles", credit:"Mom R.", creditNote:"Barbara Richards", serves:"",
     summary:"Chuck steak baked under chopped Italian tomatoes, onion, garlic, oregano and olive oil, served with the pan sauce.",
     ingredients:[{items:["1½ to 2 lbs chuck steak","1 small onion, chopped","1 can (14 oz) Italian tomatoes, drained and chopped","1 tsp oregano","2 cloves garlic","2 tbsp olive oil","½ tsp salt","Pinch hot pepper flakes"]}],
     steps:["Heat the oven to 350°. Place the steak in a shallow glass baking dish with plenty of space around the meat.","In a medium bowl combine the onion, tomatoes, oregano, garlic, salt, pepper flakes and olive oil. Spread over the top of the steak.","Bake uncovered 45 minutes to an hour, or until tender.","Slice the steak and serve with the sauce from the pan."],
@@ -85,7 +85,7 @@ var R = [
     cardNotes:["There are two cards for this recipe in the box: this one (Mom R.) and an identical one in block capitals signed Barbara Richards, marked “Star 10/2/93.”"],
     gaps:[] },
 
-  { slug:"seven-seas-casserole-mom-r", title:"Seven Seas Casserole", category:"Casseroles", credit:"Mom R.", serves:"",
+  { slug:"seven-seas-casserole-mom-r", title:"Seven Seas Casserole", category:"Casseroles", credit:"Mom R.", creditNote:"Barbara Richards", serves:"",
     summary:"Layered tuna, minute rice and peas baked in cream of celery soup with cheese and paprika.",
     ingredients:[{items:["1 can (10½ oz) cream of celery soup","1⅓ cups water","¼ tsp salt","¼ cup chopped onion","Dash pepper","1⅓ cups Minute Rice","1½ cups cooked peas","1 can (7 oz) tuna","½ cup grated cheese","Paprika"]}],
     steps:["Combine the soup, water, salt, onion and pepper. Bring to a boil.","Pour half into a greased casserole.","Make 3 layers, using the rice right from the box: rice, peas, tuna. Add the rest of the soup.","Sprinkle with the grated cheese and paprika.","Bake covered at 375° for 15 to 20 minutes. Cut through with a knife after baking 10 minutes."],
@@ -224,7 +224,7 @@ var R = [
     cardNotes:["Source written on the card: Bon Appétit"],
     gaps:["The card uses half the garlic and doesn’t say when to add the rest."] },
 
-  { slug:"eggplant-and-sausage-casserole-mom-r", title:"Eggplant & Sausage Casserole", category:"Casseroles", credit:"Mom R.", serves:"12",
+  { slug:"eggplant-and-sausage-casserole-mom-r", title:"Eggplant & Sausage Casserole", category:"Casseroles", credit:"Mom R.", creditNote:"Barbara Richards", serves:"12",
     summary:"Sweet sausage and eggplant in a paprika tomato sauce, layered with penne, ricotta and mozzarella.",
     ingredients:[{items:["2 lb sweet sausage","2 tbsp olive oil or vegetable oil","1 medium eggplant (1½ lb)","1 large Spanish onion, chopped","1 clove garlic, chopped","2 tsp paprika","1 can (28 oz) crushed tomatoes","1 can (6 oz) tomato paste","1 tbsp chopped fresh basil, or 1 tsp dried basil leaves, crushed","Salt","1 box (1 lb) penne","1 container (15 oz) ricotta cheese","1 package (16 oz) mozzarella, shredded"]}],
     steps:["Cut the sausage diagonally into 1-inch pieces. Heat the oil over medium-high heat. Add the sausage and cook 8 minutes or until browned, stirring frequently.","Cut the eggplant into ½-inch cubes. Add the eggplant, onion and garlic to the sausage in the skillet; cook 5 minutes or until the eggplant is tender.","Stir in the paprika and cook 1 minute longer. Add the tomatoes, tomato paste, basil and 1 tsp salt; bring to boiling over moderately high heat.","Reduce the heat to low, partially cover and simmer 35 minutes or until the sauce is slightly thickened, stirring occasionally with a wooden spoon.","Preheat the oven to 350°. Cook the penne until al dente. Drain and stir into the sauce.","Spread half the eggplant mixture in a shallow 2½-quart baking dish or large roasting pan. Top with the ricotta, spreading evenly. Sprinkle with half the mozzarella. Top with the remaining eggplant mixture and sprinkle with the rest of the mozzarella.","Bake 40 minutes or until heated through. Let stand 10 minutes before serving."],

@@ -62,7 +62,7 @@ var R = [
     cardNotes:["Printed “Here’s what’s cookin’” card, “Recipe from: Weight Watchers.” Lists the diet exchanges."],
     gaps:[] },
 
-  { slug:"spinach-cheese-baked-ziti-mom-r", title:"Spinach-Cheese Baked Ziti", category:"Dinner", credit:"Mom R", serves:"",
+  { slug:"spinach-cheese-baked-ziti-mom-r", title:"Spinach-Cheese Baked Ziti", category:"Dinner", credit:"Mom R", creditNote:"Barbara Richards", serves:"",
     summary:"Ziti in Prego with oregano, layered with a spinach-ricotta-Parmesan filling and mozzarella and baked.",
     ingredients:[{items:["1 lb ziti","1 jar (27½ oz) spaghetti sauce (Prego)","2 tsp dried oregano","2 packages (10 oz) frozen chopped spinach","1 package (15 oz) ricotta cheese","2 large eggs","⅔ cup grated Parmesan cheese","¼ tsp ground pepper","⅛ tsp ground nutmeg","1 package (12 oz) mozzarella cheese, diced"]}],
     steps:["Cook the ziti in a large pot. Cook the spinach, drain, cool and squeeze dry.","Combine the spinach, ricotta, eggs, Parmesan, pepper and nutmeg.","Drain the ziti and toss with the sauce and oregano.","Put half the ziti in a 9x13 pan. Add all the spinach mixture and half the mozzarella. Top with the rest of the ziti and mozzarella.","Bake at 375° covered with foil 25 minutes. Remove the foil and bake 5 minutes more. Let stand a few minutes."],

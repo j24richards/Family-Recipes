@@ -289,7 +289,7 @@ var R = [
     cardNotes:["Written at the top right: Christmas book ’90, Oxmoor House. Card is in two parts, front and back."],
     gaps:["The size of the loaf pans is hard to read on the back of the card."] },
 
-  { slug:"three-grain-bread", title:"3 Grain Bread", category:"Breads", credit:"Mom G.", serves:"4 loaves", cardNote:"good & pretty easy",
+  { slug:"three-grain-bread", title:"3 Grain Bread", category:"Breads", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher", serves:"4 loaves", cardNote:"good & pretty easy",
     summary:"A big batch of whole wheat, bran and oatmeal bread that makes 4 loaves. From the kitchen of Mom G. Card says: “Good and pretty easy.”",
     ingredients:[{name:"Combine first",items:["2 cups boiling water","2 tbsp shortening (size of an egg) or ½ cup oil","¾ cup white sugar","2 handfuls salt"]},{name:"Combine and add when the first mix is cool",items:["¼ cup sugar","2 cups lukewarm water","2 pkgs yeast"]},{name:"Flours",items:["6 cups whole wheat flour","1 cup natural bran","1 cup oatmeal","6 cups white flour"]}],
     steps:["Combine the two liquid mixtures when cool and add the flours, bran and oatmeal.","Knead in as much of the flours as possible. Let rise once.","Punch down and roll out with a rolling pin. Divide into 4 and roll each into a rectangle to fit the pans.","Put in greased pans and let rise again.","Bake at 350° for 30 minutes.","Let cool covered, or butter the tops while still hot."],

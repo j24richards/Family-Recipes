@@ -55,7 +55,7 @@ var R = [
     cardNotes:["Source written on the card: Bon Appétit","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"blueberry-bread-and-butter-pudding-mom-g", title:"Blueberry Bread & Butter Pudding", category:"Desserts", credit:"Mom G.", serves:"",
+  { slug:"blueberry-bread-and-butter-pudding-mom-g", title:"Blueberry Bread & Butter Pudding", category:"Desserts", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher", serves:"",
     summary:"Buttered bread layered with stewed blueberries, baked briefly and served very cold with whipped cream.",
     ingredients:[{items:["8 slices thin bread, crusts removed, buttered on one side","1 cup blueberries","¾ cup sugar","Dash of salt","Whipped cream, to serve"]}],
     steps:["Stew the berries, sugar and salt 15 minutes.","Butter a deep baking dish. Alternate the bread and berries until all are used.","Bake 15 to 20 minutes at 350°. Serve very cold with whipped cream."],
@@ -299,7 +299,7 @@ var R = [
     cardNotes:["Source: printed on a Guittard chocolate chip bag."],
     gaps:[] },
 
-  { slug:"penuche-mom-g", title:"Penuche", category:"Candy & Treats", credit:"Mom G.", serves:"",
+  { slug:"penuche-mom-g", title:"Penuche", category:"Candy & Treats", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher", serves:"",
     summary:"Smooth, soft brown sugar fudge cooked with evaporated milk, with nuts and no butter or vanilla.",
     ingredients:[{items:["2 cups brown sugar","1 cup white sugar","1 cup evaporated milk","1 cup nuts"]}],
     steps:["Cook the sugars and evaporated milk to the soft ball stage, 15 to 20 minutes.","Take off the heat, pour into a mixing bowl and add the nuts. Stir a few minutes more.","When the mixture starts to sugar around the edge of the bowl, put it into a buttered pan. Cut before it is too set.","Don’t add butter or vanilla. The card says they rob penuche of its rare flavor."],
@@ -314,7 +314,7 @@ var R = [
     cardNotes:["Newspaper clipping; no source name on it."],
     gaps:[] },
 
-  { slug:"hawaiian-ambrosia-mom-g", title:"Hawaiian Ambrosia", category:"Desserts", credit:"Mom G.", serves:"",
+  { slug:"hawaiian-ambrosia-mom-g", title:"Hawaiian Ambrosia", category:"Desserts", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher", serves:"",
     summary:"Sour cream mixed with mandarin oranges, pineapple, mini marshmallows and coconut, chilled.",
     ingredients:[{items:["1 pint sour cream","2 small cans mandarin oranges, drained and cut up","1 medium can crushed pineapple, drained","2 cups miniature marshmallows","2 cups shredded coconut"]}],
     steps:["Mix everything together.","Chill at least 2 hours before serving."],

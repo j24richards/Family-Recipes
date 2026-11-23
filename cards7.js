@@ -176,7 +176,7 @@ var R = [
     notes:["Handwritten: “good,” and next to the frosting, “cut frosting in ½ – make thicker.”"],
     gaps:["The card gives frosting ingredients but no frosting directions."] },
 
-  { slug:"lemon-custard-cake-mom-r", title:"Lemon Custard Cake", category:"Cakes", credit:"Mom R", serves:"12 to 16",
+  { slug:"lemon-custard-cake-mom-r", title:"Lemon Custard Cake", category:"Cakes", credit:"Mom R", creditNote:"Barbara Richards", serves:"12 to 16",
     summary:"A no-bake dessert of torn angel food cake under a lemon pudding and sour cream layer with pie filling on top.",
     ingredients:[{items:["1 prepared angel food cake (10-inch)","1 pkg (3.4 oz) instant lemon pudding mix","1½ cups cold milk","1 cup (8 oz) sour cream","1 can (21 oz) cherry or strawberry pie filling"]}],
     steps:["Tear the angel food cake into bite-size pieces and place in a 13 x 9 x 2-inch pan.","In a mixing bowl, combine the pudding mix, milk and sour cream. Beat until thickened, about 2 minutes.","Spread over the cake. Spoon the pie filling on top.","Chill until serving time."],
