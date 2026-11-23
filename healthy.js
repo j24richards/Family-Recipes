@@ -119,8 +119,8 @@ window.RECIPES = (window.RECIPES || []).concat([
         "About 8–15 oz cooked turkey, chopped (thawed if frozen)",
         "2 big handfuls baby spinach",
         "1 tbsp + 1 tsp olive oil",
-        "½ tsp each garlic powder, onion powder and smoked paprika",
-        "Black pepper and a pinch of salt"
+        "½ tsp each garlic powder, onion powder and smoked paprika (or 1–2 tsp of a smoky garlic & onion seasoning blend)",
+        "Black pepper and a pinch of salt (skip the salt if your seasoning blend already has it)"
       ]},
       { name: "Eggs", items: [
         "6 eggs (2 per person)"
