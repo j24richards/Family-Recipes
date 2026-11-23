@@ -3,6 +3,10 @@
 // so buy a brand labeled gluten-free. Not a substitute for reading labels if someone has celiac disease.
 (function(){
 var GF = {
+ "beef-and-bean-chili": [
+  "1 cup beef broth",
+  "Chili powder (most are fine, but some blends add wheat)"
+ ],
  "corn-hash-corned-beef": [],
  "artichoke-appetizer": [],
  "baked-chicken-sour-cream": [],
