@@ -7,6 +7,7 @@ window.RECIPES = (window.RECIPES || []).concat([
     section: "found",
     title: "Herb-Roasted Turkey",
     subtitle: "Seasoned Under the Skin",
+    holidays: ["thanksgiving"],
     category: "Healthy Eating",
     tags: ["turkey", "roast", "make-ahead", "meal prep"],
     serves: "about 30 (8 oz portions)",
