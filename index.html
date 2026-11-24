@@ -601,6 +601,41 @@ const allText = r => [r.title, r.subtitle, r.summary, r.category, SWEETS.include
 
 // Old card words and their modern names, so either one finds the recipe.
 const SYN = [['hamburg','hamburger','ground beef','ground chuck'],['oleo','margarine'],['jello','jell-o','gelatin'],['confectioners','powdered sugar','icing sugar','10x'],['catsup','ketchup'],['scallion','green onion'],['frank','hot dog','wiener'],['zucchini','summer squash'],['shortening','crisco'],['evaporated milk','carnation'],['cornstarch','corn starch'],['garbanzo','chickpea'],['cilantro','coriander'],['bell pepper','green pepper'],['soda','baking soda'],['cool whip','whipped topping'],['velveeta','processed cheese'],['frosting','icing'],['casserole','hotdish'],['cookie','cookies','bar','bars']];
+// ---- Search scoring: title matches first, then ingredients, then the rest ----
+const reEsc = x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function termRes(t){
+  const words = [t];
+  if (t.length >= 4) SYN.forEach(g => { if (g.some(w => w === t || (w.startsWith(t) && t.length >= 5))) g.forEach(w => words.push(w)); });
+  return [...new Set(words)].map(w => new RegExp('(^|[^a-z0-9])' + reEsc(w) + (w.length <= 4 ? '(e?s)?(?![a-z])' : ''), 'i'));
+}
+function searchScore(r, terms){
+  const title = (r.title + ' ' + (r.subtitle||'')).toLowerCase();
+  const ing = (r.ingredients||[]).flatMap(g=>g.items).join(' | ').toLowerCase();
+  const who = [r.credit||'', r.creditNote||'', r._who||''].join(' ').toLowerCase();
+  const rest = [r.summary||'', r.category||'', SWEETS.includes(r.category)?'dessert':'', ...(r.tags||[]).filter(x=>!/^(recipe box|box \w+|mom.s recipe box)$/i.test(x) && !Object.values(BOXES).flat().some(b=>b.toLowerCase()===String(x).toLowerCase()))].join(' ').toLowerCase();
+  let total = 0, kinds = [];
+  for (const t of terms) {
+    const res = termRes(t), hit = txt => res.some(re => re.test(txt));
+    let sc = 0;
+    if (hit(title)) sc = new RegExp('^' + reEsc(t), 'i').test(r.title) ? 12 : 10;
+    else if (hit(who)) sc = 6;
+    else if (hit(ing)) sc = 4;
+    else if (hit(rest)) sc = 2;
+    if (!sc) return 0;
+    total += sc; kinds.push(sc >= 10 ? 'title' : sc === 6 ? 'who' : sc === 4 ? 'ing' : 'rest');
+  }
+  searchScore.kind = kinds.every(k=>k==='title') ? 'title' : kinds.includes('who') ? 'who' : kinds.includes('ing') ? 'ing' : 'rest';
+  return total;
+}
+// Turn what was typed into search terms: the whole phrase if anything matches it, otherwise the separate words.
+function searchTerms(q, pool){
+  q = q.toLowerCase().trim(); if (!q) return [];
+  if (SYN.some(g => g.includes(q))) return [q];
+  const words = q.split(/\s+/).filter(Boolean);
+  if (words.length > 1 && pool.some(r => searchScore(r, [q]) > 0)) return [q];
+  const big = words.filter(w => w.length > 1);
+  return big.length ? big : words;
+}
 function termMatches(text, t){
   if (text.includes(t)) return true;
   if (t.length < 4) return false;
@@ -799,8 +834,8 @@ function boxPage(boxId, key){
     <div class="grid" id="grid"></div>`;
   const catSort = (a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j)||a.localeCompare(b);};
   const draw = () => {
-    const terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
-    const list = box.filter(r => (!cur || r.boxSection===cur) && terms.every(t=>allText(r).includes(t))).sort((a,b)=>a.title.localeCompare(b.title));
+    const terms = searchTerms(state.q, R);
+    const list = box.filter(r => (!cur || r.boxSection===cur) && (!terms.length || searchScore(r, terms) > 0)).sort((a,b)=> (terms.length ? searchScore(b, terms) - searchScore(a, terms) : 0) || a.title.localeCompare(b.title));
     const g = document.getElementById('grid');
     if (!list.length) { g.innerHTML = `<p class="empty">No cards match that search.</p>`; return; }
     const block = items => { const groups = {}; items.forEach(r=>(groups[r.category]=groups[r.category]||[]).push(r));
@@ -911,8 +946,8 @@ function gfPage(){
     <div class="grid" id="grid"></div>`;
   const catSort = (a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j)||a.localeCompare(b);};
   const draw = () => {
-    const terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
-    const list = list0.filter(r => terms.every(t=>allText(r).includes(t))).sort((a,b)=>a.title.localeCompare(b.title));
+    const terms = searchTerms(state.q, R);
+    const list = list0.filter(r => !terms.length || searchScore(r, terms) > 0).sort((a,b)=> (terms.length ? searchScore(b, terms) - searchScore(a, terms) : 0) || a.title.localeCompare(b.title));
     const g = document.getElementById('grid');
     if (!list.length) { g.innerHTML = `<p class="empty">No gluten-free recipes match that search.</p>`; return; }
     const groups = {}; list.forEach(r=>(groups[r.category]=groups[r.category]||[]).push(r));
@@ -951,13 +986,22 @@ function cardHTML(r, showSec){
 }
 
 function renderGrid(){
-  const qq = state.q.toLowerCase().trim();
-  const terms = SYN.some(g => g.includes(qq)) ? [qq] : qq.split(/\s+/).filter(Boolean);
   const onHome = state.sec === 'all';
+  const terms = searchTerms(state.q, R);
   if (onHome && !terms.length) { document.getElementById('grid').innerHTML = ''; return; }
-  const list = R.slice().sort((a,b)=>a.title.localeCompare(b.title)).filter(r => (onHome || r.section===state.sec) && (state.cat==='All' || r.category===state.cat) && terms.every(t => termMatches(allText(r), t)));
+  const base = R.filter(r => (onHome || r.section===state.sec) && (state.cat==='All' || r.category===state.cat));
   const g = document.getElementById('grid');
-  if (!list.length) { g.innerHTML = `<p class="empty">No recipes match that search.</p>`; return; }
+  let list;
+  if (terms.length) {
+    const scored = base.map(r => { const sc = searchScore(r, terms); return [r, sc, searchScore.kind]; }).filter(x => x[1] > 0).sort((a,b) => b[1]-a[1] || a[0].title.localeCompare(b[0].title));
+    if (!scored.length) { g.innerHTML = `<p class="empty">No recipes match “${esc(state.q)}”. Try fewer words or a different spelling.</p>`; return; }
+    const q = esc(state.q.trim());
+    const sec = (h, kind) => { const l = scored.filter(x => x[2] === kind); return l.length ? `<h2 class="cat-head">${h} <span class="n">${l.length}</span></h2>` + l.map(x => cardHTML(x[0], onHome)).join('') : ''; };
+    g.innerHTML = sec('Recipes named “' + q + '”', 'title') + sec('From “' + q + '”', 'who') + sec('Uses ' + q + ' as an ingredient', 'ing') + sec('Other matches', 'rest');
+    return;
+  }
+  list = base.slice().sort((a,b)=>a.title.localeCompare(b.title));
+  if (!list.length) { g.innerHTML = `<p class="empty">No recipes here yet.</p>`; return; }
   if (state.cat === 'All' && !onHome) {
     const order = [...document.querySelectorAll('.chips [data-cat]')].map(b => b.dataset.cat).filter(c => c !== 'All');
     const groups = {}; list.forEach(r => (groups[r.category] = groups[r.category] || []).push(r));
