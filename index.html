@@ -361,6 +361,22 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 .person .n{font-size:.78rem;color:var(--muted);margin-top:4px}
 .person-head .tagline{margin:2px 0 8px}
 .kin{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0 0}
+/* ---- Index card (replaces card photos) ---- */
+.idxcard{position:relative;margin:0 0 16px;background:var(--idx-paper);border:1px solid var(--line);border-radius:6px;padding:18px 20px 14px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 8px 18px rgba(60,30,10,.10);transform:rotate(-.4deg);
+  background-image:linear-gradient(var(--idx-paper),var(--idx-paper)),repeating-linear-gradient(to bottom,transparent 0,transparent 33px,var(--idx-rule) 33px,var(--idx-rule) 34px);background-blend-mode:normal}
+.idxcard::before{content:"";position:absolute;inset:0;border-radius:6px;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0,transparent 33px,var(--idx-rule) 33px,var(--idx-rule) 34px);background-position:0 70px;background-repeat:repeat}
+.ic-head{display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--idx-red);padding-bottom:6px;margin-bottom:6px}
+.ic-lbl{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--idx-red);white-space:nowrap}
+.ic-title,.ic-hand,.ic-lines li{font-family:Caveat,'Segoe Print','Comic Sans MS',cursive;color:var(--hand);line-height:34px}
+.ic-title{font-size:1.75rem;line-height:1.15}
+.ic-row{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:10px;min-height:34px}.ic-hand{font-size:1.45rem}
+.ic-lines{list-style:none;margin:0;padding:0;position:relative}.ic-lines li{font-size:1.4rem}
+.ic-lines li.q{font-size:1.55rem}
+.ic-lines li.ic-adj{color:#8a4b2a}.ic-lines .later{font-family:Inter,system-ui,sans-serif;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;background:#f3e2cf;color:#8a4b2a;border-radius:999px;padding:2px 7px;vertical-align:middle;margin-right:4px}
+.ic-blank{opacity:.6;font-size:1.2rem!important}
+.ic-foot{position:relative;margin:10px 0 0;font-size:.78rem;color:var(--muted);line-height:1.4}
+@media (prefers-color-scheme:dark){.ic-lines li.ic-adj{color:#e4a77f}.ic-lines .later{background:#3d2a20;color:#e4a77f}}
+@media print{.idxcard{transform:none;box-shadow:none}}
 /* ---- More ways to browse ---- */
 .morebrowse{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
 .morebrowse a{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:var(--paper);text-decoration:none;font-weight:600;font-size:.95rem}
@@ -879,7 +895,7 @@ function cardHTML(r, showSec){
   const credit = r.credit
     ? (fam ? `From the kitchen of ${esc(r.credit)}` : esc(r.credit))
     : (fam ? (r.fromBox ? 'From the family recipe box' : '') : '');
-  const meta = `${r.familyMember?'<span class="tag fam">👪 Family</span>':''}${r.glutenFree?'<span class="tag gf">Gluten-free</span>':''}${r.cardImg?'<span class="tag">📇 original card</span>':''}${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.holidays||[]).map(x=>`<span class="tag hol">${esc(HOLIDAY_BY_KEY[x] ? HOLIDAY_BY_KEY[x].emoji+' '+HOLIDAY_BY_KEY[x].name : x)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}`;
+  const meta = `${r.familyMember?'<span class="tag fam">👪 Family</span>':''}${r.glutenFree?'<span class="tag gf">Gluten-free</span>':''}${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.holidays||[]).map(x=>`<span class="tag hol">${esc(HOLIDAY_BY_KEY[x] ? HOLIDAY_BY_KEY[x].emoji+' '+HOLIDAY_BY_KEY[x].name : x)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}`;
   if (fam) return `
     <a class="card idx" href="#/recipe/${r.slug}">
       ${favBtn(r.slug)}
@@ -953,14 +969,14 @@ function recipe(slug){
     <div class="r-body">
       <section><section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>${swapsHtml(r)}</section>
       <section>
-        ${r.cardImg ? `<div class="panel origcard"><h2>The original card</h2><button type="button" class="photo-btn" data-zoom="${esc(r.cardImg)}?v=20261130" data-cap="The original recipe card for ${esc(r.title)}"><img src="${esc(r.cardImg)}?v=20261130" alt="The handwritten recipe card for ${esc(r.title)}" loading="lazy"></button><p class="hint">Tap to zoom in on the handwriting.</p></div>` : ''}
+        ${r.fromBox ? indexCardHtml(r) : ''}
         <div class="panel">
           <h2>Instructions</h2>
           ${r.steps.length ? `<p class="hint">Tap a step to mark it done.</p><ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(toTemp(s))}${timerBtns(s)}</li>`).join('')}</ol>` : '<p class="muted">No instructions on the card.</p>'}
         </div>
         <div class="panel mynote"><h2>My notes</h2><p class="hint">Only you see these, on this phone. Handy for “used less sugar” or “double it next time.”</p><textarea id="myNote" rows="3" placeholder="Add a note for next time…">${esc(store.get('note:'+slug, ''))}</textarea><p class="hint" id="noteSaved" hidden>Saved ✓</p></div>
-        ${r.adjustments && r.adjustments.length ? `<div class="panel notes adj"><h2>Adjustments</h2><p class="hint">Later notes added to the card. The recipe above is the original.</p><ul>${r.adjustments.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
-        ${r.cardNotes && r.cardNotes.length ? `<div class="panel notes"><h2>On the card</h2><ul>${r.cardNotes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
+        ${!r.fromBox && r.adjustments && r.adjustments.length ? `<div class="panel notes adj"><h2>Adjustments</h2><p class="hint">Later notes added to the card. The recipe above is the original.</p><ul>${r.adjustments.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
+        ${!r.fromBox && r.cardNotes && r.cardNotes.length ? `<div class="panel notes"><h2>On the card</h2><ul>${r.cardNotes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
         ${r.gaps && r.gaps.length ? `<div class="panel notes gaps"><h2>Missing from the card</h2><ul>${r.gaps.map(x=>`<li>${md(x)}</li>`).join('')}</ul>${SUGGEST_URL ? `<a class="btn primary" href="${suggestLink(r)}" target="_blank" rel="noopener" style="text-decoration:none">I know this — suggest a fill-in</a>` : '<p class="hint">Know the answer? Let the family know.</p>'}</div>` : ''}
         ${SUGGEST_URL && r.fromBox && !(r.gaps && r.gaps.length) ? `<p class="suggest-line">Know something about this recipe — who it came from or the story behind it? <a href="${suggestLink(r)}" target="_blank" rel="noopener">Share it</a></p>` : ''}
         ${SUGGEST_URL ? `<p class="suggest-line">🎉 Do you make this for a holiday? <a href="${suggestLink(r)}" target="_blank" rel="noopener">Tell us which one</a></p>` : ''}
@@ -1391,6 +1407,22 @@ function drawTimers(){
     return `<div class="timer ${t.done?'ring':''}"><span class="tl">${esc(t.label)}</span><span class="tt">${t.done ? 'Done!' : (h? h+':'+String(mi).padStart(2,'0') : mi)+':'+String(se).padStart(2,'0')}</span><button type="button" data-tstop="${t.id}">${t.done?'OK':'Stop'}</button></div>`; }).join('');
 }
 
+
+// ---- The recipe card: the card's own words, in its own style (no photo) ----
+function indexCardHtml(r){
+  const plain = x => esc(String(x).replace(/\*\*/g,'').replace(/\*/g,''));
+  const lines = [];
+  if (r.cardNote) lines.push(`<li class="q">“${plain(r.cardNote)}”</li>`);
+  (r.cardNotes||[]).forEach(x => lines.push(`<li>${plain(x)}</li>`));
+  (r.adjustments||[]).forEach(x => lines.push(`<li class="ic-adj"><span class="later">added later</span> ${plain(x)}</li>`));
+  return `<div class="idxcard" aria-label="What the recipe card says">
+    <div class="ic-head"><span class="ic-lbl">Recipe</span><span class="ic-title">${esc(r.title)}</span></div>
+    <div class="ic-row"><span class="ic-lbl">From the kitchen of</span><span class="ic-hand">${r.credit ? esc(r.credit) : '<span class="ic-blank">(no name on the card)</span>'}</span></div>
+    ${r.serves ? `<div class="ic-row"><span class="ic-lbl">Serves</span><span class="ic-hand">${esc(r.serves)}</span></div>` : ''}
+    ${lines.length ? `<ul class="ic-lines">${lines.join('')}</ul>` : `<ul class="ic-lines"><li class="ic-blank">Nothing else written on this card.</li></ul>`}
+    <p class="ic-foot">${r.box ? `From Box ${esc(r.box)}${r.boxSection ? ', '+esc(r.boxSection) : ''}` : 'From the family recipe box'}. The card’s own notes, in handwriting. The recipe above is typed out in full.</p>
+  </div>`;
+}
 
 // ===================== More ways to browse =====================
 const ING_TEXT = r => (r.ingredients||[]).flatMap(g=>g.items).join(' \n ').toLowerCase();
