@@ -755,6 +755,7 @@ function home(){
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="q" type="search" placeholder="Search recipes, ingredients, names…" value="${esc(state.q)}">
     </label>
+    <p style="margin:10px 4px 0;font-size:.95rem"><a href="#/ask">💬 Or ask a cooking question</a> <span class="muted">· swaps, conversions, “what can I make with…”</span></p>
     <div class="grid" id="grid" style="margin-top:18px"></div>
     ${(()=>{ const d = daysToThanksgiving(); if (d < 0 || d > 24 || !HOLIDAY_BY_KEY['thanksgiving']) return ''; return `<a class="tg-banner after-tiles" href="#/holidays/thanksgiving"><span class="te" aria-hidden="true">🦃</span><span><strong>${d===0?'Happy Thanksgiving!':d===1?'Thanksgiving is tomorrow':'Thanksgiving is in '+d+' days'}</strong><span class="ms">Turkey, stuffing, sides, rolls and pies. Plan the whole table.</span></span><span class="mg" aria-hidden="true">›</span></a>`; })()}
     <div class="tiles six">${tiles.map(t=>`<a class="tile" href="${t[0]}"><span class="te" aria-hidden="true">${t[1]}</span><strong>${t[2]}</strong><span class="tn">${t[3]}</span></a>`).join('')}<a class="tile more-tile" href="#/more"><span class="te" aria-hidden="true">➕</span><strong>More ways to browse</strong><span class="tn">By ingredient, quick &amp; easy, in season, look up a name and more</span></a></div>
@@ -2059,6 +2060,7 @@ function morePage(){
       ['#/random','🎲','Surprise me','A random family recipe']
     ])}
     ${group('My kitchen', [
+      ['#/ask','💬','Ask a question','Swaps, conversions, what to make with…'],
       ['#/favorites','♥','Favorites & collections',''],
       ['#/shopping','🛒','Shopping list',''],
       ['#/staples','🧂','Pantry check','What are you out of?'],
@@ -2121,6 +2123,264 @@ function thanksgivingPage(){
   sync(); window.scrollTo(0,0);
 }
 
+// ---- Ask the recipe box (answers from the site's own recipes and kitchen facts; no AI, no server) ----
+const ASK_STOP = new Set('a an the i me my we you your for to of and or in on with without can could do does did how what whats which who is are was be make made some any good best recipe recipes need want have has something ideas idea give show find tell about from that this it its please really kind kinds dish dishes meal meals tonight today dinner lunch there ones one long soon use using used get got like would should will also just only still much many more most other than then them they their here out up if so too very'.split(' '));
+const ASK_UNITS = {
+  tsp:[/^(tsp|tsps|teaspoons?)$/,'v',1,'teaspoon'], tbsp:[/^(tbsp|tbsps|tablespoons?|tbs)$/,'v',3,'tablespoon'],
+  floz:[/^(fl\.? ?oz|fluid ounces?)$/,'v',6,'fluid ounce'], cup:[/^(cups?)$/,'v',48,'cup'], pint:[/^(pints?|pt)$/,'v',96,'pint'],
+  quart:[/^(quarts?|qts?)$/,'v',192,'quart'], gallon:[/^(gallons?|gal)$/,'v',768,'gallon'],
+  ml:[/^(ml|milliliters?|millilitres?)$/,'v',0.202884,'milliliter'], liter:[/^(l|liters?|litres?)$/,'v',202.884,'liter'],
+  oz:[/^(oz|ounces?)$/,'w',1,'ounce'], lb:[/^(lbs?|pounds?)$/,'w',16,'pound'], g:[/^(g|grams?)$/,'w',0.035274,'gram'], kg:[/^(kg|kilograms?|kilos?)$/,'w',35.274,'kilogram']
+};
+function askUnit(w){ w = w.toLowerCase().replace(/\.$/,''); for (const k in ASK_UNITS) if (ASK_UNITS[k][0].test(w)) return k; return null; }
+const ASK_FR = {'½':.5,'¼':.25,'¾':.75,'⅓':1/3,'⅔':2/3,'⅛':.125,'⅜':.375,'⅝':.625,'⅞':.875};
+function askNum(s){
+  s = (s||'').trim(); if (!s) return null;
+  let t = 0, ok = false;
+  s = s.replace(/[½¼¾⅓⅔⅛⅜⅝⅞]/g, m => ' ' + ASK_FR[m] + ' ');
+  s.split(/\s+/).forEach(p => { if (!p) return; if (/^\d+\/\d+$/.test(p)) { const [a,b] = p.split('/'); if (+b) { t += a/b; ok = true; } } else if (/^\d*\.?\d+$/.test(p)) { t += parseFloat(p); ok = true; } });
+  return ok ? t : null;
+}
+function askFmt(x){
+  if (x >= 100) return String(Math.round(x));
+  const whole = Math.floor(x + 1e-9), frac = x - whole;
+  const fr = [[0,''],[1/8,'⅛'],[1/4,'¼'],[1/3,'⅓'],[3/8,'⅜'],[1/2,'½'],[5/8,'⅝'],[2/3,'⅔'],[3/4,'¾'],[7/8,'⅞'],[1,'']];
+  let best = fr[0], d = 9; fr.forEach(f => { const e = Math.abs(frac - f[0]); if (e < d) { d = e; best = f; } });
+  if (d < 0.02) { const w = whole + (best[0] === 1 ? 1 : 0); return (w ? w : '') + (best[1] ? (w ? ' ' : '') + best[1] : (w ? '' : '0')); }
+  return String(Math.round(x * 100) / 100).replace(/\.0+$/, '');
+}
+const ASK_NUMRE = '((?:\\d+\\s+\\d+\\/\\d+|\\d+\\/\\d+|\\d*\\.?\\d+)?\\s*[½¼¾⅓⅔⅛⅜⅝⅞]?)';
+function askConvert(q){
+  // oven temperatures
+  let m = q.match(/(\d{2,3})\s*°?\s*(f|c|fahrenheit|celsius|degrees?)\b/i);
+  if (m && /(convert|celsius|fahrenheit|°|degrees|\b\d\s?[fc]\b| in c\b| in f\b| to c\b| to f\b|oven|temp)/i.test(q) && !/how long|minutes|hours/.test(q)) {
+    const n = +m[1]; let unit = m[2].toLowerCase()[0];
+    if (unit === 'd') unit = /celsius|\bc\b/i.test(q) && !/fahrenheit|\bf\b/i.test(q) ? 'c' : 'f';
+    if (unit === 'f') { const c = Math.round((n - 32) * 5 / 9); return {h:'Temperature', t:`${n}°F is about ${c}°C. (For a fan or convection oven, most recipes drop the temperature by about 25°F.)`}; }
+    const f = Math.round(n * 9 / 5 + 32); return {h:'Temperature', t:`${n}°C is about ${f}°F.`};
+  }
+  // "how many tablespoons in a cup"
+  let a = q.match(new RegExp('how many\\s+([a-z.]+(?:\\s+oz)?)\\s+(?:are\\s+|is\\s+|go\\s+)?(?:in|per|to|make up|does)\\s+(?:a |an |one |1 )?' + ASK_NUMRE + '\\s*([a-z.]+)', 'i'));
+  let qty = 1, from, to;
+  if (a) { to = askUnit(a[1]); from = askUnit(a[3]); const n = askNum(a[2]); if (n) qty = n; }
+  else {
+    a = q.match(new RegExp(ASK_NUMRE + '\\s*([a-z.]+(?:\\s+oz)?)\\s+(?:in|to|into|equals?|=|is how many|are how many|converted to)\\s+(?:how many\\s+)?([a-z.]+)', 'i'));
+    if (a) { from = askUnit(a[2]); to = askUnit(a[3]); const n = askNum(a[1]); if (n) qty = n; }
+  }
+  if (from && to && from !== to) {
+    const f = ASK_UNITS[from], t = ASK_UNITS[to];
+    if (f[1] !== t[1]) return {h:'Conversion', t:`Cups, spoons and milliliters measure volume, while ounces, pounds and grams measure weight, so they don't convert one-to-one (a cup of flour and a cup of honey weigh very different amounts). A handy rule: 1 cup of water is about 8 ounces, 240 grams.`};
+    if (qty === 1 && !/\b(1|one|a|an)\s+[a-z]/.test(q.replace(/^how many /,''))) { const tail = q.match(/(?:\s|^)(\d+(?:\.\d+)?)\s*\??$/); if (tail) qty = +tail[1]; }
+    const out = qty * f[2] / t[2];
+    const metric = x => x >= 100 ? String(Math.round(x)) : String(Math.round(x * 10) / 10).replace(/\.0$/,'');
+    const num = (u, x) => /^(g|kg|ml|liter)$/.test(u) ? metric(x) : askFmt(x);
+    const plural = (u, n) => ASK_UNITS[u][3] + (n <= 1 ? '' : 's');
+    return {h:'Conversion', t:`${num(from, qty)} ${plural(from, qty)} = ${num(to, out)} ${plural(to, out)}${to==='floz'?' (fluid)':''}.`};
+  }
+  return null;
+}
+function askScale(q){
+  const mult = /\b(double|twice|2x)\b/.test(q) ? 2 : /\btriple|3x\b/.test(q) ? 3 : /\b(half|halve|halved|halving)\b/.test(q) ? .5 : /\bquarter|a fourth\b/.test(q) ? .25 : null;
+  if (!mult) return null;
+  const m = q.match(new RegExp(ASK_NUMRE + '\\s*(tsp|tsps|teaspoons?|tbsp|tbsps|tablespoons?|cups?|ounces?|oz|pounds?|lbs?|pints?|quarts?|sticks?|cloves?|eggs?|cans?|packages?|pkgs?)?', 'i'));
+  const re = new RegExp('(\\d+\\s+\\d+\\/\\d+|\\d+\\/\\d+|\\d*\\.?\\d+|[½¼¾⅓⅔⅛])\\s*[½¼¾⅓⅔⅛]?\\s*(tsp|tsps|teaspoons?|tbsp|tbsps|tablespoons?|cups?|ounces?|oz|pounds?|lbs?|pints?|quarts?|sticks?|cloves?|eggs?|cans?|packages?|pkgs?)\\b', 'i');
+  const r = q.match(re); if (!r) return null;
+  const whole = r[0].match(/^(\d+\s+\d+\/\d+|\d+\/\d+|\d*\.?\d+|[½¼¾⅓⅔⅛])(\s*[½¼¾⅓⅔⅛])?/);
+  const n = askNum((whole[1] || '') + ' ' + (whole[2] || '')); if (n == null) return null;
+  const out = n * mult; let unit = r[2].toLowerCase(); if (/^(tsp|tbsp|oz|lb)s?$/.test(unit)) unit = unit.replace(/s$/,''); else { unit = unit.replace(/s$/,''); if (out > 1) unit += 's'; }
+  const word = mult === 2 ? 'Doubled' : mult === 3 ? 'Tripled' : mult === .5 ? 'Halved' : 'A quarter of that';
+  let extra = '';
+  const u = askUnit(unit);
+  if (u === 'tsp' && out >= 3) extra = ` (that's ${askFmt(out/3)} tablespoon${out/3===1?'':'s'})`;
+  if (u === 'tbsp' && out >= 4) extra = ` (that's ${askFmt(out/16)} cup${out/16===1?'':'s'})`;
+  if (u === 'tbsp' && out < 1) extra = ` (that's ${askFmt(out*3)} teaspoons)`;
+  if (u === 'cup' && out < 0.25) extra = ` (that's ${askFmt(out*16)} tablespoons)`;
+  const base = unit.replace(/s$/,''), pl = (x) => /^(tsp|tbsp|oz|lb)$/.test(base) ? base : base + (x > 1 ? 's' : '');
+  return {h:'Scaling an amount', t:`${word}, ${askFmt(n)} ${pl(n)} comes to ${askFmt(out)} ${pl(out)}${extra}. To scale a whole recipe, open it and use the scaling bar at the top.`};
+}
+const ASK_SWAPS2 = [
+  [/\begg\b|\beggs\b/, 'Out of eggs in baking? For each egg, use ¼ cup unsweetened applesauce, or ¼ cup mashed ripe banana, or 1 tbsp ground flaxseed stirred into 3 tbsp water (let it sit 5 minutes). It works for cakes, muffins and quick breads, but not for custards or meringue.'],
+  [/baking soda|bicarb/, 'No baking soda? For each 1 tsp baking soda, use about 3 tsp baking powder, and leave out any added salt in the recipe.'],
+  [/cornstarch|corn starch/, 'No cornstarch to thicken? Use 2 tbsp all-purpose flour for each 1 tbsp cornstarch (cook it a minute or two longer so it loses the raw flour taste).'],
+  [/milk\b/, 'Out of milk? Use half water and half evaporated milk, or just water plus 1 tbsp butter per cup for cooking. Plain unsweetened soy or oat milk also swap one-for-one.'],
+  [/confectioners|powdered sugar|icing sugar/, 'No powdered sugar? Blend 1 cup granulated sugar with 1 tbsp cornstarch in a blender until very fine.'],
+  [/yeast/, 'One packet of active dry yeast is 2¼ tsp. Instant (rapid-rise) yeast swaps one-for-one, though dough may rise a little faster.'],
+  [/vinegar/, 'White vinegar and lemon juice swap one-for-one in most recipes. Cider vinegar and white wine vinegar are also close substitutes.'],
+  [/\bonion\b/, 'No fresh onion? 1 tbsp onion powder or about 3 tbsp dried minced onion stands in for 1 medium onion in cooked dishes.'],
+  [/butter/, 'Out of butter? In baking, margarine swaps one-for-one. For cooking, olive or vegetable oil works (use about ¾ the amount). For pie crust or biscuits, solid shortening is the closest swap.']
+];
+const ASK_FAQ = [
+  [/(ground|hamburg|meatloaf|burger)/ , 'Ground beef, pork, lamb and veal should reach 160°F inside. Ground turkey or chicken should reach 165°F. Use a meat thermometer rather than judging by color.'],
+  [/chicken|turkey|poultry|\bhen\b/, 'Chicken and turkey are done at 165°F in the thickest part (check the breast and the thigh, not touching bone). Let a whole bird rest 15 to 20 minutes before carving.'],
+  [/pork|steak|roast|\bbeef\b|lamb|chops?|ham\b/, 'Whole cuts of beef, pork, lamb and veal (steaks, chops, roasts) are safe at 145°F with a 3-minute rest. Raw ham is also 145°F. For fully cooked ham, just reheat to 140°F.'],
+  [/fish|salmon|cod\b|haddock|shrimp|scallop/, 'Fish is done at 145°F, or when it turns opaque and flakes easily with a fork. Shrimp and scallops turn opaque and firm.'],
+  [/leftover|reheat|casserole/, 'Reheat leftovers and casseroles to 165°F. Refrigerate cooked food within 2 hours, and eat it within 3 to 4 days.'],
+  [/hard.?boil|boiled eggs?|hard.?cook|boil(ing)? (an? |the |my )?eggs?|eggs?.*\bboil/, 'Cover eggs with cold water, bring to a boil, then cover, take off the heat and let stand about 12 minutes for firm yolks (9 to 10 for softer). Cool in ice water so they peel easily.'],
+  [/\brice\b/, 'White long-grain rice: 1 cup rice to 2 cups water, bring to a boil, cover and simmer on low about 18 minutes, then rest 5 minutes. Brown rice takes about 2½ cups water and 45 minutes. For other grains see the <a href="#/recipe/s5-cooking-whole-grains">Cooking Whole Grains chart</a>.'],
+  [/freez(e|er|ing)|frozen/, 'Most cooked dishes freeze well for 2 to 3 months. Cool completely, package airtight, and label with the date. Thaw in the refrigerator, not on the counter. Dishes heavy on cream, mayonnaise or raw vegetables tend not to freeze well.'],
+  [/thaw|defrost/, 'Thaw in the refrigerator (about a day for every 4 to 5 pounds of meat), or in a leakproof bag in cold water, changing the water every 30 minutes. Cook right away after thawing in water or the microwave. Never thaw on the counter.'],
+  [/(cake|cupcake|muffin|brownie|quick bread).*(done|ready)|(done|ready).*(cake|cupcake|muffin|brownie|quick bread)/, 'A toothpick pushed into the center should come out clean or with a few dry crumbs. The top of a cake springs back when lightly touched, and the edges pull away from the pan. Brownies should have a few moist crumbs.'],
+  [/brown sugar.*(hard|rock|lump)|(hard|rock).*brown sugar/, 'To soften hard brown sugar, microwave it with a damp paper towel over the bowl for 10 to 20 seconds at a time, or store it overnight in a sealed container with a slice of bread.'],
+  [/soften.*butter|butter.*(soften|room temp)/, 'Butter softens in 30 to 60 minutes at room temperature. For a faster way, cut it into small pieces, or microwave a stick in 5-second bursts. It should dent easily but not look shiny or melted.'],
+  [/(pie|crust).*(soggy)|soggy.*(pie|crust)/, 'For a crisp bottom crust, bake the pie on the lowest oven rack, preheat a baking sheet and set the pie on it, and let fruit pies cool fully so the filling sets.'],
+  [/(roast|cook|bake).*(vegetables?|potato)/, 'Most roasted vegetables like 425°F, cut to a similar size and spread in a single layer so they brown instead of steam. Potatoes and root vegetables take 35 to 45 minutes; broccoli and asparagus about 15 to 20.']
+];
+function askStem(w){ return w.replace(/(ies)$/,'y').replace(/(es)$/, w.length > 4 ? '' : 'es').replace(/s$/, w.length > 3 ? '' : 's'); }
+function askTokens(q){ return q.toLowerCase().replace(/[^a-z0-9\s']/g,' ').split(/\s+/).map(w=>w.replace(/'s$/,'').replace(/^'|'$/g,'')).filter(w => w && !ASK_STOP.has(w)); }
+const ASK_CATS = [
+  [/^(soups?|stews?|chowders?|chili)$/, r=>r.category==='Soups & Stews', 'soups and stews'],
+  [/^(cookies?)$/, r=>r.category==='Cookies', 'cookies'],
+  [/^(cakes?|cupcakes?)$/, r=>r.category==='Cakes', 'cakes'],
+  [/^(pies?|crisps?|cobblers?|crostata)$/, r=>r.category==='Pies & Crisps', 'pies and crisps'],
+  [/^(breads?|muffins?|biscuits?|rolls?)$/, r=>r.category==='Breads & Muffins', 'breads and muffins'],
+  [/^(salads?|slaws?)$/, r=>r.category==='Salads & Dressings', 'salads'],
+  [/^(desserts?|sweets?|treats?)$/, r=>SWEETS.includes(r.category), 'desserts'],
+  [/^(casseroles?)$/, r=>r.category==='Casseroles & Main Dishes', 'casseroles'],
+  [/^(dips?|appetizers?|snacks?|starters?)$/, r=>r.category==='Appetizers & Dips', 'appetizers and dips'],
+  [/^(drinks?|beverages?|cocktails?)$/, r=>r.category==='Drinks', 'drinks'],
+  [/^(breakfast|brunch)$/, r=>r.category==='Breakfast & Brunch', 'breakfast and brunch'],
+  [/^(sandwiches|sandwich|pizzas?)$/, r=>r.category==='Sandwiches & Pizza', 'sandwiches and pizza'],
+  [/^(sides?|vegetables?|veggies?)$/, r=>r.category==='Vegetables & Sides', 'vegetables and sides'],
+  [/^(sauces?|gravy|gravies)$/, r=>r.category==='Sauces & Gravies', 'sauces and gravies'],
+  [/^(candy|candies|fudge)$/, r=>r.category==='Candy & Treats', 'candy and treats'],
+  [/^(brownies|bars?)$/, r=>r.category==='Bars & Brownies', 'bars and brownies'],
+  [/^(pasta|noodles?)$/, r=>r.category==='Pasta & Rice' || /pasta|noodle|macaroni|spaghetti/.test(TS_TEXT(r)), 'pasta']
+];
+function askSwapAnswers(q){
+  const out = [];
+  if (!/(substitut|instead|replace|swap|alternative|out of|run out|ran out|don'?t have|do not have|no \w|without|use in place|stand in)/.test(q)) return out;
+  const hit = [...SWAPS, ...ASK_SWAPS2].find(x => x[0].test(q)); if (hit) out.push(hit[1]);
+  return out;
+}
+function askFindRecipes(q, toks){
+  const one = askFindRecipe(q, toks); if (one) return [one];
+  const weak = /^(nut|nuts|contain|includ|calorie|calories|calory|smartpoint|point|nutrition|fat|protein|carb|sodium|sugar|fiber|serv|serve|feed|bake|baking|cook|temperature|temp|degree|minute|hour|oven|allerg|dairy|gluten|free|credit|gave|wrote|ingredient|goe|goes|need|shop|has|have|people|healthy|made|maker|came|simmer|roast|yield|makes)$/;
+  const core = toks.filter(w => !weak.test(askStem(w)) && !weak.test(w)).map(askStem).filter(w => w.length > 2);
+  if (core.length < 2) return [];
+  const pool = R.filter(r => !r.guide).map(r => [r, askTokens(r.title).map(askStem)]).filter(x => core.every(w => x[1].includes(w)));
+  return pool.sort((a,b)=>a[1].length-b[1].length).slice(0,3).map(x=>x[0]);
+}
+function askFindRecipe(q, toks){
+  const pool = R.filter(r => !r.guide);
+  let best = null, bs = 0;
+  const qs = new Set(toks.map(askStem));
+  pool.forEach(r => {
+    const tt = askTokens(r.title).map(askStem).filter(w => w.length > 2); if (!tt.length) return;
+    const hit = tt.filter(w => qs.has(w)).length;
+    const frac = hit / tt.length;
+    if (frac >= 0.99 && (hit >= 2 || (tt.length === 1 && tt[0].length > 4))) { const s = hit + 1; if (s > bs) { bs = s; best = r; } }
+  });
+  return best;
+}
+function askRecipeFacts(r, q){
+  const steps = (r.steps||[]).join(' ');
+  let h = esc(r.title), parts = [];
+  const intent = {
+    time: /(how long|bake|baking|cook time|cooking time|minutes|hours|temperature|temp\b|degrees|oven|simmer|roast)/.test(q),
+    nut: /(calorie|smartpoint|points|nutrition|fat|protein|carb|sodium|sugar|fiber|healthy)/.test(q),
+    serves: /(serve|serving|feeds|how many people|yield|makes how)/.test(q),
+    has: /(contain|include|\bhas\b|\bhave\b|\bwith\b|allerg|nuts?|dairy|gluten)/.test(q),
+    who: /(who|credit|came from|gave|wrote)/.test(q),
+    ing: /(ingredient|what.s in|what goes in|what do i need|shopping)/.test(q)
+  };
+  let any = false;
+  if (intent.time) {
+    const s = steps.split(/(?<=[.!?])\s+/).filter(x => /(\d+\s*°|degrees|minutes?|hours?)/i.test(x)).slice(0, 4);
+    if (s.length) { parts.push('<strong>Times and temperatures from the recipe:</strong><ul>' + s.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>'); any = true; }
+  }
+  if (intent.nut) {
+    if (r.nutrition) { const n = r.nutrition; parts.push(`<strong>Per serving</strong> (${esc(n.per)}): ${n.points} SmartPoints, ${n.cal} calories, ${n.fat==null?'?':n.fat} g fat, ${n.carb==null?'?':n.carb} g carbs, ${n.protein} g protein.`); any = true; }
+    else { parts.push('This recipe doesn’t have nutrition information listed, since it comes from a family recipe card.'); any = true; }
+  }
+  if (intent.serves) { parts.push(r.serves ? `<strong>Serves:</strong> ${esc(r.serves)}.` : 'The card doesn’t say how many it serves.'); any = true; }
+  if (intent.who && r.credit) { parts.push(`<strong>From:</strong> ${esc(r.credit)}.`); any = true; }
+  if (intent.has && !intent.time) {
+    const ing = ING_TEXT(r), words = askTokens(q).map(askStem).filter(w => w.length > 2 && !askTokens(r.title).map(askStem).includes(w) && !/(contain|include|allerg|recip|have|dairy|gluten|free|nut)/.test(w));
+    const checks = [];
+    if (/nuts?\b/.test(q) && !/peanut|walnut|pecan|almond|cashew/.test(q.replace(/\bnuts?\b/,''))) { const m = ing.match(/walnut|pecan|almond|cashew|peanut|hazelnut|pistachio|macadamia|pine nut|chopped nuts|nuts/); checks.push(m ? `Yes, it uses nuts (${m[0]}).` : 'No nuts appear in the ingredient list.'); }
+    words.forEach(w => { const re = new RegExp('\\b' + w.replace(/[^a-z]/g,'')); checks.push(re.test(ing) ? `Yes, it lists <strong>${esc(w)}</strong> in the ingredients.` : `No <strong>${esc(w)}</strong> in the ingredient list.`); });
+    if (/gluten/.test(q)) checks.push(r.glutenFree ? 'It is marked gluten-free as written.' : 'It is not marked gluten-free, so it likely contains flour or another gluten source.');
+    if (checks.length) { parts.push(checks.slice(0,4).join('<br>')); any = true; }
+  }
+  if (intent.ing || !any) { parts.push('<strong>Ingredients:</strong> ' + esc(((r.ingredients||[]).flatMap(g=>g.items)).slice(0, 12).join('; ')) + (((r.ingredients||[]).flatMap(g=>g.items)).length > 12 ? '…' : '')); }
+  return {h, t: parts.join('<br><br>') + `<br><br><a href="#/recipe/${r.slug}">Open the full recipe →</a>`, raw:true};
+}
+function askFinder(q, toks){
+  const mods = []; let list = R.filter(r => !r.guide); const rest = [];
+  const lowq = ' ' + q + ' ';
+  const soft = [];
+  if (/\b(quick|fast|speedy|30 minutes?|in a hurry|weeknight)\b/.test(q)) { soft.push(['quick','quick']); }
+  if (/\b(easy|simple|beginner)\b/.test(q)) { soft.push(['easy','easy']); }
+  if (/make.?ahead|ahead of time|prep ahead/.test(q)) { soft.push(['ahead','make-ahead']); }
+  if (/\b(freezer|freeze|freezes)\b/.test(q)) { soft.push(['freezer','freezer-friendly']); }
+  if (/\b(crowd|party|potluck|big group|a lot of people)\b/.test(q)) { soft.push(['crowd','feeds a crowd']); }
+  if (/gluten.?free|celiac/.test(q)) { list = list.filter(r => r.glutenFree); mods.push('gluten-free'); }
+  if (/\b(healthy|healthier|light|low.?calorie|low.?fat|diet|smartpoints?)\b/.test(q)) { list = list.filter(r => r.healthy); mods.push('healthy'); }
+  if (/grilled cheese|melts?\b/.test(q)) { list = list.filter(r => r.grilled); mods.push('grilled cheese'); }
+  if (/\b(vegetarian|meatless|no meat)\b/.test(q)) { list = list.filter(r => !/\b(beef|pork|chicken|turkey|ham|bacon|sausage|hamburg|lamb|fish|shrimp|tuna|salmon|crab|lobster|scallop|clam|bologna|pepperoni)\b/.test(ING_TEXT(r))); mods.push('meatless'); }
+  const catWords = [];
+  const ing = [];
+  toks.forEach(w => {
+    if (/^(feed|feeds|people|serve|serves|quick|fast|speedy|easy|simple|beginner|healthy|healthier|light|crowd|party|potluck|freezer|freeze|gluten|free|celiac|vegetarian|meatless|diet|weeknight|ahead|make|ahead|low|calorie|fat|meat|smartpoint|smartpoints|grilled|cheese|melt|melts)$/.test(w) && !(w==='cheese' && !/grilled cheese/.test(q))) return;
+    const c = ASK_CATS.find(x => x[0].test(w)); if (c) { catWords.push(c); return; }
+    if (w.length > 2) ing.push(askStem(w));
+  });
+  catWords.forEach(c => { list = list.filter(c[1]); mods.push(c[2]); });
+  let softNote = '';
+  soft.forEach(s => { const l2 = list.filter(r => easeTags(r).some(t=>t.key===s[0])); if (l2.length) { list = l2; mods.push(s[1]); } else softNote += (softNote?', ':'') + s[1]; });
+  let relaxed = false, results = list;
+  const test = (r, w) => new RegExp('\\b' + w.replace(/[^a-z0-9]/g,'')).test(TS_TEXT(r) + ' ' + ING_TEXT(r));
+  if (ing.length) {
+    results = list.filter(r => ing.every(w => test(r, w)));
+    if (!results.length && ing.length > 1) { results = list.map(r => [r, ing.filter(w => test(r, w)).length]).filter(x => x[1] >= Math.max(1, ing.length - 1)).sort((a,b)=>b[1]-a[1]).map(x=>x[0]); relaxed = true; }
+    results = results.map(r => [r, ing.reduce((s,w) => s + (new RegExp('\\b' + w.replace(/[^a-z0-9]/g,'')).test(TS_TEXT(r)) ? 2 : 0) + (test(r,w)?1:0), 0)]).sort((a,b)=>b[1]-a[1] || a[0].title.localeCompare(b[0].title)).map(x=>x[0]);
+  } else if (!mods.length && !softNote) return null;
+  else results = list.slice().sort((a,b)=>a.title.localeCompare(b.title));
+  return {results, ing, mods, relaxed, softNote};
+}
+function askAnswer(raw){
+  const q = raw.toLowerCase().replace(/[“”]/g,'"').replace(/[’‘]/g,"'").trim();
+  const toks = askTokens(q), cards = [];
+  const conv = askConvert(q) || askScale(q);
+  if (conv) cards.push(conv);
+  askSwapAnswers(q).forEach(t => cards.push({h:'A handy swap', t}));
+  if (!cards.length) { const f = ASK_FAQ.filter(x => x[0].test(q) && /(how|temp|done|safe|long|cook|when|soft|soggy|thaw|freez|reheat|boil|store|keep|ready|degrees|hard)/.test(q)); if (f.length && !/(recipe|make|ideas|with|using)/.test(q.replace(/(how do i|how long)/g,''))) f.slice(0,2).forEach(x => cards.push({h:'Kitchen know-how', t:x[1], raw:true})); }
+  const recs = askFindRecipes(q, toks), rec = recs[0];
+  if (rec && !cards.length && /(how long|bake|temperature|temp\b|degrees|oven|calorie|smartpoint|points|nutrition|fat|protein|carb|sodium|sugar|fiber|serve|serving|feeds|how many people|contain|include|\bhas\b|\bhave\b|allerg|nuts?|dairy|gluten|who|credit|gave|wrote|ingredient|what.s in|what goes in|what do i need)/.test(q)) recs.slice().reverse().forEach(x => cards.unshift(askRecipeFacts(x, q)));
+  let fin = null;
+  if (!cards.length) { fin = askFinder(q, toks); if (!fin && rec) cards.push(askRecipeFacts(rec, q)); }
+  return {cards, fin, q: raw};
+}
+function askPage(qs){
+  setNav(''); document.title = 'Ask · Family Recipes';
+  const eg = ['What can I make with chicken and rice?','Quick gluten-free dessert','Substitute for buttermilk','350°F in Celsius','How many tablespoons in ¾ cup?','Double 2/3 cup','Safe temperature for pork','Does the apple pie have nuts?','Healthy soup','Easy make-ahead breakfast'];
+  app.innerHTML = `<a class="back" href="#/">← Home</a>
+    <div class="r-head"><h1>💬 Ask the recipe box</h1><p class="summary">Type a question and get an answer right away: what to cook with what you have, swaps, conversions, safe cooking temperatures, and questions about a particular recipe. Answers come from the recipes on this site and a short list of kitchen basics.</p></div>
+    <form id="askForm" role="search" style="display:flex;gap:8px;align-items:center;max-width:640px"><input id="askQ" type="text" autocomplete="off" enterkeyhint="search" placeholder="Ask anything about the recipes or the kitchen…" aria-label="Your question" value="${esc(qs||'')}" style="flex:1;min-width:0;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--paper);font:inherit;color:inherit"><button class="btn primary" type="submit">Ask</button></form>
+    <div class="chips" id="askEg" style="margin:12px 0 18px">${eg.map(x=>`<button type="button" class="chip">${esc(x)}</button>`).join('')}</div>
+    <div id="askRes" aria-live="polite" style="margin-bottom:48px"></div>`;
+  const res = document.getElementById('askRes'), inp = document.getElementById('askQ');
+  let shown = 12, last = null;
+  const draw = () => {
+    if (!last) { res.innerHTML = ''; return; }
+    const { cards, fin } = last; let h = '';
+    cards.forEach(c => { h += `<div class="panel" style="margin-bottom:14px"><h2>${esc(c.h)}</h2><p>${c.raw ? c.t : esc(c.t)}</p></div>`; });
+    if (fin) {
+      const { results, ing, mods, relaxed, softNote } = fin, what = [...mods, ...ing].join(', ');
+      if (!results.length) h += `<div class="panel"><h2>No match yet</h2><p>I couldn’t find recipes for “${esc(what)}.” Try fewer words, or <a href="#/search">search the whole site</a>.</p></div>`;
+      else h += `<div class="panel" style="margin-bottom:14px"><h2>${results.length} recipe${results.length===1?'':'s'}${what?' for “'+esc(what)+'”':''}</h2>${relaxed?'<p class="hint">Nothing had every word, so these match some of them, best first.</p>':''}${softNote?'<p class="hint">No recipes were tagged '+esc(softNote)+' in that group, so I left that part out.</p>':''}</div><div class="grid">${results.slice(0, shown).map(r=>cardHTML(r,true)).join('')}</div>${results.length>shown?'<p style="text-align:center;margin:18px 0"><button class="btn" id="askMore">Show more</button></p>':''}`;
+    }
+    if (!cards.length && !fin) h = `<div class="panel"><h2>Hmm, I’m not sure about that one</h2><p>I can answer things like swaps, conversions, cooking temperatures, and “what can I make with…”. Try rewording, or <a href="#/search">search all recipes</a>.</p></div>`;
+    res.innerHTML = h;
+    const mb = document.getElementById('askMore'); if (mb) mb.onclick = () => { shown += 12; draw(); };
+  };
+  const run = q => { q = (q||'').trim(); if (!q) { last = null; draw(); return; } shown = 12; last = askAnswer(q); draw(); };
+  document.getElementById('askForm').onsubmit = e => { e.preventDefault(); const q = inp.value.trim(); history.replaceState(null, '', '#/ask' + (q ? '/' + encodeURIComponent(q) : '')); run(q); };
+  document.getElementById('askEg').onclick = e => { const b = e.target.closest('.chip'); if (!b) return; inp.value = b.textContent; document.getElementById('askForm').requestSubmit(); };
+  if (qs) run(qs); else inp.focus();
+  window.scrollTo(0,0);
+}
+
 function route(){
   const h = location.hash.replace(/^#\/?/, '');
   document.title = 'Family Recipes';
@@ -2140,6 +2400,7 @@ function route(){
   else if(h === 'stats') statsPage();
   else if(h === 'backup') backupPage();
   else if(h === 'staples') staplesPage();
+  else if(h === 'ask' || h.startsWith('ask/')) askPage(h.startsWith('ask/') ? decodeURIComponent(h.slice(4)) : '');
   else if(h === 'more') morePage();
   else if(h === 'random') { const l = R.filter(r=>r.section==='family'); location.replace('#/recipe/' + l[Math.floor(Math.random()*l.length)].slug); }
   else if(h === 'crowd') { location.replace('#/quick/crowd'); }
