@@ -27,7 +27,7 @@
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;font-size:106.25%}
-html.ts-1{font-size:118.75%}html.ts-2{font-size:131.25%}
+html.ts-1{font-size:125%!important}html.ts-2{font-size:140%!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.6 Inter,system-ui,sans-serif}
 a{color:inherit}
 button{font:inherit;color:inherit;cursor:pointer}
@@ -361,6 +361,25 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 .person .n{font-size:.78rem;color:var(--muted);margin-top:4px}
 .person-head .tagline{margin:2px 0 8px}
 .kin{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0 0}
+/* ---- Simpler pages ---- */
+html{font-size:112.5%}
+.tiles.six{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.tiles.six{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile.more-tile{grid-column:1/-1;min-height:0;background:var(--accent-soft);border-color:transparent}
+.more-group{margin:8px 0 22px}.more-group h2{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.more-row{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--paper);border:1px solid var(--line);border-radius:14px;margin-bottom:8px;text-decoration:none;min-height:64px}
+.more-row .me{font-size:1.6rem;width:36px;text-align:center}.more-row strong{display:block;font-size:1.05rem}.more-row .ms{display:block;color:var(--muted);font-size:.88rem}.more-row .mg{margin-left:auto;font-size:1.6rem;color:var(--muted)}
+.morelist{display:flex;flex-direction:column;gap:8px}
+.morelist button{display:flex;align-items:center;gap:14px;text-align:left;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);font-size:1.1rem;min-height:58px}
+.r-extra{display:flex;flex-direction:column;gap:16px;margin:0 0 20px}
+.r-extra > .panel,.r-extra > .idxcard{margin:0}
+.tipsbox{border:1px solid var(--line);border-radius:14px;background:var(--paper)}
+.tipsbox summary{cursor:pointer;padding:16px 18px;font-weight:700;font-size:1.05rem;list-style:none}
+.tipsbox summary::-webkit-details-marker{display:none}
+.tipsbox summary::after{content:"＋";float:right;color:var(--accent)}.tipsbox[open] summary::after{content:"－"}
+.tipsbody{padding:0 14px 14px;display:flex;flex-direction:column;gap:12px}.tipsbody .panel{margin:0}
+.tellus{margin:0 0 28px;color:var(--muted);font-size:.95rem}
+.actions .btn{min-height:46px;font-size:1rem}
 /* ---- Make it a meal ---- */
 .meal{margin:10px 0 24px}.meal h2{font-family:Fraunces,Georgia,serif;font-size:1.4rem;margin:0 0 4px}
 .meal-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0 12px}@media (max-width:620px){.meal-row{grid-template-columns:1fr}}
@@ -657,12 +676,8 @@ function home(){
     ['#/box-a','🗃️','Mom’s Recipe Boxes','Box A, Box 2, Box 3'],
     ['#/shelf','📖','Cookbook Shelf', secCount('found')+' recipes'],
     ['#/holidays/'+u.key, u.emoji, 'Holidays', esc(u.name)+' is next'],
-    ['#/pantry','🥕','What’s in the Fridge?','Pick what you have'],
-    ['#/people','👪','Look Up a Name','Who made it'],
-    ['#/gluten-free','🌾','Gluten-Free', R.filter(r=>r.glutenFree).length+' recipes'],
-    ['#/favorites','♥','Favorites & Collections','Saved on this phone'],
     ['#/plan','📅','This Week’s Meals','Plan the week'],
-    ['#/shopping','🛒','Shopping List','Recipes + your own items']
+    ['#/pantry','🥕','What’s in the Fridge?','Pick what you have']
   ];
   app.innerHTML = `
     <section class="hero" style="padding-bottom:12px">
@@ -673,16 +688,10 @@ function home(){
       <input id="q" type="search" placeholder="Search recipes, ingredients, names…" value="${esc(state.q)}">
     </label>
     <div class="grid" id="grid" style="margin-top:18px"></div>
-    ${(()=>{ const rec = store.get('recent', []).map(x=>R.find(r=>r.slug===x)).filter(Boolean).slice(0,6); return rec.length ? `<section class="recent after-tiles"><h2>Recently viewed</h2><div class="recent-row">${rec.map(r=>`<a class="recent-chip" href="#/recipe/${r.slug}">${esc(r.title)}</a>`).join('')}</div></section>` : ''; })()}
-    <div class="tiles">${tiles.map(t=>`<a class="tile" href="${t[0]}"><span class="te" aria-hidden="true">${t[1]}</span><strong>${t[2]}</strong><span class="tn">${t[3]}</span></a>`).join('')}</div>
+    <div class="tiles six">${tiles.map(t=>`<a class="tile" href="${t[0]}"><span class="te" aria-hidden="true">${t[1]}</span><strong>${t[2]}</strong><span class="tn">${t[3]}</span></a>`).join('')}<a class="tile more-tile" href="#/more"><span class="te" aria-hidden="true">➕</span><strong>More ways to browse</strong><span class="tn">By ingredient, quick &amp; easy, in season, look up a name and more</span></a></div>
     <div class="after-tiles">
-    <div class="morebrowse"><a href="#/ingredients">🍗 By main ingredient</a><a href="#/quick">⚡ Quick &amp; easy</a><a href="#/quick/crowd">👨‍👩‍👧‍👦 Feeds a crowd</a><a href="#/quick/freezer">❄️ Freezer-friendly</a><a href="#/staples">🧂 Pantry check</a><a href="#/season">${seasonInfo().emoji} In season</a><a href="#/needs-help">🙋 Help fill in recipes</a><a href="#/stats">📊 Family recipe stats</a></div>
-    ${(()=>{ const l = seasonList(); if (!l.length) return ''; const pick3 = l.slice().sort(()=>Math.random()-.5).slice(0,3); return `<section class="season-home"><h2>${seasonInfo().emoji} In season: ${seasonInfo().month}</h2><div class="grid">${pick3.map(r=>cardHTML(r,true)).join('')}</div><p><a href="#/season">See all ${l.length} →</a></p></section>`; })()}
+    ${(()=>{ const rec = store.get('recent', []).map(x=>R.find(r=>r.slug===x)).filter(Boolean).slice(0,6); return rec.length ? `<section class="recent"><h2>Recently viewed</h2><div class="recent-row">${rec.map(r=>`<a class="recent-chip" href="#/recipe/${r.slug}">${esc(r.title)}</a>`).join('')}</div></section>` : ''; })()}
     <section class="pick" id="pick"><span class="pick-kicker">Today's pick</span><p class="pick-why" id="pickWhy"></p><div id="pickCard"></div><button type="button" class="linkbtn pick-again" id="pickAgain">Show me another idea</button></section>
-    <div class="share-cta">
-      <p><strong>Have a family favorite?</strong> Type it in or just snap a photo of the recipe card. No account needed.</p>
-      <a class="btn primary" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener" style="text-decoration:none">+ Share a recipe</a>
-    </div>
     </div>`;
   state.sec = 'all'; state.cat = 'All';
   const searching = () => app.classList.toggle('home-searching', !!state.q.trim());
@@ -958,66 +967,52 @@ function recipe(slug){
       ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `${r.section==='found' ? 'From' : 'From the kitchen of'} ${(()=>{ const pk = window.PEOPLE_API ? PEOPLE_API.keyFor(r) : ''; return pk ? `<a class="personlink" href="#/people/${pk}"><strong>${esc(r.credit)}</strong></a>` : `<strong>${esc(r.credit)}</strong>`; })()}${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}${r.box ? ` · <a class="boxlabel" href="#/${boxRoute(r.box)}${r.boxSection ? '/'+boxKey(r.boxSection) : ''}">Mom’s recipe box · Box ${esc(r.box)}${r.boxSection ? ' · '+esc(r.boxSection) : ''}</a>` : ''}</p>` : ''}
       ${r.source ? `<p class="credit">Source: ${r.source.url ? `<a href="${esc(r.source.url)}" target="_blank" rel="noopener">${esc(r.source.text)}</a>` : esc(r.source.text)}</p>` : ''}
       ${(r.holidays||[]).length ? `<p class="hol-line">${r.holidays.map(x=>HOLIDAY_BY_KEY[x]?`<a href="#/holidays/${x}">${HOLIDAY_BY_KEY[x].emoji} ${esc(HOLIDAY_BY_KEY[x].name)}</a>`:"").join(" ")}</p>` : ""}
-      <div class="facts">${r.serves?`<span><strong>Serves</strong> ${esc(r.serves)}</span>`:''}${easeTags(r).map(t=>`<a class="tag ease" href="#/quick/${t.key}">${t.label}</a>`).join('')}${r.time?`<span>${esc(r.time)}</span>`:''}${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+      <div class="facts">${r.serves?`<span><strong>Serves</strong> ${esc(r.serves)}</span>`:''}${easeTags(r).map(t=>`<a class="tag ease" href="#/quick/${t.key}">${t.label}</a>`).join('')}${r.time?`<span>${esc(r.time)}</span>`:''}</div>
     </div>
     <div class="actions">
       <button class="btn ${isFav(slug)?'faved':''}" id="favBtn" aria-pressed="${isFav(slug)}">${isFav(slug)?'♥ Favorited':'♡ Favorite'}</button>
-      <button class="btn ${inList?'':'primary'}" id="addShop">${inList ? '✓ On shopping list' : '+ Add to shopping list'}</button>
+      <button class="btn ${inList?'':'primary'}" id="addShop">${inList ? '✓ On shopping list' : '+ Shopping list'}</button>
       <button class="btn" id="cook" aria-pressed="${!!wakeLock}" title="Keeps your screen from going to sleep while you cook">Cook mode</button>
-      <button class="btn" id="reset">Reset checks</button>
-      <button class="btn" onclick="window.print()">Print</button>
-      <button class="btn" id="shareBtn">📤 Send to someone</button>
-      <button class="btn" id="colBtn">📁 Save to a collection</button>
-      <button class="btn" id="planBtn">📅 Plan it for a day</button>
+      <button class="btn" id="moreBtn" aria-haspopup="dialog">⋯ More</button>
     </div>
     ${r.tip ? `<div class="tip">${md(r.tip)}</div>` : ''}
-    ${r.familyMember ? `<div class="fam-note">👪 <strong>A family recipe</strong> — from ${r.familyNames.map(x=>esc(x)).join(', ')}.</div>` : ''}
     ${r.glutenFree ? `<div class="gf-note"><strong>🌾 Gluten-free as written.</strong> ${r.gfCheck && r.gfCheck.length ? `Check the label and buy these labeled gluten-free: ${r.gfCheck.map(x=>esc(x)).join('; ')}.` : 'No ingredients here normally contain gluten.'} <a href="#/gluten-free">More gluten-free recipes</a></div>` : ''}
     <div class="r-body">
-      <section><section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>${swapsHtml(r)}${freezeHtml(r)}</section>
+      <section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>
       <section>
-        ${r.fromBox ? indexCardHtml(r) : ''}
         <div class="panel">
           <h2>Instructions</h2>
           ${r.steps.length ? `<p class="hint">Tap a step to mark it done.</p><ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(toTemp(s))}${timerBtns(s)}</li>`).join('')}</ol>` : '<p class="muted">No instructions on the card.</p>'}
         </div>
-        <div class="panel mynote"><h2>My notes</h2><p class="hint">Only you see these, on this phone. Handy for “used less sugar” or “double it next time.”</p><textarea id="myNote" rows="3" placeholder="Add a note for next time…">${esc(store.get('note:'+slug, ''))}</textarea><p class="hint" id="noteSaved" hidden>Saved ✓</p></div>
-        ${!r.fromBox && r.adjustments && r.adjustments.length ? `<div class="panel notes adj"><h2>Adjustments</h2><p class="hint">Later notes added to the card. The recipe above is the original.</p><ul>${r.adjustments.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
-        ${!r.fromBox && r.cardNotes && r.cardNotes.length ? `<div class="panel notes"><h2>On the card</h2><ul>${r.cardNotes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
-        ${r.gaps && r.gaps.length ? `<div class="panel notes gaps"><h2>Missing from the card</h2><ul>${r.gaps.map(x=>`<li>${md(x)}</li>`).join('')}</ul>${SUGGEST_URL ? `<a class="btn primary" href="${suggestLink(r)}" target="_blank" rel="noopener" style="text-decoration:none">I know this — suggest a fill-in</a>` : '<p class="hint">Know the answer? Let the family know.</p>'}</div>` : ''}
-        ${SUGGEST_URL && r.fromBox && !(r.gaps && r.gaps.length) ? `<p class="suggest-line">Know something about this recipe — who it came from or the story behind it? <a href="${suggestLink(r)}" target="_blank" rel="noopener">Share it</a></p>` : ''}
-        ${SUGGEST_URL ? `<p class="suggest-line">🎉 Do you make this for a holiday? <a href="${suggestLink(r)}" target="_blank" rel="noopener">Tell us which one</a></p>` : ''}
-        ${r.notes && r.notes.length ? `<div class="panel notes"><h2>Notes</h2><ul>${r.notes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
       </section>
     </div>
+    <div class="r-extra">
+        ${r.gaps && r.gaps.length ? `<div class="panel notes gaps"><h2>Missing from the card</h2><ul>${r.gaps.map(x=>`<li>${md(x)}</li>`).join('')}</ul>${SUGGEST_URL ? `<a class="btn primary" href="${suggestLink(r)}" target="_blank" rel="noopener" style="text-decoration:none">I know this — suggest a fill-in</a>` : '<p class="hint">Know the answer? Let the family know.</p>'}</div>` : ''}
+        ${r.fromBox ? indexCardHtml(r) : ''}
+        ${!r.fromBox && r.adjustments && r.adjustments.length ? `<div class="panel notes adj"><h2>Adjustments</h2><p class="hint">Later notes added to the card. The recipe above is the original.</p><ul>${r.adjustments.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
+        ${!r.fromBox && r.cardNotes && r.cardNotes.length ? `<div class="panel notes"><h2>On the card</h2><ul>${r.cardNotes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
+        ${r.notes && r.notes.length ? `<div class="panel notes"><h2>Notes</h2><ul>${r.notes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
+        ${tipsHtml(r, slug)}
+    </div>
     ${(r.photos && r.photos.length) ? `<h2 class="gal-h">How it turned out</h2><div class="gallery">${r.photos.map(p=>`<button type="button" class="photo-btn" data-zoom="${esc(p.src)}" data-cap="${esc((p.caption||'')+(p.by?' — '+p.by:''))}"><img src="${esc(p.src)}" alt="${esc(p.caption||('Photo of '+r.title))}" loading="lazy"></button>`).join('')}</div>` : ''}
-    <p class="photo-add"><a class="btn" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener" style="text-decoration:none">📷 Made it? Add a photo</a></p>
+    <p class="tellus">Know who it came from, a holiday you make it for, or see a mistake? <a href="${suggestLink(r)}" target="_blank" rel="noopener">Tell us</a> · <a href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener">📷 Add a photo of yours</a></p>
     ${mealHtml(r)}
-    ${alsoLikeHtml(r)}
-    <p class="report-line">Something wrong on this page? <a href="${suggestLink(r)}" target="_blank" rel="noopener">Tell us and we’ll fix it</a>.</p>`;
+    ${alsoLikeHtml(r)}`;
   const save = () => store.set('chk:'+slug, checks);
   const bindChecks = () => app.querySelectorAll('.checklist input').forEach(i => i.onchange = () => { checks[i.dataset.k] = i.checked; save(); });
   bindChecks(); bindScale(r, checks, bindChecks);
   app.querySelectorAll('ol.steps li').forEach(li => li.onclick = () => { const k = li.dataset.k; checks[k] = !checks[k]; li.classList.toggle('done', checks[k]); save(); });
   document.getElementById('favBtn').onclick = () => { toggleFav(slug); recipe(slug); };
-  document.getElementById('reset').onclick = () => { store.set('chk:'+slug, {}); recipe(slug); };
   document.getElementById('addShop').onclick = () => {
     let l = shopList();
     l = l.includes(slug) ? l.filter(s=>s!==slug) : [...l, slug];
     store.set('shop', l); updateShopCount(); recipe(slug);
   };
+  document.getElementById('moreBtn').onclick = () => moreSheet(r);
   const noteBox = document.getElementById('myNote'), noteSaved = document.getElementById('noteSaved'); let noteT;
-  noteBox.oninput = () => { clearTimeout(noteT); noteT = setTimeout(() => { const v = noteBox.value.trim(); if (v) store.set('note:'+slug, noteBox.value); else { try{ localStorage.removeItem('fr:note:'+slug); }catch(e){} } noteSaved.hidden = false; setTimeout(()=>noteSaved.hidden=true, 1500); }, 400); };
-  document.getElementById('shareBtn').onclick = async () => {
-    const url = location.href.split('#')[0].split('?')[0] + '#/recipe/' + slug, b = document.getElementById('shareBtn');
-    try { if (navigator.share) { await navigator.share({ title: r.title, text: r.title + ' from our Family Recipes', url }); return; } } catch(e){ if (e && e.name === 'AbortError') return; }
-    try { await navigator.clipboard.writeText(url); b.textContent = '✓ Link copied'; } catch(e){ prompt('Copy this link:', url); }
-    setTimeout(() => { b.textContent = '📤 Send to someone'; }, 2500);
-  };
+  if (noteBox) noteBox.oninput = () => { clearTimeout(noteT); noteT = setTimeout(() => { const v = noteBox.value.trim(); if (v) store.set('note:'+slug, noteBox.value); else { try{ localStorage.removeItem('fr:note:'+slug); }catch(e){} } noteSaved.hidden = false; setTimeout(()=>noteSaved.hidden=true, 1500); }, 400); };
   { const rec = store.get('recent', []).filter(x => x !== slug); rec.unshift(slug); store.set('recent', rec.slice(0, 8)); }
-  document.getElementById('colBtn').onclick = () => collectionSheet(slug);
   bindMeal(r);
-  document.getElementById('planBtn').onclick = () => planSheet(slug);
   app.querySelectorAll('[data-timer]').forEach(b => b.onclick = e => { e.stopPropagation(); startTimer(+b.dataset.timer, r.title + ': ' + b.dataset.label); });
   const cookBtn = document.getElementById('cook');
   if(!('wakeLock' in navigator)) cookBtn.hidden = true;
@@ -1545,6 +1540,38 @@ function freezeHtml(r){
   return `<div class="panel swaps freeze"><h2>❄️ Freezing it</h2><p>${esc(f.tip)}</p>${f.said ? '<p class="hint">The card itself mentions freezing.</p>' : '<p class="hint">General freezing advice for this kind of dish.</p>'}</div>`;
 }
 
+// ---- Recipe page: More sheet and Tips & notes ----
+function moreSheet(r){
+  const slug = r.slug;
+  const d = sheet('More', `<div class="morelist">
+    <button type="button" data-m="print">🖨️ <span>Print this recipe</span></button>
+    <button type="button" data-m="share">📤 <span>Send to someone</span></button>
+    <button type="button" data-m="col">📁 <span>Save to a collection</span></button>
+    <button type="button" data-m="plan">📅 <span>Plan it for a day</span></button>
+    <button type="button" data-m="reset">↺ <span>Clear my check marks</span></button>
+  </div>`);
+  d.querySelectorAll('[data-m]').forEach(b => b.onclick = async () => {
+    const m = b.dataset.m;
+    if (m === 'print') { closeSheet(); setTimeout(() => window.print(), 100); }
+    else if (m === 'col') collectionSheet(slug);
+    else if (m === 'plan') planSheet(slug);
+    else if (m === 'reset') { store.set('chk:'+slug, {}); closeSheet(); recipeKeepScroll(slug); toast('Check marks cleared'); }
+    else if (m === 'share') {
+      const url = location.href.split('#')[0].split('?')[0] + '#/recipe/' + slug;
+      try { if (navigator.share) { await navigator.share({ title: r.title, text: r.title + ' from our Family Recipes', url }); closeSheet(); return; } } catch(e){ if (e && e.name === 'AbortError') return; }
+      try { await navigator.clipboard.writeText(url); closeSheet(); toast('Link copied. Paste it in a text or email.'); } catch(e){ prompt('Copy this link:', url); }
+    }
+  });
+}
+function tipsHtml(r, slug){
+  const note = store.get('note:'+slug, ''), sw = swapsHtml(r), fr = freezeHtml(r);
+  const n = (sw?1:0) + (fr?1:0);
+  return `<details class="tipsbox" ${note ? 'open' : ''}><summary>💡 Tips &amp; my notes${n ? ` <span class="muted">(${n} tip${n>1?'s':''}${note?' + your note':''})</span>` : note ? ' <span class="muted">(your note)</span>' : ''}</summary>
+    <div class="tipsbody">${sw}${fr}
+      <div class="panel mynote"><h2>My notes</h2><p class="hint">Only you see these, on this phone.</p><textarea id="myNote" rows="3" placeholder="Like “used less sugar” or “double it next time”…">${esc(note)}</textarea><p class="hint" id="noteSaved" hidden>Saved ✓</p></div>
+    </div></details>`;
+}
+
 // ---- Make it a meal (pairings) ----
 const MAIN_CATS = ['Dinner','Meats & Seafood','Casseroles','Soups'];
 const SIDE_CATS = ['Sides','Salads','Breads'];
@@ -1684,7 +1711,7 @@ function alsoLikeHtml(r){
     if (x.box && x.box === r.box) sc += .5;
     const h = [...x.slug].reduce((a,c)=>a*33+c.charCodeAt(0)|0, seed); return {x, sc: sc + ((h>>>0)%100)/1000};
   }).filter(o => o.sc >= 3).sort((a,b)=>b.sc-a.sc).slice(0,4).map(o=>o.x);
-  return scored.length ? `<section class="alsolike"><h2>You might also like</h2><div class="grid">${scored.map(x=>cardHTML(x,true)).join('')}</div></section>` : '';
+  return scored.length ? `<section class="alsolike"><h2>You might also like</h2><div class="alsolist">${scored.map(x=>`<a class="more-row" href="#/recipe/${x.slug}"><span><strong>${esc(x.title)}</strong><span class="ms">${esc(x.category)}${x.credit?' · '+esc(x.credit):''}</span></span><span class="mg" aria-hidden="true">›</span></a>`).join('')}</div></section>` : '';
 }
 
 // ---- 7. Help fill in recipes ----
@@ -1788,6 +1815,37 @@ function backupPage(){
   window.scrollTo(0,0);
 }
 
+function morePage(){
+  setNav(''); document.title = 'More ways to browse · Family Recipes';
+  const si = seasonInfo();
+  const group = (title, rows) => `<section class="more-group"><h2>${title}</h2>${rows.map(([h,e,t,sub])=>`<a class="more-row" href="${h}"><span class="me" aria-hidden="true">${e}</span><span><strong>${t}</strong>${sub?`<span class="ms">${sub}</span>`:''}</span><span class="mg" aria-hidden="true">›</span></a>`).join('')}</section>`;
+  app.innerHTML = `<a class="back" href="#/">← Home</a>
+    <div class="r-head"><h1>More ways to browse</h1></div>
+    ${group('Find a recipe', [
+      ['#/ingredients','🍗','By main ingredient','Chicken, beef, potatoes, apples…'],
+      ['#/quick','⚡','Quick & easy','Short and simple recipes'],
+      ['#/season', si.emoji, 'In season', si.month + ' favorites'],
+      ['#/quick/crowd','👨‍👩‍👧‍👦','Feeds a crowd','Serves 10 or more'],
+      ['#/quick/freezer','❄️','Freezer-friendly','Make now, eat later'],
+      ['#/gluten-free','🌾','Gluten-free','No wheat, barley, rye or oats'],
+      ['#/people','👪','Look up a name','Every recipe from one person'],
+      ['#/random','🎲','Surprise me','A random family recipe']
+    ])}
+    ${group('My kitchen', [
+      ['#/favorites','♥','Favorites & collections',''],
+      ['#/shopping','🛒','Shopping list',''],
+      ['#/staples','🧂','Pantry check','What are you out of?'],
+      ['#/backup','💾','Back up or move to a new phone','']
+    ])}
+    ${group('The family project', [
+      ['#/needs-help','🙋','Help fill in recipes','Cards with missing pieces'],
+      ['#/stats','📊','Family recipe stats','Fun facts from the cards'],
+      ['https://tally.so/r/xVrP7o','➕','Share a recipe','Type it in or snap a photo']
+    ])}
+    <p style="margin-bottom:48px"></p>`;
+  window.scrollTo(0,0);
+}
+
 function route(){
   const h = location.hash.replace(/^#\/?/, '');
   document.title = 'Family Recipes';
@@ -1807,6 +1865,8 @@ function route(){
   else if(h === 'stats') statsPage();
   else if(h === 'backup') backupPage();
   else if(h === 'staples') staplesPage();
+  else if(h === 'more') morePage();
+  else if(h === 'random') { const l = R.filter(r=>r.section==='family'); location.replace('#/recipe/' + l[Math.floor(Math.random()*l.length)].slug); }
   else if(h === 'crowd') { location.replace('#/quick/crowd'); }
   else if(h === 'freezer') { location.replace('#/quick/freezer'); }
   else if(h === 'pantry') pantryPage();
