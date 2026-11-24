@@ -559,6 +559,7 @@ a.meal-item:hover{border-color:var(--accent)}
 <script src="cards7.js?v=20261127"></script>
 <script src="cards8.js?v=20261127"></script>
 <script src="simply5.js?v=20261127"></script>
+<script src="simply5-guides.js?v=20261127"></script>
 <script src="breadbowls.js?v=20261127"></script>
 <script src="cards9.js?v=20261127"></script>
 <script src="cards10.js?v=20261127"></script>
@@ -984,6 +985,13 @@ function healthyPage(){
       <p class="tagline">Light, simple dishes with five ingredients or less</p>
       <p>${nrec} recipes and kitchen guides for everyday eating: fresh vegetables, lean proteins, soups, whole grains and lighter sweets. Most use just a handful of ingredients.</p>
     </section>
+
+    ${(window.S5_GUIDES||[]).length ? `<section class="gf-guide" aria-label="Healthy kitchen tips">
+      <h2>Healthy kitchen tips</h2>
+      <p class="hint">Tap a topic to open it.</p>
+      ${S5_GUIDES.map(g=>`<details><summary>${esc(g.title)}</summary>${g.summary?`<p>${esc(g.summary)}</p>`:''}${(g.sections||[]).map(s=>`${s.heading?`<h3 style="font-size:1rem;margin:12px 0 4px">${esc(s.heading)}</h3>`:''}<ul>${(s.items||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`).join('')}${(g.notes||[]).length?`<ul>${g.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}</details>`).join('')}
+    </section>` : ''}
+    <h2 class="gf-list-head">Healthy recipes</h2>
     <div class="controls">
       <label class="search" aria-label="Search healthy recipes">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>

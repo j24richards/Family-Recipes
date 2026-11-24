@@ -112,6 +112,5 @@ g("s5-global-glossary","Global Glossary","pp. xii–xiv",
   "Naan: a leavened Indian flatbread of flour, yogurt, salt, and yeast, traditionally baked in a tandoor oven and best brushed with ghee. Stonefire Authentic Flatbreads is a supermarket brand."]}],
  [])
 ];
-R.forEach(function(r){r.healthy=true;});
-window.RECIPES=(window.RECIPES||[]).concat(R);
+window.S5_GUIDES=R;
 })();
