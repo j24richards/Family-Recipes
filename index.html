@@ -225,6 +225,7 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 .box-banner .sub{display:block;font-size:.9rem;color:var(--muted);margin-top:2px}
 .box-banner .door-go{margin:0 0 0 auto;padding:0;white-space:nowrap}
 @media (max-width:560px){.box-banner{flex-wrap:wrap}.box-banner .door-go{margin:4px 0 0}}
+.subchips{margin-top:10px;padding:10px 12px;background:var(--paper);border:1px solid var(--line);border-radius:14px}.subchips[hidden]{display:none}.box-tabs.sub{margin-top:2px;opacity:.95}.box-tabs.sub .box-tab{font-size:.88rem}
 .box-tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;margin-top:14px}
 .box-tab{flex:0 0 auto;text-decoration:none;color:var(--ink);background:#f4e9d4;border:1px solid #d9c3a0;border-bottom:none;border-radius:12px 12px 0 0;padding:9px 14px 8px;font-weight:600;font-size:.93rem;white-space:nowrap}
 .box-tab .n{font-weight:400;opacity:.6;margin-left:5px;font-size:.82rem}
@@ -592,6 +593,17 @@ let wakeLock = null;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const md = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
 const SUGGEST_URL = 'https://tally.so/r/6DeJLe';
+const CAT_GROUPS = [
+  {key:'breakfast', name:'Breakfast & Brunch', cats:['Breakfast & Brunch']},
+  {key:'starters', name:'Starters, Soups & Salads', cats:['Appetizers & Dips','Soups & Stews','Salads & Dressings']},
+  {key:'mains', name:'Main Dishes', cats:['Chicken & Turkey','Beef, Pork & Ham','Fish & Seafood','Casseroles & Main Dishes','Pasta & Rice','Sandwiches & Pizza']},
+  {key:'sides', name:'Sides & Sauces', cats:['Vegetables & Sides','Sauces & Gravies']},
+  {key:'breads', name:'Breads & Muffins', cats:['Breads & Muffins']},
+  {key:'sweets', name:'Desserts & Sweets', cats:['Cookies','Bars & Brownies','Cakes','Pies & Crisps','Puddings & Desserts','Candy & Treats','Frostings, Fillings & Sweet Sauces']},
+  {key:'extras', name:'Drinks, Canning & Gifts', cats:['Drinks','Jams, Pickles & Relishes','Gifts from the Kitchen','Kitchen Tips']}
+];
+const groupByKey = k => CAT_GROUPS.find(g=>g.key===k);
+const groupOfCat = c => CAT_GROUPS.find(g=>g.cats.includes(c));
 const CAT_ORDER = ['Breakfast & Brunch','Appetizers & Dips','Soups & Stews','Salads & Dressings','Chicken & Turkey','Beef, Pork & Ham','Fish & Seafood','Casseroles & Main Dishes','Pasta & Rice','Sandwiches & Pizza','Vegetables & Sides','Sauces & Gravies','Breads & Muffins','Cookies','Bars & Brownies','Cakes','Pies & Crisps','Puddings & Desserts','Candy & Treats','Frostings, Fillings & Sweet Sauces','Jams, Pickles & Relishes','Drinks','Gifts from the Kitchen','Kitchen Tips'];
 const SWEETS = ['Cookies','Bars & Brownies','Cakes','Frostings, Fillings & Sweet Sauces','Pies & Crisps','Candy & Treats','Puddings & Desserts'];
 const BOXES = { 'A': ['Gift Ideas','Appetizers & Dips','Biscuits & Breads','Cookies & Cakes'], '2': ['Casseroles','Desserts & Puddings','Egg & Cheese','Fish & Seafood','Frostings & Fillings','Meats','Pasta & Rice','Pies & Pastries'], '3': ['Front of the box','Poultry & Stuffing','Preserves & Jellies, Canning','Salads & Dressings','Sandwiches','Sauces & Syrups','Soups & Stews','Vegetables','Miscellaneous'] };
@@ -761,7 +773,7 @@ function sectionPage(k){
   document.title = s.name + ' · Family Recipes';
   if (state.sec !== k) { state.sec = k; state.cat = 'All'; }
   const cats = catsFor(R.filter(r=>r.section===k));
-  if (!cats.includes(state.cat)) state.cat = 'All';
+  if (!state.cat.startsWith('g:') && !cats.includes(state.cat)) state.cat = 'All';
   app.innerHTML = `
     <section class="sec-head ${k}">
       <a class="back" href="#/">← Home</a>
@@ -788,9 +800,8 @@ function sectionPage(k){
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input id="q" type="search" placeholder="Search ${s.name}…" value="${esc(state.q)}">
       </label>
-      <div class="chips ${k==='family'?'tabs':''}" role="group" aria-label="Category">
-        ${cats.map(c=>`<button class="chip" aria-pressed="${c===state.cat}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}
-      </div>
+      <div class="chips ${k==='family'?'tabs':''}" role="group" aria-label="Type of food" id="chipsTop"></div>
+      <div class="chips subchips" role="group" aria-label="More specific" id="chipsSub"></div>
     </div>
     <div class="grid" id="grid"></div>
     ${k==='family' ? `<div class="share-cta">
@@ -799,11 +810,20 @@ function sectionPage(k){
     </div>` : ''}`;
   const q = document.getElementById('q');
   q.addEventListener('input', e => { state.q = e.target.value; renderGrid(); });
-  app.querySelectorAll('.chip').forEach(b => b.onclick = () => {
-    state.cat = b.dataset.cat;
-    app.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x===b));
-    renderGrid();
-  });
+  const have = new Set(cats);
+  const drawChips = () => {
+    const sel = state.cat, selGroup = sel.startsWith('g:') ? groupByKey(sel.slice(2)) : groupOfCat(sel);
+    const groups = CAT_GROUPS.filter(g=>g.cats.some(c=>have.has(c)));
+    const other = cats.filter(c=>c!=='All' && !groupOfCat(c));
+    document.getElementById('chipsTop').innerHTML = [['All','All','All']].concat(groups.map(g=>[g.key,g.name,'g:'+g.key])).concat(other.map(c=>[c,c,c])).map(([id,label,val])=>`<button class="chip" data-cat="${esc(val)}" aria-pressed="${val===sel || (selGroup && selGroup.key===id)}">${esc(label)}</button>`).join('');
+    const sub = document.getElementById('chipsSub');
+    const subCats = selGroup ? selGroup.cats.filter(c=>have.has(c)) : [];
+    sub.hidden = subCats.length < 2;
+    sub.innerHTML = subCats.length < 2 ? '' : [['All '+selGroup.name,'g:'+selGroup.key]].concat(subCats.map(c=>[c,c])).map(([label,val])=>`<button class="chip" data-cat="${esc(val)}" aria-pressed="${val===sel}">${esc(label)}</button>`).join('');
+    app.querySelectorAll('#chipsTop .chip, #chipsSub .chip').forEach(b => b.onclick = () => { state.cat = b.dataset.cat; drawChips(); renderGrid(); });
+  };
+  if (!state.cat.startsWith('g:') && !cats.includes(state.cat)) state.cat = 'All';
+  drawChips();
   renderGrid();
   window.scrollTo(0,0);
 }
@@ -817,9 +837,11 @@ function boxPage(boxId, key){
   const catSort0 = (a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j)||a.localeCompare(b);};
   const secs = ALL ? [...new Set(box.map(r=>r.category))].sort(catSort0) : BOXES[boxId].filter(x=>box.some(r=>r.boxSection===x));
   const secOf = r => ALL ? r.category : r.boxSection;
-  const cur = secs.find(x=>boxKey(x)===key) || null;
+  const curGroup = ALL && key && /^g-/.test(key) ? groupByKey(key.slice(2)) : null;
+  const cur = curGroup ? null : (secs.find(x=>boxKey(x)===key) || null);
+  const actGroup = ALL ? (curGroup || (cur ? groupOfCat(cur) : null)) : null;
   const boxName = ALL ? 'All boxes' : 'Box ' + boxId;
-  document.title = 'Mom’s Recipe Boxes · ' + boxName + (cur ? ' · '+cur : '') + ' · Family Recipes';
+  document.title = 'Mom’s Recipe Boxes · ' + boxName + (curGroup ? ' · '+curGroup.name : cur ? ' · '+cur : '') + ' · Family Recipes';
   app.innerHTML = `
     <section class="sec-head boxa">
       <a class="back" href="#/family">← Family Recipe Box</a>
@@ -827,9 +849,13 @@ function boxPage(boxId, key){
       <div class="box-switch" role="tablist" aria-label="Which box"><a class="box-pick" role="tab" aria-selected="${ALL}" href="#/box-all">🗃️ All boxes <span class="n">${allCards.length}</span></a>${['A','2','3'].filter(b=>BOXES[b]).map(b=>`<a class="box-pick" role="tab" aria-selected="${b===boxId}" href="#/${boxRoute(b)}">📇 Box ${esc(b)} <span class="n">${R.filter(r=>r.box===b).length}</span></a>`).join('')}</div>
       <p class="tagline">${ALL ? 'Every card from all three boxes, sorted by type of food' : 'Box ' + esc(boxId) + ' as it’s filed, divider by divider, so you can find an original card'}</p>
       <div class="box-tabs" role="tablist" aria-label="${ALL ? 'Types of food' : 'Box ' + esc(boxId) + ' dividers'}">
-        <a class="box-tab" role="tab" aria-selected="${!cur}" href="#/${boxRoute(boxId)}">All<span class="n">${box.length}</span></a>
-        ${secs.map(x=>`<a class="box-tab" role="tab" aria-selected="${x===cur}" href="#/${boxRoute(boxId)}/${boxKey(x)}">${esc(x)}<span class="n">${box.filter(r=>secOf(r)===x).length}</span></a>`).join('')}
+        <a class="box-tab" role="tab" aria-selected="${!cur && !curGroup}" href="#/${boxRoute(boxId)}">All<span class="n">${box.length}</span></a>
+        ${ALL ? CAT_GROUPS.filter(g=>g.cats.some(c=>secs.includes(c))).map(g=>`<a class="box-tab" role="tab" aria-selected="${!!actGroup && actGroup.key===g.key}" href="#/${boxRoute(boxId)}/g-${g.key}">${esc(g.name)}<span class="n">${box.filter(r=>g.cats.includes(r.category)).length}</span></a>`).join('') : secs.map(x=>`<a class="box-tab" role="tab" aria-selected="${x===cur}" href="#/${boxRoute(boxId)}/${boxKey(x)}">${esc(x)}<span class="n">${box.filter(r=>secOf(r)===x).length}</span></a>`).join('')}
       </div>
+      ${actGroup && actGroup.cats.filter(c=>secs.includes(c)).length > 1 ? `<div class="box-tabs sub" role="tablist" aria-label="${esc(actGroup.name)}">
+        <a class="box-tab" role="tab" aria-selected="${!!curGroup}" href="#/${boxRoute(boxId)}/g-${actGroup.key}">All ${esc(actGroup.name)}<span class="n">${box.filter(r=>actGroup.cats.includes(r.category)).length}</span></a>
+        ${actGroup.cats.filter(c=>secs.includes(c)).map(x=>`<a class="box-tab" role="tab" aria-selected="${x===cur}" href="#/${boxRoute(boxId)}/${boxKey(x)}">${esc(x)}<span class="n">${box.filter(r=>r.category===x).length}</span></a>`).join('')}
+      </div>` : ''}
     </section>
     <div class="controls">
       <label class="search" aria-label="Search all the boxes">
@@ -851,7 +877,7 @@ function boxPage(boxId, key){
       g.innerHTML = `<p class="hint" style="grid-column:1/-1;margin:0">Searching all ${allCards.length} cards in every box. Each card shows which box it’s in.</p>` + part('Cards named “' + q + '”', 'title') + part('From “' + q + '”', 'who') + part('Uses ' + q + ' as an ingredient', 'ing') + part('Other matches', 'rest');
       return;
     }
-    const list = box.filter(r => !cur || secOf(r)===cur).sort((a,b)=> a.title.localeCompare(b.title));
+    const list = box.filter(r => curGroup ? curGroup.cats.includes(r.category) : (!cur || secOf(r)===cur)).sort((a,b)=> a.title.localeCompare(b.title));
     if (!list.length) { g.innerHTML = `<p class="empty">No cards here.</p>`; return; }
     const block = items => { const groups = {}; items.forEach(r=>(groups[r.category]=groups[r.category]||[]).push(r));
       return Object.keys(groups).sort(catSort).map(c=>`<h3 class="cat-head">${esc(c)} <span class="n">${groups[c].length}</span></h3>` + groups[c].map(r=>cardHTML(r,false)).join('')).join(''); };
@@ -1044,7 +1070,7 @@ function renderGrid(){
   const onHome = state.sec === 'all';
   const terms = searchTerms(state.q, R);
   if (onHome && !terms.length) { document.getElementById('grid').innerHTML = ''; return; }
-  const base = R.filter(r => (onHome || r.section===state.sec) && (state.cat==='All' || r.category===state.cat));
+  const base = R.filter(r => (onHome || r.section===state.sec) && (state.cat==='All' || (state.cat.startsWith('g:') ? (groupByKey(state.cat.slice(2))||{cats:[]}).cats.includes(r.category) : r.category===state.cat)));
   const g = document.getElementById('grid');
   let list;
   if (terms.length) {
@@ -1057,8 +1083,8 @@ function renderGrid(){
   }
   list = base.slice().sort((a,b)=>a.title.localeCompare(b.title));
   if (!list.length) { g.innerHTML = `<p class="empty">No recipes here yet.</p>`; return; }
-  if (state.cat === 'All' && !onHome) {
-    const order = [...document.querySelectorAll('.chips [data-cat]')].map(b => b.dataset.cat).filter(c => c !== 'All');
+  if ((state.cat === 'All' || state.cat.startsWith('g:')) && !onHome) {
+    const order = CAT_ORDER;
     const groups = {}; list.forEach(r => (groups[r.category] = groups[r.category] || []).push(r));
     const keys = Object.keys(groups).sort((x, y) => { const i = order.indexOf(x), j = order.indexOf(y); return (i<0?99:i) - (j<0?99:j); });
     g.innerHTML = keys.map(c => `<h2 class="cat-head">${esc(c)} <span class="n">${groups[c].length}</span></h2>` + groups[c].map(r => cardHTML(r, false)).join('')).join('');
