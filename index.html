@@ -361,6 +361,12 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 .person .n{font-size:.78rem;color:var(--muted);margin-top:4px}
 .person-head .tagline{margin:2px 0 8px}
 .kin{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0 0}
+/* ---- Recently viewed, my notes ---- */
+.recent{margin:18px 0 6px}.recent h2{font-size:1.05rem;margin:0 0 8px}
+.recent-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.recent-chip{flex:none;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--paper);text-decoration:none;font-weight:600;font-size:.95rem}
+.mynote textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);resize:vertical}
+@media print{.mynote:has(textarea:placeholder-shown),#shareBtn,.tabbar,.tsbtn{display:none!important}}
 /* ---- Shopping list: your own items ---- */
 .addown{margin:16px 0 4px}
 .addown label{display:block;font-weight:600;margin-bottom:6px}
@@ -495,6 +501,13 @@ const boxKey = s => s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-
 const suggestLink = r => SUGGEST_URL + '?recipe=' + encodeURIComponent(r.title);
 const allText = r => [r.title, r.subtitle, r.summary, r.category, SWEETS.includes(r.category)?'dessert':'', r.boxSection, r.credit, r._who||"", r.creditNote||"", ...(r.tags||[]), ...r.ingredients.flatMap(g=>g.items)].join(' ').toLowerCase();
 
+// Old card words and their modern names, so either one finds the recipe.
+const SYN = [['hamburg','hamburger','ground beef','ground chuck'],['oleo','margarine'],['jello','jell-o','gelatin'],['confectioners','powdered sugar','icing sugar','10x'],['catsup','ketchup'],['scallion','green onion'],['frank','hot dog','wiener'],['zucchini','summer squash'],['shortening','crisco'],['evaporated milk','carnation'],['cornstarch','corn starch'],['garbanzo','chickpea'],['cilantro','coriander'],['bell pepper','green pepper'],['soda','baking soda'],['cool whip','whipped topping'],['velveeta','processed cheese'],['frosting','icing'],['casserole','hotdish'],['cookie','cookies','bar','bars']];
+function termMatches(text, t){
+  if (text.includes(t)) return true;
+  if (t.length < 4) return false;
+  return SYN.some(g => g.some(w => w === t || (w.startsWith(t) && t.length >= 5)) && g.some(w => text.includes(w)));
+}
 function shopList(){ return store.get('shop', []); }
 function favList(){ return store.get('fav', []); }
 function isFav(slug){ return favList().includes(slug); }
@@ -595,6 +608,7 @@ function home(){
       <input id="q" type="search" placeholder="Search recipes, ingredients, names…" value="${esc(state.q)}">
     </label>
     <div class="grid" id="grid" style="margin-top:18px"></div>
+    ${(()=>{ const rec = store.get('recent', []).map(x=>R.find(r=>r.slug===x)).filter(Boolean).slice(0,6); return rec.length ? `<section class="recent after-tiles"><h2>Recently viewed</h2><div class="recent-row">${rec.map(r=>`<a class="recent-chip" href="#/recipe/${r.slug}">${esc(r.title)}</a>`).join('')}</div></section>` : ''; })()}
     <div class="tiles">${tiles.map(t=>`<a class="tile" href="${t[0]}"><span class="te" aria-hidden="true">${t[1]}</span><strong>${t[2]}</strong><span class="tn">${t[3]}</span></a>`).join('')}</div>
     <div class="after-tiles">
     <section class="pick" id="pick"><span class="pick-kicker">Today's pick</span><p class="pick-why" id="pickWhy"></p><div id="pickCard"></div><button type="button" class="linkbtn pick-again" id="pickAgain">Show me another idea</button></section>
@@ -843,10 +857,11 @@ function cardHTML(r, showSec){
 }
 
 function renderGrid(){
-  const terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+  const qq = state.q.toLowerCase().trim();
+  const terms = SYN.some(g => g.includes(qq)) ? [qq] : qq.split(/\s+/).filter(Boolean);
   const onHome = state.sec === 'all';
   if (onHome && !terms.length) { document.getElementById('grid').innerHTML = ''; return; }
-  const list = R.slice().sort((a,b)=>a.title.localeCompare(b.title)).filter(r => (onHome || r.section===state.sec) && (state.cat==='All' || r.category===state.cat) && terms.every(t => allText(r).includes(t)));
+  const list = R.slice().sort((a,b)=>a.title.localeCompare(b.title)).filter(r => (onHome || r.section===state.sec) && (state.cat==='All' || r.category===state.cat) && terms.every(t => termMatches(allText(r), t)));
   const g = document.getElementById('grid');
   if (!list.length) { g.innerHTML = `<p class="empty">No recipes match that search.</p>`; return; }
   if (state.cat === 'All' && !onHome) {
@@ -884,6 +899,7 @@ function recipe(slug){
       <button class="btn" id="cook" aria-pressed="${!!wakeLock}" title="Keeps your screen from going to sleep while you cook">Cook mode</button>
       <button class="btn" id="reset">Reset checks</button>
       <button class="btn" onclick="window.print()">Print</button>
+      <button class="btn" id="shareBtn">📤 Send to someone</button>
     </div>
     ${r.tip ? `<div class="tip">${md(r.tip)}</div>` : ''}
     ${r.familyMember ? `<div class="fam-note">👪 <strong>A family recipe</strong> — from ${r.familyNames.map(x=>esc(x)).join(', ')}.</div>` : ''}
@@ -896,6 +912,7 @@ function recipe(slug){
           <h2>Instructions</h2>
           ${r.steps.length ? `<p class="hint">Tap a step to mark it done.</p><ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(s)}</li>`).join('')}</ol>` : '<p class="muted">No instructions on the card.</p>'}
         </div>
+        <div class="panel mynote"><h2>My notes</h2><p class="hint">Only you see these, on this phone. Handy for “used less sugar” or “double it next time.”</p><textarea id="myNote" rows="3" placeholder="Add a note for next time…">${esc(store.get('note:'+slug, ''))}</textarea><p class="hint" id="noteSaved" hidden>Saved ✓</p></div>
         ${r.adjustments && r.adjustments.length ? `<div class="panel notes adj"><h2>Adjustments</h2><p class="hint">Later notes added to the card. The recipe above is the original.</p><ul>${r.adjustments.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
         ${r.cardNotes && r.cardNotes.length ? `<div class="panel notes"><h2>On the card</h2><ul>${r.cardNotes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
         ${r.gaps && r.gaps.length ? `<div class="panel notes gaps"><h2>Missing from the card</h2><ul>${r.gaps.map(x=>`<li>${md(x)}</li>`).join('')}</ul>${SUGGEST_URL ? `<a class="btn primary" href="${suggestLink(r)}" target="_blank" rel="noopener" style="text-decoration:none">I know this — suggest a fill-in</a>` : '<p class="hint">Know the answer? Let the family know.</p>'}</div>` : ''}
@@ -917,6 +934,15 @@ function recipe(slug){
     l = l.includes(slug) ? l.filter(s=>s!==slug) : [...l, slug];
     store.set('shop', l); updateShopCount(); recipe(slug);
   };
+  const noteBox = document.getElementById('myNote'), noteSaved = document.getElementById('noteSaved'); let noteT;
+  noteBox.oninput = () => { clearTimeout(noteT); noteT = setTimeout(() => { const v = noteBox.value.trim(); if (v) store.set('note:'+slug, noteBox.value); else { try{ localStorage.removeItem('fr:note:'+slug); }catch(e){} } noteSaved.hidden = false; setTimeout(()=>noteSaved.hidden=true, 1500); }, 400); };
+  document.getElementById('shareBtn').onclick = async () => {
+    const url = location.href.split('#')[0].split('?')[0] + '#/recipe/' + slug, b = document.getElementById('shareBtn');
+    try { if (navigator.share) { await navigator.share({ title: r.title, text: r.title + ' from our Family Recipes', url }); return; } } catch(e){ if (e && e.name === 'AbortError') return; }
+    try { await navigator.clipboard.writeText(url); b.textContent = '✓ Link copied'; } catch(e){ prompt('Copy this link:', url); }
+    setTimeout(() => { b.textContent = '📤 Send to someone'; }, 2500);
+  };
+  { const rec = store.get('recent', []).filter(x => x !== slug); rec.unshift(slug); store.set('recent', rec.slice(0, 8)); }
   const cookBtn = document.getElementById('cook');
   if(!('wakeLock' in navigator)) cookBtn.hidden = true;
   cookBtn.onclick = async () => {
