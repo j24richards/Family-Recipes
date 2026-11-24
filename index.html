@@ -361,6 +361,22 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 .person .n{font-size:.78rem;color:var(--muted);margin-top:4px}
 .person-head .tagline{margin:2px 0 8px}
 .kin{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0 0}
+/* ---- More ways to browse ---- */
+.morebrowse{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+.morebrowse a{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:var(--paper);text-decoration:none;font-weight:600;font-size:.95rem}
+.season-home{margin:18px 0}.season-home h2{font-size:1.15rem;margin:0 0 10px}
+.tag.ease{text-decoration:none;background:#efe3c8;color:#7a4e10}
+.swaps{margin-top:16px}.swaps ul{margin:0;padding-left:18px}.swaps li{margin:6px 0}
+.alsolike{margin:10px 0 18px}.alsolike h2{font-family:Fraunces,Georgia,serif;font-size:1.4rem;margin:0 0 12px}
+.report-line{margin:0 0 48px;color:var(--muted);font-size:.95rem}
+.nh-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 48px}@media (max-width:760px){.nh-cols{grid-template-columns:1fr}}
+.nh-list{list-style:none;margin:0;padding:0}.nh-list li{padding:10px 0;border-bottom:1px dashed var(--line)}.nh-list a{font-weight:600}.nh-gap{font-size:.88rem;color:var(--muted);margin-top:2px}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px}.stat b{display:block;font-family:Fraunces,Georgia,serif;font-size:2rem;line-height:1.1;color:var(--accent)}.stat span{color:var(--muted);font-size:.92rem}
+.statbar{display:grid;grid-template-columns:minmax(0,1.4fr) 1fr auto;gap:10px;align-items:center;margin:8px 0;font-size:.95rem}
+.statbar .sl{overflow-wrap:anywhere}.statbar .sl small{display:block;color:var(--muted);font-size:.8rem}.statbar .sb{height:10px;border-radius:6px;background:var(--bg);overflow:hidden}.statbar .sb i{display:block;height:100%;background:var(--accent);border-radius:6px}.statbar .sn{font-variant-numeric:tabular-nums;color:var(--muted);min-width:2.5em;text-align:right}
+@media (prefers-color-scheme:dark){.tag.ease{background:#3a2e1a;color:#e8c27a}}
+@media print{.alsolike,.report-line,.swaps{display:none!important}}
 /* ---- Sheets, toast, plan, timers ---- */
 .sheet-wrap{position:fixed;inset:0;z-index:80;background:rgba(20,10,4,.45);display:flex;align-items:flex-end;justify-content:center}
 @media (min-width:761px){.sheet-wrap{align-items:center}}
@@ -637,6 +653,8 @@ function home(){
     ${(()=>{ const rec = store.get('recent', []).map(x=>R.find(r=>r.slug===x)).filter(Boolean).slice(0,6); return rec.length ? `<section class="recent after-tiles"><h2>Recently viewed</h2><div class="recent-row">${rec.map(r=>`<a class="recent-chip" href="#/recipe/${r.slug}">${esc(r.title)}</a>`).join('')}</div></section>` : ''; })()}
     <div class="tiles">${tiles.map(t=>`<a class="tile" href="${t[0]}"><span class="te" aria-hidden="true">${t[1]}</span><strong>${t[2]}</strong><span class="tn">${t[3]}</span></a>`).join('')}</div>
     <div class="after-tiles">
+    <div class="morebrowse"><a href="#/ingredients">🍗 By main ingredient</a><a href="#/quick">⚡ Quick &amp; easy</a><a href="#/season">${seasonInfo().emoji} In season</a><a href="#/needs-help">🙋 Help fill in recipes</a><a href="#/stats">📊 Family recipe stats</a></div>
+    ${(()=>{ const l = seasonList(); if (!l.length) return ''; const pick3 = l.slice().sort(()=>Math.random()-.5).slice(0,3); return `<section class="season-home"><h2>${seasonInfo().emoji} In season: ${seasonInfo().month}</h2><div class="grid">${pick3.map(r=>cardHTML(r,true)).join('')}</div><p><a href="#/season">See all ${l.length} →</a></p></section>`; })()}
     <section class="pick" id="pick"><span class="pick-kicker">Today's pick</span><p class="pick-why" id="pickWhy"></p><div id="pickCard"></div><button type="button" class="linkbtn pick-again" id="pickAgain">Show me another idea</button></section>
     <div class="share-cta">
       <p><strong>Have a family favorite?</strong> Type it in or just snap a photo of the recipe card. No account needed.</p>
@@ -917,7 +935,7 @@ function recipe(slug){
       ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `${r.section==='found' ? 'From' : 'From the kitchen of'} ${(()=>{ const pk = window.PEOPLE_API ? PEOPLE_API.keyFor(r) : ''; return pk ? `<a class="personlink" href="#/people/${pk}"><strong>${esc(r.credit)}</strong></a>` : `<strong>${esc(r.credit)}</strong>`; })()}${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}${r.box ? ` · <a class="boxlabel" href="#/${boxRoute(r.box)}${r.boxSection ? '/'+boxKey(r.boxSection) : ''}">Mom’s recipe box · Box ${esc(r.box)}${r.boxSection ? ' · '+esc(r.boxSection) : ''}</a>` : ''}</p>` : ''}
       ${r.source ? `<p class="credit">Source: ${r.source.url ? `<a href="${esc(r.source.url)}" target="_blank" rel="noopener">${esc(r.source.text)}</a>` : esc(r.source.text)}</p>` : ''}
       ${(r.holidays||[]).length ? `<p class="hol-line">${r.holidays.map(x=>HOLIDAY_BY_KEY[x]?`<a href="#/holidays/${x}">${HOLIDAY_BY_KEY[x].emoji} ${esc(HOLIDAY_BY_KEY[x].name)}</a>`:"").join(" ")}</p>` : ""}
-      <div class="facts">${r.serves?`<span><strong>Serves</strong> ${esc(r.serves)}</span>`:''}${r.time?`<span>${esc(r.time)}</span>`:''}${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+      <div class="facts">${r.serves?`<span><strong>Serves</strong> ${esc(r.serves)}</span>`:''}${easeTags(r).map(t=>`<a class="tag ease" href="#/quick/${t.key}">${t.label}</a>`).join('')}${r.time?`<span>${esc(r.time)}</span>`:''}${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
     </div>
     <div class="actions">
       <button class="btn ${isFav(slug)?'faved':''}" id="favBtn" aria-pressed="${isFav(slug)}">${isFav(slug)?'♥ Favorited':'♡ Favorite'}</button>
@@ -933,12 +951,12 @@ function recipe(slug){
     ${r.familyMember ? `<div class="fam-note">👪 <strong>A family recipe</strong> — from ${r.familyNames.map(x=>esc(x)).join(', ')}.</div>` : ''}
     ${r.glutenFree ? `<div class="gf-note"><strong>🌾 Gluten-free as written.</strong> ${r.gfCheck && r.gfCheck.length ? `Check the label and buy these labeled gluten-free: ${r.gfCheck.map(x=>esc(x)).join('; ')}.` : 'No ingredients here normally contain gluten.'} <a href="#/gluten-free">More gluten-free recipes</a></div>` : ''}
     <div class="r-body">
-      <section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>
+      <section><section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>${swapsHtml(r)}</section>
       <section>
         ${r.cardImg ? `<div class="panel origcard"><h2>The original card</h2><button type="button" class="photo-btn" data-zoom="${esc(r.cardImg)}?v=20261130" data-cap="The original recipe card for ${esc(r.title)}"><img src="${esc(r.cardImg)}?v=20261130" alt="The handwritten recipe card for ${esc(r.title)}" loading="lazy"></button><p class="hint">Tap to zoom in on the handwriting.</p></div>` : ''}
         <div class="panel">
           <h2>Instructions</h2>
-          ${r.steps.length ? `<p class="hint">Tap a step to mark it done.</p><ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(s)}${timerBtns(s)}</li>`).join('')}</ol>` : '<p class="muted">No instructions on the card.</p>'}
+          ${r.steps.length ? `<p class="hint">Tap a step to mark it done.</p><ol class="steps">${r.steps.map((s,i)=>`<li data-k="s${i}" class="${checks['s'+i]?'done':''}">${md(toTemp(s))}${timerBtns(s)}</li>`).join('')}</ol>` : '<p class="muted">No instructions on the card.</p>'}
         </div>
         <div class="panel mynote"><h2>My notes</h2><p class="hint">Only you see these, on this phone. Handy for “used less sugar” or “double it next time.”</p><textarea id="myNote" rows="3" placeholder="Add a note for next time…">${esc(store.get('note:'+slug, ''))}</textarea><p class="hint" id="noteSaved" hidden>Saved ✓</p></div>
         ${r.adjustments && r.adjustments.length ? `<div class="panel notes adj"><h2>Adjustments</h2><p class="hint">Later notes added to the card. The recipe above is the original.</p><ul>${r.adjustments.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
@@ -950,7 +968,9 @@ function recipe(slug){
       </section>
     </div>
     ${(r.photos && r.photos.length) ? `<h2 class="gal-h">How it turned out</h2><div class="gallery">${r.photos.map(p=>`<button type="button" class="photo-btn" data-zoom="${esc(p.src)}" data-cap="${esc((p.caption||'')+(p.by?' — '+p.by:''))}"><img src="${esc(p.src)}" alt="${esc(p.caption||('Photo of '+r.title))}" loading="lazy"></button>`).join('')}</div>` : ''}
-    <p class="photo-add"><a class="btn" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener" style="text-decoration:none">📷 Made it? Add a photo</a></p>`;
+    <p class="photo-add"><a class="btn" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener" style="text-decoration:none">📷 Made it? Add a photo</a></p>
+    ${alsoLikeHtml(r)}
+    <p class="report-line">Something wrong on this page? <a href="${suggestLink(r)}" target="_blank" rel="noopener">Tell us and we’ll fix it</a>.</p>`;
   const save = () => store.set('chk:'+slug, checks);
   const bindChecks = () => app.querySelectorAll('.checklist input').forEach(i => i.onchange = () => { checks[i.dataset.k] = i.checked; save(); });
   bindChecks(); bindScale(r, checks, bindChecks);
@@ -1106,13 +1126,14 @@ function ingListHtml(r, checks, k){
   let n = 0;
   return r.ingredients.map(g => `
     ${g.name ? `<h3>${esc(g.name)}</h3>` : ''}
-    <ul class="checklist">${g.items.map(it => { const id = 'i'+(n++); return `<li><label><input type="checkbox" data-k="${id}" ${checks[id]?'checked':''}><span>${esc(scaleItem(it, k))}</span></label></li>`; }).join('')}</ul>`).join('');
+    <ul class="checklist">${g.items.map(it => { const id = 'i'+(n++); return `<li><label><input type="checkbox" data-k="${id}" ${checks[id]?'checked':''}><span>${esc(toUnits(scaleItem(it, k)))}</span></label></li>`; }).join('')}</ul>`).join('');
 }
 function scaleBarHtml(r){
   const base = baseServes(r);
   return `<div class="scale" id="scale"><span class="scale-label">Scale</span>
     <div class="seg" role="group" aria-label="Recipe size">${[['½×',.5],['1×',1],['2×',2],['3×',3]].map(([l,k])=>`<button type="button" data-k="${k}" aria-pressed="${k===1}">${l}</button>`).join('')}</div>
     ${base ? `<span class="serv">Serves <button type="button" id="servDn" aria-label="Fewer servings">−</button><b id="servN">${base}</b><button type="button" id="servUp" aria-label="More servings">+</button></span>` : ''}
+    <div class="seg" role="group" aria-label="Units"><button type="button" data-units="us" aria-pressed="${store.get('units','us')!=='metric'}">US</button><button type="button" data-units="metric" aria-pressed="${store.get('units','us')==='metric'}">Metric</button></div>
     <p class="scale-note" id="scaleNote" hidden>Amounts are adjusted automatically. Baking times, pan sizes and seasoning may need a little judgment.</p></div>`;
 }
 function bindScale(r, checks, bindChecks){
@@ -1120,11 +1141,12 @@ function bindScale(r, checks, bindChecks){
   const box = document.getElementById('ingList'); if (!box) return;
   const apply = () => {
     box.innerHTML = ingListHtml(r, checks, k); bindChecks();
-    document.querySelectorAll('#scale .seg button').forEach(b => b.setAttribute('aria-pressed', Math.abs(+b.dataset.k - k) < 1e-6));
+    document.querySelectorAll('#scale .seg button[data-k]').forEach(b => b.setAttribute('aria-pressed', Math.abs(+b.dataset.k - k) < 1e-6));
     const sn = document.getElementById('servN'); if (sn) sn.textContent = fmtQty(base * k);
     document.getElementById('scaleNote').hidden = k === 1;
   };
-  document.querySelectorAll('#scale .seg button').forEach(b => b.onclick = () => { k = +b.dataset.k; apply(); });
+  document.querySelectorAll('#scale .seg button[data-k]').forEach(b => b.onclick = () => { k = +b.dataset.k; apply(); });
+  document.querySelectorAll('#scale [data-units]').forEach(b => b.onclick = () => { store.set('units', b.dataset.units); recipe(r.slug); });
   const dn = document.getElementById('servDn'), up = document.getElementById('servUp');
   if (dn) dn.onclick = () => { const n = Math.round(base * k * 2) / 2 - 1; if (n >= 1) { k = n / base; apply(); } };
   if (up) up.onclick = () => { k = (Math.round(base * k * 2) / 2 + 1) / base; apply(); };
@@ -1258,7 +1280,7 @@ function favoritesPage(){
   const list = favList().map(s => R.find(r=>r.slug===s)).filter(Boolean).sort((a,b)=>a.title.localeCompare(b.title));
   app.innerHTML = `<a class="back" href="#/">← Home</a>
     <div class="r-head"><h1>♥ Favorites</h1><p class="summary">${list.length ? 'Your favorite recipes, all in one place.' : 'Tap the heart on any recipe to save it here.'}</p></div>
-    <p class="actions" style="margin:0 0 12px"><a class="btn" href="#/collections" style="text-decoration:none">📁 My collections (${cols().length})</a><a class="btn" href="#/plan" style="text-decoration:none">📅 This week’s meals</a></p>
+    <p class="actions" style="margin:0 0 12px"><a class="btn" href="#/backup" style="text-decoration:none">💾 Back up or move to a new phone</a><a class="btn" href="#/collections" style="text-decoration:none">📁 My collections (${cols().length})</a><a class="btn" href="#/plan" style="text-decoration:none">📅 This week’s meals</a></p>
     ${list.length ? `<p class="fav-note">Saved on this phone or computer only.</p><div class="grid">${list.map(r=>cardHTML(r,true)).join('')}</div>` : `<p class="empty">No favorites yet. Look for the ♡ on any recipe.</p>`}`;
 }
 
@@ -1369,6 +1391,279 @@ function drawTimers(){
     return `<div class="timer ${t.done?'ring':''}"><span class="tl">${esc(t.label)}</span><span class="tt">${t.done ? 'Done!' : (h? h+':'+String(mi).padStart(2,'0') : mi)+':'+String(se).padStart(2,'0')}</span><button type="button" data-tstop="${t.id}">${t.done?'OK':'Stop'}</button></div>`; }).join('');
 }
 
+
+// ===================== More ways to browse =====================
+const ING_TEXT = r => (r.ingredients||[]).flatMap(g=>g.items).join(' \n ').toLowerCase();
+const TS_TEXT = r => (r.title+' '+(r.summary||'')).toLowerCase();
+
+// ---- 1. Metric units and oven temperatures ----
+function toUnits(t){
+  if (store.get('units','us') !== 'metric') return t;
+  const a = takeQty(t); if (!a) return t;
+  const rest = t.slice(a.len), m = rest.match(/^\s*(cups?|c\.|c(?=\s)|tablespoons?|tbsps?\.?|T(?=[\s.])\.?|teaspoons?|tsps?\.?|t(?=[\s.])\.?|ounces?|oz\.?|pounds?|lbs?\.?|#|pints?|pts?\.?|quarts?|qts?\.?|sticks?)(?=[\s,.)]|$)/);
+  if (!m) return t;
+  const u = m[1].replace(/\.$/,''), v = a.v;
+  let out;
+  if (/^(cups?|c)$/i.test(u)) out = ml(v*237);
+  else if (/^(tablespoons?|tbsps?|T)$/.test(u)) out = ml(v*15);
+  else if (/^(teaspoons?|tsps?|t)$/.test(u)) out = ml(v*5);
+  else if (/^(ounces?|oz)$/i.test(u)) out = g(v*28.35);
+  else if (/^(pounds?|lbs?|#)$/i.test(u)) out = g(v*453.6);
+  else if (/^(pints?|pts?)$/i.test(u)) out = ml(v*473);
+  else if (/^(quarts?|qts?)$/i.test(u)) out = ml(v*946);
+  else if (/^sticks?$/i.test(u)) out = g(v*113);
+  if (!out) return t;
+  return out + rest.slice(m[0].length).replace(/^(?!\s)/,' ') + '  (' + t.slice(0, a.len + m[0].length).trim() + ')';
+  function ml(x){ return x >= 1000 ? (Math.round(x/100)/10)+' L' : x < 20 ? (Math.round(x*2)/2)+' ml' : (Math.round(x/5)*5)+' ml'; }
+  function g(x){ return x >= 1000 ? (Math.round(x/100)/10)+' kg' : x < 20 ? Math.round(x)+' g' : (Math.round(x/5)*5)+' g'; }
+}
+function toTemp(t){
+  if (store.get('units','us') !== 'metric') return t;
+  return t.replace(/\b(2[0-9]{2}|[34][0-9]{2}|500)\s*(°\s*F?|º\s*F?|degrees(?:\s*F)?|F\b)/g, (all, n) => all + ' (' + (Math.round((n-32)*5/9/5)*5) + '°C)')
+          .replace(/\b(at|oven to|oven at|preheat to|preheat oven to|heat oven to|bake at)\s+(2[0-9]{2}|[34][0-9]{2}|500)\b(?!\s*(°|º|degrees|F\b))/gi, (all, w, n) => all + '°F (' + (Math.round((n-32)*5/9/5)*5) + '°C)');
+}
+
+// ---- 2. Handy swaps ----
+const SWAPS = [
+  [/buttermilk|sour milk/, 'Out of buttermilk? Stir 1 tbsp lemon juice or white vinegar into 1 cup milk and let it sit 5 minutes.'],
+  [/cake flour/, 'No cake flour? For each cup, use 1 cup all-purpose flour minus 2 tbsp, plus 2 tbsp cornstarch.'],
+  [/self[- ]rising/, 'No self-rising flour? For each cup, use 1 cup all-purpose flour + 1½ tsp baking powder + ¼ tsp salt.'],
+  [/brown sugar/, 'Out of brown sugar? Use 1 cup white sugar + 1 tbsp molasses for each cup.'],
+  [/baking powder/, 'Out of baking powder? For 1 tsp, use ¼ tsp baking soda + ½ tsp cream of tartar.'],
+  [/\boleo\b|margarine/, 'Oleo is margarine. Butter works one-for-one.'],
+  [/heavy cream|whipping cream/, 'For cooking (not whipping), 1 cup heavy cream = ¾ cup milk + ¼ cup melted butter.'],
+  [/half[- ](and|&)[- ]half/, 'No half-and-half? Use ½ cup whole milk + ½ cup cream, or ¾ cup milk + ¼ cup melted butter.'],
+  [/evaporated milk/, 'No evaporated milk? Simmer 2¼ cups milk down to 1 cup, or use half-and-half.'],
+  [/sour cream/, 'Plain Greek yogurt swaps for sour cream one-for-one.'],
+  [/unsweetened chocolate|baking chocolate|square.*chocolate/, 'For 1 oz unsweetened chocolate: 3 tbsp cocoa + 1 tbsp butter or oil.'],
+  [/corn syrup/, 'For 1 cup corn syrup: 1¼ cups sugar + ⅓ cup water, boiled until syrupy.'],
+  [/dry mustard/, 'For 1 tsp dry mustard: 1 tbsp prepared mustard (cut a little liquid).'],
+  [/garlic clove|cloves? garlic|clove of garlic/, '1 garlic clove = ⅛ tsp garlic powder.'],
+  [/fresh (parsley|basil|dill|thyme|oregano|herbs)/, '1 tbsp fresh herbs = 1 tsp dried.'],
+  [/\bwine\b/, 'Skip the wine? Use the same amount of broth, plus a splash of vinegar.'],
+  [/bread crumbs|breadcrumbs/, 'Out of bread crumbs? Crushed crackers, corn flakes or oats work.'],
+  [/shortening|crisco/, 'Shortening can be swapped for butter one-for-one (cookies spread a bit more).'],
+  [/\bmolasses\b/, 'For 1 cup molasses: ¾ cup brown sugar + ¼ cup water, or honey / dark corn syrup.'],
+  [/lemon juice/, 'Bottled lemon juice or lime juice work in place of fresh lemon.'],
+  [/\bhoney\b/, 'For 1 cup honey: 1¼ cups sugar + ¼ cup water.']
+];
+function swapsHtml(r){
+  const t = ING_TEXT(r), tips = SWAPS.filter(x => x[0].test(t)).map(x=>x[1]).slice(0,4);
+  return tips.length ? `<div class="panel swaps"><h2>Handy swaps</h2><ul>${tips.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>` : '';
+}
+
+// ---- 3. Quick, easy, make-ahead (estimated from the recipe) ----
+function minutesIn(r){
+  let tot = 0; (r.steps||[]).forEach(st => { const re = /(\d+(?:\s*[½¼¾])?)\s*(?:(?:to|-|–|or)\s*(\d+)\s*)?(minutes?|mins?|hours?|hrs?)\b/gi; let m; while ((m = re.exec(st))) { const v = parseFloat(m[2]||m[1]) || 0; tot += /^h/i.test(m[3]) ? v*60 : v; } });
+  return tot;
+}
+const EASE = { quick:{label:'⚡ Quick', name:'Quick (about 30 minutes)'}, easy:{label:'👍 Easy', name:'Easy (few ingredients and steps)'}, ahead:{label:'🧊 Make-ahead', name:'Make-ahead'} };
+function easeTags(r){
+  if (r._ease) return r._ease;
+  const ni = (r.ingredients||[]).flatMap(g=>g.items).length, ns = (r.steps||[]).length, all = (r.steps||[]).concat(r.notes||[]).join(' ').toLowerCase(), mins = minutesIn(r);
+  const out = [];
+  const slow = /overnight|refrigerate|chill|marinate|let rise|rise until|freeze|hours/.test(all);
+  if (ns && ns <= 6 && ni <= 10 && mins <= 30 && !slow && !['Gift Ideas','Tips'].includes(r.category)) out.push({key:'quick', label:EASE.quick.label});
+  if (ns && ns <= 4 && ni <= 7) out.push({key:'easy', label:EASE.easy.label});
+  if (/overnight|make ahead|make-ahead|day ahead|can be made|freezes well|freeze|refrigerate (?:several|for|until|overnight)|chill (?:several|for|overnight)/.test(all)) out.push({key:'ahead', label:EASE.ahead.label});
+  return (r._ease = out);
+}
+function quickPage(key){
+  setNav(''); key = EASE[key] ? key : 'quick';
+  const list = R.filter(r => easeTags(r).some(t=>t.key===key)).sort((a,b)=>a.title.localeCompare(b.title));
+  document.title = EASE[key].name + ' · Family Recipes';
+  const cats = ['All', ...new Set(list.map(r=>r.category))]; let cat = 'All';
+  app.innerHTML = `<a class="back" href="#/">← Home</a>
+    <div class="r-head"><h1>${EASE[key].label} recipes</h1><p class="summary">${list.length} recipes. These labels are estimated from the number of ingredients and steps and the times in the steps, so use your judgment.</p></div>
+    <div class="chips" style="margin-bottom:8px">${Object.keys(EASE).map(k=>`<a class="chip" href="#/quick/${k}" aria-pressed="${k===key}" style="text-decoration:none">${EASE[k].label}</a>`).join('')}</div>
+    <div class="chips" id="qc">${cats.map(c=>`<button class="chip" data-c="${esc(c)}" aria-pressed="${c===cat}">${esc(c)}</button>`).join('')}</div>
+    <div class="grid" id="qg" style="margin:16px 0 48px"></div>`;
+  const draw = () => { document.getElementById('qg').innerHTML = list.filter(r=>cat==='All'||r.category===cat).map(r=>cardHTML(r,true)).join(''); document.querySelectorAll('#qc .chip').forEach(b=>b.setAttribute('aria-pressed', b.dataset.c===cat)); };
+  document.querySelectorAll('#qc .chip').forEach(b => b.onclick = () => { cat = b.dataset.c; draw(); });
+  draw(); window.scrollTo(0,0);
+}
+
+// ---- 4. In season ----
+const SEASONS = [
+  ['January','❄️',/soup|stew|chili|chowder|casserole|hot chocolate|cocoa|pot pie|meatloaf|bread/],
+  ['February','❤️',/soup|stew|chili|chowder|chocolate|valentine|heart|cherry|casserole/],
+  ['March','☘️',/corned beef|irish|soda bread|cabbage|shepherd|soup|stew|potato/],
+  ['April','🌷',/ham|lamb|asparagus|rhubarb|carrot|easter|hot cross|deviled egg|quiche|spring/],
+  ['May','🌱',/rhubarb|strawberr|asparagus|salad|spinach|lemon|quiche/],
+  ['June','🍓',/strawberr|salad|grill|burger|lemonade|lemon|shortcake|pasta salad|slaw/],
+  ['July','🎆',/blueberr|salad|grill|burger|corn|zucchini|lemonade|potato salad|slaw|ice cream|watermelon/],
+  ['August','🌽',/zucchini|tomato|corn|blueberr|peach|cucumber|pickle|salsa|grill|salad/],
+  ['September','🍎',/apple|zucchini|tomato|squash|pear|pickle|relish|chowder/],
+  ['October','🎃',/apple|pumpkin|squash|chowder|cider|caramel|chili|stew|cranberr/],
+  ['November','🦃',/pumpkin|cranberr|turkey|stuffing|squash|sweet potato|apple|pie|gravy|pecan|onion/],
+  ['December','🎄',/cookie|fudge|candy|eggnog|christmas|holiday|cranberr|gingerbread|peppermint|toffee|buttercrunch|fruit ?cake|nog|wreath|snowball/]
+];
+function seasonInfo(){ const s0 = SEASONS[new Date().getMonth()]; return {month:s0[0], emoji:s0[1], re:s0[2]}; }
+function seasonList(){ const si = seasonInfo(); return R.filter(r => si.re.test(r.title.toLowerCase())).sort((a,b)=>a.title.localeCompare(b.title)); }
+function seasonPage(){
+  setNav(''); const si = seasonInfo(), list = seasonList();
+  document.title = 'In season · Family Recipes';
+  app.innerHTML = `<a class="back" href="#/">← Home</a>
+    <div class="r-head"><h1>${si.emoji} In season: ${si.month}</h1><p class="summary">${list.length} recipes that fit this time of year. This page changes every month on its own.</p></div>
+    <div class="grid" style="margin:16px 0 48px">${list.map(r=>cardHTML(r,true)).join('')}</div>`;
+  window.scrollTo(0,0);
+}
+
+// ---- 5. Browse by main ingredient ----
+const MAINS = [
+  ['chicken','🐔','Chicken & Turkey',/\bchicken|turkey/,0],
+  ['beef','🥩','Beef & Hamburg',/\bbeef|hamburg|ground chuck|steak|meatball|meat ?loaf|pot roast|chuck/,0],
+  ['pork','🐷','Pork, Ham & Sausage',/\bpork|\bham\b|bacon|sausage|kielbasa|hot dog|frank/,0],
+  ['fish','🐟','Fish & Seafood',/fish|tuna|shrimp|crab|lobster|scallop|haddock|salmon|\bcod\b|clam|seafood|oyster/,0],
+  ['pasta','🍝','Pasta & Noodles',/pasta|macaroni|noodle|spaghetti|ziti|lasagna|shells|penne|rigatoni|linguine/,0],
+  ['rice','🍚','Rice',/\brice\b/,1],
+  ['potato','🥔','Potatoes',/potato/,0],
+  ['eggs','🥚','Eggs & Quiche',/\begg|quiche|frittata|omelet|souffl/,1],
+  ['cheese','🧀','Cheese',/cheese|cheddar|mozzarella|parmesan/,1],
+  ['veg','🥦','Vegetables',/broccoli|zucchini|spinach|carrot|squash|green bean|\bcorn\b|cabbage|\bpeas?\b|asparagus|cauliflower|eggplant|vegetable|veggie/,1],
+  ['apple','🍎','Apples',/apple/,0],
+  ['berry','🫐','Berries & Cranberries',/blueberr|strawberr|cranberr|raspberr|berry/,0],
+  ['lemon','🍋','Lemon & Orange',/lemon|orange|lime/,1],
+  ['pumpkin','🎃','Pumpkin',/pumpkin/,0],
+  ['chocolate','🍫','Chocolate',/chocolate|cocoa|fudge|brownie/,1],
+  ['peanut','🥜','Peanut Butter',/peanut butter/,0],
+  ['coconut','🥥','Coconut',/coconut/,0],
+  ['banana','🍌','Bananas',/banana/,0]
+];
+function mainList(m){ return R.filter(r => m[3].test(m[4] ? TS_TEXT(r) : TS_TEXT(r)+' '+ING_TEXT(r).split('\n').slice(0,4).join(' '))).sort((a,b)=>a.title.localeCompare(b.title)); }
+function mainsOf(r){ return MAINS.filter(m => m[3].test(TS_TEXT(r))).map(m=>m[0]); }
+function ingredientsPage(key){
+  setNav('');
+  const m = MAINS.find(x=>x[0]===key);
+  if (m) {
+    const list = mainList(m); document.title = m[2] + ' · Family Recipes';
+    app.innerHTML = `<a class="back" href="#/ingredients">← All main ingredients</a>
+      <div class="r-head"><h1>${m[1]} ${esc(m[2])}</h1><p class="summary">${list.length} recipes.</p></div>
+      <div class="grid" style="margin:16px 0 48px">${list.map(r=>cardHTML(r,true)).join('')}</div>`;
+  } else {
+    document.title = 'By main ingredient · Family Recipes';
+    app.innerHTML = `<a class="back" href="#/">← Home</a>
+      <div class="r-head"><h1>Browse by main ingredient</h1><p class="summary">Tap what you’re in the mood for. Have a few things on hand? Try <a href="#/pantry">What’s in the Fridge?</a></p></div>
+      <div class="tiles">${MAINS.map(x=>`<a class="tile" href="#/ingredients/${x[0]}"><span class="te" aria-hidden="true">${x[1]}</span><strong>${esc(x[2])}</strong><span class="tn">${mainList(x).length} recipes</span></a>`).join('')}</div>
+      <p style="margin-bottom:48px"></p>`;
+  }
+  window.scrollTo(0,0);
+}
+
+// ---- 6. You might also like ----
+function alsoLikeHtml(r){
+  const mine = mainsOf(r), seed = [...r.slug].reduce((a,c)=>a*31+c.charCodeAt(0)|0, 7);
+  const scored = R.filter(x => x !== r && x.slug !== r.slug && x.title !== r.title).map(x => {
+    let sc = 0; if (x.category === r.category) sc += 2;
+    const xm = mainsOf(x); mine.forEach(k => { if (xm.includes(k)) sc += 3; });
+    if (x.credit && r.credit && x.credit === r.credit) sc += 2;
+    if (x.box && x.box === r.box) sc += .5;
+    const h = [...x.slug].reduce((a,c)=>a*33+c.charCodeAt(0)|0, seed); return {x, sc: sc + ((h>>>0)%100)/1000};
+  }).filter(o => o.sc >= 3).sort((a,b)=>b.sc-a.sc).slice(0,4).map(o=>o.x);
+  return scored.length ? `<section class="alsolike"><h2>You might also like</h2><div class="grid">${scored.map(x=>cardHTML(x,true)).join('')}</div></section>` : '';
+}
+
+// ---- 7. Help fill in recipes ----
+function needsHelpPage(){
+  setNav(''); document.title = 'Help fill in recipes · Family Recipes';
+  const list = R.filter(r => r.gaps && r.gaps.length).sort((a,b)=>a.title.localeCompare(b.title));
+  const guessed = list.filter(r => r.gaps.some(g=>/†/.test(g)) || r.ingredients.some(g=>g.items.some(i=>/†/.test(i))));
+  const missing = list.filter(r => !guessed.includes(r));
+  const row = r => `<li><a href="#/recipe/${r.slug}">${esc(r.title)}</a><span class="muted"> · ${esc(r.box ? 'Box '+r.box : (SEC[r.section]||{}).name || '')}</span><div class="nh-gap">${esc(r.gaps[0].replace(/\*\*/g,''))}${r.gaps.length>1?` <span class="muted">(+${r.gaps.length-1} more)</span>`:''}</div></li>`;
+  app.innerHTML = `<a class="back" href="#/">← Home</a>
+    <div class="r-head"><h1>🙋 Help fill in recipes</h1><p class="summary">Some cards are missing an amount, a step or a name, or were too faded to read. If you know the answer, open the recipe and tap <strong>“Suggest a fill-in.”</strong> No account needed.</p></div>
+    <div class="nh-cols">
+      <section class="panel"><h2>Missing or hard to read <span class="muted">(${missing.length})</span></h2><ul class="nh-list">${missing.map(row).join('')}</ul></section>
+      <section class="panel"><h2>We filled in a guess † <span class="muted">(${guessed.length})</span></h2><p class="hint">These have amounts or steps added from a typical version of the recipe. If you know how it was really made, tell us.</p><ul class="nh-list">${guessed.map(row).join('')}</ul></section>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+// ---- 8. Family recipe stats ----
+const STAPLES = ['butter','sugar','flour','eggs','salt','milk','vanilla','baking soda','baking powder','brown sugar','cinnamon','onion','cream cheese','sour cream','mayonnaise','cheddar','chocolate chips','walnuts','pecans','cream of mushroom','oleo','shortening','lemon','nutmeg','garlic','ketchup','mustard','cool whip','jello','coconut','raisins','molasses','paprika','oatmeal','marshmallow','honey','celery','potatoes','hamburg','chicken'];
+function stapleCounts(list){ const c = {}; list.forEach(r => { const t = ING_TEXT(r); STAPLES.forEach(w => { const re = w==='eggs' ? /\begg/ : w==='oatmeal' ? /\boat/ : w==='hamburg' ? /hamburg|ground beef/ : new RegExp('\\b'+w.replace(/ /g,'\\s+')); if (re.test(t)) c[w] = (c[w]||0) + 1; }); }); return Object.entries(c).sort((a,b)=>b[1]-a[1]); }
+function statsPage(){
+  setNav(''); document.title = 'Family recipe stats · Family Recipes';
+  const box = R.filter(r => r.fromBox), fam = R.filter(r => r.section==='family');
+  const byBox = ['A','2','3'].map(b => [b, R.filter(r=>r.box===b).length]);
+  const cats = {}; fam.forEach(r => cats[r.category] = (cats[r.category]||0)+1); const topCats = Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const ppl = (window.PEOPLE_API ? window.PEOPLE_API.people(R) : []).filter(p => !p.isSource && p.credits.length >= 2).sort((a,b)=>b.credits.length-a.credits.length).slice(0,8);
+  const top = stapleCounts(fam).slice(0,10);
+  const favOf = p => { const sc = stapleCounts(p.credits).filter(([w]) => !['salt','sugar','flour','eggs','butter','milk','vanilla','baking soda','baking powder'].includes(w)); return sc.length ? sc[0][0] : ''; };
+  const biggest = fam.slice().sort((a,b)=>b.ingredients.flatMap(g=>g.items).length - a.ingredients.flatMap(g=>g.items).length)[0];
+  const cookies = fam.filter(r=>/cookie/i.test(r.title) || r.category==='Cookies').length;
+  const gaps = R.filter(r=>r.gaps && r.gaps.length).length;
+  const bar = (label, n, max, href, sub) => `<div class="statbar"><span class="sl">${href?`<a href="${href}">${esc(label)}</a>`:esc(label)}${sub?`<small>loves ${esc(sub)}</small>`:''}</span><span class="sb"><i style="width:${Math.max(4, n/max*100)}%"></i></span><span class="sn">${n}</span></div>`;
+  app.innerHTML = `<a class="back" href="#/">← Home</a>
+    <div class="r-head"><h1>📊 Family recipe stats</h1><p class="summary">Fun facts from all the cards we’ve typed in so far.</p></div>
+    <div class="statgrid">
+      <div class="stat"><b>${R.length.toLocaleString()}</b><span>recipes on the site</span></div>
+      <div class="stat"><b>${box.length.toLocaleString()}</b><span>cards from Mom’s recipe boxes</span></div>
+      <div class="stat"><b>${cookies}</b><span>cookie recipes</span></div>
+      <div class="stat"><b>${(window.PEOPLE_API ? window.PEOPLE_API.people(R).filter(p=>!p.isSource).length : 0)}</b><span>names on the cards</span></div>
+    </div>
+    <div class="nh-cols">
+      <section class="panel"><h2>Cards in each box</h2>${byBox.map(([b,n])=>bar('Box '+b, n, Math.max(...byBox.map(x=>x[1])), '#/box-'+b.toLowerCase())).join('')}</section>
+      <section class="panel"><h2>What we make most</h2>${topCats.map(([c,n])=>bar(c, n, topCats[0][1])).join('')}</section>
+      <section class="panel"><h2>Most-used ingredients</h2><p class="hint">How many family recipes use each one.</p>${top.map(([w,n])=>bar(w, n, top[0][1])).join('')}</section>
+      <section class="panel"><h2>Most recipes by name</h2><p class="hint">And the ingredient each one reaches for most (besides the basics).</p>${ppl.map(p=>{ const f = favOf(p); return bar(p.name, p.credits.length, ppl[0].credits.length, '#/people/'+p.key, f); }).join('')}</section>
+    </div>
+    <div class="statgrid" style="margin-bottom:48px">
+      ${biggest ? `<div class="stat"><b>${biggest.ingredients.flatMap(g=>g.items).length}</b><span>ingredients in the longest recipe, <a href="#/recipe/${biggest.slug}">${esc(biggest.title)}</a></span></div>` : ''}
+      <div class="stat"><b>${R.filter(r=>r.glutenFree).length}</b><span>recipes that are gluten-free as written</span></div>
+      <div class="stat"><b>${gaps}</b><span>recipes you can <a href="#/needs-help">help fill in</a></span></div>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+// ---- 9. Back up favorites, notes, collections ----
+function backupPage(){
+  setNav(''); document.title = 'Back up · Family Recipes';
+  const keys = []; try { for (let i=0;i<localStorage.length;i++){ const k = localStorage.key(i); if (k && (k.startsWith('fr:') || k==='textSize')) keys.push(k); } } catch(e){}
+  const n = k => (store.get(k, []) || []).length;
+  app.innerHTML = `<a class="back" href="#/favorites">← Favorites</a>
+    <div class="r-head"><h1>💾 Back up or move to a new phone</h1><p class="summary">Your favorites, collections, meal plan, shopping list and notes are saved only on this phone or computer. Save them to a file to keep them safe, or to move them to another device.</p></div>
+    <div class="panel" style="margin:16px 0">
+      <h2>On this device now</h2>
+      <p>${n('fav')} favorites · ${n('cols')} collections · ${keys.filter(k=>k.startsWith('fr:note:')).length} recipe notes · ${n('shop') + n('shopextra')} shopping list items</p>
+      <div class="actions"><button class="btn primary" id="bkSave">⬇️ Save my stuff to a file</button></div>
+    </div>
+    <div class="panel" style="margin:16px 0 48px">
+      <h2>Load from a file</h2>
+      <p class="hint">On the new phone or computer, open this page and pick the file you saved. It adds to anything already here.</p>
+      <input type="file" id="bkFile" accept=".json,application/json">
+      <p id="bkMsg" class="hint" hidden></p>
+    </div>`;
+  document.getElementById('bkSave').onclick = () => {
+    const data = { app:'family-recipes', saved:new Date().toISOString(), items:{} };
+    keys.forEach(k => { try { data.items[k] = localStorage.getItem(k); } catch(e){} });
+    const blob = new Blob([JSON.stringify(data, null, 1)], {type:'application/json'}), a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'family-recipes-backup-' + new Date().toISOString().slice(0,10) + '.json'; document.body.appendChild(a); a.click(); a.remove();
+    toast('Saved. Check your Downloads.');
+  };
+  document.getElementById('bkFile').onchange = e => {
+    const f = e.target.files[0]; if (!f) return; const rd = new FileReader();
+    rd.onload = () => { const msg = document.getElementById('bkMsg'); msg.hidden = false;
+      try { const d = JSON.parse(rd.result); if (d.app !== 'family-recipes' || !d.items) throw 0;
+        let added = 0;
+        Object.entries(d.items).forEach(([k, v]) => {
+          if (!(k.startsWith('fr:') || k==='textSize')) return;
+          let cur = null; try { cur = localStorage.getItem(k); } catch(e){}
+          let out = v;
+          try { const a = JSON.parse(v), b = cur ? JSON.parse(cur) : null;
+            if (Array.isArray(a) && Array.isArray(b)) out = JSON.stringify(k==='fr:cols' ? b.concat(a.filter(x => !b.some(y=>y.name===x.name))) : k==='fr:shopextra' ? b.concat(a.filter(x=>!b.some(y=>y.t===x.t))) : [...new Set(b.concat(a))]);
+            else if (a && b && typeof a==='object' && typeof b==='object' && !Array.isArray(a)) { const m = Object.assign({}, a); Object.keys(b).forEach(kk => { m[kk] = Array.isArray(a[kk]) && Array.isArray(b[kk]) ? [...new Set(b[kk].concat(a[kk]))] : b[kk]; }); out = JSON.stringify(m); }
+            else if (cur && typeof b === 'string' && b.trim()) out = cur;
+          } catch(e){}
+          try { localStorage.setItem(k, out); added++; } catch(e){}
+        });
+        msg.textContent = '✓ Loaded. Your favorites, collections and notes are back.'; updateShopCount(); updateFavCount();
+      } catch(err){ msg.textContent = 'That file doesn’t look like a Family Recipes backup.'; } };
+    rd.readAsText(f);
+  };
+  window.scrollTo(0,0);
+}
+
 function route(){
   const h = location.hash.replace(/^#\/?/, '');
   document.title = 'Family Recipes';
@@ -1381,6 +1676,12 @@ function route(){
   else if(h === 'favorites') favoritesPage();
   else if(h === 'collections' || h.startsWith('collections/')) collectionsPage(h.split('/')[1]);
   else if(h === 'plan') planPage();
+  else if(h === 'quick' || h.startsWith('quick/')) quickPage(h.split('/')[1]);
+  else if(h === 'season') seasonPage();
+  else if(h === 'ingredients' || h.startsWith('ingredients/')) ingredientsPage(h.split('/')[1]);
+  else if(h === 'needs-help') needsHelpPage();
+  else if(h === 'stats') statsPage();
+  else if(h === 'backup') backupPage();
   else if(h === 'pantry') pantryPage();
   else if(/^box-[a-z0-9]+(\/|$)/.test(h)) boxPage(h.split('/')[0].slice(4), h.split('/')[1]);
   else if(h === 'people' || h.startsWith('people/')) peoplePage(h.split('/')[1]);
