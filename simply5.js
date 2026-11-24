@@ -424,5 +424,6 @@ mk2("vanilla-bean-panna-cotta","Vanilla Bean Panna Cotta",195,"Puddings & Desser
  ["Top each with a few fresh raspberries.","Easily doubled for a dinner party."])
 );
 
+R.forEach(function(r){r.healthy=true;});
 window.RECIPES = (window.RECIPES || []).concat(R);
 })();
