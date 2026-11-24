@@ -207,7 +207,7 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 .tag.gf{background:#e6efd9;color:#4b6a2a}
 .gf-note{margin:0 0 18px;padding:12px 16px;border-radius:12px;background:#eef4e4;border:1px solid #cfdcb8;color:#33461d;font-size:.95rem}
 .gf-note a{color:inherit}
-.secnav a[data-sec=gf][aria-current=page],.secnav a[data-sec=hl][aria-current=page]{background:#e6efd9;color:#4b6a2a}
+.secnav a[data-sec=gf][aria-current=page],.secnav a[data-sec=hl][aria-current=page],.secnav a[data-sec=gc][aria-current=page]{background:#e6efd9;color:#4b6a2a}
 .gf-guide{margin:22px 0 6px;padding:18px 20px;border-radius:16px;background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow)}
 .gf-guide h2{margin:0 0 4px;font-size:1.35rem}
 .gf-guide details{border-top:1px solid var(--line);padding:2px 0}
@@ -525,6 +525,7 @@ a.meal-item:hover{border-color:var(--accent)}
     <a href="#/shelf" data-sec="found"><span class="long">The </span>Cookbook Shelf</a>
     <a href="#/gluten-free" data-sec="gf">Gluten-Free</a>
     <a href="#/healthy" data-sec="hl">Healthy Eating</a>
+    <a href="#/grilled-cheese" data-sec="gc">Grilled Cheese</a>
     <a href="#/holidays" data-sec="holidays" id="holNav">Holidays</a>
     <a href="#/people" data-sec="people">People</a>
   </nav>
@@ -561,6 +562,7 @@ a.meal-item:hover{border-color:var(--accent)}
 <script src="cards8.js?v=20261127"></script>
 <script src="simply5.js?v=20261127"></script>
 <script src="simply5-guides.js?v=20261127"></script>
+<script src="grilledcheese.js?v=20261127"></script>
 <script src="breadbowls.js?v=20261127"></script>
 <script src="cards9.js?v=20261127"></script>
 <script src="cards10.js?v=20261127"></script>
@@ -1031,6 +1033,83 @@ function healthyPage(){
     const list = list0.filter(r => !terms.length || searchScore(r, terms) > 0).sort((a,b)=> (terms.length ? searchScore(b, terms) - searchScore(a, terms) : 0) || a.title.localeCompare(b.title));
     const g = document.getElementById('grid');
     if (!list.length) { g.innerHTML = `<p class="empty">No healthy recipes match that search.</p>`; return; }
+    const groups = {}; list.forEach(r=>(groups[r.category]=groups[r.category]||[]).push(r));
+    g.innerHTML = Object.keys(groups).sort(catSort).map(c=>`<h2 class="cat-head">${esc(c)} <span class="n">${groups[c].length}</span></h2>` + groups[c].map(r=>cardHTML(r,false)).join('')).join('');
+  };
+  document.getElementById('q').addEventListener('input', e => { state.q = e.target.value; draw(); });
+  draw();
+  window.scrollTo(0,0);
+}
+
+const GC_TIPS = [
+ {t:'Getting the perfect grilled cheese', items:[
+  'Use thick cheese and thin bread. Bread that is too thick never gets crisp and keeps the cheese from melting.',
+  'Butter the bread, not the pan. It coats evenly and browns without blotchy dry spots.',
+  'Grate the cheese instead of slicing it. Shreds melt fast, so the bread does not burn while you wait.',
+  'A good nonstick pan cooks evenly and needs less butter. Cast iron works too if you prefer it.',
+  'Cover the pan for most of the cooking so the cheese melts before the bread browns too much.',
+  'Flip twice, pressing down gently with a spatula each time, to get crisp bread and fully melted cheese.',
+  'Use medium heat. If your stove runs hot, go lower and be patient. If the heat is too high the bread burns before the cheese melts.',
+  'Let the sandwich cool for 5 minutes before eating. The flavors open up and it will not scald your mouth.']},
+ {t:'Using a sandwich maker or a grill', items:[
+  'A sandwich maker works for most of these. Assemble as written and cook to the maker\'s instructions.',
+  'Skip it for very soft or loose fillings, open-face sandwiches, croissants, and anything with a crumb or chip coating, since the lid can squish things or burn the outside.',
+  'Press the sandwich with a foil-wrapped can or a heavy skillet if you want extra compression in a pan.',
+  'A gas grill works for a truly grilled cheese: brush the bread with butter or oil and watch closely.']},
+ {t:'Bread', items:[
+  'Each recipe makes 4 sandwiches and is sized for sandwich-size slices (about 4 to 5 inches wide). If your bread is bigger or smaller, adjust the filling. If your loaf is round, cut the big center slices in half.',
+  'Ciabatta: crisp thin crust and airy center. Pinch out a little of the soft middle to make room for filling. Use Italian bread, sourdough, or baguette if you cannot find it.',
+  'Croissant: the butter in the dough crisps beautifully, but it burns easily, so watch closely. Brioche, egg bread, or challah work instead.',
+  'Focaccia: soft and oily, so it browns fast. Plain focaccia is best. Brioche or French bread loaf works instead.',
+  'Italian bread and sourdough: the all-purpose choices. Sturdy, not too many holes, a little tangy.',
+  'Olive bread: use olive oil instead of butter. Or use Italian bread or sourdough and add chopped black olives.',
+  'Pain de mie (Pullman loaf): soft white bread with a tight crumb and thin crust. Use country white if you cannot find it.',
+  'Pain au levain: a hearty, slightly sour country bread. Sourdough or rye is a good substitute.',
+  'Cuban roll: the real thing is hard to find, so use crusty sandwich rolls or baguette.']},
+ {t:'Butter, oil, and salt', items:[
+  'Salted butter is best for most of these, since the bread needs a little salt too.',
+  'Olive oil is good with olive bread or Mediterranean fillings. Mayonnaise on the outside crisps and browns the bread well.',
+  'Where a recipe says salt, use kosher salt.',
+  'Coarsely grated means about ½ inch pieces (the large holes of a box grater); finely grated is about as thin as string.',
+  '4 ounces of coarsely grated cheese is about 1 cup.']},
+ {t:'Cheeses that melt well', items:[
+  'Great melters: American, mozzarella, fontina, Gruyère, Swiss, Emmentaler, cheddar (not too aged), Colby, Monterey Jack, Havarti, mild provolone, Gouda, fresh Asiago, Comté, Jarlsberg.',
+  'Creamy but not stretchy: Brie, Camembert, fromage blanc, Taleggio, Reblochon, goat cheese, Gorgonzola, mascarpone.',
+  'Hard cheeses add flavor rather than melt: aged pecorino, Parmesan, aged Gouda. Mix them into butter for a nutty crust.',
+  'If you cannot find every cheese in a recipe, use more of the ones you can find to make up the total.']}
+];
+
+function grilledPage(){
+  setNav('gc');
+  document.title = 'Grilled Cheese · Family Recipes';
+  const list0 = R.filter(r=>r.grilled);
+  const nsand = list0.filter(r=>r.category==='Sandwiches & Pizza').length;
+  app.innerHTML = `
+    <section class="sec-head gf">
+      <a class="back" href="#/">← Home</a>
+      <h1>🧀 Grilled Cheese</h1>
+      <p class="tagline">Melts, sandwiches, and the sides to go with them</p>
+      <p>${nsand} sandwiches, plus soups, pickles, jams and dips that go with them. Each sandwich makes 4.</p>
+    </section>
+    <section class="gf-guide" aria-label="Grilled cheese tips">
+      <h2>Grilled cheese tips</h2>
+      <p class="hint">Tap a topic to open it.</p>
+      ${GC_TIPS.map(g=>`<details><summary>${esc(g.t)}</summary><ul>${g.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`).join('')}
+    </section>
+    <h2 class="gf-list-head">Recipes</h2>
+    <div class="controls">
+      <label class="search" aria-label="Search grilled cheese recipes">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search grilled cheese…" value="${esc(state.q)}">
+      </label>
+    </div>
+    <div class="grid" id="grid"></div>`;
+  const catSort = (a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j)||a.localeCompare(b);};
+  const draw = () => {
+    const terms = searchTerms(state.q, R);
+    const list = list0.filter(r => !terms.length || searchScore(r, terms) > 0).sort((a,b)=> (terms.length ? searchScore(b, terms) - searchScore(a, terms) : 0) || a.title.localeCompare(b.title));
+    const g = document.getElementById('grid');
+    if (!list.length) { g.innerHTML = `<p class="empty">No grilled cheese recipes match that search.</p>`; return; }
     const groups = {}; list.forEach(r=>(groups[r.category]=groups[r.category]||[]).push(r));
     g.innerHTML = Object.keys(groups).sort(catSort).map(c=>`<h2 class="cat-head">${esc(c)} <span class="n">${groups[c].length}</span></h2>` + groups[c].map(r=>cardHTML(r,false)).join('')).join('');
   };
@@ -1974,6 +2053,7 @@ function morePage(){
       ['#/quick/freezer','❄️','Freezer-friendly','Make now, eat later'],
       ['#/gluten-free','🌾','Gluten-free','No wheat, barley, rye or oats'],
       ['#/healthy','🥗','Healthy eating','Light, simple, five ingredients or less'],
+      ['#/grilled-cheese','🧀','Grilled cheese','Sandwiches, melts, and the sides to go with them'],
       ['#/people','👪','Look up a name','Every recipe from one person'],
       ['#/random','🎲','Surprise me','A random family recipe']
     ])}
@@ -2068,6 +2148,7 @@ function route(){
   else if(h === 'people' || h.startsWith('people/')) peoplePage(h.split('/')[1]);
   else if(h === 'gluten-free') gfPage();
   else if(h === 'healthy') healthyPage();
+  else if(h === 'grilled-cheese') grilledPage();
   else if(h === 'family') sectionPage('family');
   else if(h === 'shelf') sectionPage('found');
   else if(h === 'holidays' || h.startsWith('holidays/')) holidaysPage(h.split('/')[1]);
