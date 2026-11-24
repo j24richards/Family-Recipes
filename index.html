@@ -560,7 +560,7 @@ a.meal-item:hover{border-color:var(--accent)}
 <script src="cards6.js?v=20261127"></script>
 <script src="cards7.js?v=20261127"></script>
 <script src="cards8.js?v=20261127"></script>
-<script src="simply5.js?v=20261128"></script>
+<script src="simply5.js?v=20261129"></script>
 <script src="simply5-guides.js?v=20261127"></script>
 <script src="grilledcheese.js?v=20261128"></script>
 <script src="breadbowls.js?v=20261127"></script>
@@ -1213,7 +1213,7 @@ function recipe(slug){
         ${r.fromBox ? indexCardHtml(r) : ''}
         ${!r.fromBox && r.adjustments && r.adjustments.length ? `<div class="panel notes adj"><h2>Adjustments</h2><p class="hint">Later notes added to the card. The recipe above is the original.</p><ul>${r.adjustments.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
         ${!r.fromBox && r.cardNotes && r.cardNotes.length ? `<div class="panel notes"><h2>On the card</h2><ul>${r.cardNotes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
-        ${r.nutrition ? `<div class="panel notes nutri"><h2>Per serving</h2><p class="hint">${esc(r.nutrition.per)}</p><p><strong>${r.nutrition.points} SmartPoints</strong> · ${r.nutrition.cal} cal · ${r.nutrition.protein} g protein · ${r.nutrition.carb} g carbs · ${r.nutrition.fat} g fat</p><p class="hint">Saturated fat ${r.nutrition.satFat} g · sodium ${r.nutrition.sodium} mg · sugar ${r.nutrition.sugar} g · fiber ${r.nutrition.fiber} g</p></div>` : ''}
+        ${r.nutrition ? `<div class="panel notes nutri"><h2>Per serving</h2><p class="hint">${esc(r.nutrition.per)}</p><p><strong>${r.nutrition.points} SmartPoints</strong> · ${r.nutrition.cal} cal · ${[['protein','g protein'],['carb','g carbs'],['fat','g fat']].filter(x=>r.nutrition[x[0]]!=null).map(x=>r.nutrition[x[0]]+' '+x[1]).join(' · ')}</p><p class="hint">${[['satFat','Saturated fat','g'],['sodium','sodium','mg'],['sugar','sugar','g'],['fiber','fiber','g']].filter(x=>r.nutrition[x[0]]!=null).map(x=>x[1]+' '+r.nutrition[x[0]]+' '+x[2]).join(' · ')}</p></div>` : ''}
         ${r.notes && r.notes.length ? `<div class="panel notes"><h2>Notes</h2><ul>${r.notes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
         ${tipsHtml(r, slug)}
     </div>
