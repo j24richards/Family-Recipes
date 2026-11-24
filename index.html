@@ -361,6 +361,13 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 .person .n{font-size:.78rem;color:var(--muted);margin-top:4px}
 .person-head .tagline{margin:2px 0 8px}
 .kin{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0 0}
+/* ---- Make it a meal ---- */
+.meal{margin:10px 0 24px}.meal h2{font-family:Fraunces,Georgia,serif;font-size:1.4rem;margin:0 0 4px}
+.meal-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0 12px}@media (max-width:620px){.meal-row{grid-template-columns:1fr}}
+.meal-item{display:flex;flex-direction:column;gap:3px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--paper);text-decoration:none}
+.meal-item.main{background:var(--accent-soft);border-color:transparent}.meal-item .ml{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--accent)}.meal-item strong{font-size:1.05rem;line-height:1.3}.meal-item .muted{font-size:.85rem}
+a.meal-item:hover{border-color:var(--accent)}
+.freeze p{margin:0 0 6px}
 /* ---- Index card (replaces card photos) ---- */
 .idxcard{position:relative;margin:0 0 16px;background:var(--idx-paper);border:1px solid var(--line);border-radius:6px;padding:18px 20px 14px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 8px 18px rgba(60,30,10,.10);transform:rotate(-.4deg);
   background-image:linear-gradient(var(--idx-paper),var(--idx-paper)),repeating-linear-gradient(to bottom,transparent 0,transparent 33px,var(--idx-rule) 33px,var(--idx-rule) 34px);background-blend-mode:normal}
@@ -669,7 +676,7 @@ function home(){
     ${(()=>{ const rec = store.get('recent', []).map(x=>R.find(r=>r.slug===x)).filter(Boolean).slice(0,6); return rec.length ? `<section class="recent after-tiles"><h2>Recently viewed</h2><div class="recent-row">${rec.map(r=>`<a class="recent-chip" href="#/recipe/${r.slug}">${esc(r.title)}</a>`).join('')}</div></section>` : ''; })()}
     <div class="tiles">${tiles.map(t=>`<a class="tile" href="${t[0]}"><span class="te" aria-hidden="true">${t[1]}</span><strong>${t[2]}</strong><span class="tn">${t[3]}</span></a>`).join('')}</div>
     <div class="after-tiles">
-    <div class="morebrowse"><a href="#/ingredients">🍗 By main ingredient</a><a href="#/quick">⚡ Quick &amp; easy</a><a href="#/season">${seasonInfo().emoji} In season</a><a href="#/needs-help">🙋 Help fill in recipes</a><a href="#/stats">📊 Family recipe stats</a></div>
+    <div class="morebrowse"><a href="#/ingredients">🍗 By main ingredient</a><a href="#/quick">⚡ Quick &amp; easy</a><a href="#/quick/crowd">👨‍👩‍👧‍👦 Feeds a crowd</a><a href="#/quick/freezer">❄️ Freezer-friendly</a><a href="#/staples">🧂 Pantry check</a><a href="#/season">${seasonInfo().emoji} In season</a><a href="#/needs-help">🙋 Help fill in recipes</a><a href="#/stats">📊 Family recipe stats</a></div>
     ${(()=>{ const l = seasonList(); if (!l.length) return ''; const pick3 = l.slice().sort(()=>Math.random()-.5).slice(0,3); return `<section class="season-home"><h2>${seasonInfo().emoji} In season: ${seasonInfo().month}</h2><div class="grid">${pick3.map(r=>cardHTML(r,true)).join('')}</div><p><a href="#/season">See all ${l.length} →</a></p></section>`; })()}
     <section class="pick" id="pick"><span class="pick-kicker">Today's pick</span><p class="pick-why" id="pickWhy"></p><div id="pickCard"></div><button type="button" class="linkbtn pick-again" id="pickAgain">Show me another idea</button></section>
     <div class="share-cta">
@@ -967,7 +974,7 @@ function recipe(slug){
     ${r.familyMember ? `<div class="fam-note">👪 <strong>A family recipe</strong> — from ${r.familyNames.map(x=>esc(x)).join(', ')}.</div>` : ''}
     ${r.glutenFree ? `<div class="gf-note"><strong>🌾 Gluten-free as written.</strong> ${r.gfCheck && r.gfCheck.length ? `Check the label and buy these labeled gluten-free: ${r.gfCheck.map(x=>esc(x)).join('; ')}.` : 'No ingredients here normally contain gluten.'} <a href="#/gluten-free">More gluten-free recipes</a></div>` : ''}
     <div class="r-body">
-      <section><section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>${swapsHtml(r)}</section>
+      <section><section class="panel ing"><h2>Ingredients</h2>${scaleBarHtml(r)}<div id="ingList">${ingHtml}</div></section>${swapsHtml(r)}${freezeHtml(r)}</section>
       <section>
         ${r.fromBox ? indexCardHtml(r) : ''}
         <div class="panel">
@@ -985,6 +992,7 @@ function recipe(slug){
     </div>
     ${(r.photos && r.photos.length) ? `<h2 class="gal-h">How it turned out</h2><div class="gallery">${r.photos.map(p=>`<button type="button" class="photo-btn" data-zoom="${esc(p.src)}" data-cap="${esc((p.caption||'')+(p.by?' — '+p.by:''))}"><img src="${esc(p.src)}" alt="${esc(p.caption||('Photo of '+r.title))}" loading="lazy"></button>`).join('')}</div>` : ''}
     <p class="photo-add"><a class="btn" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener" style="text-decoration:none">📷 Made it? Add a photo</a></p>
+    ${mealHtml(r)}
     ${alsoLikeHtml(r)}
     <p class="report-line">Something wrong on this page? <a href="${suggestLink(r)}" target="_blank" rel="noopener">Tell us and we’ll fix it</a>.</p>`;
   const save = () => store.set('chk:'+slug, checks);
@@ -1008,6 +1016,7 @@ function recipe(slug){
   };
   { const rec = store.get('recent', []).filter(x => x !== slug); rec.unshift(slug); store.set('recent', rec.slice(0, 8)); }
   document.getElementById('colBtn').onclick = () => collectionSheet(slug);
+  bindMeal(r);
   document.getElementById('planBtn').onclick = () => planSheet(slug);
   app.querySelectorAll('[data-timer]').forEach(b => b.onclick = e => { e.stopPropagation(); startTimer(+b.dataset.timer, r.title + ': ' + b.dataset.label); });
   const cookBtn = document.getElementById('cook');
@@ -1032,7 +1041,7 @@ function shopping(){
     <a class="back" href="#/">← Home</a>
     <div class="r-head"><h1>Shopping list</h1><p class="summary">${slugs.length ? `Ingredients from ${slugs.length} recipe${slugs.length>1?'s':''}` : 'No recipes added yet'}${extra.length ? ` plus ${extra.length} of your own item${extra.length>1?'s':''}` : ''}. Open any recipe and tap “Add to shopping list” to add more. Check things off as you go.</p></div>
     <form class="addown" id="addOwn" autocomplete="off">
-      <label for="ownItem">Add your own item</label>
+      <label for="ownItem">Add your own item <a href="#/staples" style="font-weight:400;font-size:.9rem;margin-left:6px">or run a pantry check →</a></label>
       <div class="addown-row"><input id="ownItem" type="text" placeholder="e.g. paper towels, milk, 2 lemons"><button class="btn primary" type="submit">Add</button></div>
     </form>
     ${total ? `<div class="actions"><button class="btn" id="clearChecks">Uncheck all</button><button class="btn" id="clearAll">Clear list</button><button class="btn" onclick="window.print()">Print</button></div>` : ''}
@@ -1489,7 +1498,7 @@ function minutesIn(r){
   let tot = 0; (r.steps||[]).forEach(st => { const re = /(\d+(?:\s*[½¼¾])?)\s*(?:(?:to|-|–|or)\s*(\d+)\s*)?(minutes?|mins?|hours?|hrs?)\b/gi; let m; while ((m = re.exec(st))) { const v = parseFloat(m[2]||m[1]) || 0; tot += /^h/i.test(m[3]) ? v*60 : v; } });
   return tot;
 }
-const EASE = { quick:{label:'⚡ Quick', name:'Quick (about 30 minutes)'}, easy:{label:'👍 Easy', name:'Easy (few ingredients and steps)'}, ahead:{label:'🧊 Make-ahead', name:'Make-ahead'} };
+const EASE = { quick:{label:'⚡ Quick', name:'Quick (about 30 minutes)'}, easy:{label:'👍 Easy', name:'Easy (few ingredients and steps)'}, ahead:{label:'🕒 Make-ahead', name:'Make-ahead'}, freezer:{label:'❄️ Freezer-friendly', name:'Freezer-friendly'}, crowd:{label:'👨‍👩‍👧‍👦 Feeds a crowd', name:'Feeds a crowd (10 or more)'} };
 function easeTags(r){
   if (r._ease) return r._ease;
   const ni = (r.ingredients||[]).flatMap(g=>g.items).length, ns = (r.steps||[]).length, all = (r.steps||[]).concat(r.notes||[]).join(' ').toLowerCase(), mins = minutesIn(r);
@@ -1498,7 +1507,90 @@ function easeTags(r){
   if (ns && ns <= 6 && ni <= 10 && mins <= 30 && !slow && !['Gift Ideas','Tips'].includes(r.category)) out.push({key:'quick', label:EASE.quick.label});
   if (ns && ns <= 4 && ni <= 7) out.push({key:'easy', label:EASE.easy.label});
   if (/overnight|make ahead|make-ahead|day ahead|can be made|freezes well|freeze|refrigerate (?:several|for|until|overnight)|chill (?:several|for|overnight)/.test(all)) out.push({key:'ahead', label:EASE.ahead.label});
+  if (freezeInfo(r)) out.push({key:'freezer', label:EASE.freezer.label});
+  if (crowdSize(r) >= 10) out.push({key:'crowd', label:EASE.crowd.label});
   return (r._ease = out);
+}
+// ---- Feeds a crowd ----
+function crowdSize(r){
+  const sv = String(r.serves||'').toLowerCase();
+  if (!sv || /doz|cookie|bar|piece|cup|quart|qt|pint|jar|loa|crust|pie|cake|square|ball|candies|lb|pound|oz/.test(sv) && !/serv|people|person/.test(sv)) return 0;
+  const nums = (sv.match(/\d+/g)||[]).map(Number).filter(n => n < 200);
+  return nums.length ? Math.max(...nums) : 0;
+}
+// ---- Freezing ----
+const FREEZE = {
+  'Cookies':'Baked cookies freeze well for up to 3 months in a tight container. Thaw on the counter. Most doughs freeze well too.',
+  'Bars & Brownies':'Freeze cooled bars, uncut or cut, wrapped tightly, for up to 3 months.',
+  'Breads':'Wrap cooled loaves or muffins tightly and freeze for up to 3 months. Thaw wrapped so they stay moist.',
+  'Cakes':'Unfrosted cake layers freeze well for up to 3 months, wrapped tightly. Frost after thawing.',
+  'Soups':'Freeze in containers with a little headroom for up to 3 months. Soups with cream, milk or potatoes can turn grainy, so add the dairy when reheating if you can.',
+  'Casseroles':'Freeze baked or unbaked, tightly covered, for up to 3 months. Thaw overnight in the fridge, then bake until hot in the middle.',
+  'Pies & Crisps':'Fruit pies and crisps freeze well, baked or unbaked, for up to 4 months. Bake unbaked pies straight from the freezer, adding about 20 minutes.',
+  'Candy & Treats':'Fudge and most candies freeze well for up to 3 months, wrapped tightly.',
+  'Meats & Seafood':'Cooked meat dishes in sauce, meatballs and meatloaf freeze well for up to 3 months.',
+  'Dinner':'Most cooked dinners in sauce freeze well for up to 3 months. Thaw overnight in the fridge.'
+};
+const NOFREEZE = /mayonnaise|mayo\b|miracle whip|meringue|gelatin|jell-?o|custard|cream pie|whipped cream|cool whip|lettuce|cucumber|hard[- ]?(cooked|boiled) egg|raw|salad|fried|crisp coating|sour cream topping|cream cheese frosting|pudding/;
+function freezeInfo(r){
+  const said = ((r.steps||[]).concat(r.notes||[], r.cardNotes||[], r.adjustments||[])).join(' ').toLowerCase();
+  if (/freezes? (well|nicely|beautifully)|can be frozen|freeze (for|up to|until)|to freeze|may be frozen|freezer/.test(said)) return { said:true, tip: FREEZE[r.category] || 'The card says this one freezes.' };
+  if (!FREEZE[r.category]) return null;
+  if (NOFREEZE.test((r.title+' '+ING_TEXT(r)).toLowerCase())) return null;
+  if (['Meats & Seafood','Dinner'].includes(r.category) && !/sauce|meatball|meat ?loaf|stew|chili|soup|casserole|lasagna|ziti|pot pie|enchilada|stuffed/.test((r.title+' '+(r.summary||'')).toLowerCase())) return null;
+  return { said:false, tip: FREEZE[r.category] };
+}
+function freezeHtml(r){
+  const f = freezeInfo(r); if (!f) return '';
+  return `<div class="panel swaps freeze"><h2>❄️ Freezing it</h2><p>${esc(f.tip)}</p>${f.said ? '<p class="hint">The card itself mentions freezing.</p>' : '<p class="hint">General freezing advice for this kind of dish.</p>'}</div>`;
+}
+
+// ---- Make it a meal (pairings) ----
+const MAIN_CATS = ['Dinner','Meats & Seafood','Casseroles','Soups'];
+const SIDE_CATS = ['Sides','Salads','Breads'];
+function pairings(r){
+  if (!MAIN_CATS.includes(r.category)) return null;
+  const seed = [...r.slug].reduce((a,c)=>a*31+c.charCodeAt(0)|0, 11 + (MEAL_SPIN[r.slug]||0)*7919);
+  const best = cats => { const pool = R.filter(x => cats.includes(x.category) && x.slug !== r.slug && !/gift|tip/i.test(x.category));
+    return pool.map(x => { let sc = 0; if (x.credit && x.credit === r.credit) sc += 3; if (x.box && x.box === r.box) sc += 1; if (x.section === r.section) sc += 1; if (seasonInfo().re.test(x.title.toLowerCase())) sc += 1;
+      const h = [...x.slug].reduce((a,c)=>a*33+c.charCodeAt(0)|0, seed); return {x, sc: sc + ((h>>>0)%1000)/1000}; }).sort((a,b)=>b.sc-a.sc).slice(0,1).map(o=>o.x)[0]; };
+  const side = best(r.category==='Soups' ? ['Breads','Salads'] : SIDE_CATS), dessert = best(SWEETS);
+  return [side, dessert].filter(Boolean);
+}
+function mealHtml(r){
+  const p = pairings(r); if (!p || !p.length) return '';
+  return `<section class="meal"><h2>🍽️ Make it a meal</h2><p class="hint">A side and a dessert from the family recipes that go nicely with this.</p>
+    <div class="meal-row"><div class="meal-item main"><span class="ml">Main</span><strong>${esc(r.title)}</strong></div>${p.map((x,i)=>`<a class="meal-item" href="#/recipe/${x.slug}"><span class="ml">${i===0 && !SWEETS.includes(x.category) ? (x.category==='Breads'?'Bread':'Side') : 'Dessert'}</span><strong>${esc(x.title)}</strong>${x.credit?`<span class="muted">${esc(x.credit)}</span>`:''}</a>`).join('')}</div>
+    <div class="actions"><button class="btn" id="mealShop">🛒 Add the whole meal to my list</button><button class="btn" id="mealPlan">📅 Plan the whole meal</button><button class="btn" id="mealOther">🔄 Show other ideas</button></div></section>`;
+}
+function bindMeal(r){
+  const p = pairings(r); if (!p) return; const all = [r.slug, ...p.map(x=>x.slug)];
+  const a = document.getElementById('mealShop'); if (!a) return;
+  a.onclick = () => { store.set('shop', [...new Set([...shopList(), ...all])]); updateShopCount(); toast('Added the whole meal to your list'); recipeKeepScroll(r.slug); };
+  document.getElementById('mealPlan').onclick = () => {
+    const today = DAYS[new Date().getDay()];
+    const d = sheet('Plan the whole meal', `<p class="hint" style="margin:0 0 10px">Pick a day. All three recipes go on it.</p><div class="daygrid">${DAYS.map(x=>`<button type="button" class="btn day" data-day="${x}">${x}${x===today?' (today)':''}</button>`).join('')}</div>`);
+    d.querySelectorAll('[data-day]').forEach(b => b.onclick = () => { const pl = plan(); pl[b.dataset.day] = [...new Set([...pl[b.dataset.day], ...all])]; store.set('plan', pl); closeSheet(); toast('Planned for ' + b.dataset.day); });
+  };
+  document.getElementById('mealOther').onclick = () => { MEAL_SPIN[r.slug] = (MEAL_SPIN[r.slug]||0) + 1; const sec = document.querySelector('.meal'); const tmp = document.createElement('div'); tmp.innerHTML = mealHtml(r); sec.replaceWith(tmp.firstElementChild); bindMeal(r); };
+}
+const MEAL_SPIN = {};
+function recipeKeepScroll(slug){ const y = window.scrollY; recipe(slug); window.scrollTo(0, y); }
+
+// ---- Pantry check ----
+function staplesPage(){
+  setNav(''); document.title = 'Pantry check · Family Recipes';
+  const fam = R.filter(r => r.section==='family');
+  const list = stapleCounts(fam).slice(0, 36);
+  const out = store.get('staplesOut', []);
+  app.innerHTML = `<a class="back" href="#/">← Home</a>
+    <div class="r-head"><h1>🧂 Pantry check</h1><p class="summary">The basics our family recipes use most, most-used first. Tick anything you’re out of or running low on, then add them all to your shopping list in one tap.</p></div>
+    <div class="actions"><button class="btn primary" id="stShop">🛒 Add ticked items to my list</button><button class="btn" id="stClear">Untick all</button></div>
+    <div class="panel" style="margin:16px 0 48px"><ul class="checklist staples">${list.map(([w,n])=>`<li><label><input type="checkbox" data-w="${esc(w)}" ${out.includes(w)?'checked':''}><span>${esc(w)} <span class="muted">· in ${n} recipes</span></span></label></li>`).join('')}</ul></div>`;
+  app.querySelectorAll('[data-w]').forEach(i => i.onchange = () => { const o = store.get('staplesOut', []); store.set('staplesOut', i.checked ? [...new Set([...o, i.dataset.w])] : o.filter(x=>x!==i.dataset.w)); });
+  document.getElementById('stShop').onclick = () => { const o = store.get('staplesOut', []); if (!o.length) { toast('Tick what you’re out of first'); return; } const ex = store.get('shopextra', []); o.forEach(w => { if (!ex.some(x=>x.t.toLowerCase()===w)) ex.push({t:w, done:false}); }); store.set('shopextra', ex); store.set('staplesOut', []); updateShopCount(); toast('Added ' + o.length + (o.length===1?' item':' items') + ' to your list'); staplesPage(); };
+  document.getElementById('stClear').onclick = () => { store.set('staplesOut', []); staplesPage(); };
+  window.scrollTo(0,0);
 }
 function quickPage(key){
   setNav(''); key = EASE[key] ? key : 'quick';
@@ -1506,7 +1598,7 @@ function quickPage(key){
   document.title = EASE[key].name + ' · Family Recipes';
   const cats = ['All', ...new Set(list.map(r=>r.category))]; let cat = 'All';
   app.innerHTML = `<a class="back" href="#/">← Home</a>
-    <div class="r-head"><h1>${EASE[key].label} recipes</h1><p class="summary">${list.length} recipes. These labels are estimated from the number of ingredients and steps and the times in the steps, so use your judgment.</p></div>
+    <div class="r-head"><h1>${EASE[key].label} recipes</h1><p class="summary">${list.length} recipes. ${key==='crowd' ? 'Recipes whose card says they serve 10 or more.' : key==='freezer' ? 'Kinds of dishes that usually freeze well, plus any card that says it freezes. Each recipe has freezing tips.' : 'These labels are estimated from the number of ingredients and steps and the times in the steps, so use your judgment.'}</p></div>
     <div class="chips" style="margin-bottom:8px">${Object.keys(EASE).map(k=>`<a class="chip" href="#/quick/${k}" aria-pressed="${k===key}" style="text-decoration:none">${EASE[k].label}</a>`).join('')}</div>
     <div class="chips" id="qc">${cats.map(c=>`<button class="chip" data-c="${esc(c)}" aria-pressed="${c===cat}">${esc(c)}</button>`).join('')}</div>
     <div class="grid" id="qg" style="margin:16px 0 48px"></div>`;
@@ -1714,6 +1806,9 @@ function route(){
   else if(h === 'needs-help') needsHelpPage();
   else if(h === 'stats') statsPage();
   else if(h === 'backup') backupPage();
+  else if(h === 'staples') staplesPage();
+  else if(h === 'crowd') { location.replace('#/quick/crowd'); }
+  else if(h === 'freezer') { location.replace('#/quick/freezer'); }
   else if(h === 'pantry') pantryPage();
   else if(/^box-[a-z0-9]+(\/|$)/.test(h)) boxPage(h.split('/')[0].slice(4), h.split('/')[1]);
   else if(h === 'people' || h.startsWith('people/')) peoplePage(h.split('/')[1]);
