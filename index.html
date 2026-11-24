@@ -520,7 +520,7 @@ a.meal-item:hover{border-color:var(--accent)}
   </div>
   <nav class="secnav wrap" aria-label="Sections">
     <a href="#/family" data-sec="family"><span class="long">Family </span>Recipe Box</a>
-    <a href="#/box-a" data-sec="boxa">Mom’s Recipe Boxes</a>
+    <a href="#/box-all" data-sec="boxa">Mom’s Recipe Boxes</a>
     <a href="#/shelf" data-sec="found"><span class="long">The </span>Cookbook Shelf</a>
     <a href="#/gluten-free" data-sec="gf">Gluten-Free</a>
     <a href="#/holidays" data-sec="holidays" id="holNav">Holidays</a>
@@ -535,7 +535,7 @@ a.meal-item:hover{border-color:var(--accent)}
 <nav class="tabbar" aria-label="Main">
   <a href="#/" data-tab="home"><span class="ti" aria-hidden="true">🏠</span>Home</a>
   <a href="#/search" data-tab="search"><span class="ti" aria-hidden="true">🔍</span>Search</a>
-  <a href="#/box-a" data-tab="boxes"><span class="ti" aria-hidden="true">📇</span>Mom’s Boxes</a>
+  <a href="#/box-all" data-tab="boxes"><span class="ti" aria-hidden="true">📇</span>Mom’s Boxes</a>
   <a href="#/favorites" data-tab="favorites"><span class="ti" aria-hidden="true">♥</span>Favorites</a>
   <a href="#/shopping" data-tab="shopping"><span class="ti" aria-hidden="true">🛒</span>List<span class="tcount" id="tabShop" hidden></span></a>
 </nav>
@@ -570,7 +570,7 @@ a.meal-item:hover{border-color:var(--accent)}
 <script src="cards17.js?v=20261124"></script>
 <script src="cards18.js?v=20261124"></script>
 <script src="cards19.js?v=20261124"></script>
-<script src="cards20.js?v=20261124"></script>
+<script src="cards20.js?v=20261125"></script>
 <script src="cards21.js?v=20261124"></script>
 <script src="family.js?v=20261124"></script>
 <script src="gluten-free.js?v=20261130"></script>
@@ -725,7 +725,7 @@ function home(){
   const u = HOLIDAY_BY_KEY[upcomingHoliday()];
   const tiles = [
     ['#/family','📇','Family Recipe Box', secCount('family')+' recipes'],
-    ['#/box-a','🗃️','Mom’s Recipe Boxes','Box A, Box 2, Box 3'],
+    ['#/box-all','🗃️','Mom’s Recipe Boxes','All '+R.filter(r=>r.box).length+' cards'],
     ['#/shelf','📖','Cookbook Shelf', secCount('found')+' recipes'],
     ['#/holidays/'+u.key, u.emoji, 'Holidays', esc(u.name)+' is next'],
     ['#/plan','📅','This Week’s Meals','Plan the week'],
@@ -776,7 +776,7 @@ function sectionPage(k){
         </div>
         <div class="stand-text"><h1>${s.name}</h1><p class="tagline">${s.tagline}</p><p>${s.blurb}</p></div>
       </div>
-      <a class="box-banner" href="#/box-a"><span class="em">📇</span><span><strong>Mom’s Recipe Boxes</strong><span class="sub">Browse the cards the way they’re filed: Box A (${BOXES['A'].join(', ')}) Box 2 (${BOXES['2'].join(', ')}) and Box 3 (${BOXES['3'].join(', ')}).</span></span><span class="door-go">Open the boxes →</span></a>` : `<div class="shelf-art" aria-hidden="true">${SPINES}</div>
+      <a class="box-banner" href="#/box-all"><span class="em">📇</span><span><strong>Mom’s Recipe Boxes</strong><span class="sub">${R.filter(r=>r.box).length} cards from Box A, Box 2 and Box 3. Search them all, or browse by box.</span></span><span class="door-go">Open →</span></a>` : `<div class="shelf-art" aria-hidden="true">${SPINES}</div>
       <h1>${s.name}</h1>
       <p class="tagline">${s.tagline}</p>
       <p>${s.blurb}</p>`}
@@ -807,40 +807,53 @@ function sectionPage(k){
 }
 
 function boxPage(boxId, key){
-  boxId = Object.keys(BOXES).find(k => k.toLowerCase() === String(boxId||'a').toLowerCase()) || 'A';
+  const ALL = String(boxId||'all').toLowerCase() === 'all';
+  boxId = ALL ? 'all' : (Object.keys(BOXES).find(k => k.toLowerCase() === String(boxId).toLowerCase()) || 'A');
   setNav('boxa');
-  const box = R.filter(r=>r.box===boxId);
-  const secs = BOXES[boxId].filter(x=>box.some(r=>r.boxSection===x));
+  const allCards = R.filter(r=>r.box);
+  const box = ALL ? allCards : R.filter(r=>r.box===boxId);
+  const catSort0 = (a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j)||a.localeCompare(b);};
+  const secs = ALL ? [...new Set(box.map(r=>r.category))].sort(catSort0) : BOXES[boxId].filter(x=>box.some(r=>r.boxSection===x));
+  const secOf = r => ALL ? r.category : r.boxSection;
   const cur = secs.find(x=>boxKey(x)===key) || null;
-  document.title = 'Mom’s Recipe Box · Box ' + boxId + (cur ? ' · '+cur : '') + ' · Family Recipes';
+  const boxName = ALL ? 'All boxes' : 'Box ' + boxId;
+  document.title = 'Mom’s Recipe Boxes · ' + boxName + (cur ? ' · '+cur : '') + ' · Family Recipes';
   app.innerHTML = `
     <section class="sec-head boxa">
       <a class="back" href="#/family">← Family Recipe Box</a>
-      <h1>Mom’s Recipe Box · Box ${esc(boxId)}</h1>
-      <div class="box-switch" role="tablist" aria-label="Which box">${Object.keys(BOXES).map(b=>`<a class="box-pick" role="tab" aria-selected="${b===boxId}" href="#/${boxRoute(b)}">📇 Box ${esc(b)} <span class="n">${R.filter(r=>r.box===b).length}</span></a>`).join('')}</div>
-      <p class="tagline">Filed just the way they are in the box</p>
-      <p class="box-note">Each tab matches a divider in this box, so you can find the original card. On the rest of the site, the same recipes are sorted by what they are (Beverages, Appetizers, Cookies, Cakes and so on).</p>
-      <div class="box-tabs" role="tablist" aria-label="Box ${esc(boxId)} sections">
+      <h1>Mom’s Recipe Boxes</h1>
+      <div class="box-switch" role="tablist" aria-label="Which box"><a class="box-pick" role="tab" aria-selected="${ALL}" href="#/box-all">🗃️ All boxes <span class="n">${allCards.length}</span></a>${['A','2','3'].filter(b=>BOXES[b]).map(b=>`<a class="box-pick" role="tab" aria-selected="${b===boxId}" href="#/${boxRoute(b)}">📇 Box ${esc(b)} <span class="n">${R.filter(r=>r.box===b).length}</span></a>`).join('')}</div>
+      <p class="tagline">${ALL ? 'Every card from all three boxes, sorted by type of food' : 'Filed just the way they are in Box ' + esc(boxId)}</p>
+      <div class="box-tabs" role="tablist" aria-label="${ALL ? 'Types of food' : 'Box ' + esc(boxId) + ' dividers'}">
         <a class="box-tab" role="tab" aria-selected="${!cur}" href="#/${boxRoute(boxId)}">All<span class="n">${box.length}</span></a>
-        ${secs.map(x=>`<a class="box-tab" role="tab" aria-selected="${x===cur}" href="#/${boxRoute(boxId)}/${boxKey(x)}">${esc(x)}<span class="n">${box.filter(r=>r.boxSection===x).length}</span></a>`).join('')}
+        ${secs.map(x=>`<a class="box-tab" role="tab" aria-selected="${x===cur}" href="#/${boxRoute(boxId)}/${boxKey(x)}">${esc(x)}<span class="n">${box.filter(r=>secOf(r)===x).length}</span></a>`).join('')}
       </div>
     </section>
     <div class="controls">
-      <label class="search" aria-label="Search Box ${esc(boxId)}">
+      <label class="search" aria-label="Search all the boxes">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="Search ${cur ? esc(cur) : 'Box '+esc(boxId)}…" value="${esc(state.q)}">
+        <input id="q" type="search" placeholder="Search all the boxes…" value="${esc(state.q)}">
       </label>
     </div>
     <div class="grid" id="grid"></div>`;
   const catSort = (a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j)||a.localeCompare(b);};
   const draw = () => {
     const terms = searchTerms(state.q, R);
-    const list = box.filter(r => (!cur || r.boxSection===cur) && (!terms.length || searchScore(r, terms) > 0)).sort((a,b)=> (terms.length ? searchScore(b, terms) - searchScore(a, terms) : 0) || a.title.localeCompare(b.title));
     const g = document.getElementById('grid');
-    if (!list.length) { g.innerHTML = `<p class="empty">No cards match that search.</p>`; return; }
+    if (terms.length) {
+      // Typing searches every box, whichever box or tab is open.
+      const hits = allCards.map(r => { const sc = searchScore(r, terms); return [r, sc, searchScore.kind]; }).filter(x => x[1] > 0).sort((a,b)=> b[1]-a[1] || a[0].title.localeCompare(b[0].title));
+      if (!hits.length) { g.innerHTML = `<p class="empty">No cards in any box match “${esc(state.q)}”.</p>`; return; }
+      const q = esc(state.q.trim());
+      const part = (h, kind) => { const l = hits.filter(x => x[2] === kind); return l.length ? `<h3 class="cat-head">${h} <span class="n">${l.length}</span></h3>` + l.map(x=>cardHTML(x[0],false)).join('') : ''; };
+      g.innerHTML = `<p class="hint" style="grid-column:1/-1;margin:0">Searching all ${allCards.length} cards in every box. Each card shows which box it’s in.</p>` + part('Cards named “' + q + '”', 'title') + part('From “' + q + '”', 'who') + part('Uses ' + q + ' as an ingredient', 'ing') + part('Other matches', 'rest');
+      return;
+    }
+    const list = box.filter(r => !cur || secOf(r)===cur).sort((a,b)=> a.title.localeCompare(b.title));
+    if (!list.length) { g.innerHTML = `<p class="empty">No cards here.</p>`; return; }
     const block = items => { const groups = {}; items.forEach(r=>(groups[r.category]=groups[r.category]||[]).push(r));
       return Object.keys(groups).sort(catSort).map(c=>`<h3 class="cat-head">${esc(c)} <span class="n">${groups[c].length}</span></h3>` + groups[c].map(r=>cardHTML(r,false)).join('')).join(''); };
-    g.innerHTML = cur ? block(list) : secs.map(x=>{ const items = list.filter(r=>r.boxSection===x); return items.length ? `<h2 class="box-sec-head">📇 ${esc(x)} <span class="n">${items.length}</span></h2>` + block(items) : ''; }).join('');
+    g.innerHTML = ALL ? (cur ? list.map(r=>cardHTML(r,false)).join('') : block(list)) : cur ? block(list) : secs.map(x=>{ const items = list.filter(r=>r.boxSection===x); return items.length ? `<h2 class="box-sec-head">📇 ${esc(x)} <span class="n">${items.length}</span></h2>` + block(items) : ''; }).join('');
   };
   document.getElementById('q').addEventListener('input', e => { state.q = e.target.value; draw(); });
   draw();
@@ -968,7 +981,7 @@ function cardHTML(r, showSec){
   if (fam) return `
     <a class="card idx" href="#/recipe/${r.slug}">
       ${favBtn(r.slug)}
-      <span class="cat">📇 ${esc(r.category)}${showSec?' · Recipe Box':''}</span>
+      <span class="cat">📇 ${esc(r.category)}${r.box ? ' · Box '+esc(r.box) : (showSec?' · Recipe Box':'')}</span>
       <h2>${esc(r.title)}</h2>
       <p>${esc(text)}</p>
       ${credit ? `<p class="hand">${credit}${r.cardNote?` <span class="note">“${esc(r.cardNote)}”</span>`:''}</p>` : ''}
