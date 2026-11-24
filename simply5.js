@@ -25,7 +25,7 @@ const R = [
   steps:[
     "Heat the oil in a medium nonstick skillet over medium heat. Add the bell peppers, scallions, ham, salt, and pepper and cook, stirring, until the vegetables soften, about 5 minutes.",
     "Pour the eggs over the vegetable mixture and cook until almost set, about 2 minutes, gently lifting the edge of the eggs with a silicone spatula so the uncooked egg runs underneath. Fold the omelette in half and cook until set, about 1 minute longer. Cut in half and serve one portion per plate."],
-  notes:["**Heartier:** add ½ cup packaged diced cooked potatoes (refrigerated produce section) to the skillet with the peppers in step 1."] },
+  notes:["**Heartier:** add ½ cup packaged diced cooked potatoes (refrigerated produce section) to the skillet with the peppers in step 1. This adds 2 SmartPoints per serving."] },
 { slug:"broccoli-egg-strudel", section:"found", title:"Broccoli-Egg Strudel", subtitle:"",
   category:"Breakfast & Brunch", tags:["eggs","phyllo","vegetarian","brunch"], serves:"6", credit:C,
   summary:"Scrambled broccoli and Jarlsberg rolled in crisp layered phyllo and baked.",
@@ -424,6 +424,8 @@ mk2("vanilla-bean-panna-cotta","Vanilla Bean Panna Cotta",195,"Puddings & Desser
  ["Top each with a few fresh raspberries.","Easily doubled for a dinner party."])
 );
 
+const NUTR={"gruyere-asparagus-frittata": [3, "1/4 of frittata", 185, 13, 5, 482, 4, 2, 1, 13], "overstuffed-western-omelette": [3, "1/2 of omelette", 285, 17, 4, 979, 6, 2, 2, 25], "broccoli-egg-strudel": [4, "1 slice", 185, 8, 2, 485, 19, 1, 1, 9], "zucchini-goat-cheese-omelette": [6, "1 omelette", 287, 21, 7, 911, 5, 4, 1, 21], "baked-eggs-tomatoes-florentine": [2, "1 stuffed tomato", 161, 9, 2, 543, 12, 6, 4, 10], "greek-style-breakfast-pitas": [3, "3/4 cup egg mixture and 1/2 pita", 226, 10, 4, 600, 19, 2, 3, 16], "skinny-breakfast-sausages-eggs": [2, "2 sausage patties and 1 egg", 160, 10, 3, 256, 1, 0, 0, 17]};
+R.forEach(function(r){var n=NUTR[r.slug];if(n)r.nutrition={points:n[0],per:n[1],cal:n[2],fat:n[3],satFat:n[4],sodium:n[5],carb:n[6],sugar:n[7],fiber:n[8],protein:n[9]};});
 R.forEach(function(r){r.healthy=true;});
 window.RECIPES = (window.RECIPES || []).concat(R);
 })();

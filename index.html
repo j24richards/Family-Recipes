@@ -560,9 +560,9 @@ a.meal-item:hover{border-color:var(--accent)}
 <script src="cards6.js?v=20261127"></script>
 <script src="cards7.js?v=20261127"></script>
 <script src="cards8.js?v=20261127"></script>
-<script src="simply5.js?v=20261127"></script>
+<script src="simply5.js?v=20261128"></script>
 <script src="simply5-guides.js?v=20261127"></script>
-<script src="grilledcheese.js?v=20261127"></script>
+<script src="grilledcheese.js?v=20261128"></script>
 <script src="breadbowls.js?v=20261127"></script>
 <script src="cards9.js?v=20261127"></script>
 <script src="cards10.js?v=20261127"></script>
@@ -1124,7 +1124,7 @@ function cardHTML(r, showSec){
   const credit = r.credit
     ? (fam ? `From the kitchen of ${esc(r.credit)}` : esc(r.credit))
     : (fam ? (r.fromBox ? 'From the family recipe box' : '') : '');
-  const meta = `${r.familyMember?'<span class="tag fam">👪 Family</span>':''}${r.glutenFree?'<span class="tag gf">Gluten-free</span>':''}${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.holidays||[]).map(x=>`<span class="tag hol">${esc(HOLIDAY_BY_KEY[x] ? HOLIDAY_BY_KEY[x].emoji+' '+HOLIDAY_BY_KEY[x].name : x)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}`;
+  const meta = `${r.familyMember?'<span class="tag fam">👪 Family</span>':''}${r.glutenFree?'<span class="tag gf">Gluten-free</span>':''}${r.nutrition?`<span class="tag">${r.nutrition.points} SmartPoints · ${r.nutrition.cal} cal</span>`:''}${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.holidays||[]).map(x=>`<span class="tag hol">${esc(HOLIDAY_BY_KEY[x] ? HOLIDAY_BY_KEY[x].emoji+' '+HOLIDAY_BY_KEY[x].name : x)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}`;
   if (fam) return `
     <a class="card idx" href="#/recipe/${r.slug}">
       ${favBtn(r.slug)}
@@ -1213,6 +1213,7 @@ function recipe(slug){
         ${r.fromBox ? indexCardHtml(r) : ''}
         ${!r.fromBox && r.adjustments && r.adjustments.length ? `<div class="panel notes adj"><h2>Adjustments</h2><p class="hint">Later notes added to the card. The recipe above is the original.</p><ul>${r.adjustments.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
         ${!r.fromBox && r.cardNotes && r.cardNotes.length ? `<div class="panel notes"><h2>On the card</h2><ul>${r.cardNotes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
+        ${r.nutrition ? `<div class="panel notes nutri"><h2>Per serving</h2><p class="hint">${esc(r.nutrition.per)}</p><p><strong>${r.nutrition.points} SmartPoints</strong> · ${r.nutrition.cal} cal · ${r.nutrition.protein} g protein · ${r.nutrition.carb} g carbs · ${r.nutrition.fat} g fat</p><p class="hint">Saturated fat ${r.nutrition.satFat} g · sodium ${r.nutrition.sodium} mg · sugar ${r.nutrition.sugar} g · fiber ${r.nutrition.fiber} g</p></div>` : ''}
         ${r.notes && r.notes.length ? `<div class="panel notes"><h2>Notes</h2><ul>${r.notes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
         ${tipsHtml(r, slug)}
     </div>

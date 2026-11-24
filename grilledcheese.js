@@ -236,7 +236,7 @@ S("gc-fig-apple-brie-caramelized-onion","Fig, Apple, Brie, and Caramelized Onion
 
 S("gc-brie-raspberry-mascarpone-chocolate","Brie, Raspberry, Mascarpone, and Chocolate Grilled Cheese",["sweet","dessert","brie","chocolate"],
 "The one sweet sandwich: raspberry mascarpone, Brie, and chocolate chips on egg bread.",
-[{items:["6 oz mascarpone","2 tbsp raspberry preserves","2 tbsp butter, at room temperature","8 sandwich-size slices egg bread, challah, or brioche","8 oz Brie, sliced ¼ inch thick","⅓ cup regular or mini semisweet chocolate chips"]}],
+[{items:["6 oz mascarpone","2 tbsp raspberry preserves","2 tbsp butter, at room temperature","8 sandwich-size slices egg bread, challah, or brioche","8 oz Brie, sliced ¼ inch thick","¼ cup regular or mini semisweet chocolate chips"]}],
 ["Mix the mascarpone and preserves.","Butter one side of each slice. Set 4 slices buttered side down, spread on the mascarpone mixture, lay on the Brie, and sprinkle with chocolate chips. Close, buttered side out.",cook("2 to 3 minutes","2 to 3 minutes")],
 ["The filling is too creamy for a sandwich maker; it will ooze out."],"4 sandwiches","Puddings & Desserts"),
 
