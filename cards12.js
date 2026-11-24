@@ -6,7 +6,7 @@ var R = [
     ingredients:[{items:["8 jumbo shrimp, peeled and deveined","1 bottle Stonewall Kitchen Sesame Ginger Teriyaki Sauce","2 cups baby spinach","1 cup carrot, julienned","1 cup red bell pepper, julienned","1 cup bean sprouts","1 bottle Stonewall Kitchen Roasted Garlic Peanut Sauce","1 package frozen spring roll wrappers, thawed"]}],
     steps:["Marinate the shrimp in the teriyaki sauce.","Grill the shrimp until cooked through. Let cool, then chop.","Roll the spring rolls with the shrimp, peppers, carrots, sprouts and spinach.","Cut in half and serve with the peanut sauce on the side."],
     notes:["The card says you can use strips of marinated cooked chicken, beef or pork instead."],
-    cardNotes:["Source: Stonewall Kitchen recipe card"],
+    cardNotes:["A second copy of this Stonewall Kitchen card is at the front of Box 3.","Source: Stonewall Kitchen recipe card"],
     gaps:[] },
 
   { slug:"broiled-fish-with-basil-butter", title:"Broiled Fish with Basil Butter", category:"Meats & Seafood", credit:"", serves:"4",

@@ -135,7 +135,7 @@ var R = [
       {name:"Marinade", items:["2 cups chicken stock","1 cup soy sauce","¾ cup catsup","½ cup sherry","½ cup pineapple juice","½ cup honey","2 tbsp sugar","½ tsp finely minced fresh ginger","½ tsp minced fresh garlic","½ tsp freshly ground pepper"]},
       {name:"Glaze", items:["⅔ cup honey","2 tbsp soy sauce","1 tsp ground ginger","⅛ tsp freshly ground pepper"]}],
     steps:["Fill a large stockpot ⅔ full of water. Add the celery, carrot and onion and bring to a boil over high heat.","Add the ribs, lower the heat and simmer until tender, about 1 hour. Drain well and cool. (Leave whole or cut into portions.)","Mix the marinade in a shallow roasting pan. Add the ribs and refrigerate 24 hours, turning now and then.","Heat the oven to 375°. Arrange the ribs on a baking sheet, saving ¼ cup marinade.","Mix the glaze ingredients and stir in the saved marinade. Brush the ribs generously.","Bake, brushing with glaze every 10 minutes, until the edges are crispy, about 20 to 30 minutes."],
-    notes:["The card says they can also be finished on a charcoal grill."],
+    notes:["Tip from the Ginger Root card in the same box: 1 tablespoon fresh grated ginger equals ⅛ teaspoon powdered ginger. Ginger root keeps in white cooking wine or in the freezer.","The card says they can also be finished on a charcoal grill."],
     cardNotes:["Source written on the card: The Onion Patch, Warren, Vt. – Bon Appétit 9/80","The method continues on the back of the card."],
     gaps:[] },
 

@@ -38,7 +38,7 @@ var R = [
     ingredients:[{items:["9-inch unbaked pastry shell","½ tbsp butter","¼ cup finely chopped onion","4 eggs, slightly beaten","1 cup (8 oz) plain yogurt","1 cup half-and-half","1 tsp salt","Dash of pepper","Dash of cayenne","½ lb bacon, cooked and crumbled, OR 1 cup cooked chopped ham, OR 1½ cups cooked diced shrimp","¼ lb Gruyère or natural Swiss cheese, shredded"]}],
     steps:["Sauté the onion in the butter and let cool.","Combine the eggs, yogurt, half-and-half, salt, pepper, cayenne and onion.","Sprinkle the meat and cheese in the pastry shell and pour in the egg mixture.","Bake at 350° for 35 to 40 minutes, until the top puffs and browns lightly and the custard is set."],
     notes:["Handwritten: “good – easy.”"],
-    cardNotes:[],
+    cardNotes:["A second copy of this printed card is at the front of Box 3, marked “good” in red."],
     gaps:[] },
 
   { slug:"quiche-gail", title:"Quiche (Gail)", category:"Breakfast", credit:"Gail", serves:"",
@@ -101,7 +101,7 @@ var R = [
     ingredients:[{items:["9-inch pie shell, unbaked","½ cup grated Swiss cheese","4 thin slices cooked ham, diced","4 eggs, beaten","2 cups light cream","1 package (1⅜ oz) onion soup mix"]}],
     steps:["Sprinkle the cheese and ham into the pie shell.","Beat the eggs with the cream and dry onion soup mix and pour over the ham and cheese.","Bake at 350° for 45 to 50 minutes, until well set and lightly browned on top.","Cool 5 minutes and serve."],
     cardNotes:["Source written on the card: Chatterline"],
-    gaps:["The soup mix size is overwritten on the card; it looks like 1⅜ oz."] },
+    gaps:[] },
 
   { slug:"breakfast-custard-parents-magazine", title:"Breakfast Custard", category:"Breakfast", credit:"", serves:"4",
     summary:"A baked breakfast custard made with skim milk, maple syrup and shredded wheat.",
@@ -132,13 +132,13 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"shirred-eggs-in-pastry-nancy-riley", title:"Shirred Eggs in Pastry", category:"Breakfast", credit:"Nancy Riley", creditUnsure:true, serves:"",
+  { slug:"shirred-eggs-in-pastry-nancy-riley", title:"Shirred Eggs in Pastry", category:"Breakfast", credit:"Nancy Riley", creditNote:"A friend of Kathy’s", serves:"",
     summary:"Eggs baked in bread or crêpe cups with Münster, cream, butter, nutmeg and strips of ham.",
     ingredients:[{items:["Thin-sliced bread, crusts removed (or herb crêpes)","Large eggs (1 per cup)","Per egg: ¼ cup grated Münster cheese, 1 tbsp heavy cream, 2 tsp unsalted butter cut in bits, and ½ cup julienne strips of baked ham","Freshly grated nutmeg","Salt and pepper","Minced fresh parsley, for garnish"]}],
     steps:["Fit the bread or crêpes into muffin tins. They can stick up above the tin.","Break 1 egg into each shell. Sprinkle each egg with the Münster, cream, butter bits, nutmeg, salt and pepper.","Top each with ½ cup ham strips.","Bake on a baking sheet in the upper third of a 350° oven for 12 minutes, until the tops bubble and the yolks are just cooked.","Garnish with parsley."],
     notes:["Handwritten: “good.”"],
     cardNotes:[],
-    gaps:["The last name could be “Riley” or “Ryley.”","½ cup of ham per egg is what the card says; that’s generous for a muffin cup."] },
+    gaps:["½ cup of ham per egg is what the card says; that’s generous for a muffin cup."] },
 
   { slug:"quiche-lorraine-ann-peabody", title:"Quiche Lorraine", category:"Breakfast", credit:"Ann Peabody", serves:"2 quiches",
     summary:"Two bacon, onion, mushroom, Swiss and Parmesan quiches in a rich cream custard.",

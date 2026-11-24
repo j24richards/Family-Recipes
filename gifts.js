@@ -6,10 +6,10 @@ var R = [
   { slug:"play-dough-alum", title:"Play Dough (Alum)", section:"family", category:"Gift Ideas", craft:true, credit:"Patty Ferguson",
     tags:["gift idea","kids","craft"], serves:"",
     summary:"A simple homemade play dough with salt and alum. From the kitchen of Patty Ferguson. Not for eating.",
-    ingredients:[{items:["5 cups flour","1 cup salt","6 tbsp oil","4 cups water (hard to read)","2 dashes food coloring","2 tbsp alum"]}],
+    ingredients:[{items:["5 cups flour","1 cup salt","6 tbsp oil","4 cups water","2 dashes food coloring","2 tbsp alum"]}],
     steps:[],
     notes:["Not for eating."],
-    gaps:["The card lists ingredients only, with no instructions.","The water amount is hard to read (looks like 4 cups)."] },
+    gaps:["The card lists ingredients only, with no instructions."] },
 
   { slug:"play-dough-cooked", title:"Play Dough (Cooked)", section:"family", category:"Gift Ideas", craft:true, credit:"Vicky Lansky, Feed Me, I'm Yours (Peg's recipe)",
     tags:["gift idea","kids","craft"], serves:"",
@@ -33,7 +33,7 @@ var R = [
     ingredients:[{items:["1 tsp Metamucil or psyllium-husk laxative (see note)","1¼ cups water","Food coloring","Jar with lid","Large glass microwave-safe container"]}],
     steps:["Put the Metamucil and water in the jar. Cover and shake for 2 minutes.","Pour into the glass container and add a few drops of food coloring.","Microwave 5 minutes on high (stop sooner if it starts to bubble over).","Leave in the microwave to cool 3 minutes, then microwave 5 minutes more.","Carefully remove with pot holders. The slime will be very hot. Let it cool for an hour before kids play with it."],
     notes:["Goo is not edible."],
-    gaps:["The amount of Metamucil is hard to read (looks like 1 tsp, possibly 1 tbsp).","The card has a question mark after \"psyllium-husk laxative.\""] },
+    gaps:["The card has a question mark after \"psyllium-husk laxative.\""] },
 
   { slug:"halloween-slime", title:"Halloween Slime (Gak or Ooze)", section:"family", category:"Gift Ideas", craft:true, credit:"Children's Museum of Art in NY",
     tags:["gift idea","kids","craft","halloween"], holidays:["halloween"], serves:"",

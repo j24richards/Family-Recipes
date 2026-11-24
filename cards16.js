@@ -18,13 +18,13 @@ var R = [
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook"],
     gaps:["A “dessert spoon” is about 2 teaspoons."] },
 
-  { slug:"chekhovs-cherry-orchard-cheese-pie-kathy-mostrey", title:"Chekhov’s Cherry Orchard Cheese Pie", category:"Pies & Crisps", credit:"Kathy Mostrey", serves:"",
+  { slug:"chekhovs-cherry-orchard-cheese-pie-kathy-mostrey", title:"Chekhov’s Cherry Orchard Cheese Pie", category:"Pies & Crisps", credit:"Kathy Mootrey", creditNote:"A neighbor of Mom and Dad’s in Tewksbury, MA", serves:"",
     summary:"A no-bake cream cheese and condensed milk pie in a graham crust, topped with cherry pie filling.",
     ingredients:[{items:["1 package (8 oz) cream cheese","1 can (14 oz) sweetened condensed milk","⅓ cup lemon juice","1 tbsp vanilla","Graham cracker “ready crust”","Cherry pie filling"]}],
     steps:["Cream together the cream cheese and condensed milk.","Add the lemon juice and vanilla.","Pour into the crust, top with pie filling and chill."],
     notes:["Handwritten: “Good.”"],
-    cardNotes:["Printed “Here’s what’s cookin’” card, “Recipe from: Kathy Mostrey.”"],
-    gaps:["The last name is a little hard to read (Mostrey)."] },
+    cardNotes:["Printed “Here’s what’s cookin’” card, “Recipe from: Kathy Mootrey.”"],
+    gaps:[] },
 
   { slug:"flaky-pie-crust-king-arthur", title:"Flaky Pie Crust", category:"Pies & Crisps", credit:"", serves:"2 crusts",
     summary:"A shortening crust with a splash of vinegar for tenderness.",
@@ -64,8 +64,8 @@ var R = [
     ingredients:[{items:["1 extra-serving-size graham cracker crust","2 packages (4 oz) chocolate instant pudding","2 cups cold milk","4 squares semisweet chocolate, melted","1 tub (8 oz) whipped topping, thawed","Whipped cream and raspberries, for garnish"]}],
     steps:["Beat the milk and pudding mix with a mixer until well blended, about 3 minutes.","Gradually blend in the melted chocolate until smooth. Fold in the whipped topping.","Turn into the crust. Freeze until firm, about 4 hours.","Garnish with whipped cream and raspberries."],
     notes:["Handwritten: “good.”"],
-    cardNotes:["A name or source is written in the corner (looks like “Kobler”)."],
-    gaps:["The word in the top corner isn’t clear."] },
+    cardNotes:["A word is written in the top corner that looks like “Kobler” or “Tobler”; it isn’t a name anyone in the family recognizes."],
+    gaps:[] },
 
   { slug:"100-year-old-pie-crust-mary-lawless", title:"100-Year-Old Pie Crust", category:"Pies & Crisps", credit:"Mary Lawless", serves:"2 crusts",
     summary:"An easy Crisco crust mixed with milk and a little vinegar.",
@@ -92,7 +92,7 @@ var R = [
     cardNotes:["Source: Woman’s Day clipping"],
     gaps:[] },
 
-  { slug:"mrs-cooks-pie-crust", title:"Mrs. Cook’s Pie Crust", category:"Pies & Crisps", credit:"Mrs. Cook", serves:"",
+  { slug:"mrs-cooks-pie-crust", title:"Mrs. Cook’s Pie Crust", category:"Pies & Crisps", credit:"Eleanor Cook (Mrs. Cook)", creditNote:"Of Cider Hill Farm in Amesbury, MA", serves:"",
     summary:"A margarine pie crust with a little cake flour for tenderness.",
     ingredients:[{items:["2 cups flour","¼ cup cake flour","½ tsp salt","1 cup Imperial margarine (2 sticks, cut in thirds lengthwise and widthwise, then into tiny pieces)","Cold water"]}],
     steps:["Sift the flours and salt together.","Cut in the margarine.","Add just enough water to hold the dough together, then roll out."],
@@ -145,11 +145,11 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"silk-pie-martha-moon", title:"Silk Pie", category:"Pies & Crisps", credit:"Martha Moon", serves:"",
+  { slug:"silk-pie-martha-moon", title:"Silk Pie", category:"Pies & Crisps", credit:"Martha Noon", serves:"",
     summary:"A French silk chocolate pie in a graham shell. Raspberry liqueur can stand in for the water.",
     ingredients:[{items:["1½ bars (3 oz) Nestlé unsweetened chocolate baking bar","¾ cup butter, softened","¾ cup sugar","2 tbsp water (or raspberry-flavored liqueur)","3 eggs","One 9-inch graham cracker shell","Whipped cream"]}],
     steps:["Melt the chocolate over hot (not boiling) water, stirring until smooth. Cool to room temperature.","In a large bowl, beat the butter and sugar until light and fluffy, about 4 minutes.","Add the melted chocolate and water and beat well.","Add the eggs one at a time, beating well after each.","Pour into the pie shell and chill until firm, about 2 hours. Garnish with whipped cream if you like."],
-    cardNotes:["Card says “Baker’s Chocolate – Martha Moon” in the corner. Printed card from Blueberry Farm, Freeport, Maine (1985).","Uses raw eggs.","The method continues on the back of the card."],
+    cardNotes:["Card says “Baker’s Chocolate – Martha Noon” in the corner. Printed card from Blueberry Farm, Freeport, Maine (1985).","Uses raw eggs.","The method continues on the back of the card."],
     gaps:[] },
 
   { slug:"of-pie-village-inn", title:"O.F. (Old-Fashioned) Pie", category:"Pies & Crisps", credit:"", serves:"",
@@ -243,12 +243,12 @@ var R = [
     cardNotes:["Source written on the card: Bon Appétit, 9/80"],
     gaps:[] },
 
-  { slug:"berry-pie-geralyn", title:"Berry Pie", category:"Pies & Crisps", credit:"Geralyn", creditUnsure:true, serves:"",
+  { slug:"berry-pie-geralyn", title:"Berry Pie", category:"Pies & Crisps", credit:"Geralyn", creditNote:"A family friend", serves:"",
     summary:"Fresh blueberries over a brown sugar cream cheese layer, topped with a cooked blueberry glaze and spiced whipped cream.",
     ingredients:[{items:["1 baked pie shell, cooled (regular or graham cracker)","1½ quarts blueberries","3 tbsp cornstarch","1 cup sugar","Pinch of salt","Nutmeg","4 oz cream cheese","¼ cup brown sugar","Heavy cream (enough to make a paste), plus more for whipping","Cinnamon"]}],
     steps:["Mix 1 cup of the blueberries well with the cornstarch, sugar, salt and nutmeg. Cook until thick, then boil hard 1 minute. Cool.","Beat the cream cheese and brown sugar with enough cream to make a spreadable paste. Spread over the bottom of the shell.","Add the rest of the fresh berries, then pour the cooked mixture on top. Chill.","Whip cream with a little cinnamon and nutmeg to serve."],
     cardNotes:[],
-    gaps:["The name looks like “Geralyn.”"] },
+    gaps:[] },
 
   { slug:"chocolate-mousse-pie-bon-appetit", title:"Chocolate Mousse Pie", category:"Pies & Crisps", credit:"", serves:"10 to 12",
     summary:"A showpiece chocolate mousse pie in a chocolate wafer crust, topped with whipped cream rosettes and chocolate leaves. Can be made ahead and frozen.",
@@ -346,8 +346,8 @@ var R = [
     ingredients:[{items:["1 can sweetened condensed milk","4 egg yolks","½ cup lime juice","1 egg white, beaten stiff","3 egg whites (for the meringue)","6 tbsp sugar","½ tsp cream of tartar","Baked pie shell"]}],
     steps:["Mix the condensed milk, egg yolks and lime juice.","Beat 1 egg white stiff and fold into the mixture. Pour into the baked pie shell.","Beat 3 egg whites stiff, gradually adding the sugar and cream of tartar.","Spread over the pie and bake at 350° until the meringue is golden brown."],
     notes:["The postcard says key lime pie was created by thrifty “conch” settlers’ wives in the early days of the Florida Keys, using juice from wild limes."],
-    cardNotes:["This is a postcard from Florida with the recipe printed on the front. It was mailed to Mr. & Mrs. Earl Richards in Tewksbury, Mass., with a handwritten note to the family on the back. We think Pat and Don Goucher sent it.","The filling isn’t cooked, so the yolks stay raw."],
-    gaps:["Who wrote the postcard isn’t clear from the photo."] },
+    cardNotes:["This is a postcard from Florida with the recipe printed on the front. It was mailed to Mr. & Mrs. Earl Richards in Tewksbury, Mass., with a handwritten note to the family on the back. The note begins “Hi Kathy, Earl, Joshua & Spirit” (Spirit is the family dog) and is signed “Love, Mom + Dad” (we think Pat and Don Goucher).","The filling isn’t cooked, so the yolks stay raw."],
+    gaps:[] },
 
   { slug:"cranberry-delight-shepherd-girl", title:"Cranberry Delight", category:"Pies & Crisps", credit:"", serves:"6",
     summary:"Cranberries and nuts in a pie plate under a sweet cake-like batter – a cranberry pie without a crust.",
@@ -458,7 +458,7 @@ var R = [
     cardNotes:["Source written on the card: Williams Sonoma"],
     gaps:[] },
 
-  { slug:"strawberry-rhubarb-pie-mrs-cook", title:"Strawberry Rhubarb Pie (Freezer Fillings)", category:"Pies & Crisps", credit:"Mrs. Cook", serves:"3 pies",
+  { slug:"strawberry-rhubarb-pie-mrs-cook", title:"Strawberry Rhubarb Pie (Freezer Fillings)", category:"Pies & Crisps", credit:"Eleanor Cook (Mrs. Cook)", creditNote:"Of Cider Hill Farm in Amesbury, MA", serves:"3 pies",
     summary:"Enough spiced strawberry-rhubarb filling for three pies, frozen in pie plates to bake later.",
     ingredients:[{items:["9 cups sliced (cut) strawberries","3 cups sliced rhubarb","1½ tsp nutmeg","¾ tsp cinnamon","Dash of salt","3¾ cups sugar","¾ cup flour","Pastry for 3 pies"]}],
     steps:["Mix the berries and rhubarb. Sift the dry ingredients over them and toss.","Divide among 3 Saran-covered pie plates. Cover and freeze; once firm, lift out and rewrap.","To bake, set a frozen filling in a pastry-lined pie plate, add a top crust and bake."],

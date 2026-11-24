@@ -29,9 +29,9 @@ var R = [
 
   { slug:"barbs-punch", title:"Barb's Punch", section:"family", category:"Beverages", credit:"Barb", serves:"",
     summary:"A fizzy cranberry-orange punch with ice cream floating on top. From the kitchen of Barb.",
-    ingredients:[{items:["1 qt orange tonic (hard to read)","1 qt cranberry juice","1 qt ginger ale","1 pt vanilla ice cream"]}],
+    ingredients:[{items:["1 qt orange tonic (orange soda)","1 qt cranberry juice","1 qt ginger ale","1 pt vanilla ice cream"]}],
     steps:["Mix the first three ingredients.","Make it 15 minutes before adding the ice cream, so it floats on top."],
-    gaps:["The first ingredient looks like \"orange tonic\" (possibly orange soda).","No serving size on the card."] },
+    gaps:["No serving size on the card."] },
 
   { slug:"hooch", title:"Hooch", section:"family", category:"Beverages", credit:"Mary Ellen V", serves:"", cardNote:"great",
     summary:"A creamy whiskey drink in the style of eggnog. From the kitchen of Mary Ellen V. Card says: “Great.”",

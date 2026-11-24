@@ -80,10 +80,10 @@ var R = [
 
   { slug:"hot-artichoke-dip", title:"Hot Artichoke Dip", category:"Appetizers", credit:"Miriam B. Loo", serves:"20",
     summary:"A baked artichoke, green chile and cheese dip. Can be made ahead. Makes about 5 cups. From the kitchen of Miriam B. Loo.",
-    ingredients:[{items:["1 jar (4 oz) diced pimiento","1 can (14 oz) artichoke hearts, drained and coarsely chopped","1½ cups mayonnaise (amount hard to read)","2 cans (4 oz each) diced green chilies, drained","4 ounces Monterey Jack cheese, shredded","½ cup grated Parmesan cheese, plus more for the top","Corn chips or tortilla chips, to serve"]}],
-    steps:["Drain the pimiento and reserve 2 teaspoons of it.","In a medium bowl, mix the pimiento, artichokes, mayonnaise, green chilies, Monterey Jack and ½ cup Parmesan.","Spoon into a shallow baking dish. Sprinkle with additional Parmesan and the reserved pimiento.","If making ahead, cover and refrigerate (at least 1 hour or up to 1 day before serving).","Bake uncovered in a preheated 325° oven for 30 minutes, or until bubbly. Serve with chips."],
+    ingredients:[{items:["1 jar (4 oz) diced pimiento","1 can (14 oz) artichoke hearts, drained and coarsely chopped","1½ cups mayonnaise","2 cans (4 oz each) diced green chilies, drained","4 ounces Monterey Jack cheese, shredded","½ cup grated Parmesan cheese, plus more for the top","Corn chips or tortilla chips, to serve"]}],
+    steps:["Drain the pimiento and reserve 2 teaspoons of it.","In a medium bowl, mix the pimiento, artichokes, mayonnaise, green chilies, Monterey Jack and ½ cup Parmesan.","Spoon into a shallow 1½-quart baking dish. Sprinkle with additional Parmesan and the reserved pimiento.","If making ahead, cover and refrigerate (at least 1 hour or up to 1 day before serving).","Bake uncovered in a preheated 325° oven for 30 minutes, or until bubbly. Serve with chips."],
     cardNotes:["The back of the card is a holiday note from Miriam B. Loo."],
-    gaps:["The mayonnaise amount is hard to read (looks like 1½ cups).","The baking dish size is hard to read."] },
+    gaps:[] },
 
   { slug:"creamy-tarragon-dip", title:"Creamy Tarragon Dip", category:"Appetizers", credit:"", serves:"",
     summary:"A cold yogurt and mayo dip with tarragon, parsley and lemon, served with veggies.",

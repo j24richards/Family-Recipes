@@ -26,8 +26,8 @@ var R = [
     summary:"Pizza dough topped with mozzarella, sliced Granny Smith apples and fontina or Gorgonzola, with rosemary worked into the dough.",
     ingredients:[{items:["Pizza dough","A few rosemary leaves","Melted butter","Mozzarella cheese","Granny Smith apples, sliced, unpeeled","Fontina or Gorgonzola cheese, grated","Cinnamon"]}],
     steps:["Roll a few rosemary leaves into the dough.","Brush the dough with melted butter. Sprinkle on mozzarella cheese.","Arrange the sliced, unpeeled Granny Smith apples over the top. Spread grated fontina or Gorgonzola over.","Bake at 500° (see note) for about 10 minutes.","Brush the edge with butter and sprinkle with cinnamon."],
-    cardNotes:["Written at the top right: “Pizza Gourmet (?)”."],
-    gaps:["The oven temperature has a question mark on the card (looks like 500°).","No amounts for any ingredient, and no dough recipe or size."] },
+    cardNotes:["Written at the top right: “Pizza Gourmet (?)”.","The oven temperature is written “500° (?)” on the card."],
+    gaps:["No amounts for any ingredient, and no dough recipe or size."] },
 
   { slug:"barbs-dip", title:"Barb's Dip", category:"Appetizers", credit:"Barb", serves:"",
     summary:"A cream cheese dip with horseradish and deviled ham. From the kitchen of Barb.",
@@ -102,7 +102,7 @@ var R = [
     summary:"Cheese, bacon and onion spread on party rye rounds and broiled until bubbly. From the kitchen of D. Zampell.",
     ingredients:[{items:["1 pkg Cracker Barrel cheese, shredded","1 small onion, grated","6 slices bacon, crumbled","1 tbsp mustard","1 tbsp mayonnaise","Party rye rounds"]}],
     steps:["Mix the ingredients, spread on rounds and broil until bubbly."],
-    gaps:["The size of the cheese package isn't clear on the card."] },
+    gaps:[] },
 
   { slug:"phyllo-meat-triangles", title:"Phyllo Meat Triangles", category:"Appetizers", credit:"", serves:"Makes 48", cardNote:"good, greasy",
     summary:"Layers of buttered phyllo around a seasoned meat filling, baked in a pan and cut into triangles. Makes 48. Handwritten note: “Good, greasy.”",
@@ -131,10 +131,10 @@ var R = [
 
   { slug:"artichoke-spread-clipping", title:"Artichoke Spread", category:"Appetizers", credit:"", serves:"",
     summary:"A cheddar and artichoke heart spread, a family-celebration favorite from a newspaper letter.",
-    ingredients:[{items:["8½ oz canned artichoke hearts (drained weight), drained","1 cup grated cheddar cheese","3 tbsp mayonnaise","Lemon juice (amount hard to read)","Paprika"]}],
+    ingredients:[{items:["8½ oz canned artichoke hearts (drained weight), drained","1 cup grated cheddar cheese","3 tbsp mayonnaise","1 tablespoon lemon juice","Paprika"]}],
     steps:["Break up the drained artichoke hearts.","Mix the cheese and mayonnaise (the rest of the directions are cut off on the clipping)."],
     cardNotes:["Newspaper clipping from a “Dear Cheese and Crackers” letter: “My specialty at family celebrations always features this spread on the hors d'oeuvres table.”"],
-    gaps:["The clipping is cut off after “Mix cheese, mayonnaise,” so the rest of the directions are missing.","The number of tablespoons of lemon juice is smudged."] },
+    gaps:["The clipping is cut off after “Mix cheese, mayonnaise,” so the rest of the directions are missing."] },
 
   { slug:"cheese-shortbreads", title:"Cheese Shortbreads", category:"Appetizers", credit:"", serves:"36",
     summary:"Savory cheddar and Rice Krispies cookies shaped into walnut-size balls. Makes 36.",

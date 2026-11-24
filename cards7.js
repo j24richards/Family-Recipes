@@ -34,17 +34,17 @@ var R = [
     summary:"A tender square blueberry cake served warm or cold with a quick cooked lemon sauce.",
     ingredients:[
       {name:"Cake", items:["1½ cups flour","2 tsp baking powder","½ tsp salt","1 cup sugar","½ cup shortening","1 tsp vanilla","½ (cup) milk","1 egg","1½ cups blueberries","2 tbsp flour","1 tbsp sugar"]},
-      {name:"Lemon sauce", items:["½ cup sugar","1 tbsp cornstarch","¼ tsp salt","¼ cup cold water","½ cup boiling water","3 tbsp lemon juice","1 tsp grated lemon rind","½ tsp vanilla","2 tbsp butter"]}],
+      {name:"Lemon sauce", items:["½ cup sugar","1 tbsp cornstarch","¼ tsp salt","½ cup boiling water","3 tbsp lemon juice","1 tsp grated lemon rind","½ tsp vanilla","2 tbsp butter"]}],
     steps:["Sift the flour with the baking powder and salt. Gradually blend the sugar with the shortening and vanilla, then beat in the egg.","Add the flour mixture alternately with the milk.","Toss the berries with the 2 tbsp flour and 1 tbsp sugar and fold into the batter.","Turn into a well-greased, lightly floured 9 x 9 x 2-inch pan. Bake at 350° for 1 hour, or until a tester comes out clean.","Turn out onto a wire rack and cut into squares. Serve warm or cold with the lemon sauce.","Sauce: combine the sugar, cornstarch and salt. Gradually stir in the boiling water and cook 3 minutes, or until smooth, clear and slightly thickened. Stir in the remaining ingredients and pour over the cake."],
-    cardNotes:["Source written on the card: Globe"],
-    gaps:["The milk amount has no unit on the card (“½ milk”), most likely ½ cup.","The sauce list has both ¼ cup cold water and ½ cup boiling water, but the method says to stir in boiling water (the word “cold” is crossed out), so the ¼ cup cold water may not be used."] },
+    cardNotes:["Source written on the card: Globe","The ingredient list also shows ¼ cup cold water for the sauce; the method crosses out “cold” and uses boiling water, so it is left out here."],
+    gaps:["The milk amount has no unit on the card (“½ milk”), most likely ½ cup."] },
 
   { slug:"raspberry-angel-cake-mom", title:"Raspberry Angel Cake", category:"Cakes", credit:"Mom", serves:"",
     summary:"A sliced angel food cake layered with a raspberry jam and whipped cream filling and covered in whipped cream.",
     ingredients:[{items:["Angel food cake (size not written)","2 cups whipping cream","1 tsp gelatin","1 tbsp water","1 cup thick raspberry jam"]}],
     steps:["Filling: soften the gelatin in the water, then dissolve it over hot water. Stir in the jam. Chill.","When the mixture is partially set, fold in 1 cup of the whipped cream.","Slice the cake crosswise into 3 layers. Spread about 1 cup of the filling between the layers, with some whipped cream.","Cover the sides and top with the remaining whipped cream. Tint it pink if you like. Chill."],
     cardNotes:["The card says to garnish “w/” and then stops."],
-    gaps:["The cake itself is not listed, only “slice cake” (an angel food cake is assumed).","The garnish is never finished on the card.","The card may continue on a back that was not photographed."] },
+    gaps:["The cake itself is not listed, only “slice cake” (an angel food cake is assumed).","The garnish is never finished on the card."] },
 
   { slug:"dump-it-cake-judi-richards", title:"Dump-It Cake", category:"Cakes", credit:"Judi Richards", serves:"",
     summary:"A no-mix cake: applesauce, pineapple, dry cake mix, melted butter and nuts layered in a pan and baked without stirring.",
@@ -220,7 +220,7 @@ var R = [
     ingredients:[{items:["1 cup sugar","½ cup shortening","½ cup cocoa (unsweetened)","1½ cups flour","1 egg","½ cup sour milk","1 tsp baking soda","Pinch of salt","1 tsp vanilla","½ cup boiling water"]}],
     steps:["Cream the sugar and shortening. Stir in the egg.","Add the soda to the sour milk and add alternately with the dry ingredients. Add the vanilla and water.","Bake 30 to 45 minutes at 350°."],
     notes:["Sour milk: 1 tsp vinegar plus milk (as written on the card).","Handwritten: “good,” “double>,” and “this cake good with cocoa fudge frosting.”"],
-    gaps:["The pan size is not given.","The last name of the contributor is hard to read; it looks like “Surels.”"] },
+    gaps:["The pan size is not given."] },
 
   { slug:"creamy-baked-cheesecake", title:"Creamy Baked Cheesecake", category:"Cakes", credit:"", serves:"One 9-inch cheesecake",
     summary:"A graham cracker crust and a sweetened condensed milk cheesecake finished with a sour cream layer and cherry pie filling.",
@@ -237,17 +237,18 @@ var R = [
       {name:"Chocolate top", items:["1 square chocolate","1 tbsp butter"]}],
     steps:["Combine everything but the flour and beat well. Then blend in the flour.","Pour into a greased 9-inch square pan and bake 25 minutes at 350°.","Frosting: mix the butter, cream, sugar, peppermint and coloring. Spread over the cooled baked layer (cooled in the fridge).","When the frosting is firm, spread over it 1 square of chocolate melted with 1 tbsp butter. It will spread hard, but looks fine when cut into squares with the green frosting showing through."],
     notes:["The frosting is written on the back of the card (“over”). On the back, T. means tablespoon and t. means teaspoon."],
+    cardNotes:["A second copy of this card is at the front of Box 3. That copy calls for 3 squares of chocolate in the bars, and its frosting note says Ruth uses 2 T. cream."],
     gaps:["The card doesn’t say how to mix the frosting; it just lists the ingredients and says to spread it."] },
 
   { slug:"glazed-banana-spice-loaf", title:"Glazed Banana Spice Loaf", category:"Breads", credit:"", serves:"",
     summary:"A spiced banana and sour cream loaf with a simple powdered sugar glaze. It can be made several days ahead.",
     ingredients:[
-      {name:"Loaf", items:["1 large banana","¼ lb (1 stick) butter","¾ cup sugar","2 eggs","1 tsp salt","1 tsp baking soda","½ tsp grated nutmeg","¼ tsp ground allspice","¼ tsp ground cloves","¾ (cup) sour cream","1 tsp vanilla","1½ cups flour"]},
+      {name:"Loaf", items:["1 large banana","¼ lb (1 stick) butter","¾ cup sugar","2 eggs","1 tsp salt","1 tsp baking soda","½ tsp grated nutmeg","¼ tsp ground allspice","¼ tsp ground cloves","¾ cup sour cream","1 tsp vanilla","1½ cups flour"]},
       {name:"Glaze", items:["1 cup confectioners’ sugar","1 tbsp water"]}],
     steps:["Heat the oven to 350°. Grease an 8 x 4 pan.","With a fork, mash the banana until almost a puree. Cream the butter and sugar. Add the eggs one at a time, beating thoroughly before the next.","Sift the flour, salt, soda, nutmeg, allspice and cloves over the egg mixture and stir to combine. Add the sour cream, banana and vanilla and mix until just smooth.","Pour into the pan. Bake until the top springs back when lightly touched or a toothpick comes out clean, about 50 minutes. Cool in the pan on a rack 10 minutes, then cool completely before glazing.","Glaze: stir the sugar and water until smooth. Put the bread on a rack over a pan and pour the glaze evenly over it."],
     notes:["Handwritten: “good.”","Can be made several days in advance."],
     cardNotes:["Source written on the card: Cook’s, May M/A ’88"],
-    gaps:["The sour cream amount has no unit (“¾ sour cream”), most likely ¾ cup.","The magazine date is hard to read, so the source line above is copied as written."] },
+    gaps:[] },
 
   { slug:"grandmothers-composition-cake-kathryn-drown", title:"Grandmother’s Composition Cake", category:"Cakes", credit:"Kathryn Drown", serves:"",
     summary:"An old-fashioned butter cake with nutmeg and lemon extract, a favorite birthday cake.",
@@ -277,7 +278,7 @@ var R = [
     cardNotes:["Source written on the card: Bon Appétit","This card was photographed twice."],
     gaps:[] },
 
-  { slug:"chewey-cake-teresa", title:"Chewey Cake", category:"Cakes", credit:"Teresa", serves:"",
+  { slug:"chewey-cake-teresa", title:"Chewey Cake", category:"Cakes", credit:"Teresa Byrd", serves:"",
     summary:"A chewy brown sugar and nut bar baked in a 12 x 8 pan, cut in squares and rolled in powdered sugar.",
     ingredients:[{items:["2 eggs","1 stick oleo, melted","2 cups light brown sugar","2 cups flour","2 tsp vanilla","1 cup chopped nuts","Powdered sugar, for rolling"]}],
     steps:["Mix the melted oleo and sugar. Add the vanilla and beat in the eggs. Stir until smooth.","Stir in the flour and add the nuts last.","Spread in a greased 12 x 8 x 2-inch pan. Bake at 325° for 30 minutes.","Cool, cut in squares and roll in powdered sugar."],
@@ -373,7 +374,7 @@ var R = [
       {name:"Cake", items:["2 cups sugar","1¼ cups Crisco oil","4 eggs","2½ cups mashed carrots","2 cups flour","2 tsp baking powder","2 tsp baking soda","½ tsp salt","2 tsp cinnamon","1 cup chopped walnuts"]},
       {name:"Frosting", items:["1 package (8 oz) cream cheese","¼ lb butter","2 tsp vanilla","1 lb powdered sugar","2 tbsp milk (only add if the mixture is too dry)"]}],
     steps:["Mix the sugar, oil and eggs. Add the mashed carrots and stir with a fork.","Add the remaining dry ingredients and stir all together.","Bake at 350° for 25 to 30 minutes."],
-    gaps:["The pan size is not given.","The card lists the frosting ingredients but doesn’t give frosting directions.","The last name is hard to read; it looks like “Bazinet.”"] },
+    gaps:["The pan size is not given.","The card lists the frosting ingredients but doesn’t give frosting directions."] },
 
   { slug:"party-size-fudgey-pudding-cake", title:"Party Size Fudgey Pudding Cake", category:"Cakes", credit:"", serves:"16 to 20",
     summary:"A big-batch chocolate pudding cake. A liquid sauce mixture is poured over the batter and does not get stirred in.",

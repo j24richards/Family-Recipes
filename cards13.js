@@ -73,11 +73,11 @@ var R = [
 
   { slug:"super-fluff-frosting-nancy-r", title:"Super Fluff Frosting", category:"Frostings & Fillings", credit:"Nancy R.", serves:"",
     summary:"A cooked milk-and-flour paste beaten a long time with Crisco and sugar into a light, fluffy white frosting. Good for whoopie pies.",
-    ingredients:[{items:["1 cup milk","5 tbsp flour","1 cup Crisco (white vegetable shortening)","1½ cups sugar","1 tsp vanilla","5 tbsp cocoa (for chocolate)"]}],
-    steps:["Cook the milk and flour over medium heat until it becomes a thick paste. Refrigerate until cool.","Cream the Crisco and sugar.","Add the paste to the Crisco and beat at least 10 to 15 minutes.","Add the vanilla. For chocolate frosting, add the cocoa too."],
+    ingredients:[{items:["1 cup milk","5 tbsp flour","1 cup Crisco (white vegetable shortening)","1½ cups sugar","For chocolate: 5 tbsp cocoa and 1 tsp vanilla"]}],
+    steps:["Cook the milk and flour over medium heat until it becomes a thick paste. Refrigerate until cool.","Cream the Crisco and sugar.","Add the paste to the Crisco and beat at least 10 to 15 minutes.","For chocolate frosting, add the cocoa and 1 teaspoon vanilla."],
     notes:["Handwritten: “Good – use for whoopie pies.”","The card says it keeps in the fridge for months."],
     cardNotes:["Printed “Here’s what’s cookin’” card, “Recipe from: Nancy R.” The cocoa and the note about keeping are on the back."],
-    gaps:["It isn’t clear whether the vanilla is for both versions or just the chocolate one."] },
+    gaps:[] },
 
   { slug:"rich-chocolate-frosting-butter", title:"Rich Chocolate Frosting", category:"Frostings & Fillings", credit:"", serves:"",
     summary:"A pound of whipped butter blended with a pound of confectioners’ sugar and cocoa.",
@@ -93,7 +93,7 @@ var R = [
     cardNotes:["Source: Hershey’s Easy-Does-It Recipe #10 (1984)"],
     gaps:[] },
 
-  { slug:"easy-frosting-nancy-riley", title:"Easy Frosting", category:"Frostings & Fillings", credit:"Nancy Riley", serves:"",
+  { slug:"easy-frosting-nancy-riley", title:"Easy Frosting", category:"Frostings & Fillings", credit:"Nancy Riley", creditNote:"A friend of Kathy’s", serves:"",
     summary:"Sugar, Crisco and an egg beaten together, with cocoa for a chocolate version.",
     ingredients:[{items:["1 cup white or brown sugar (Nancy used white)","½ cup Crisco","1 egg","Cocoa, to taste (for chocolate)"]}],
     steps:["Beat everything together.","For chocolate, add cocoa to taste."],

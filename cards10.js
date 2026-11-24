@@ -40,11 +40,11 @@ var R = [
 
   { slug:"safe-meringue-alice-medrich", title:"Safe Meringue (Two Egg Whites)", category:"Desserts", credit:"", serves:"",
     summary:"A microwave method that heats egg whites to 160° so meringue is safe to eat, from chocolatier Alice Medrich.",
-    ingredients:[{items:["¼ tsp cream of tartar","2 tsp water","2 egg whites","4 tbsp sugar","An instant-read or microwave-safe thermometer"]}],
-    steps:["Dissolve the cream of tartar in the water in a 1-cup glass measuring cup. Add the egg whites and beat briskly with a fork for at least 100 strokes, or pulse in a food processor about 10 seconds. Let the mixture rest at least 10 minutes to dissolve the sugar after adding it.","Whisk briefly with a fork. Microwave on HIGH for 30 seconds. Break up the foam and stir briskly with a clean thermometer so the mixture is stirred to even out hot and cool spots, then read the temperature.","Tilt the cup so the thermometer is at least 2½ inches into the whites. If it reads hotter than 125°, cook an additional 20 seconds; if cooler, cook 30 seconds. Wash the thermometer before dipping it in again.","The mixture should now be over 160°. If it is less, cook an additional 10 seconds. It must reach at least 160°.","Transfer to a mixing bowl and beat at high speed 3 to 5 minutes, until completely cool and stiff. The meringue will hold 15 minutes or longer and is easy to fold."],
+    ingredients:[{items:["¼ tsp cream of tartar","2 tsp water","2 egg whites","2 tbsp sugar","An instant-read or microwave-safe thermometer"]}],
+    steps:["Dissolve the cream of tartar in the water in a 1-cup glass measuring cup. Add the egg whites and stir in the sugar. Beat briskly with a fork for at least 100 strokes, or pulse in a food processor about 10 seconds, scraping the mixture back into the cup. Let it rest at least 10 minutes to dissolve the sugar.","Whisk briefly with a fork. Microwave on HIGH for 30 seconds. Break up the foam and stir briskly with a clean thermometer so the mixture is stirred to even out hot and cool spots, then read the temperature.","Tilt the cup so the thermometer is at least 2½ inches into the whites. If it reads hotter than 125°, cook an additional 20 seconds; if cooler, cook 30 seconds. Wash the thermometer before dipping it in again.","The mixture should now be over 160°. If it is less, cook an additional 10 seconds. It must reach at least 160°.","Transfer to a mixing bowl and beat at high speed 3 to 5 minutes, until completely cool and stiff. The meringue will hold 15 minutes or longer and is easy to fold."],
     notes:["Don’t leave the thermometer in the whites while they are cooking unless it is microwave-safe.","Some of the foam may have cooked slightly; that is fine unless it is over 180°, when cooked bits are firm."],
     cardNotes:["Newspaper clipping from the Haverhill Gazette (Associated Press, by Mary MacVean), front and back."],
-    gaps:["The clipping’s steps are folded and partly cut off; the sugar amount comes from the text (“2 teaspoons sugar” may be meant)."] },
+    gaps:[] },
 
   { slug:"blueberry-grunt-bon-appetit", title:"Blueberry Grunt", category:"Desserts", credit:"", serves:"6",
     summary:"Stovetop blueberry sauce with steamed sweet dumplings (grunts) on top. Serve with heavy cream and cinnamon sugar.",
@@ -76,9 +76,9 @@ var R = [
     summary:"A coarse, refreshing strawberry ice made from puréed berries and a simple syrup.",
     ingredients:[{items:["1 cup sugar","1 cup water","2 pints strawberries, hulled","1 tbsp freshly squeezed lemon juice"]}],
     steps:["Combine the sugar and water in a small heavy saucepan. Bring to boiling over medium heat, stirring until the sugar dissolves. Lower the heat to very low and simmer 4 minutes. Refrigerate the syrup until completely cooled.","Purée the strawberries in a blender or food processor. Combine the cooled syrup and purée in a medium bowl and stir in the lemon juice.","Spoon into a 9x9x2-inch metal pan. Freeze about 2 hours, or until slushy, stirring every 30 minutes to break up large ice crystals. Do not freeze too hard."],
-    notes:["Handwritten: “Good — great for dessert on hot night with sugar cookies (Stoppard in the Field Angel Crisps 225).”"],
+    notes:["Handwritten: “Good — great for a hot night w/ sugar cookies.”"],
     cardNotes:["Source written on the card: Family Circle (clipping pasted on the card)."],
-    gaps:["The cookie note is hard to read."] },
+    gaps:[] },
 
   { slug:"wild-maine-blueberry-cobbler-stonewall-kitchen", title:"Wild Maine Blueberry Cobbler", category:"Pies & Crisps", credit:"", serves:"6",
     summary:"Blueberries mixed with blueberry jam and lemon under a “cobbled” biscuit crust. Serve with ice cream or whipped cream.",
@@ -142,11 +142,11 @@ var R = [
 
   { slug:"peach-cobbler-teresa-byrd", title:"Peach Cobbler", category:"Pies & Crisps", credit:"Teresa Byrd", serves:"",
     summary:"Canned peaches with cinnamon and butter under a thin, cake-like cobbler batter.",
-    ingredients:[{items:["1 large can sliced peaches","Cinnamon","Butter","1¼ cups flour","1 tsp baking powder","½ tsp salt","½ cup sugar, plus more to sprinkle","⅓ cup Crisco","1 egg","Milk"]}],
-    steps:["Cut up the peaches and pour into a square baking dish. Sprinkle with cinnamon and dot with butter.","Cut the Crisco into the sugar until mealy, then mix in the rest of the dry ingredients.","Add the egg and enough milk to make a thin, cake-like batter.","Pour over the peaches and sprinkle with sugar. Bake at 350° for 35 to 40 minutes."],
+    ingredients:[{items:["1 large can sliced peaches","Cinnamon","Butter","1¼ cups flour","1 tsp baking powder","½ tsp salt","½ cup sugar, plus more to sprinkle","⅓ cup Crisco","1 egg","About ½ cup milk (see note)"]}],
+    steps:["Cut up the peaches and pour into a square baking dish. Sprinkle with cinnamon and dot with butter.","Cut the Crisco into the sugar until mealy, then mix in the rest of the dry ingredients.","Add the egg and about ½ cup milk, a little at a time, until you have a thin, cake-like batter that pours.","Pour over the peaches and sprinkle with sugar. Bake at 350° for 35 to 40 minutes."],
     notes:["Handwritten: “good.”"],
     cardNotes:["Printed “here’s what’s cookin’” card."],
-    gaps:["The name is hard to read; it looks like “Teresa Byrd.”","No milk amount is given."] },
+    gaps:["No milk amount is given on the card (it says “enough milk to make a thin cake-like batter”); about ½ cup is a best guess."] },
 
   { slug:"winter-fruit-cobbler", title:"Winter Fruit Cobbler", category:"Pies & Crisps", credit:"", serves:"6",
     summary:"A stovetop pear and cranberry cobbler topped with refrigerated biscuits, served with cream.",
@@ -182,10 +182,10 @@ var R = [
 
   { slug:"pineapple-tapioca-for-two", title:"Pineapple Tapioca (2 to 3 Servings)", category:"Desserts", credit:"", serves:"2 to 3",
     summary:"A small batch of tapioca pudding with pineapple and a folded-in meringue. Good hot or cold.",
-    ingredients:[{items:["1 egg, separated","1 tbsp sugar (for the meringue)","1 cup milk","¼ cup pineapple","1½ tbsp tapioca","1½ tbsp sugar","Dash of salt","¼ tsp vanilla"]}],
+    ingredients:[{items:["1 egg, separated","1 tbsp sugar (for the meringue)","1 cup milk","¼ cup pineapple","1½ tbsp tapioca","1½ tbsp sugar","Sprinkle of salt (written “spk.”)","¼ tsp vanilla"]}],
     steps:["Beat the egg white until it stands in peaks, then beat in 1 tbsp sugar. Set aside.","In a saucepan combine the tapioca, 1½ tbsp sugar, salt, egg yolk and milk. Cook until the mixture boils, then boil 1 minute.","Take off the heat. Fold in the vanilla, pineapple and the meringue.","Serve hot or cold."],
     cardNotes:["A different, smaller card from the other Pineapple Tapioca in this section."],
-    gaps:["The salt amount is written as a small abbreviation; read here as a dash."] },
+    gaps:[] },
 
   { slug:"pineapple-whip-lancaster-county", title:"Pineapple Whip", category:"Desserts", credit:"", serves:"",
     summary:"A quick stovetop tapioca with crushed pineapple and juice, topped with whipped cream, nuts and cherries.",
@@ -193,7 +193,7 @@ var R = [
     steps:["Boil the tapioca, sugar, water and salt for 1 to 2 minutes.","Add the pineapple and juice and cook until thick.","Top with whipped cream, nuts and maraschino cherries."],
     notes:["Handwritten: “Great – make often.”"],
     cardNotes:["Source written on the card: Lancaster County Cookbook"],
-    gaps:["The handwritten note at the top is faint; read as “Great – make often.”"] },
+    gaps:[] },
 
   { slug:"apple-crisp-aunt-bev", title:"Apple Crisp", category:"Pies & Crisps", credit:"Aunt Bev", serves:"6",
     summary:"Cinnamon apples under a simple flour, sugar and butter crumble. Good with ice cream on top.",
@@ -236,15 +236,15 @@ var R = [
     cardNotes:["Source written on the card: McCall’s (1973 recipe card)"],
     gaps:[] },
 
-  { slug:"mixed-berry-cobbler-williams-sonoma", title:"Mixed Berry Cobbler", category:"Pies & Crisps", credit:"Martha", creditUnsure:true, serves:"4",
+  { slug:"mixed-berry-cobbler-williams-sonoma", title:"Mixed Berry Cobbler", category:"Pies & Crisps", credit:"Martha Noon", creditNote:"Family friend", serves:"4",
     summary:"Lemony mixed berries in individual baking dishes, dotted with a quick cream biscuit dough made in the food processor.",
     ingredients:[
       {name:"Berry filling", items:["4 cups assorted berries","2 tsp fresh lemon juice","⅓ cup sugar","2 tbsp flour"]},
       {name:"Topping", items:["¾ cup flour","¼ tsp salt","1½ tsp baking powder","1 tbsp plus 2 tsp sugar","2 tbsp unsalted butter, chilled and cut into small pieces","½ cup heavy cream","Vanilla ice cream, for serving"]}],
     steps:["Heat the oven to 400°. Toss the berries with the lemon juice in a small bowl, then with the sugar and flour. Set aside.","In a food processor with the steel blade, pulse the flour, salt, baking powder, 1 tbsp of the sugar and the butter until the mixture looks like peas.","Slowly add the cream and process just until the dough comes together.","Fill two 12-oz ovenproof bowls ¾ full with the berries. Dot the fruit with clumps of dough, or cut the dough into shapes. Sprinkle with the remaining 2 tsp sugar.","Bake about 20 minutes, until bubbly and golden brown. Serve with vanilla ice cream."],
     notes:["Handwritten: “good.”"],
-    cardNotes:["Source written on the card: Williams Sonoma","A name is written beside the title (looks like “Martha” with a second word underneath).","The method continues on the back of the card."],
-    gaps:["The berry amount is hard to read; it looks like 4 cups.","The word under “Martha” isn’t readable."] },
+    cardNotes:["Source written on the card: Williams Sonoma","“Martha Noon” is written beside the title, with an arrow pointing to “Williams Sonoma”.","The method continues on the back of the card."],
+    gaps:[] },
 
   { slug:"apple-crisp-kathy-dennett", title:"Apple Crisp (Kathy Dennett)", category:"Pies & Crisps", credit:"Kathy Dennett", serves:"",
     summary:"Cinnamon apples in an 8-inch pan under a sugar, flour and butter crumb.",
@@ -257,10 +257,10 @@ var R = [
   { slug:"fudge-cooked-light-cream", title:"Fudge", category:"Candy & Treats", credit:"", serves:"",
     summary:"Old-fashioned cooked chocolate fudge made with light cream and Karo, beaten until it loses its shine.",
     ingredients:[{items:["1 cup light cream","2 squares chocolate","2 cups granulated sugar","2 tbsp white Karo syrup","2 tbsp butter","1 tsp vanilla","Nuts"]}],
-    steps:["Butter the sides of the saucepan before you start.","Scald the cream with the chocolate, stirring with a wooden spoon. Don’t let it boil.","Add the sugar and Karo. Bring to a boil, lower the heat and keep it boiling without stirring until it reaches 232° on a candy thermometer. Don’t put the thermometer in until it boils.","Take off the heat and let it sit. When it cools to 200°, add the butter and vanilla. Beat until it loses its gloss.","Add the nuts quickly and put it in a pan. Don’t scrape the sides of the saucepan.","Cover with Handi-Wrap. If it gets too cool, put it out. Keep airtight and refrigerate."],
+    steps:["Butter the sides of the saucepan before you start.","Scald the cream with the chocolate, stirring with a wooden spoon. Don’t let it boil.","Add the sugar and Karo. Bring to a boil, lower the heat and keep it boiling without stirring until it reaches 232° on a candy thermometer. Don’t put the thermometer in until it boils.","Take off the heat and let it sit. When it cools to 200°, add the butter and vanilla. Beat until it loses its gloss.","Add the nuts quickly and put it in a pan. Don’t scrape the sides of the saucepan.","Cover with Handi-Wrap. If it gets too cool, pat it out. Keep airtight and refrigerate."],
     notes:["Handwritten in pencil: “Great.”"],
-    cardNotes:["The pencil tips (butter the pan, don’t scrape, thermometer) were added later."],
-    gaps:["The line “if too cool, put out” is unclear on the card."] },
+    cardNotes:["The pencil tips (butter the pan, don’t scrape, thermometer) were added later.","The card says “If too cool and pat out.”"],
+    gaps:[] },
 
   { slug:"mamie-eisenhower-fudge-mom", title:"Mamie Eisenhower Fudge", category:"Candy & Treats", credit:"Mom", serves:"",
     summary:"A big batch of no-fail fudge: boiling evaporated milk syrup poured over chocolate chips, German sweet chocolate, marshmallow fluff and nuts.",
@@ -452,7 +452,7 @@ var R = [
     steps:["Soak the gelatin in the cold water 5 minutes, then dissolve in the boiling water.","Add the sugar and orange and lemon juices and mix. Refrigerate until slightly thickened.","Beat with a whisk until slightly frothy. Fold in the egg whites and whipped cream and blend well.","Pour into a springform pan lined with ladyfingers around the sides and bottom.","Chill until firm. Garnish with whipped cream rosettes."],
     notes:["Handwritten: “Good.”"],
     cardNotes:["Uses raw egg whites."],
-    gaps:["The name could be “Ann Peabody”; the handwriting is a little unclear."] },
+    gaps:[] },
 
   { slug:"applesauce-jello-lancaster-county", title:"Applesauce Jello", category:"Desserts", credit:"", serves:"4",
     summary:"Strawberry Jello set with applesauce. Good as a side with pork chops or ham.",
@@ -467,7 +467,7 @@ var R = [
     ingredients:[{items:["1 cup crushed pineapple","1 cup juice","2 tbsp water","½ cup sugar","1 package strawberry Jello","1 tsp orange extract","½ pint cream, whipped, plus more for serving"]}],
     steps:["Cook the pineapple, juice, water and sugar together.","While hot, pour over the Jello and stir to dissolve.","When cool and starting to thicken, add the orange extract and whipped cream.","Pour into molds. Serve with whipped cream."],
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook, Mrs. Henry Colbath"],
-    gaps:["The first name is hard to read on this card; another card in the box clearly says “Mrs. Henry Colbath.”"] },
+    gaps:[] },
 
   { slug:"raspberries-and-bananas-cuisine", title:"Raspberries & Bananas", category:"Desserts", credit:"", serves:"4",
     summary:"Sliced bananas fanned on plates with a mound of raspberries and a lemony raspberry syrup, topped with almonds.",
@@ -488,9 +488,9 @@ var R = [
     ingredients:[
       {name:"Topping", items:["1 cup rolled oats","1 cup flour","1 cup firmly packed brown sugar","½ cup butter or margarine"]},
       {name:"Apples", items:["1¾ lbs tart apples, cut in ½-inch dice (4 cups)","1 cup sugar","¼ cup flour","½ tsp cinnamon"]}],
-    steps:["Mix the flour, oats and brown sugar in a large bowl. Work in the butter with a fork until crumbly. Set aside.","Combine the apples, sugar, flour and cinnamon in a baking dish and stir well.","Sprinkle the topping over the apples.","Microwave on high 10 to 12 minutes, until the mixture bubbles."],
-    cardNotes:["Printed “Here’s what’s cookin’” card. “Recipe from: Pam Sager.”"],
-    gaps:["The last name could be “Sager” or “Sagar.”","The pan size isn’t clear on the card."] },
+    steps:["Mix the flour, oats and brown sugar in a large bowl. Work in the butter with a fork until crumbly. Set aside.","Combine the apples, sugar, flour and cinnamon in an 8×8-inch baking dish and stir well.","Sprinkle the topping over the apples.","Microwave on high 10 to 12 minutes, until the mixture bubbles."],
+    cardNotes:["Printed “Here’s what’s cookin’” card. “Recipe from: Pam Sager.”","The pan size is hard to read on the card (a crossed-out word); read as 8×8."],
+    gaps:[] },
 
   { slug:"cherry-pudding-with-sauce", title:"Cherry Pudding", category:"Desserts", credit:"", serves:"",
     summary:"A batter poured over melted butter with stewed cherries spooned in the middle, baked until set and served with a warm cherry sauce.",
@@ -589,7 +589,7 @@ var R = [
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook"],
     gaps:[] },
 
-  { slug:"strawberry-cheesecake-trifle-karen-cook", title:"Strawberry Cheesecake Trifle", category:"Desserts", credit:"Karen Cook", serves:"",
+  { slug:"strawberry-cheesecake-trifle-karen-cook", title:"Strawberry Cheesecake Trifle", category:"Desserts", credit:"Karen Cook", creditNote:"Daughter of Eleanor Cook (Mrs. Cook) of Cider Hill Farm in Amesbury, MA", serves:"",
     summary:"Angel food cake folded into a cream cheese and whipped cream filling, layered with almond-sugared strawberries.",
     ingredients:[
       {name:"Step one", items:["2 packages (8 oz each) cream cheese","2 cups confectioners’ sugar","1 cup sour cream","½ tsp vanilla","¼ tsp almond extract"]},
@@ -608,14 +608,14 @@ var R = [
     cardNotes:["Magazine clipping; no source name on it."],
     gaps:[] },
 
-  { slug:"baked-cranberry-pudding-ruth-mores", title:"Baked Cranberry Pudding", category:"Desserts", credit:"Ruth Mores", creditUnsure:true, serves:"",
+  { slug:"baked-cranberry-pudding-ruth-mores", title:"Baked Cranberry Pudding", category:"Desserts", credit:"Ruth Mores", serves:"",
     summary:"A simple cake batter studded with halved cranberries, served warm with a brown sugar sauce.",
     ingredients:[
       {items:["1½ cups halved cranberries, drained","1½ cups sifted flour","1½ tsp baking powder","¼ tsp salt","½ cup sugar","¼ cup melted butter","½ cup milk"]},
       {name:"Cranberry pudding sauce", items:["1¼ cups brown sugar","2 tbsp flour","½ tsp salt","1 cup cold water","1 tbsp butter","Vanilla"]}],
     steps:["Cream the butter and sugar. Add the sifted dry ingredients alternately with the milk. Fold in the cranberries last.","Bake in a greased pan at 325° for about 45 minutes. Serve with the sauce.","Sauce: mix the brown sugar, flour and salt. Add the water and butter and cook, stirring all the time, until slightly thickened. Add vanilla."],
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook, Ruth Mores"],
-    gaps:["The last name could be “Mores” or “Moses.”"] },
+    gaps:[] },
 
   { slug:"chocolate-christmas-pudding-bon-appetit", title:"Chocolate Christmas Pudding", category:"Desserts", credit:"", serves:"",
     summary:"A small steamed pudding of cream-soaked bread, butter, eggs, chocolate and almonds, turned out and dusted with powdered sugar.",
@@ -668,10 +668,10 @@ var R = [
 
   { slug:"angel-delish-aunt-shirley", title:"Angel Delish", category:"Cakes", credit:"Aunt Shirley", serves:"",
     summary:"An angel food cake split in two layers and filled and frosted with an orange marshmallow whipped cream.",
-    ingredients:[{items:["1 angel food cake (from a mix), baked","33 large marshmallows","¾ cup orange juice","1 pint heavy cream, whipped"]}],
+    ingredients:[{items:["1 angel food cake (from a mix), baked","33 large marshmallows","¾ cup orange juice","1 jar (1 pint) heavy cream, whipped"]}],
     steps:["Cut the cake in half to make two layers.","Melt the marshmallows with the orange juice in a double boiler. Let cool.","Fold in the whipped cream.","Fill and frost the cake with the mixture, filling the hole too. Cut in pie-shaped wedges."],
-    cardNotes:[],
-    gaps:["One word before “heavy whipped cream” is unclear; the amount is written as 1 pint."] },
+    cardNotes:["The card says “fold in jar of heavy whipped cream” with “(1 pt.)” written after it."],
+    gaps:[] },
 
   { slug:"red-white-and-blue-dessert", title:"Red, White and Blue Dessert", category:"Desserts", credit:"", serves:"18",
     summary:"Layers of sweetened cream cheese whipped cream, strawberries and blueberries, with berries arranged like a flag on top.",
@@ -686,8 +686,8 @@ var R = [
     ingredients:[{items:["1 cup brown sugar, well packed","4 slices buttered bread","2 eggs","2½ cups milk","1 tsp vanilla","1 tsp nutmeg","½ tsp cinnamon","Raisins (optional; added in a note)"]}],
     steps:["Put the brown sugar in the bottom of a buttered baking dish.","Break up the buttered bread over it.","Beat the eggs, milk and vanilla and pour over everything. Sprinkle the nutmeg and cinnamon on top.","Bake at 350° until moderately brown and puffed up to the top of the dish, about 40 minutes."],
     notes:["Handwritten note: “Very good but rich. Add raisins.”"],
-    cardNotes:["A “K” is written in the top corner next to the note, in different handwriting."],
-    gaps:["Whose “K” is on the note isn’t clear."] },
+    cardNotes:["A “K” (Kathy) is written in the top corner next to the note, in different handwriting."],
+    gaps:[] },
 
   { slug:"cranberry-bread-pudding-globe-chat", title:"Cranberry Bread Pudding", category:"Desserts", credit:"", serves:"12 small servings",
     summary:"A light bread pudding with fresh cranberries, baked in a water bath and served warm with a brown sugar and corn syrup sauce.",
@@ -705,7 +705,7 @@ var R = [
     steps:["Stir the sugar, salt, milk and cocoa in a heavy pan. Add the butter.","Stir constantly over high heat until the sugar dissolves. Reduce to medium-high and bring to a boil, stirring now and then.","Cook until a little dropped into cold water forms a small ball (235° on a candy thermometer).","Take off the heat and add the marshmallow creme and vanilla. Beat with a mixer or by hand until it just starts to lose its gloss.","Pour quickly into a buttered 8-inch pan. Cut into 64 pieces after 20 to 30 minutes."],
     notes:["The card points out that, unlike most recipes, this one doesn’t need to cool to lukewarm before beating, and the butter goes in at the start.","Handwritten: “good.”"],
     cardNotes:["Printed card: “From the recipe file of Kathy Richards.”","Source written on the card: Globe Confidential Chat, 1-87 (pen name looks like “Little Sudan”)"],
-    gaps:["The Confidential Chat pen name at the top is hard to read."] },
+    gaps:[] },
 
   { slug:"sour-cream-candy-mrs-henry-colbath", title:"Sour Cream Candy", category:"Candy & Treats", credit:"Mrs. Henry Colbath", serves:"About 2 lbs",
     summary:"Brown sugar and sour cream cooked to soft ball and beaten with butter, walnuts and vanilla.",
