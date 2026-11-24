@@ -361,6 +361,22 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 .person .n{font-size:.78rem;color:var(--muted);margin-top:4px}
 .person-head .tagline{margin:2px 0 8px}
 .kin{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0 0}
+/* ---- Thanksgiving ---- */
+.tg-banner{display:flex;align-items:center;gap:14px;margin:16px 0 0;padding:18px;border-radius:16px;background:linear-gradient(135deg,#b4532a,#8a3d1c);color:#fff;text-decoration:none;box-shadow:0 8px 20px rgba(120,50,20,.25)}
+.tg-banner .te{font-size:2.4rem}.tg-banner strong{display:block;font-size:1.2rem}.tg-banner .ms{display:block;opacity:.9;font-size:.92rem}.tg-banner .mg{margin-left:auto;font-size:2rem}
+.home-searching .tg-banner{display:none}
+.tg-how{margin:8px 0 12px}
+.tg-jump{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;position:sticky;top:0;z-index:5;background:var(--bg)}
+.tg-jump a{flex:none;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--paper);text-decoration:none;font-weight:600;font-size:.92rem}
+.tg-course{margin:14px 0 22px;scroll-margin-top:60px}.tg-course h2{font-family:Fraunces,Georgia,serif;font-size:1.35rem;margin:0 0 8px}.tg-course .n{font-size:.8rem;color:var(--muted);font-family:Inter,system-ui,sans-serif;font-weight:400}
+.tg-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tg-row{display:flex;align-items:stretch;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.tg-pick{display:flex;align-items:center;justify-content:center;padding:0 14px;border-right:1px solid var(--line);cursor:pointer}.tg-pick input{width:24px;height:24px;accent-color:var(--accent)}
+.tg-row a{flex:1;padding:12px 14px;text-decoration:none}.tg-row strong{display:block;font-size:1.02rem;line-height:1.3}.tg-row .ms{display:block;color:var(--muted);font-size:.85rem}
+.tg-star{color:#a0620f;font-weight:700}
+.tg-bar{position:fixed;left:12px;right:12px;bottom:12px;z-index:65;max-width:640px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:var(--paper);border:2px solid var(--accent);border-radius:16px;padding:10px 12px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.tg-bar #tgN{font-weight:700;margin-right:auto}
+@media (max-width:760px){.tg-bar{bottom:calc(84px + env(safe-area-inset-bottom))}}
 /* ---- Simpler pages ---- */
 html{font-size:112.5%}
 .tiles.six{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -627,6 +643,7 @@ function holNavLabel(){ const n=document.getElementById('holNav'); if(n && HOLID
 function holidaysPage(key){
   setNav('holidays');
   const hol = HOLIDAY_BY_KEY[key] || HOLIDAY_BY_KEY[upcomingHoliday()];
+  if (hol.key === 'thanksgiving') return thanksgivingPage();
   document.title = hol.name + ' · Holidays · Family Recipes';
   const inHol = R.filter(r => (r.holidays||[]).includes(hol.key)).sort((a,b)=>a.title.localeCompare(b.title));
   const group = k => { const l = inHol.filter(r=>r.section===k); const s = SEC[k]; return `
@@ -688,6 +705,7 @@ function home(){
       <input id="q" type="search" placeholder="Search recipes, ingredients, names…" value="${esc(state.q)}">
     </label>
     <div class="grid" id="grid" style="margin-top:18px"></div>
+    ${(()=>{ const d = daysToThanksgiving(); if (d < 0 || d > 24 || !HOLIDAY_BY_KEY['thanksgiving']) return ''; return `<a class="tg-banner after-tiles" href="#/holidays/thanksgiving"><span class="te" aria-hidden="true">🦃</span><span><strong>${d===0?'Happy Thanksgiving!':d===1?'Thanksgiving is tomorrow':'Thanksgiving is in '+d+' days'}</strong><span class="ms">Turkey, stuffing, sides, rolls and pies. Plan the whole table.</span></span><span class="mg" aria-hidden="true">›</span></a>`; })()}
     <div class="tiles six">${tiles.map(t=>`<a class="tile" href="${t[0]}"><span class="te" aria-hidden="true">${t[1]}</span><strong>${t[2]}</strong><span class="tn">${t[3]}</span></a>`).join('')}<a class="tile more-tile" href="#/more"><span class="te" aria-hidden="true">➕</span><strong>More ways to browse</strong><span class="tn">By ingredient, quick &amp; easy, in season, look up a name and more</span></a></div>
     <div class="after-tiles">
     ${(()=>{ const rec = store.get('recent', []).map(x=>R.find(r=>r.slug===x)).filter(Boolean).slice(0,6); return rec.length ? `<section class="recent"><h2>Recently viewed</h2><div class="recent-row">${rec.map(r=>`<a class="recent-chip" href="#/recipe/${r.slug}">${esc(r.title)}</a>`).join('')}</div></section>` : ''; })()}
@@ -1844,6 +1862,54 @@ function morePage(){
     ])}
     <p style="margin-bottom:48px"></p>`;
   window.scrollTo(0,0);
+}
+
+// ---- Thanksgiving: the whole table, course by course ----
+function thanksgivingDate(y){ const d = new Date(y, 10, 1); const first = (4 - d.getDay() + 7) % 7 + 1; return new Date(y, 10, first + 21); }
+function daysToThanksgiving(){ const now = new Date(), t = thanksgivingDate(now.getFullYear()); const a = new Date(now.getFullYear(), now.getMonth(), now.getDate()); return Math.round((t - a) / 864e5); }
+const TG_COURSES = [
+  ['turkey','🦃','Turkey, stuffing & gravy', r => r.category==='Thanksgiving' || (/stuffing|gravy|bottoms up turkey|roast(ed)? turkey|turkey breast|brine/i.test(r.title) && !/chicken|swiss/i.test(r.title))],
+  ['cranberry','🍒','Cranberry', r => /cranberr/i.test(r.title) && ['Sides','Salads','Casseroles'].includes(r.category)],
+  ['sides','🥔','Potatoes, squash & vegetables', r => ['Sides','Casseroles','Salads'].includes(r.category) && /mashed|sweet potato|yam|squash|turnip|creamed onion|onions|green bean|carrot|brussels|corn pudding|scalloped corn|corn casserole|succotash|parsnip|rutabaga|potato/i.test(r.title) && !/summer|salad|fries|campfire|bulgur|pork chop|kugel|soup|cheddar potato/i.test(r.title)],
+  ['breads','🍞','Rolls & breads', r => r.category==='Breads' && /dinner roll|parker house|extra special rolls|biscuit|corn ?bread|popover|pumpkin bread|cranberry.*bread/i.test(r.title) && !/pizza|caramel|cinnamon|cheese biscuit/i.test(r.title)],
+  ['pies','🥧','Pies & desserts', r => (r.holidays||[]).includes('thanksgiving') && SWEETS.includes(r.category) || (['Pies & Crisps','Desserts'].includes(r.category) && /pumpkin|pecan|apple pie|apple crisp|mince|squash pie|indian pudding|cranberry/i.test(r.title) && !/microwave|cherry/i.test(r.title))],
+  ['leftovers','🥪','The day after (leftovers)', r => /turkey/i.test(r.title) && /cottage pie|casserole|stew|soup|tetrazzini|sandwich|salad|pot pie|hash/i.test(r.title) || /tetrazzini/i.test(r.title)]
+];
+function thanksgivingPage(){
+  setNav('holidays'); document.title = 'Thanksgiving · Family Recipes';
+  const picked = new Set(store.get('tgPick', []));
+  const days = daysToThanksgiving();
+  const when = days === 0 ? 'Happy Thanksgiving!' : days === 1 ? 'Thanksgiving is tomorrow.' : days > 1 && days < 30 ? `Thanksgiving is in ${days} days.` : '';
+  const isTagged = r => (r.holidays||[]).includes('thanksgiving');
+  const used = new Set();
+  const courses = TG_COURSES.map(([k,e,name,fn]) => {
+    const l = R.filter(r => fn(r) && !used.has(r.slug)).sort((a,b) => (isTagged(b)-isTagged(a)) || ((b.section==='family')-(a.section==='family')) || a.title.localeCompare(b.title));
+    l.forEach(r => used.add(r.slug)); return {k,e,name,l};
+  });
+  const row = r => `<li class="tg-row"><label class="tg-pick"><input type="checkbox" data-tg="${r.slug}" ${picked.has(r.slug)?'checked':''} aria-label="Pick ${esc(r.title)}"></label><a href="#/recipe/${r.slug}"><strong>${esc(r.title)}</strong><span class="ms">${isTagged(r)?'<span class="tg-star">★ Thanksgiving card</span> ':''}${esc(r.credit ? r.credit : (r.section==='family' ? 'Family recipe box' : 'Cookbook shelf'))}</span></a></li>`;
+  const suggest = SUGGEST_URL + '?recipe=' + encodeURIComponent('Holiday: Thanksgiving');
+  app.innerHTML = `
+    <section class="sec-head holidays">
+      <a class="back" href="#/">← Home</a>
+      <h1>🦃 Thanksgiving</h1>
+      <p class="tagline">${when || 'The big table: turkey, sides, breads and pies.'}</p>
+    </section>
+    <div class="tip tg-how"><strong>Plan the table:</strong> tick the dishes you’re making, then add them all to your shopping list or put them on Thanksgiving Day in This Week’s Meals. ★ marks recipes whose card says Thanksgiving.</div>
+    <nav class="tg-jump" aria-label="Jump to a course">${courses.filter(c=>c.l.length).map(c=>`<a href="#tg-${c.k}" data-jump="tg-${c.k}">${c.e} ${esc(c.name.split(',')[0].split(' (')[0])}</a>`).join('')}</nav>
+    ${courses.filter(c=>c.l.length).map(c=>`<section class="tg-course" id="tg-${c.k}"><h2>${c.e} ${esc(c.name)} <span class="n">${c.l.length}</span></h2><ul class="tg-list">${c.l.map(row).join('')}</ul></section>`).join('')}
+    <div class="share-cta">
+      <p><strong>Is there a dish we always make that’s missing?</strong> Tell us, and we’ll mark it with a ★.</p>
+      <div class="row-btns"><a class="btn primary" href="${suggest}" target="_blank" rel="noopener" style="text-decoration:none">Tell us a Thanksgiving dish</a></div>
+    </div>
+    <div class="tg-bar" id="tgBar" hidden><span id="tgN"></span><button class="btn primary" id="tgShop">🛒 Add to list</button><button class="btn" id="tgPlan">📅 Put on Thanksgiving Day</button><button class="btn" id="tgClear" aria-label="Clear picks">✕</button></div>`;
+  const bar = document.getElementById('tgBar');
+  const sync = () => { const p = store.get('tgPick', []); bar.hidden = !p.length; document.getElementById('tgN').textContent = p.length + ' picked'; };
+  app.querySelectorAll('[data-tg]').forEach(cb => cb.onchange = () => { const p = new Set(store.get('tgPick', [])); cb.checked ? p.add(cb.dataset.tg) : p.delete(cb.dataset.tg); store.set('tgPick', [...p]); sync(); });
+  app.querySelectorAll('[data-jump]').forEach(a => a.onclick = e => { e.preventDefault(); const el = document.getElementById(a.dataset.jump); if (el) el.scrollIntoView({behavior:'smooth', block:'start'}); });
+  document.getElementById('tgShop').onclick = () => { const p = store.get('tgPick', []); store.set('shop', [...new Set([...shopList(), ...p])]); updateShopCount(); toast('Added ' + p.length + (p.length===1?' recipe':' recipes') + ' to your shopping list'); };
+  document.getElementById('tgPlan').onclick = () => { const p = store.get('tgPick', []), day = DAYS[thanksgivingDate(new Date().getFullYear()).getDay()]; const pl = plan(); pl[day] = [...new Set([...pl[day], ...p])]; store.set('plan', pl); toast('Put on ' + day + ' in This Week’s Meals'); };
+  document.getElementById('tgClear').onclick = () => { if (!confirm('Clear all your Thanksgiving picks?')) return; store.set('tgPick', []); thanksgivingPage(); };
+  sync(); window.scrollTo(0,0);
 }
 
 function route(){
