@@ -26,8 +26,9 @@
   --accent:#e0855a;--accent-soft:#3d2a20;--sage:#9cba94;--sage-soft:#26301f;--shadow:none}
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+html{-webkit-text-size-adjust:100%;font-size:106.25%}
+html.ts-1{font-size:118.75%}html.ts-2{font-size:131.25%}
+body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.6 Inter,system-ui,sans-serif}
 a{color:inherit}
 button{font:inherit;color:inherit;cursor:pointer}
 .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
@@ -360,6 +361,43 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
 .person .n{font-size:.78rem;color:var(--muted);margin-top:4px}
 .person-head .tagline{margin:2px 0 8px}
 .kin{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0 0}
+/* ---- Shopping list: your own items ---- */
+.addown{margin:16px 0 4px}
+.addown label{display:block;font-weight:600;margin-bottom:6px}
+.addown-row{display:flex;gap:8px}
+.addown-row input{flex:1;min-width:0;font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+.checklist li{display:flex;align-items:center;gap:8px}.checklist li>label{flex:1}
+/* ---- Easy navigation: home tiles, phone tab bar, text size ---- */
+.tsbtn small{font-size:.7em}
+.tspop{position:fixed;z-index:60;top:70px;right:16px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.tspop p{margin:0 0 8px;font-weight:700}
+.tsopts{display:flex;gap:8px}
+.tsopts button{min-width:84px;min-height:72px;border:2px solid var(--line);border-radius:12px;background:var(--bg);font-weight:700;line-height:1.1}
+.tsopts button small{font-size:.75rem;font-weight:500}
+.tsopts button[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.home-search{display:block;margin:4px 0 0}
+.home-search input{font-size:1.05rem!important;padding-top:14px!important;padding-bottom:14px!important}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0 8px}
+@media (max-width:760px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{display:flex;flex-direction:column;gap:4px;min-height:118px;padding:16px;border-radius:16px;background:var(--paper);border:1px solid var(--line);text-decoration:none;box-shadow:var(--shadow)}
+.tile:hover,.tile:focus-visible{border-color:var(--accent)}
+.tile .te{font-size:1.9rem;line-height:1}
+.tile strong{font-size:1.08rem;line-height:1.25;margin-top:6px}
+.tile span.tn{font-size:.85rem;color:var(--muted)}
+.home-searching .tiles,.home-searching .after-tiles{display:none}
+#grid:empty{display:none}
+.tabbar{display:none}
+@media (max-width:760px){
+  header.site .secnav{display:none}
+  #shopLink,#favLink{display:none}
+  .ts-label,.ts-hide{display:none}
+  body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+  .tabbar{display:flex;position:fixed;z-index:50;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+  .tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;font-size:.74rem;font-weight:600;color:var(--muted);padding:4px 2px;border-radius:10px;position:relative;text-align:center;line-height:1.15}
+  .tabbar .ti{font-size:1.4rem;line-height:1.1}
+  .tabbar a[aria-current=page]{color:var(--accent);background:var(--accent-soft)}
+  .tabbar .tcount{position:absolute;top:0;right:18%;background:var(--accent);color:#fff;border-radius:999px;padding:0 6px;font-size:.7rem}
+}
 </style>
 </head>
 <body>
@@ -367,7 +405,8 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
   <div class="wrap">
     <a class="brand" href="#/"><img src="icon-192.png" alt="" width="30" height="30" style="border-radius:50%;object-fit:cover"><span class="brand-name">Family Recipes</span></a>
     <nav class="nav">
-    <a class="navbtn share" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener">+ Share a recipe</a>
+    <button class="navbtn tsbtn" type="button" id="tsBtn" aria-haspopup="true" aria-expanded="false"><span aria-hidden="true" style="font-weight:700">A<small>A</small></span> <span class="ts-label">Text size</span></button>
+    <a class="navbtn share" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener">+ Share<span class="ts-hide">a recipe</span></a>
     <a class="navbtn" href="#/shopping" id="shopLink">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6 5 3H2"/></svg>
       <span class="shop-label">Shopping list</span> <span class="count" id="shopCount" hidden>0</span>
@@ -384,7 +423,18 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;padd
     <a href="#/people" data-sec="people">People</a>
   </nav>
 </header>
+<div class="tspop" id="tsPop" hidden role="dialog" aria-label="Text size">
+  <p>Text size</p>
+  <div class="tsopts"><button type="button" data-ts="0" style="font-size:1rem">A<br><small>Normal</small></button><button type="button" data-ts="1" style="font-size:1.25rem">A<br><small>Bigger</small></button><button type="button" data-ts="2" style="font-size:1.5rem">A<br><small>Biggest</small></button></div>
+</div>
 <main class="wrap" id="app"></main>
+<nav class="tabbar" aria-label="Main">
+  <a href="#/" data-tab="home"><span class="ti" aria-hidden="true">🏠</span>Home</a>
+  <a href="#/search" data-tab="search"><span class="ti" aria-hidden="true">🔍</span>Search</a>
+  <a href="#/box-a" data-tab="boxes"><span class="ti" aria-hidden="true">📇</span>Mom’s Boxes</a>
+  <a href="#/favorites" data-tab="favorites"><span class="ti" aria-hidden="true">♥</span>Favorites</a>
+  <a href="#/shopping" data-tab="shopping"><span class="ti" aria-hidden="true">🛒</span>List<span class="tcount" id="tabShop" hidden></span></a>
+</nav>
 <footer><div class="wrap">
   <div class="install" id="installBox">
     <div><strong>📲 Put Family Recipes on your phone</strong><br><span id="installHow">Opens like an app, right from your home screen.</span></div>
@@ -452,8 +502,9 @@ function updateFavCount(){ const n = favList().filter(s=>R.some(r=>r.slug===s)).
 function favBtn(slug){ const on = isFav(slug); return `<button type="button" class="fav" data-fav="${slug}" aria-pressed="${on}" aria-label="${on?'Remove from favorites':'Add to favorites'}" title="${on?'Remove from favorites':'Favorite this recipe'}">${on?'♥':'♡'}</button>`; }
 function toggleFav(slug){ const l = favList(); store.set('fav', l.includes(slug) ? l.filter(s=>s!==slug) : [...l, slug]); updateFavCount(); }
 function updateShopCount(){
-  const n = shopList().length, el = document.getElementById('shopCount');
+  const n = shopList().length + store.get('shopextra', []).length, el = document.getElementById('shopCount');
   el.hidden = !n; el.textContent = n;
+  const t = document.getElementById('tabShop'); if (t) { t.hidden = !n; t.textContent = n; }
 }
 
 const SEC = {
@@ -524,41 +575,39 @@ function setNav(active){
 function home(){
   setNav('');
   const pick = k => { const l = R.filter(r=>r.section===k); return l.length ? l[Math.floor(Math.random()*l.length)] : null; };
+  const u = HOLIDAY_BY_KEY[upcomingHoliday()];
+  const tiles = [
+    ['#/family','📇','Family Recipe Box', secCount('family')+' recipes'],
+    ['#/box-a','🗃️','Mom’s Recipe Boxes','Box A, Box 2, Box 3'],
+    ['#/shelf','📖','Cookbook Shelf', secCount('found')+' recipes'],
+    ['#/holidays/'+u.key, u.emoji, 'Holidays', esc(u.name)+' is next'],
+    ['#/pantry','🥕','What’s in the Fridge?','Pick what you have'],
+    ['#/people','👪','Look Up a Name','Who made it'],
+    ['#/gluten-free','🌾','Gluten-Free', R.filter(r=>r.glutenFree).length+' recipes'],
+    ['#/favorites','♥','My Favorites','Saved on this phone']
+  ];
   app.innerHTML = `
-    <section class="hero">
+    <section class="hero" style="padding-bottom:12px">
       <h1>What are we cooking?</h1>
-      <p>Two shelves in our kitchen: the cards from the family recipe box, and the recipes we've collected from everywhere else.</p>
     </section>
-    <section class="pick" id="pick"><span class="pick-kicker">Today's pick</span><p class="pick-why" id="pickWhy"></p><div id="pickCard"></div><button type="button" class="linkbtn pick-again" id="pickAgain">Show me another idea</button></section>
-    <div class="doors">
-      ${['family','found'].map(k => { const s = SEC[k], p = pick(k); return `
-      <a class="door ${k}" href="#/${s.route}">
-        ${k==='family' ? `<span class="door-art box-thumb" aria-hidden="true"><span class="mini-board"><span class="mini-cover"></span></span><span class="mini-post"></span><span class="mini-base"></span></span>` : `<span class="door-art spines" aria-hidden="true">${SPINES}</span>`}
-        <span class="door-kicker">${k==='family'?'📇':'📖'} ${secCount(k)} recipes</span>
-        <h2>${s.name}</h2>
-        <p class="tagline">${s.tagline}</p>
-        <p>${s.blurb}</p>
-        ${p ? `<span class="door-try">Try: ${esc(p.title)}</span>` : ''}
-        <span class="door-go">Open ${s.name} →</span>
-      </a>`; }).join('')}
-    </div>
-    ${(()=>{ const u = HOLIDAY_BY_KEY[upcomingHoliday()]; return `<a class="hol-banner" href="#/holidays/${u.key}"><span class="hol-emoji">${u.emoji}</span><span><strong>${esc(u.name)} is coming up.</strong> See what we make, or tell us yours.</span><span class="door-go">${HOLIDAYS.length < 2 ? esc(u.name) : 'Holidays'} →</span></a>`; })()}
-    <a class="box-banner" href="#/box-a"><span class="em">📇</span><span><strong>Mom’s Recipe Boxes</strong><span class="sub">${R.filter(r=>r.box).length} cards from Box A, Box 2 and Box 3, filed the way they are in the boxes.</span></span><span class="door-go">Open the boxes →</span></a>
-    <a class="box-banner people" href="#/people"><span class="em">👪</span><span><strong>People</strong><span class="sub">Look up Mom G., Mom R., Dad G. or anyone else and see every recipe linked to them.</span></span><span class="door-go">Find a name →</span></a>
-    <a class="box-banner gf" href="#/gluten-free"><span class="em">🌾</span><span><strong>Gluten-Free</strong><span class="sub">${R.filter(r=>r.glutenFree).length} recipes with no wheat, barley, rye or oats as written.</span></span><span class="door-go">Open Gluten-Free →</span></a>
-    <a class="pantry-banner" href="#/pantry"><span class="em">🥕</span><span><strong>What's in the fridge?</strong><span class="sub">Tap the ingredients you have and see what you can make.</span></span></a>
-    <label class="search" aria-label="Search all recipes" style="display:block;margin:28px 0 0">
+    <label class="search home-search" aria-label="Search all recipes">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="Search both: a recipe, an ingredient, or who it's from…" value="${esc(state.q)}">
+      <input id="q" type="search" placeholder="Search recipes, ingredients, names…" value="${esc(state.q)}">
     </label>
     <div class="grid" id="grid" style="margin-top:18px"></div>
+    <div class="tiles">${tiles.map(t=>`<a class="tile" href="${t[0]}"><span class="te" aria-hidden="true">${t[1]}</span><strong>${t[2]}</strong><span class="tn">${t[3]}</span></a>`).join('')}</div>
+    <div class="after-tiles">
+    <section class="pick" id="pick"><span class="pick-kicker">Today's pick</span><p class="pick-why" id="pickWhy"></p><div id="pickCard"></div><button type="button" class="linkbtn pick-again" id="pickAgain">Show me another idea</button></section>
     <div class="share-cta">
       <p><strong>Have a family favorite?</strong> Type it in or just snap a photo of the recipe card. No account needed.</p>
       <a class="btn primary" href="https://tally.so/r/xVrP7o" target="_blank" rel="noopener" style="text-decoration:none">+ Share a recipe</a>
+    </div>
     </div>`;
   state.sec = 'all'; state.cat = 'All';
+  const searching = () => app.classList.toggle('home-searching', !!state.q.trim());
+  searching();
   const q = document.getElementById('q');
-  q.addEventListener('input', e => { state.q = e.target.value; renderGrid(); });
+  q.addEventListener('input', e => { state.q = e.target.value; searching(); renderGrid(); });
   renderGrid(); startPick();
 }
 
@@ -884,26 +933,34 @@ function shopping(){
   document.title = 'Shopping list · Family Recipes';
   const slugs = shopList().filter(s => R.some(r=>r.slug===s));
   const got = store.get('shopchk', {});
-  if(!slugs.length){
-    app.innerHTML = `<a class="back" href="#/">← Home</a><div class="r-head"><h1>Shopping list</h1></div>
-      <p class="empty">Nothing here yet. Open a recipe and tap “Add to shopping list”.</p>`;
-    return;
-  }
+  const extra = store.get('shopextra', []);
+  const total = slugs.length + extra.length;
   app.innerHTML = `
     <a class="back" href="#/">← Home</a>
-    <div class="r-head"><h1>Shopping list</h1><p class="summary">Ingredients from ${slugs.length} recipe${slugs.length>1?'s':''}. Check off what you already have or have grabbed.</p></div>
-    <div class="actions"><button class="btn" id="clearChecks">Uncheck all</button><button class="btn" id="clearAll">Clear list</button><button class="btn" onclick="window.print()">Print</button></div>
+    <div class="r-head"><h1>Shopping list</h1><p class="summary">${slugs.length ? `Ingredients from ${slugs.length} recipe${slugs.length>1?'s':''}` : 'No recipes added yet'}${extra.length ? ` plus ${extra.length} of your own item${extra.length>1?'s':''}` : ''}. Open any recipe and tap “Add to shopping list” to add more. Check things off as you go.</p></div>
+    <form class="addown" id="addOwn" autocomplete="off">
+      <label for="ownItem">Add your own item</label>
+      <div class="addown-row"><input id="ownItem" type="text" placeholder="e.g. paper towels, milk, 2 lemons"><button class="btn primary" type="submit">Add</button></div>
+    </form>
+    ${total ? `<div class="actions"><button class="btn" id="clearChecks">Uncheck all</button><button class="btn" id="clearAll">Clear list</button><button class="btn" onclick="window.print()">Print</button></div>` : ''}
     <div class="panel" style="margin:16px 0 48px">
+      ${extra.length ? `<div class="shop-group"><h3>My own items</h3><ul class="checklist">${extra.map((x,n)=>`<li><label><input type="checkbox" data-x="${n}" ${x.done?'checked':''}><span>${esc(x.t)}</span></label> <button class="linkbtn" data-xrm="${n}" aria-label="Remove ${esc(x.t)}">Remove</button></li>`).join('')}</ul></div>` : ''}
       ${slugs.map(s => { const r = R.find(x=>x.slug===s); let n=0; return `
         <div class="shop-group">
           <h3><a href="#/recipe/${s}">${esc(r.title)}</a> <button class="linkbtn" data-rm="${s}">Remove</button></h3>
           <ul class="checklist">${r.ingredients.flatMap(g=>g.items).map(it => { const k = s+':'+(n++); return `<li><label><input type="checkbox" data-k="${esc(k)}" ${got[k]?'checked':''}><span>${esc(it)}</span></label></li>`; }).join('')}</ul>
         </div>`; }).join('')}
+      ${total ? '' : `<p class="empty" style="margin:0">Your list is empty. Add recipes from any recipe page, or type your own items above.</p>`}
     </div>`;
-  app.querySelectorAll('.checklist input').forEach(i => i.onchange = () => { got[i.dataset.k] = i.checked; store.set('shopchk', got); });
+  app.querySelectorAll('.checklist input[data-k]').forEach(i => i.onchange = () => { got[i.dataset.k] = i.checked; store.set('shopchk', got); });
+  app.querySelectorAll('.checklist input[data-x]').forEach(i => i.onchange = () => { const e = store.get('shopextra', []); if (e[+i.dataset.x]) { e[+i.dataset.x].done = i.checked; store.set('shopextra', e); } });
+  app.querySelectorAll('[data-xrm]').forEach(b => b.onclick = () => { const e = store.get('shopextra', []); e.splice(+b.dataset.xrm, 1); store.set('shopextra', e); updateShopCount(); shopping(); });
   app.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => { store.set('shop', shopList().filter(x=>x!==b.dataset.rm)); updateShopCount(); shopping(); });
-  document.getElementById('clearChecks').onclick = () => { store.set('shopchk', {}); shopping(); };
-  document.getElementById('clearAll').onclick = () => { store.set('shop', []); store.set('shopchk', {}); updateShopCount(); shopping(); };
+  document.getElementById('addOwn').onsubmit = e => { e.preventDefault(); const v = document.getElementById('ownItem').value.trim(); if (!v) return; const ex = store.get('shopextra', []); v.split(/\s*,\s*/).filter(Boolean).forEach(t => ex.push({t, done:false})); store.set('shopextra', ex); updateShopCount(); shopping(); const f = document.getElementById('ownItem'); if (f) f.focus(); };
+  if (total) {
+    document.getElementById('clearChecks').onclick = () => { store.set('shopchk', {}); store.set('shopextra', store.get('shopextra', []).map(x => ({t:x.t, done:false}))); shopping(); };
+    document.getElementById('clearAll').onclick = () => { if (!confirm('Clear the whole shopping list?')) return; store.set('shop', []); store.set('shopchk', {}); store.set('shopextra', []); updateShopCount(); shopping(); };
+  }
 }
 
 
@@ -1150,6 +1207,10 @@ function favoritesPage(){
 function route(){
   const h = location.hash.replace(/^#\/?/, '');
   document.title = 'Family Recipes';
+  app.classList.remove('home-searching');
+  const tab = h==='' ? 'home' : h==='search' ? 'search' : h.startsWith('box-') ? 'boxes' : h==='favorites' ? 'favorites' : h==='shopping' ? 'shopping' : '';
+  document.querySelectorAll('.tabbar a').forEach(a => a.setAttribute('aria-current', a.dataset.tab===tab ? 'page' : 'false'));
+  if(h === 'search') { home(); const qi = document.getElementById('q'); if (qi) { qi.focus(); qi.scrollIntoView({block:'center'}); } updateShopCount(); updateFavCount(); return; }
   if(h.startsWith('recipe/')) recipe(h.slice(7));
   else if(h === 'shopping') { setNav(''); shopping(); }
   else if(h === 'favorites') favoritesPage();
@@ -1174,6 +1235,18 @@ document.addEventListener('click', e => {
   document.querySelectorAll('[data-fav="'+slug+'"]').forEach(x => { x.setAttribute('aria-pressed', on); x.textContent = on ? '♥' : '♡'; x.setAttribute('aria-label', on ? 'Remove from favorites' : 'Add to favorites'); });
 }, true);
 holNavLabel();
+
+// ---- Text size (remembered on this device) ----
+(function(){
+  var btn = document.getElementById('tsBtn'), pop = document.getElementById('tsPop');
+  function apply(n){ document.documentElement.classList.remove('ts-1','ts-2'); if (n>0) document.documentElement.classList.add('ts-'+n);
+    pop.querySelectorAll('[data-ts]').forEach(function(b){ b.setAttribute('aria-pressed', String(+b.dataset.ts===n)); }); }
+  var saved = 0; try { saved = +(localStorage.getItem('textSize')||0) || 0; } catch(e){}
+  apply(saved);
+  btn.addEventListener('click', function(e){ e.stopPropagation(); pop.hidden = !pop.hidden; btn.setAttribute('aria-expanded', String(!pop.hidden)); });
+  pop.addEventListener('click', function(e){ var b = e.target.closest('[data-ts]'); if(!b) return; var n=+b.dataset.ts; apply(n); try{ localStorage.setItem('textSize', n); }catch(err){} pop.hidden = true; btn.setAttribute('aria-expanded','false'); });
+  document.addEventListener('click', function(e){ if (!pop.hidden && !pop.contains(e.target) && e.target !== btn) { pop.hidden = true; btn.setAttribute('aria-expanded','false'); } });
+})();
 
 // ---- Install as an app (anyone, no login) ----
 (function(){
