@@ -548,33 +548,33 @@ a.meal-item:hover{border-color:var(--accent)}
 </div></footer>
 
 <script src="recipes.js?v=20261126"></script>
-<script src="cards.js?v=20261124"></script>
-<script src="gifts.js?v=20261124"></script>
-<script src="cards2.js?v=20261124"></script>
-<script src="cards3.js?v=20261124"></script>
+<script src="cards.js?v=20261126"></script>
+<script src="gifts.js?v=20261126"></script>
+<script src="cards2.js?v=20261126"></script>
+<script src="cards3.js?v=20261126"></script>
 <script src="cards4.js?v=20261126"></script>
-<script src="cards5.js?v=20261124"></script>
-<script src="cards6.js?v=20261124"></script>
-<script src="cards7.js?v=20261124"></script>
-<script src="cards8.js?v=20261124"></script>
+<script src="cards5.js?v=20261126"></script>
+<script src="cards6.js?v=20261126"></script>
+<script src="cards7.js?v=20261126"></script>
+<script src="cards8.js?v=20261126"></script>
 <script src="simply5.js?v=20261126"></script>
-<script src="breadbowls.js?v=20261129"></script>
-<script src="cards9.js?v=20261124"></script>
-<script src="cards10.js?v=20261124"></script>
-<script src="cards11.js?v=20261124"></script>
-<script src="cards12.js?v=20261124"></script>
-<script src="cards13.js?v=20261124"></script>
-<script src="cards14.js?v=20261124"></script>
-<script src="cards15.js?v=20261123c"></script>
-<script src="cards16.js?v=20261124"></script>
-<script src="cards17.js?v=20261124"></script>
-<script src="cards18.js?v=20261124"></script>
-<script src="cards19.js?v=20261124"></script>
-<script src="cards20.js?v=20261125"></script>
-<script src="cards21.js?v=20261124"></script>
-<script src="family.js?v=20261124"></script>
-<script src="gluten-free.js?v=20261130"></script>
-<script src="people.js?v=20261125"></script>
+<script src="breadbowls.js?v=20261126"></script>
+<script src="cards9.js?v=20261126"></script>
+<script src="cards10.js?v=20261126"></script>
+<script src="cards11.js?v=20261126"></script>
+<script src="cards12.js?v=20261126"></script>
+<script src="cards13.js?v=20261126"></script>
+<script src="cards14.js?v=20261126"></script>
+<script src="cards15.js?v=20261126c"></script>
+<script src="cards16.js?v=20261126"></script>
+<script src="cards17.js?v=20261126"></script>
+<script src="cards18.js?v=20261126"></script>
+<script src="cards19.js?v=20261126"></script>
+<script src="cards20.js?v=20261126"></script>
+<script src="cards21.js?v=20261126"></script>
+<script src="family.js?v=20261126"></script>
+<script src="gluten-free.js?v=20261126"></script>
+<script src="people.js?v=20261126"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -590,8 +590,8 @@ let wakeLock = null;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const md = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
 const SUGGEST_URL = 'https://tally.so/r/6DeJLe';
-const CAT_ORDER = ['Breakfast','Appetizers','Dinner','Meats & Seafood','Casseroles','Soups','Salads','Sides','Breads','Cookies','Bars & Brownies','Cakes','Frostings & Fillings','Pies & Crisps','Candy & Treats','Desserts','Beverages','Gift Ideas','Tips','Thanksgiving'];
-const SWEETS = ['Cookies','Bars & Brownies','Cakes','Frostings & Fillings','Pies & Crisps','Candy & Treats','Desserts'];
+const CAT_ORDER = ['Breakfast & Brunch','Appetizers & Dips','Soups & Stews','Salads & Dressings','Chicken & Turkey','Beef, Pork & Ham','Fish & Seafood','Casseroles & Main Dishes','Pasta & Rice','Sandwiches & Pizza','Vegetables & Sides','Sauces & Gravies','Breads & Muffins','Cookies','Bars & Brownies','Cakes','Pies & Crisps','Puddings & Desserts','Candy & Treats','Frostings, Fillings & Sweet Sauces','Jams, Pickles & Relishes','Drinks','Gifts from the Kitchen','Kitchen Tips'];
+const SWEETS = ['Cookies','Bars & Brownies','Cakes','Frostings, Fillings & Sweet Sauces','Pies & Crisps','Candy & Treats','Puddings & Desserts'];
 const BOXES = { 'A': ['Gift Ideas','Appetizers & Dips','Biscuits & Breads','Cookies & Cakes'], '2': ['Casseroles','Desserts & Puddings','Egg & Cheese','Fish & Seafood','Frostings & Fillings','Meats','Pasta & Rice','Pies & Pastries'], '3': ['Front of the box','Poultry & Stuffing','Preserves & Jellies, Canning','Salads & Dressings','Sandwiches','Sauces & Syrups','Soups & Stews','Vegetables','Miscellaneous'] };
 const BOX_SECTIONS = BOXES['A'];
 const boxRoute = b => 'box-' + String(b).toLowerCase();
@@ -823,7 +823,7 @@ function boxPage(boxId, key){
       <a class="back" href="#/family">← Family Recipe Box</a>
       <h1>Mom’s Recipe Boxes</h1>
       <div class="box-switch" role="tablist" aria-label="Which box"><a class="box-pick" role="tab" aria-selected="${ALL}" href="#/box-all">🗃️ All boxes <span class="n">${allCards.length}</span></a>${['A','2','3'].filter(b=>BOXES[b]).map(b=>`<a class="box-pick" role="tab" aria-selected="${b===boxId}" href="#/${boxRoute(b)}">📇 Box ${esc(b)} <span class="n">${R.filter(r=>r.box===b).length}</span></a>`).join('')}</div>
-      <p class="tagline">${ALL ? 'Every card from all three boxes, sorted by type of food' : 'Filed just the way they are in Box ' + esc(boxId)}</p>
+      <p class="tagline">${ALL ? 'Every card from all three boxes, sorted by type of food' : 'Box ' + esc(boxId) + ' as it’s filed, divider by divider, so you can find an original card'}</p>
       <div class="box-tabs" role="tablist" aria-label="${ALL ? 'Types of food' : 'Box ' + esc(boxId) + ' dividers'}">
         <a class="box-tab" role="tab" aria-selected="${!cur}" href="#/${boxRoute(boxId)}">All<span class="n">${box.length}</span></a>
         ${secs.map(x=>`<a class="box-tab" role="tab" aria-selected="${x===cur}" href="#/${boxRoute(boxId)}/${boxKey(x)}">${esc(x)}<span class="n">${box.filter(r=>secOf(r)===x).length}</span></a>`).join('')}
@@ -1039,7 +1039,7 @@ function recipe(slug){
       <h1>${esc(r.title)}</h1>
       ${r.subtitle ? `<p class="sub">${esc(r.subtitle)}</p>` : ''}
       ${r.fromBox ? '' : `<p class="summary">${esc(r.summary)}</p>`}
-      ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `${r.section==='found' ? 'From' : 'From the kitchen of'} ${(()=>{ const pk = window.PEOPLE_API ? PEOPLE_API.keyFor(r) : ''; return pk ? `<a class="personlink" href="#/people/${pk}"><strong>${esc(r.credit)}</strong></a>` : `<strong>${esc(r.credit)}</strong>`; })()}${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}${r.box ? ` · <a class="boxlabel" href="#/${boxRoute(r.box)}${r.boxSection ? '/'+boxKey(r.boxSection) : ''}">Mom’s recipe box · Box ${esc(r.box)}${r.boxSection ? ' · '+esc(r.boxSection) : ''}</a>` : ''}</p>` : ''}
+      ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `${r.section==='found' ? 'From' : 'From the kitchen of'} ${(()=>{ const pk = window.PEOPLE_API ? PEOPLE_API.keyFor(r) : ''; return pk ? `<a class="personlink" href="#/people/${pk}"><strong>${esc(r.credit)}</strong></a>` : `<strong>${esc(r.credit)}</strong>`; })()}${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}${r.box ? `<br><a class="boxlabel" href="#/${boxRoute(r.box)}${r.boxSection ? '/'+boxKey(r.boxSection) : ''}">📇 Original card: Box ${esc(r.box)}${r.boxSection ? ', behind the “'+esc(r.boxSection)+'” divider' : ''}</a>` : ''}</p>` : ''}
       ${r.source ? `<p class="credit">Source: ${r.source.url ? `<a href="${esc(r.source.url)}" target="_blank" rel="noopener">${esc(r.source.text)}</a>` : esc(r.source.text)}</p>` : ''}
       ${(r.holidays||[]).length ? `<p class="hol-line">${r.holidays.map(x=>HOLIDAY_BY_KEY[x]?`<a href="#/holidays/${x}">${HOLIDAY_BY_KEY[x].emoji} ${esc(HOLIDAY_BY_KEY[x].name)}</a>`:"").join(" ")}</p>` : ""}
       <div class="facts">${r.serves?`<span><strong>Serves</strong> ${esc(r.serves)}</span>`:''}${easeTags(r).map(t=>`<a class="tag ease" href="#/quick/${t.key}">${t.label}</a>`).join('')}${r.time?`<span>${esc(r.time)}</span>`:''}</div>
@@ -1333,21 +1333,21 @@ function pickList(w){
     let s = 0; const why = [];
     const add = (n, text) => { s += n; if (n > 0 && text) why.push([n, text]); };
     const cat = r.category, txt = ingText(r) + ' ' + r.title;
-    if (period === 'morning') { if (cat === 'Breakfast') add(wkend ? 5 : 4, wkend ? 'a weekend morning, perfect for breakfast' : 'a good morning for breakfast'); else if (cat === 'Beverages') add(1); }
-    else { if (cat === 'Breakfast') s -= 3; }
-    if (period === 'midday') { if (['Soups','Salads','Breads','Appetizers','Dinner'].includes(cat)) add(1.5, 'a good lunchtime pick'); }
-    if (period === 'evening') { if (['Dinner','Meats & Seafood','Casseroles','Soups'].includes(cat)) add(2, 'what\'s for dinner tonight'); if (SWEETS.includes(cat)) add(.8, 'something sweet after dinner'); }
+    if (period === 'morning') { if (cat === 'Breakfast & Brunch') add(wkend ? 5 : 4, wkend ? 'a weekend morning, perfect for breakfast' : 'a good morning for breakfast'); else if (cat === 'Drinks') add(1); }
+    else { if (cat === 'Breakfast & Brunch') s -= 3; }
+    if (period === 'midday') { if (['Soups & Stews','Salads & Dressings','Sandwiches & Pizza','Appetizers & Dips'].includes(cat)) add(1.5, 'a good lunchtime pick'); }
+    if (period === 'evening') { if (['Chicken & Turkey','Beef, Pork & Ham','Fish & Seafood','Casseroles & Main Dishes','Pasta & Rice','Sandwiches & Pizza'].includes(cat)) add(2, 'what\'s for dinner tonight'); if (SWEETS.includes(cat)) add(.8, 'something sweet after dinner'); }
     if (period !== 'evening' && SWEETS.includes(cat)) s -= .5;
     if (w) {
       const where = `${w.t}°F${w.wx && w.wx!=='clear' && w.wx!=='cloudy' ? ' and '+w.wx : ''} in Amesbury`;
-      if (cold) { if (cat === 'Soups') add(3.5, `${where}, soup weather`); if (cat === 'Casseroles') add(2.5, `${where}, comfort-food weather`); if (cat === 'Breads') add(1.2, `${where}, a good day to bake`); if (cat === 'Salads') s -= 2; if (cat === 'Beverages') add(1, `${where}, something warm`); }
-      else if (cool) { if (cat === 'Soups' || cat === 'Casseroles') add(1.2, `a cool ${w.t}°F day`); }
-      if (hot) { if (cat === 'Salads') add(3.5, `${where}, keep it light`); if (cat === 'Beverages') add(3, `${where}, time for something cold`); if (cat === 'Soups') s -= 2.5; if (cat === 'Casseroles') s -= 2; if (cat === 'Meats & Seafood') add(1, `${where}, good grilling weather`); }
-      if (wet) { if (cat === 'Soups' || cat === 'Casseroles') add(1.5, `${w.wx} out, stay in and cook`); if (cat === 'Breads' || SWEETS.includes(cat)) add(1, `${w.wx} out, a good day to bake`); }
+      if (cold) { if (cat === 'Soups & Stews') add(3.5, `${where}, soup weather`); if (cat === 'Casseroles & Main Dishes') add(2.5, `${where}, comfort-food weather`); if (cat === 'Breads & Muffins') add(1.2, `${where}, a good day to bake`); if (cat === 'Salads & Dressings') s -= 2; if (cat === 'Drinks') add(1, `${where}, something warm`); }
+      else if (cool) { if (cat === 'Soups & Stews' || cat === 'Casseroles & Main Dishes') add(1.2, `a cool ${w.t}°F day`); }
+      if (hot) { if (cat === 'Salads & Dressings') add(3.5, `${where}, keep it light`); if (cat === 'Drinks') add(3, `${where}, time for something cold`); if (cat === 'Soups & Stews') s -= 2.5; if (cat === 'Casseroles & Main Dishes') s -= 2; if (cat === 'Meats & Seafood') add(1, `${where}, good grilling weather`); }
+      if (wet) { if (cat === 'Soups & Stews' || cat === 'Casseroles & Main Dishes') add(1.5, `${w.wx} out, stay in and cook`); if (cat === 'Breads & Muffins' || SWEETS.includes(cat)) add(1, `${w.wx} out, a good day to bake`); }
     }
     if (SEASON_RE[season].test(txt)) add(2, { fall:'fall flavors are in season', winter:'a winter-kitchen favorite', spring:'a fresh spring flavor', summer:'a taste of summer' }[season]);
     if (hol && (r.holidays||[]).includes(hk)) add(5, `${hol.name} is coming up`);
-    if (wkend && (cat === 'Breads' || SWEETS.includes(cat) || cat === 'Casseroles')) add(.8, 'a weekend for slow cooking');
+    if (wkend && (cat === 'Breads & Muffins' || SWEETS.includes(cat) || cat === 'Casseroles & Main Dishes')) add(.8, 'a weekend for slow cooking');
     if (favs.includes(r.slug)) add(1, 'one of your favorites');
     s += (hash(r.slug + dateKey) % 100) / 100 * 1.6;
     return { r, s, why: why.sort((a,b) => b[0]-a[0]).map(x => x[1]) };
@@ -1499,7 +1499,7 @@ function indexCardHtml(r){
     <div class="ic-row"><span class="ic-lbl">From the kitchen of</span><span class="ic-hand">${r.credit ? esc(r.credit) : '<span class="ic-blank">(no name on the card)</span>'}</span></div>
     ${r.serves ? `<div class="ic-row"><span class="ic-lbl">Serves</span><span class="ic-hand">${esc(r.serves)}</span></div>` : ''}
     ${lines.length ? `<ul class="ic-lines">${lines.join('')}</ul>` : `<ul class="ic-lines"><li class="ic-blank">Nothing else written on this card.</li></ul>`}
-    <p class="ic-foot">${r.box ? `From Box ${esc(r.box)}${r.boxSection ? ', '+esc(r.boxSection) : ''}` : 'From the family recipe box'}. The card’s own notes, in handwriting. The recipe above is typed out in full.</p>
+    <p class="ic-foot">${r.box ? `Filed in Box ${esc(r.box)}${r.boxSection ? ', behind the “'+esc(r.boxSection)+'” divider' : ''}` : 'From the family recipe box'}. The card’s own notes, in handwriting. The recipe above is typed out in full.</p>
   </div>`;
 }
 
@@ -1574,7 +1574,7 @@ function easeTags(r){
   const ni = (r.ingredients||[]).flatMap(g=>g.items).length, ns = (r.steps||[]).length, all = (r.steps||[]).concat(r.notes||[]).join(' ').toLowerCase(), mins = minutesIn(r);
   const out = [];
   const slow = /overnight|refrigerate|chill|marinate|let rise|rise until|freeze|hours/.test(all);
-  if (ns && ns <= 6 && ni <= 10 && mins <= 30 && !slow && !['Gift Ideas','Tips'].includes(r.category)) out.push({key:'quick', label:EASE.quick.label});
+  if (ns && ns <= 6 && ni <= 10 && mins <= 30 && !slow && !['Gifts from the Kitchen','Kitchen Tips','Jams, Pickles & Relishes','Drinks'].includes(r.category)) out.push({key:'quick', label:EASE.quick.label});
   if (ns && ns <= 4 && ni <= 7) out.push({key:'easy', label:EASE.easy.label});
   if (/overnight|make ahead|make-ahead|day ahead|can be made|freezes well|freeze|refrigerate (?:several|for|until|overnight)|chill (?:several|for|overnight)/.test(all)) out.push({key:'ahead', label:EASE.ahead.label});
   if (freezeInfo(r)) out.push({key:'freezer', label:EASE.freezer.label});
@@ -1592,14 +1592,16 @@ function crowdSize(r){
 const FREEZE = {
   'Cookies':'Baked cookies freeze well for up to 3 months in a tight container. Thaw on the counter. Most doughs freeze well too.',
   'Bars & Brownies':'Freeze cooled bars, uncut or cut, wrapped tightly, for up to 3 months.',
-  'Breads':'Wrap cooled loaves or muffins tightly and freeze for up to 3 months. Thaw wrapped so they stay moist.',
+  'Breads & Muffins':'Wrap cooled loaves or muffins tightly and freeze for up to 3 months. Thaw wrapped so they stay moist.',
   'Cakes':'Unfrosted cake layers freeze well for up to 3 months, wrapped tightly. Frost after thawing.',
-  'Soups':'Freeze in containers with a little headroom for up to 3 months. Soups with cream, milk or potatoes can turn grainy, so add the dairy when reheating if you can.',
-  'Casseroles':'Freeze baked or unbaked, tightly covered, for up to 3 months. Thaw overnight in the fridge, then bake until hot in the middle.',
+  'Soups & Stews':'Freeze in containers with a little headroom for up to 3 months. Soups with cream, milk or potatoes can turn grainy, so add the dairy when reheating if you can.',
+  'Casseroles & Main Dishes':'Freeze baked or unbaked, tightly covered, for up to 3 months. Thaw overnight in the fridge, then bake until hot in the middle.',
   'Pies & Crisps':'Fruit pies and crisps freeze well, baked or unbaked, for up to 4 months. Bake unbaked pies straight from the freezer, adding about 20 minutes.',
   'Candy & Treats':'Fudge and most candies freeze well for up to 3 months, wrapped tightly.',
-  'Meats & Seafood':'Cooked meat dishes in sauce, meatballs and meatloaf freeze well for up to 3 months.',
-  'Dinner':'Most cooked dinners in sauce freeze well for up to 3 months. Thaw overnight in the fridge.'
+  'Beef, Pork & Ham':'Cooked meat dishes in sauce, meatballs and meatloaf freeze well for up to 3 months.',
+  'Chicken & Turkey':'Cooked chicken dishes in sauce freeze well for up to 3 months. Thaw overnight in the fridge.',
+  'Pasta & Rice':'Baked pasta dishes like lasagna and ziti freeze well for up to 3 months. Plain cooked pasta does not.',
+  'Sauces & Gravies':'Most tomato sauces and gravies freeze well for up to 3 months. Cream sauces can separate.'
 };
 const NOFREEZE = /mayonnaise|mayo\b|miracle whip|meringue|gelatin|jell-?o|custard|cream pie|whipped cream|cool whip|lettuce|cucumber|hard[- ]?(cooked|boiled) egg|raw|salad|fried|crisp coating|sour cream topping|cream cheese frosting|pudding/;
 function freezeInfo(r){
@@ -1607,7 +1609,7 @@ function freezeInfo(r){
   if (/freezes? (well|nicely|beautifully)|can be frozen|freeze (for|up to|until)|to freeze|may be frozen|freezer/.test(said)) return { said:true, tip: FREEZE[r.category] || 'The card says this one freezes.' };
   if (!FREEZE[r.category]) return null;
   if (NOFREEZE.test((r.title+' '+ING_TEXT(r)).toLowerCase())) return null;
-  if (['Meats & Seafood','Dinner'].includes(r.category) && !/sauce|meatball|meat ?loaf|stew|chili|soup|casserole|lasagna|ziti|pot pie|enchilada|stuffed/.test((r.title+' '+(r.summary||'')).toLowerCase())) return null;
+  if (['Beef, Pork & Ham','Chicken & Turkey','Pasta & Rice'].includes(r.category) && !/sauce|meatball|meat ?loaf|stew|chili|soup|casserole|lasagna|ziti|pot pie|enchilada|stuffed/.test((r.title+' '+(r.summary||'')).toLowerCase())) return null;
   return { said:false, tip: FREEZE[r.category] };
 }
 function freezeHtml(r){
@@ -1648,21 +1650,21 @@ function tipsHtml(r, slug){
 }
 
 // ---- Make it a meal (pairings) ----
-const MAIN_CATS = ['Dinner','Meats & Seafood','Casseroles','Soups'];
-const SIDE_CATS = ['Sides','Salads','Breads'];
+const MAIN_CATS = ['Chicken & Turkey','Beef, Pork & Ham','Fish & Seafood','Casseroles & Main Dishes','Pasta & Rice','Sandwiches & Pizza','Soups & Stews'];
+const SIDE_CATS = ['Vegetables & Sides','Salads & Dressings','Breads & Muffins','Pasta & Rice'];
 function pairings(r){
   if (!MAIN_CATS.includes(r.category)) return null;
   const seed = [...r.slug].reduce((a,c)=>a*31+c.charCodeAt(0)|0, 11 + (MEAL_SPIN[r.slug]||0)*7919);
   const best = cats => { const pool = R.filter(x => cats.includes(x.category) && x.slug !== r.slug && !/gift|tip/i.test(x.category));
     return pool.map(x => { let sc = 0; if (x.credit && x.credit === r.credit) sc += 3; if (x.box && x.box === r.box) sc += 1; if (x.section === r.section) sc += 1; if (seasonInfo().re.test(x.title.toLowerCase())) sc += 1;
       const h = [...x.slug].reduce((a,c)=>a*33+c.charCodeAt(0)|0, seed); return {x, sc: sc + ((h>>>0)%1000)/1000}; }).sort((a,b)=>b.sc-a.sc).slice(0,1).map(o=>o.x)[0]; };
-  const side = best(r.category==='Soups' ? ['Breads','Salads'] : SIDE_CATS), dessert = best(SWEETS);
+  const side = best(r.category==='Soups & Stews' ? ['Breads & Muffins','Salads & Dressings'] : r.category==='Pasta & Rice' ? ['Salads & Dressings','Breads & Muffins','Vegetables & Sides'] : SIDE_CATS), dessert = best(SWEETS);
   return [side, dessert].filter(Boolean);
 }
 function mealHtml(r){
   const p = pairings(r); if (!p || !p.length) return '';
   return `<section class="meal"><h2>🍽️ Make it a meal</h2><p class="hint">A side and a dessert from the family recipes that go nicely with this.</p>
-    <div class="meal-row"><div class="meal-item main"><span class="ml">Main</span><strong>${esc(r.title)}</strong></div>${p.map((x,i)=>`<a class="meal-item" href="#/recipe/${x.slug}"><span class="ml">${i===0 && !SWEETS.includes(x.category) ? (x.category==='Breads'?'Bread':'Side') : 'Dessert'}</span><strong>${esc(x.title)}</strong>${x.credit?`<span class="muted">${esc(x.credit)}</span>`:''}</a>`).join('')}</div>
+    <div class="meal-row"><div class="meal-item main"><span class="ml">Main</span><strong>${esc(r.title)}</strong></div>${p.map((x,i)=>`<a class="meal-item" href="#/recipe/${x.slug}"><span class="ml">${i===0 && !SWEETS.includes(x.category) ? (x.category==='Breads & Muffins'?'Bread':x.category==='Salads & Dressings'?'Salad':'Side') : 'Dessert'}</span><strong>${esc(x.title)}</strong>${x.credit?`<span class="muted">${esc(x.credit)}</span>`:''}</a>`).join('')}</div>
     <div class="actions"><button class="btn" id="mealShop">🛒 Add the whole meal to my list</button><button class="btn" id="mealPlan">📅 Plan the whole meal</button><button class="btn" id="mealOther">🔄 Show other ideas</button></div></section>`;
 }
 function bindMeal(r){
@@ -1925,11 +1927,11 @@ function morePage(){
 function thanksgivingDate(y){ const d = new Date(y, 10, 1); const first = (4 - d.getDay() + 7) % 7 + 1; return new Date(y, 10, first + 21); }
 function daysToThanksgiving(){ const now = new Date(), t = thanksgivingDate(now.getFullYear()); const a = new Date(now.getFullYear(), now.getMonth(), now.getDate()); return Math.round((t - a) / 864e5); }
 const TG_COURSES = [
-  ['turkey','🦃','Turkey, stuffing & gravy', r => r.category==='Thanksgiving' || (/stuffing|gravy|bottoms up turkey|roast(ed)? turkey|turkey breast|brine/i.test(r.title) && !/chicken|swiss/i.test(r.title))],
-  ['cranberry','🍒','Cranberry', r => /cranberr/i.test(r.title) && ['Sides','Salads','Casseroles'].includes(r.category)],
-  ['sides','🥔','Potatoes, squash & vegetables', r => ['Sides','Casseroles','Salads'].includes(r.category) && /mashed|sweet potato|yam|squash|turnip|creamed onion|onions|green bean|carrot|brussels|corn pudding|scalloped corn|corn casserole|succotash|parsnip|rutabaga|potato/i.test(r.title) && !/summer|salad|fries|campfire|bulgur|pork chop|kugel|soup|cheddar potato/i.test(r.title)],
-  ['breads','🍞','Rolls & breads', r => r.category==='Breads' && /dinner roll|parker house|extra special rolls|biscuit|corn ?bread|popover|pumpkin bread|cranberry.*bread/i.test(r.title) && !/pizza|caramel|cinnamon|cheese biscuit/i.test(r.title)],
-  ['pies','🥧','Pies & desserts', r => (r.holidays||[]).includes('thanksgiving') && SWEETS.includes(r.category) || (['Pies & Crisps','Desserts'].includes(r.category) && /pumpkin|pecan|apple pie|apple crisp|mince|squash pie|indian pudding|cranberry/i.test(r.title) && !/microwave|cherry/i.test(r.title))],
+  ['turkey','🦃','Turkey, stuffing & gravy', r => (/stuffing|gravy|bottoms up turkey|roast(ed)? turkey|turkey breast|brine/i.test(r.title) && !/chicken|swiss/i.test(r.title))],
+  ['cranberry','🍒','Cranberry', r => /cranberr/i.test(r.title) && ['Vegetables & Sides','Salads & Dressings','Casseroles & Main Dishes','Jams, Pickles & Relishes','Sauces & Gravies'].includes(r.category)],
+  ['sides','🥔','Potatoes, squash & vegetables', r => ['Vegetables & Sides','Casseroles & Main Dishes','Salads & Dressings'].includes(r.category) && /mashed|sweet potato|yam|squash|turnip|creamed onion|onions|green bean|carrot|brussels|corn pudding|scalloped corn|corn casserole|succotash|parsnip|rutabaga|potato/i.test(r.title) && !/summer|salad|fries|campfire|bulgur|pork chop|kugel|soup|cheddar potato/i.test(r.title)],
+  ['breads','🍞','Rolls & breads', r => r.category==='Breads & Muffins' && /dinner roll|parker house|extra special rolls|biscuit|corn ?bread|popover|pumpkin bread|cranberry.*bread/i.test(r.title) && !/pizza|caramel|cinnamon|cheese biscuit/i.test(r.title)],
+  ['pies','🥧','Pies & desserts', r => (r.holidays||[]).includes('thanksgiving') && SWEETS.includes(r.category) || (['Pies & Crisps','Puddings & Desserts'].includes(r.category) && /pumpkin|pecan|apple pie|apple crisp|mince|squash pie|indian pudding|cranberry/i.test(r.title) && !/microwave|cherry/i.test(r.title))],
   ['leftovers','🥪','The day after (leftovers)', r => /turkey/i.test(r.title) && /cottage pie|casserole|stew|soup|tetrazzini|sandwich|salad|pot pie|hash/i.test(r.title) || /tetrazzini/i.test(r.title)]
 ];
 function thanksgivingPage(){

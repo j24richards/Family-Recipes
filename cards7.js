@@ -199,7 +199,7 @@ var R = [
     cardNotes:["Source written on the card: Bon Appétit"],
     gaps:[] },
 
-  { slug:"cranberry-surprise-dafodil", title:"Cranberry Surprise", category:"Desserts", credit:"Dafodil", serves:"",
+  { slug:"cranberry-surprise-dafodil", title:"Cranberry Surprise", category:"Puddings & Desserts", credit:"Dafodil", serves:"",
     summary:"A pie-plate dessert of cranberries and nuts under an easy buttery batter that bakes up crisp and brown on top.",
     ingredients:[{items:["2 cups fresh or frozen whole cranberries","1½ cups sugar, divided","½ cup chopped pecans or walnuts","2 eggs, well beaten","1 cup flour","½ cup melted butter","¼ cup melted margarine"]}],
     steps:["Spread the cranberries in a greased 10-inch pie plate. Sprinkle with ½ cup of the sugar and the nuts.","Beat the eggs and the remaining 1 cup sugar until thoroughly mixed. Add the flour, melted butter and margarine and beat well.","Pour over the cranberries. Bake at 325° for 1 hour, or until the top is nicely browned."],
@@ -207,7 +207,7 @@ var R = [
     cardNotes:["Source written on the card: Globe (Chat)"],
     gaps:[] },
 
-  { slug:"lemon-bread-lawrence-baptist", title:"Lemon Bread", category:"Breads", credit:"", serves:"",
+  { slug:"lemon-bread-lawrence-baptist", title:"Lemon Bread", category:"Breads & Muffins", credit:"", serves:"",
     summary:"A lemon loaf with chopped walnuts and a lemon-sugar syrup poured over the hot loaf. Doubled amounts are written beside the ingredients.",
     ingredients:[{items:["½ cup shortening","1 cup sugar","2 beaten eggs","Grated rind of 1 lemon","1½ cups flour","1 tsp baking powder","½ tsp salt","½ cup milk","½ cup walnuts, chopped fine","Juice of 1 lemon and ¼ cup sugar (for the topping)"]}],
     steps:["Cream the shortening and sugar. Add the eggs and lemon rind.","Add the sifted dry ingredients and the milk.","Bake in a greased loaf pan for 45 minutes at 350°.","Mix the lemon juice and ¼ cup sugar and pour over the hot loaf."],
@@ -240,7 +240,7 @@ var R = [
     cardNotes:["A second copy of this card is at the front of Box 3. That copy calls for 3 squares of chocolate in the bars, and its frosting note says Ruth uses 2 T. cream."],
     gaps:["The card doesn’t say how to mix the frosting; it just lists the ingredients and says to spread it."] },
 
-  { slug:"glazed-banana-spice-loaf", title:"Glazed Banana Spice Loaf", category:"Breads", credit:"", serves:"",
+  { slug:"glazed-banana-spice-loaf", title:"Glazed Banana Spice Loaf", category:"Breads & Muffins", credit:"", serves:"",
     summary:"A spiced banana and sour cream loaf with a simple powdered sugar glaze. It can be made several days ahead.",
     ingredients:[
       {name:"Loaf", items:["1 large banana","¼ lb (1 stick) butter","¾ cup sugar","2 eggs","1 tsp salt","1 tsp baking soda","½ tsp grated nutmeg","¼ tsp ground allspice","¼ tsp ground cloves","¾ cup sour cream","1 tsp vanilla","1½ cups flour"]},

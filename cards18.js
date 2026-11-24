@@ -17,7 +17,7 @@ var R = [
     cardNotes:["Printed recipe card (“Here’s what’s cookin’”)."],
     gaps:[] },
 
-  { slug:"creamsicle-dessert-arlene-doble", title:"Creamsicle Dessert", category:"Desserts", credit:"Arlene Doble", serves:"",
+  { slug:"creamsicle-dessert-arlene-doble", title:"Creamsicle Dessert", category:"Puddings & Desserts", credit:"Arlene Doble", serves:"",
     summary:"A light, sugar-free orange gelatin dessert whipped with vanilla pudding, mandarin oranges and whipped topping.",
     ingredients:[{items:["1 package sugar-free orange gelatin","1 package sugar-free vanilla pudding mix","1 large can (11 oz) mandarin oranges, drained","1 container fat-free whipped topping"]}],
     steps:["Dissolve the gelatin in 1 cup hot water. Add 1 cup cold water and let sit 5 minutes.","With a mixer, beat the dry pudding mix into the gelatin.","Add the drained oranges and fold in the whipped topping."],
@@ -25,7 +25,7 @@ var R = [
     cardNotes:["Written on a torn scrap; the title reads “Creamsicle.”","The name is written in red at the top right."],
     gaps:[] },
 
-  { slug:"cocoa-mix-martha-stewart", title:"Cocoa", category:"Beverages", credit:"", serves:"",
+  { slug:"cocoa-mix-martha-stewart", title:"Cocoa", category:"Drinks", credit:"", serves:"",
     summary:"A quick homemade cocoa mix, heated by the cup in the microwave.",
     ingredients:[{items:["3½ sugar","2¼ cocoa","1 tsp salt","1 cup milk"]}],
     steps:["Heat in the microwave."],
@@ -33,7 +33,7 @@ var R = [
     cardNotes:["Source written at the bottom of the card: Martha Stewart.","The card has no units for the sugar and cocoa and gives no directions beyond “microwave.” It is on a small scrap of paper."],
     gaps:[] },
 
-  { slug:"good-old-fashioned-pancakes-allrecipes", title:"Good Old Fashioned Pancakes", category:"Breakfast", credit:"", serves:"15",
+  { slug:"good-old-fashioned-pancakes-allrecipes", title:"Good Old Fashioned Pancakes", category:"Breakfast & Brunch", credit:"", serves:"15",
     summary:"Classic griddle pancakes, scaled up to 15 servings. The notes on the card describe a blueberry-jam version made in an ebelskiver pan.",
     ingredients:[{items:["2¾ cups plus 1 tbsp flour","2 tbsp plus ½ tsp baking powder","1¾ tsp salt","1 tbsp plus 2½ tsp sugar","2⅓ cups milk","2 eggs","⅓ cup plus 1 tsp butter, melted"]}],
     steps:["Sift the flour, baking powder, salt and sugar together. Make a well in the center and pour in the milk, eggs and melted butter. Mix until smooth.","Heat a lightly oiled griddle or pan over medium-high heat. Use about ¼ cup of batter for each pancake."],
@@ -49,7 +49,7 @@ var R = [
     cardNotes:["From a card titled “Snacks,” written in red ink, with three recipes (this one, Banana Instant Pudding and Yogurt Popsicles)."],
     gaps:[] },
 
-  { slug:"banana-instant-pudding-snacks", title:"Banana Instant Pudding", category:"Desserts", credit:"", serves:"",
+  { slug:"banana-instant-pudding-snacks", title:"Banana Instant Pudding", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"A quick blender pudding of ripe bananas, applesauce, honey and peanut butter.",
     ingredients:[{items:["2 ripe bananas","½ cup applesauce","2 tbsp honey","2 tbsp peanut butter"]}],
     steps:["Blend everything in a blender and chill."],
@@ -57,7 +57,7 @@ var R = [
     cardNotes:["From a card titled “Snacks,” written in red ink, with three recipes."],
     gaps:[] },
 
-  { slug:"yogurt-popsicles-snacks", title:"Yogurt Popsicles", category:"Desserts", credit:"", serves:"",
+  { slug:"yogurt-popsicles-snacks", title:"Yogurt Popsicles", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"Frozen yogurt pops sweetened with honey and corn syrup and flavored with fruit and nutmeg.",
     ingredients:[{items:["2 cups yogurt","2 tbsp corn syrup","1 tbsp honey","1 cup mashed, blended or grated fruit","⅛ tsp nutmeg"]}],
     steps:["Freeze the yogurt to a soft mush. Remove from the freezer and beat well.","Blend in the other ingredients at high speed of an electric mixer. Pour into popsicle molds and freeze until firm.","Paper cups and plastic spoons can be used instead of molds. Quickly made in a blender."],
@@ -81,7 +81,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"fresh-herb-infused-oil-bon-appetit", title:"Fresh Herb-Infused Oil", category:"Sides", credit:"", serves:"",
+  { slug:"fresh-herb-infused-oil-bon-appetit", title:"Fresh Herb-Infused Oil", category:"Vegetables & Sides", credit:"", serves:"",
     summary:"Olive oil infused with fresh herbs, for salads, grilling and roasting.",
     ingredients:[{name:"For each jar", items:["Fresh herbs such as tarragon, thyme, mint and oregano","Olive oil"]}],
     steps:["Half-fill a bottle or jar with a variety of herbs. Add olive oil almost to the top and cap.","Store in a cool, dark place for 10 days to infuse before using."],
@@ -89,7 +89,7 @@ var R = [
     cardNotes:["Source written on the card: Bon Appétit."],
     gaps:[] },
 
-  { slug:"homemade-graham-nuts-marcia-adams", title:"Homemade Graham Nuts", category:"Breakfast", credit:"", serves:"8 cups",
+  { slug:"homemade-graham-nuts-marcia-adams", title:"Homemade Graham Nuts", category:"Breakfast & Brunch", credit:"", serves:"8 cups",
     summary:"A homemade crunchy graham cereal, baked as a slab, ground and toasted. Sweeter than the store-bought kind.",
     ingredients:[{items:["3½ cups graham (whole wheat) flour","1 cup brown sugar","1 tsp salt","1 tsp “BS” (baking soda)","1 tsp cinnamon","2 cups buttermilk","2 tsp vanilla"]}],
     steps:["Preheat the oven to 350°. Combine the flour, sugar, salt, baking soda and cinnamon.","Add the buttermilk and vanilla and mix well. Pour into an oiled 12 x 16 flat baking pan and spread evenly with a spatula.","Bake 20 to 25 minutes, until the batter is firm, medium brown and shrinks slightly from the sides of the pan. Loosen the hot slab from the pan with a metal spatula, then cool on a rack for several hours or overnight.","Preheat the oven to 275°. Break the slab into chunks and put through a meat grinder with a coarse blade, or pulse in a processor, until it forms coarse crumbs.","Divide between 2 pans (12 x 16) and bake at 275° for 30 minutes, stirring every 10 minutes. Cool and store in an airtight container.","Serve as a cold cereal, with milk and a bit of brown sugar if desired."],
@@ -97,7 +97,7 @@ var R = [
     cardNotes:["Written at the top right: Marcia Adams. Card is in two parts, front and back.","“BS” is written on the card as an abbreviation; it is baking soda in this kind of recipe."],
     gaps:[] },
 
-  { slug:"saltless-seasoning-salt-barb-joslin", title:"Saltless Seasoning “Salt”", category:"Sides", credit:"Barb Joslin", serves:"",
+  { slug:"saltless-seasoning-salt-barb-joslin", title:"Saltless Seasoning “Salt”", category:"Vegetables & Sides", credit:"Barb Joslin", serves:"",
     summary:"A salt-free all-purpose seasoning blend built on powdered vegetable broth.",
     ingredients:[{items:["3 oz powdered vegetable broth","¼ tsp garlic powder","⅛ tsp powdered thyme","¼ tsp onion powder","¼ tsp paprika","½ tsp powdered kelp","⅛ tsp ground celery seed","¼ tsp white pepper","¼ tsp dry mustard"]}],
     steps:["Mix everything together and store in a closed container in a dry place.","Use to season all foods, from salads to fish and cooked vegetables."],
@@ -105,7 +105,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"super-salt-free-seasoning-village-pantry", title:"Super Salt-Free Seasoning", category:"Sides", credit:"", serves:"",
+  { slug:"super-salt-free-seasoning-village-pantry", title:"Super Salt-Free Seasoning", category:"Vegetables & Sides", credit:"", serves:"",
     summary:"A salt-free seasoning blend of chili powder, oregano, pepper, mustard, onion, garlic, paprika and poultry seasoning, kept in a shaker.",
     ingredients:[{items:["1 tsp chili powder","2 ground oregano","2 tsp black pepper","2 tbsp dry mustard","6 tbsp onion powder","1 tbsp garlic powder","3 tbsp paprika","3 tbsp poultry seasoning"]}],
     steps:["Mix together and put in a salt shaker."],
@@ -113,7 +113,7 @@ var R = [
     cardNotes:["Newspaper clipping, “Salt-free seasoning,” courtesy of Village Pantry, Wilmington. The oregano amount is printed without a unit."],
     gaps:[] },
 
-  { slug:"gelatin-whip-weight-watchers", title:"Gelatin Whip", category:"Desserts", credit:"", serves:"1",
+  { slug:"gelatin-whip-weight-watchers", title:"Gelatin Whip", category:"Puddings & Desserts", credit:"", serves:"1",
     summary:"A frothy blender dessert of gelatin, powdered milk, orange juice concentrate and pineapple, finished with raisins.",
     ingredients:[{items:["½ cup boiling water","2 packages Knox gelatin","4 packages Equal","½ cup cold water","⅓ cup powdered skim milk","1 tsp vanilla","1 heaping tbsp frozen orange juice concentrate","½ cup pineapple","10 ice cubes","2 tbsp raisins"]}],
     steps:["Combine in a blender on high, adding the 10 ice cubes one at a time. Beat 1 minute.","Pour into a large bowl and add the 2 tbsp raisins."],
@@ -129,7 +129,7 @@ var R = [
     cardNotes:["Package clipping from Knox. The same clipping has a tip on using unflavored gelatin to feed houseplants (1 envelope in 1 cup hot water plus 3 cups cold, used once a month)."],
     gaps:[] },
 
-  { slug:"casserole-toppings-womans-day", title:"Casserole Toppings", category:"Casseroles", credit:"", serves:"",
+  { slug:"casserole-toppings-womans-day", title:"Casserole Toppings", category:"Casseroles & Main Dishes", credit:"", serves:"",
     summary:"Two crushed-cereal casserole toppings, a chili version and a bacon-onion version, meant for gift giving.",
     ingredients:[{name:"Chili topping", items:["2 tbsp chili powder","1 tsp salt","2 cups crushed cereal (corn, rice, etc.)"]},{name:"Bacon topping", items:["2 tbsp bacon-flavor bits","1 tsp seasoned onion salt","2 cups crushed cereal (corn, rice, etc.)"]}],
     steps:["For either topping, mix the seasonings into the crushed cereal. Package and decorate for gift giving.","Include instructions: toss each ½ cup of topping with 1 tbsp melted butter or margarine before sprinkling on a casserole."],
@@ -137,7 +137,7 @@ var R = [
     cardNotes:["Source written on the card: Woman’s Day."],
     gaps:[] },
 
-  { slug:"day-before-french-toast-womans-day", title:"Day Before French Toast", category:"Breakfast", credit:"", serves:"4",
+  { slug:"day-before-french-toast-womans-day", title:"Day Before French Toast", category:"Breakfast & Brunch", credit:"", serves:"4",
     summary:"Bread soaked in an egg custard overnight, then sautéed in butter until golden.",
     ingredients:[{items:["6 slices Italian or French bread, ¾ inch thick","4 eggs","1 cup milk","3 tbsp sugar","¼ tsp salt","1 tsp vanilla","3 tbsp butter","Confectioners’ sugar","Maple syrup or sour cream","Preserves or thawed frozen strawberries"]}],
     steps:["Arrange the bread in a single layer in a 9-inch square baking dish.","In a small bowl, beat the eggs, milk, sugar, salt and vanilla with a rotary beater until blended. Pour over the bread and turn the slices to coat evenly. Cover and refrigerate overnight.","In hot butter in a skillet, sauté the bread until golden, 4 to 5 minutes on each side. Sprinkle with confectioners’ sugar.","Serve with syrup or sour cream and preserves or strawberries."],

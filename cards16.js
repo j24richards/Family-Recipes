@@ -137,7 +137,7 @@ var R = [
     cardNotes:["Uses raw eggs."],
     gaps:[] },
 
-  { slug:"little-cheese-cakes-debby-zampell", title:"Little Cheese Cakes", category:"Desserts", credit:"Debby Zampell", serves:"",
+  { slug:"little-cheese-cakes-debby-zampell", title:"Little Cheese Cakes", category:"Puddings & Desserts", credit:"Debby Zampell", serves:"",
     summary:"Mini cheesecakes baked on a vanilla wafer in tiny cupcake papers, topped with pie filling.",
     ingredients:[{items:["1 package (8 oz) cream cheese","1 egg","¼ cup sugar","Sunshine vanilla wafers","Pie filling, for the top","Small tea cupcake tins (1 inch across the bottom) and midget-size papers"]}],
     steps:["Mix the cream cheese, egg and sugar in a mixer.","Put one vanilla wafer in each paper and top with a rounded teaspoon of the cheese mixture.","Bake at 425° for 10 minutes.","Can be made 2 days ahead. Top with pie filling just before serving."],
@@ -451,7 +451,7 @@ var R = [
     cardNotes:["Source: Salmon Falls Stoneware, Dover, NH"],
     gaps:[] },
 
-  { slug:"how-to-thicken-fruit-pies-williams-sonoma", title:"How to Thicken Fruit Pies", category:"Tips", credit:"", serves:"",
+  { slug:"how-to-thicken-fruit-pies-williams-sonoma", title:"How to Thicken Fruit Pies", category:"Kitchen Tips", credit:"", serves:"",
     summary:"A tip card: how much starch to use in fruit pies and why instant tapioca works best.",
     ingredients:[{items:["About ¾ tbsp starch per cup of fruit (more for juicier fruit)","Instant tapioca"]}],
     steps:["The juicier the fruit, the more starch it needs. A good rule of thumb is ¾ tbsp starch per cup of fruit.","Instant tapioca is a good choice because it doesn’t cloud the fruit’s color or dull its flavor.","For two-crust pies, add the tapioca to the fruit and fill the pie as usual.","For lattice pies, set aside 1½ to 2 cups of the fruit. Add the tapioca to the rest, fill the pie, spoon the reserved fruit over the top, then weave the lattice."],
@@ -502,7 +502,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"italian-sweet-turnovers-auntie-mimo", title:"Italian Sweet Turnovers", category:"Desserts", credit:"Auntie Mimo", serves:"",
+  { slug:"italian-sweet-turnovers-auntie-mimo", title:"Italian Sweet Turnovers", category:"Puddings & Desserts", credit:"Auntie Mimo", serves:"",
     summary:"Squares of sweet orange-scented dough twisted around a cooked filling of peach preserves, orange, spices and nuts.",
     ingredients:[
       {name:"Filling", items:["1 small jar peach preserves","1 large orange, peeled","1 cup granulated sugar","½ tsp cinnamon","½ tsp nutmeg","1 tsp dry cocoa (optional)","1 cup walnuts or pecans, finely chopped"]},
@@ -540,7 +540,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"pastry-slices-sue-bach", title:"Pastry Slices", category:"Desserts", credit:"Sue Bach", serves:"",
+  { slug:"pastry-slices-sue-bach", title:"Pastry Slices", category:"Puddings & Desserts", credit:"Sue Bach", serves:"",
     summary:"A rich sour cream dough rolled around cinnamon sugar, raisins and nuts, baked in logs and sliced while hot.",
     ingredients:[{items:["½ lb butter","1 egg yolk","1 tbsp sugar","2 cups flour","1 cup sour cream","Sugar, cinnamon, raisins and nuts for the filling","1 egg white, beaten, mixed with sugar and cinnamon"]}],
     steps:["Beat the butter with the egg yolk and sugar. Alternately add the flour and sour cream.","Leave in a floured bowl in the refrigerator, uncovered, at least overnight.","Knead each quarter of the dough first, then roll out. Sprinkle with sugar, cinnamon, raisins and nuts and roll up.","Slice halfway through. Brush with egg white mixed with sugar and cinnamon.","Bake all 4 rolls on an ungreased cookie sheet at 350° for 25 to 35 minutes, until golden brown. Slice through while hot."],

@@ -1,14 +1,14 @@
 // Mom's Recipe Box 2, Desserts & Puddings section (photos 1000013892-1000014010). NOT on the site yet.
 (function(){
 var R = [
-  { slug:"slices-of-sin", title:"Slices of Sin", category:"Desserts", credit:"", serves:"10 to 12",
+  { slug:"slices-of-sin", title:"Slices of Sin", category:"Puddings & Desserts", credit:"", serves:"10 to 12",
     summary:"A dense, flourless chocolate loaf baked in a foil-lined loaf pan, chilled 2 days and served sliced with brandy whipped cream.",
     ingredients:[{items:["8 (1 oz) squares semi-sweet chocolate","½ cup strongly brewed coffee","1 cup butter","1 cup sugar","4 eggs","1 cup whipping cream","2 to 3 tsp brandy"]}],
     steps:["Line an 8½ x 4½ x 3-inch glass loaf pan with foil and grease the foil with butter. Set aside.","Combine the chocolate and coffee in the top of a double boiler. Cook over low (after the water boils) until the chocolate melts, stirring occasionally.","Add the butter and sugar to the chocolate, stirring until the butter melts. Let cool.","Add the eggs one at a time, beating well after each.","Bake at 350° for 35 to 45 minutes, or until a crust forms on top. Let cool completely on a wire rack. Cover tightly and chill at least 2 days.","Beat the whipping cream until soft peaks form. Gently fold in the brandy. Unmold the loaf onto a serving platter and serve with the whipped cream."],
     cardNotes:["Source written on the card: America’s Best ’91","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"eton-mess-miss-meringues", title:"Eton Mess", category:"Desserts", credit:"", serves:"4",
+  { slug:"eton-mess-miss-meringues", title:"Eton Mess", category:"Puddings & Desserts", credit:"", serves:"4",
     summary:"Crumbled vanilla meringues layered with honey whipped cream and sweetened strawberries and blueberries.",
     ingredients:[{items:["1 box Tahitian vanilla meringues","1½ cups heavy whipping cream","½ tbsp granulated sugar","2 tbsp honey","1 tsp vanilla extract","1 cup blueberries","1 cup strawberries, diced","2 tbsp raspberry or cassis liqueur (optional)","Fresh mint, for garnish"]}],
     steps:["Combine the strawberries and blueberries. In a bowl, combine ½ of the berry mix with the sugar, half the honey and the liqueur (if using) to coat the berries. Let sit 10 minutes in the refrigerator, or until ready to use.","Crumble the meringues into bite-size pieces; set aside.","Whip the cream, vanilla and remaining honey to a stiff peak. Fold the cold berry mixture into the whipped cream.","Fold the crumbled meringues into the whipped cream mixture.","To serve, alternate layers of meringue and cream mixture with layers of the reserved fruit in serving glasses. Garnish with fresh mint."],
@@ -16,7 +16,7 @@ var R = [
     cardNotes:["Printed Miss Meringue’s recipe card."],
     gaps:[] },
 
-  { slug:"apples-in-nightgowns-nefco", title:"Apples in Nightgowns", category:"Desserts", credit:"", serves:"4",
+  { slug:"apples-in-nightgowns-nefco", title:"Apples in Nightgowns", category:"Puddings & Desserts", credit:"", serves:"4",
     summary:"Whole cored apples wrapped in a cinnamon shortbread dough and baked, with an optional dried fruit and nut filling.",
     ingredients:[{items:["1½ cups flour","½ tsp salt","1 tsp cinnamon","½ cup butter","½ cup sweetener (sugar)","4 cored apples","Optional filling: a paste of dried fruit and nuts (or nuts, cinnamon and a pat of butter)"]}],
     steps:["Make the shortbread dough from the flour, salt, cinnamon, butter and sweetener (don’t use a pastry cutter). Chill.","Pat out and wrap the chilled dough around the 4 cored apples.","Optional: fill the cores with a paste of dried fruit and nuts, or with nuts, cinnamon and a pat of butter.","Bake at 350° for 45 minutes."],
@@ -31,14 +31,14 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"brownie-ice-cream-bars-stonewall-kitchen", title:"Brownie Ice Cream Bars", category:"Desserts", credit:"", serves:"6",
+  { slug:"brownie-ice-cream-bars-stonewall-kitchen", title:"Brownie Ice Cream Bars", category:"Puddings & Desserts", credit:"", serves:"6",
     summary:"Ice cream sandwiched between two pecan brownie layers, frozen and served drizzled with raspberry hot fudge.",
     ingredients:[{items:["1 box Stonewall Kitchen Triple Fudge Brownie Mix (plus the ingredients on the box)","½ cup pecans, chopped","1 pint premium-quality ice cream","1 jar Stonewall Kitchen Raspberry Liqueur Hot Fudge"]}],
     steps:["Line an 8-inch square pan with foil or parchment and grease generously.","Preheat the oven to 350° with the rack in the center. Make the brownie mix as directed. Sprinkle the pecans over the batter.","Bake as directed. Cool on a rack. When cool, gently peel the foil away, cut into two 8x4-inch rectangles, wrap with plastic and freeze.","Place the ice cream in the refrigerator for 45 minutes to soften.","Unwrap the brownies and place one upside down on plastic wrap. Spread the softened ice cream over it, then place the second brownie on top.","Fold the wrap up to cover well and freeze until solid, about 3 hours or overnight.","To serve, unwrap and cut into 6 squares. Drizzle with the raspberry hot fudge."],
     cardNotes:["Printed Stonewall Kitchen recipe card."],
     gaps:[] },
 
-  { slug:"safe-meringue-alice-medrich", title:"Safe Meringue (Two Egg Whites)", category:"Desserts", credit:"", serves:"",
+  { slug:"safe-meringue-alice-medrich", title:"Safe Meringue (Two Egg Whites)", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"A microwave method that heats egg whites to 160° so meringue is safe to eat, from chocolatier Alice Medrich.",
     ingredients:[{items:["¼ tsp cream of tartar","2 tsp water","2 egg whites","2 tbsp sugar","An instant-read or microwave-safe thermometer"]}],
     steps:["Dissolve the cream of tartar in the water in a 1-cup glass measuring cup. Add the egg whites and stir in the sugar. Beat briskly with a fork for at least 100 strokes, or pulse in a food processor about 10 seconds, scraping the mixture back into the cup. Let it rest at least 10 minutes to dissolve the sugar.","Whisk briefly with a fork. Microwave on HIGH for 30 seconds. Break up the foam and stir briskly with a clean thermometer so the mixture is stirred to even out hot and cool spots, then read the temperature.","Tilt the cup so the thermometer is at least 2½ inches into the whites. If it reads hotter than 125°, cook an additional 20 seconds; if cooler, cook 30 seconds. Wash the thermometer before dipping it in again.","The mixture should now be over 160°. If it is less, cook an additional 10 seconds. It must reach at least 160°.","Transfer to a mixing bowl and beat at high speed 3 to 5 minutes, until completely cool and stiff. The meringue will hold 15 minutes or longer and is easy to fold."],
@@ -46,7 +46,7 @@ var R = [
     cardNotes:["Newspaper clipping from the Haverhill Gazette (Associated Press, by Mary MacVean), front and back."],
     gaps:[] },
 
-  { slug:"blueberry-grunt-bon-appetit", title:"Blueberry Grunt", category:"Desserts", credit:"", serves:"6",
+  { slug:"blueberry-grunt-bon-appetit", title:"Blueberry Grunt", category:"Puddings & Desserts", credit:"", serves:"6",
     summary:"Stovetop blueberry sauce with steamed sweet dumplings (grunts) on top. Serve with heavy cream and cinnamon sugar.",
     ingredients:[
       {name:"Grunts (dumplings)", items:["1 egg","⅓ cup whipping cream","⅔ cup all-purpose flour","2 tbsp sugar","1 tsp baking powder","¼ tsp salt"]},
@@ -55,14 +55,14 @@ var R = [
     cardNotes:["Source written on the card: Bon Appétit","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"blueberry-bread-and-butter-pudding-mom-g", title:"Blueberry Bread & Butter Pudding", category:"Desserts", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher", serves:"",
+  { slug:"blueberry-bread-and-butter-pudding-mom-g", title:"Blueberry Bread & Butter Pudding", category:"Puddings & Desserts", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher", serves:"",
     summary:"Buttered bread layered with stewed blueberries, baked briefly and served very cold with whipped cream.",
     ingredients:[{items:["8 slices thin bread, crusts removed, buttered on one side","1 cup blueberries","¾ cup sugar","Dash of salt","Whipped cream, to serve"]}],
     steps:["Stew the berries, sugar and salt 15 minutes.","Butter a deep baking dish. Alternate the bread and berries until all are used.","Bake 15 to 20 minutes at 350°. Serve very cold with whipped cream."],
     cardNotes:[],
     gaps:[] },
 
-  { slug:"pudding-malgache-bon-appetit", title:"Pudding Malgache", category:"Desserts", credit:"", serves:"8 to 10",
+  { slug:"pudding-malgache-bon-appetit", title:"Pudding Malgache", category:"Puddings & Desserts", credit:"", serves:"8 to 10",
     summary:"A light baked chocolate pudding, like a soufflé that can be made 2 days ahead, unmolded and topped with chocolate ganache.",
     ingredients:[
       {items:["1¼ cups milk","1½ oz semisweet chocolate","6 tbsp (¾ stick) unsalted butter, room temperature","⅔ cup all-purpose flour","⅓ cup sugar","4 egg yolks, lightly beaten","3 egg whites"]},
@@ -72,7 +72,7 @@ var R = [
     cardNotes:["Source written on the card: Bon Appétit","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"fresh-strawberry-ice-family-circle", title:"Fresh Strawberry Ice", category:"Desserts", credit:"", serves:"6",
+  { slug:"fresh-strawberry-ice-family-circle", title:"Fresh Strawberry Ice", category:"Puddings & Desserts", credit:"", serves:"6",
     summary:"A coarse, refreshing strawberry ice made from puréed berries and a simple syrup.",
     ingredients:[{items:["1 cup sugar","1 cup water","2 pints strawberries, hulled","1 tbsp freshly squeezed lemon juice"]}],
     steps:["Combine the sugar and water in a small heavy saucepan. Bring to boiling over medium heat, stirring until the sugar dissolves. Lower the heat to very low and simmer 4 minutes. Refrigerate the syrup until completely cooled.","Purée the strawberries in a blender or food processor. Combine the cooled syrup and purée in a medium bowl and stir in the lemon juice.","Spoon into a 9x9x2-inch metal pan. Freeze about 2 hours, or until slushy, stirring every 30 minutes to break up large ice crystals. Do not freeze too hard."],
@@ -94,14 +94,14 @@ var R = [
     cardNotes:["Source written on the card: Bon Appétit"],
     gaps:[] },
 
-  { slug:"indian-tapioca-pudding-gram-drown", title:"Indian Tapioca Pudding", category:"Desserts", credit:"Gram Drown", serves:"",
+  { slug:"indian-tapioca-pudding-gram-drown", title:"Indian Tapioca Pudding", category:"Puddings & Desserts", credit:"Gram Drown", serves:"",
     summary:"A small, old-fashioned baked pudding of cornmeal, tapioca, molasses and milk.",
     ingredients:[{items:["1 tbsp Indian meal (cornmeal)","1 tbsp minute tapioca","¼ cup molasses","¼ cup sugar","1 pint milk","Salt"]}],
     steps:["Scald the milk. Stir in the meal, then the tapioca, molasses, sugar and a little salt.","Bake 1 hour, stirring occasionally."],
     cardNotes:["Written beside the method: “(275° 3 hrs?)”"],
     gaps:["The oven temperature isn’t certain; the card suggests 275° for 3 hours as a question."] },
 
-  { slug:"frozen-apple-banana-berry-pops", title:"Frozen Apple Banana Berry Pops", category:"Desserts", credit:"", serves:"",
+  { slug:"frozen-apple-banana-berry-pops", title:"Frozen Apple Banana Berry Pops", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"Yogurt, applesauce, strawberry and banana pops, blended smooth or left chunky.",
     ingredients:[{items:["1 cup plain yogurt","½ cup applesauce","¼ cup apple juice","1 tbsp honey","5 large strawberries","1 banana"]}],
     steps:["Blend everything in a blender until smooth. Or, if you want texture, chop the strawberries and banana and stir them into the rest.","Freeze in popsicle cups."],
@@ -109,7 +109,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"frozen-chocolate-dessert-mccalls", title:"Frozen Chocolate Dessert", category:"Desserts", credit:"", serves:"6",
+  { slug:"frozen-chocolate-dessert-mccalls", title:"Frozen Chocolate Dessert", category:"Puddings & Desserts", credit:"", serves:"6",
     summary:"A rich blender chocolate mousse frozen in small soufflé dishes and served with whipped cream.",
     ingredients:[{items:["¼ cup sugar","½ cup water","1 package (6 oz) semisweet chocolate pieces","3 egg yolks","1½ cups heavy cream","Whipped cream, to serve","Maraschino cherries (optional)"]}],
     steps:["Combine the sugar and ½ cup water in a small saucepan; boil 3 minutes.","Place the chocolate pieces in a blender. Pour in the hot syrup and blend, covered, at high speed 6 seconds.","Add the egg yolks; blend at high speed 5 seconds, or until smooth. Add the cream; blend at high speed 10 seconds.","Pour into 6 (6-oz) soufflé dishes or small parfait glasses, set on a tray and cover with foil. Freeze 2 to 3 hours, until firm.","To serve, move to the refrigerator 20 to 30 minutes to soften slightly. Garnish with whipped cream and a cherry, if desired."],
@@ -117,7 +117,7 @@ var R = [
     cardNotes:["Printed McCall’s recipe card (©1973).","There is also a handwritten copy of this recipe in the box, marked “great,” with the note that it may need to blend a bit longer."],
     gaps:[] },
 
-  { slug:"pineapple-tapioca", title:"Pineapple Tapioca", category:"Desserts", credit:"", serves:"4 to 6",
+  { slug:"pineapple-tapioca", title:"Pineapple Tapioca", category:"Puddings & Desserts", credit:"", serves:"4 to 6",
     summary:"A light, fluffy tapioca pudding made with pineapple juice and milk, folded into beaten egg white.",
     ingredients:[{items:["8 oz crushed pineapple in juice","Milk","1 large egg, separated","5 tbsp sugar, divided","3 tbsp tapioca (instant)","⅛ tsp salt"]}],
     steps:["Drain the pineapple, reserving the liquid. Add enough milk to the liquid to make 2 cups.","In a medium bowl beat the egg white until foamy; gradually beat in 2 tbsp of the sugar until the white holds soft peaks.","In a 1- to 1½-quart saucepan, vigorously stir together the remaining 3 tbsp sugar, the tapioca, salt, juice-milk mixture and egg yolk. Cook over moderate heat, stirring constantly, until boiling, 6 to 8 minutes.","Gradually stir into the beaten egg white just until blended. Cool about 20 minutes, then stir in the drained pineapple.","Turn into sherbet glasses or dessert dishes. Chill. Makes 2½ cups."],
@@ -133,7 +133,7 @@ var R = [
     cardNotes:["Source written on the card: Lancaster County Cookbook"],
     gaps:[] },
 
-  { slug:"yankee-apple-indian-pudding", title:"Yankee Apple Indian Pudding", category:"Desserts", credit:"", serves:"",
+  { slug:"yankee-apple-indian-pudding", title:"Yankee Apple Indian Pudding", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"Classic New England cornmeal and molasses pudding with sliced apples, baked with cold milk poured over the top.",
     ingredients:[{items:["5 cups milk, divided","5 tbsp corn meal","2½ tbsp butter","1 tsp salt","½ tsp ginger","¾ tsp cinnamon","1 cup dark molasses","2 eggs, well beaten","1 cup thinly sliced apples","Whipped cream, to serve"]}],
     steps:["Scald 4 cups of the milk in the top of a double boiler. Gradually add the meal and cook 15 minutes, stirring constantly.","Add the butter, salt, spices, molasses and eggs. Stir in the thinly sliced, crisp apples.","Turn into a deep buttered baking dish. Pour the remaining 1 cup cold milk over all.","Bake at 325° about 45 minutes. Serve with whipped cream."],
@@ -156,14 +156,14 @@ var R = [
     cardNotes:["The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"etta-marshalls-tasty-dessert", title:"Etta Marshall’s Tasty Dessert", category:"Desserts", credit:"", serves:"",
+  { slug:"etta-marshalls-tasty-dessert", title:"Etta Marshall’s Tasty Dessert", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"Vanilla custard topped with a chocolate meringue fluff, served ice cold.",
     ingredients:[{items:["1 pint milk","3 eggs, separated (yolks beaten)","Pinch of salt","½ cup sugar","1 heaping tbsp cornstarch","Vanilla","⅓ cup sugar (for the whites)","1 cake (square) chocolate, melted"]}],
     steps:["Scald the milk. Add the beaten egg yolks, salt, and the ½ cup sugar mixed with the cornstarch.","Cook in a double boiler until thick, and flavor with vanilla.","When partly cool, put into a glass dish.","Beat the whites stiff and add the ⅓ cup sugar and the melted chocolate. Pour over the custard. Serve ice cold."],
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook"],
     gaps:[] },
 
-  { slug:"creamy-dutch-apple-dessert", title:"Creamy Dutch Apple Dessert", category:"Desserts", credit:"", serves:"10 to 12",
+  { slug:"creamy-dutch-apple-dessert", title:"Creamy Dutch Apple Dessert", category:"Puddings & Desserts", credit:"", serves:"10 to 12",
     summary:"A graham crumb crust with a sweetened condensed milk and sour cream layer, topped with apple pie filling and cinnamon walnuts.",
     ingredients:[{items:["¼ cup butter or margarine","1½ cups graham cracker crumbs","1 can (14 oz) sweetened condensed milk","1 cup sour cream","¼ cup lemon juice","1 can apple pie filling","¼ cup chopped walnuts","½ tsp ground cinnamon"]}],
     steps:["Preheat the oven to 350°. In a 10x6-inch (1½-quart) shallow baking dish, melt the butter in the oven. Sprinkle in the crumbs, stir well and press on the bottom of the dish.","In a medium bowl, mix the condensed milk, sour cream and lemon juice; spread evenly over the crumbs.","Spoon the pie filling evenly over the creamy layer.","Bake 25 to 30 minutes, or until set. Cool slightly.","In a small dish, mix the nuts and cinnamon; sprinkle over the pie filling. Serve warm or cold. Refrigerate leftovers."],
@@ -180,14 +180,14 @@ var R = [
     cardNotes:["Source written on the card: Globe","The method continues on the back of the card."],
     gaps:["The card doesn’t say when the 1 tbsp butter goes with the apples; it’s probably dotted over them."] },
 
-  { slug:"pineapple-tapioca-for-two", title:"Pineapple Tapioca (2 to 3 Servings)", category:"Desserts", credit:"", serves:"2 to 3",
+  { slug:"pineapple-tapioca-for-two", title:"Pineapple Tapioca (2 to 3 Servings)", category:"Puddings & Desserts", credit:"", serves:"2 to 3",
     summary:"A small batch of tapioca pudding with pineapple and a folded-in meringue. Good hot or cold.",
     ingredients:[{items:["1 egg, separated","1 tbsp sugar (for the meringue)","1 cup milk","¼ cup pineapple","1½ tbsp tapioca","1½ tbsp sugar","Sprinkle of salt (written “spk.”)","¼ tsp vanilla"]}],
     steps:["Beat the egg white until it stands in peaks, then beat in 1 tbsp sugar. Set aside.","In a saucepan combine the tapioca, 1½ tbsp sugar, salt, egg yolk and milk. Cook until the mixture boils, then boil 1 minute.","Take off the heat. Fold in the vanilla, pineapple and the meringue.","Serve hot or cold."],
     cardNotes:["A different, smaller card from the other Pineapple Tapioca in this section."],
     gaps:[] },
 
-  { slug:"pineapple-whip-lancaster-county", title:"Pineapple Whip", category:"Desserts", credit:"", serves:"",
+  { slug:"pineapple-whip-lancaster-county", title:"Pineapple Whip", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"A quick stovetop tapioca with crushed pineapple and juice, topped with whipped cream, nuts and cherries.",
     ingredients:[{items:["½ cup tapioca","¾ cup sugar","3 cups water","¼ tsp salt","2 cups crushed pineapple, drained","2 cups fruit juice","Whipped cream, nuts and maraschino cherries, for the top"]}],
     steps:["Boil the tapioca, sugar, water and salt for 1 to 2 minutes.","Add the pineapple and juice and cook until thick.","Top with whipped cream, nuts and maraschino cherries."],
@@ -203,7 +203,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"charlottes-strawberry-shortcake-arrowhead-farm", title:"Charlotte’s Strawberry Shortcake", category:"Desserts", credit:"Charlotte", serves:"",
+  { slug:"charlottes-strawberry-shortcake-arrowhead-farm", title:"Charlotte’s Strawberry Shortcake", category:"Puddings & Desserts", credit:"Charlotte", serves:"",
     summary:"One big biscuit-style shortcake baked in a cake pan, split, buttered and filled with sugared berries.",
     ingredients:[
       {items:["2 cups flour","4 tsp baking powder","Dash of salt","4 tbsp butter","⅔ cup milk"]},
@@ -219,14 +219,14 @@ var R = [
     cardNotes:["Source written on the card: Arrowhead Farm, Newburyport","Uses the dough from Charlotte’s Strawberry Shortcake (see that card)."],
     gaps:[] },
 
-  { slug:"raspberries-with-custard-sauce-bev-bennett", title:"Raspberries with Custard Sauce", category:"Desserts", credit:"", serves:"2",
+  { slug:"raspberries-with-custard-sauce-bev-bennett", title:"Raspberries with Custard Sauce", category:"Puddings & Desserts", credit:"", serves:"2",
     summary:"Fresh raspberries with a warm lemony custard sauce.",
     ingredients:[{items:["½ cup whipping cream or half and half","½ cup milk","⅓ cup sugar","1 egg yolk","1 tsp grated lemon peel","1½ to 2 cups raspberries"]}],
     steps:["Bring the cream and milk to a simmer in a heavy pan.","Beat the sugar, egg yolk and lemon peel in a bowl. Beat in about ½ cup of the hot milk, then pour it all back into the pan.","Cook over low heat, stirring all the time, until thickened, about 10 minutes. Let it cool until warm, about 15 minutes.","Spoon ¾ to 1 cup raspberries into each of 2 bowls and top each with ¼ cup sauce. Leftover sauce keeps covered in the fridge for several days."],
     cardNotes:["Source written on the card: Daily News, 7/12/95 (column by Bev Bennett)","The clipping is pasted over part of a second recipe that isn’t included."],
     gaps:[] },
 
-  { slug:"pineapple-icebox-dessert-mccalls", title:"Pineapple Icebox Dessert", category:"Desserts", credit:"", serves:"8 to 10",
+  { slug:"pineapple-icebox-dessert-mccalls", title:"Pineapple Icebox Dessert", category:"Puddings & Desserts", credit:"", serves:"8 to 10",
     summary:"A no-bake layered dessert of vanilla wafer crumbs, a buttery egg filling, and pineapple whipped cream with pecans, with an optional pineapple sauce.",
     ingredients:[
       {items:["¾ cup crushed vanilla wafers","½ cup soft butter or margarine","1½ cups sifted confectioners’ sugar","1 egg, beaten","1 can (1 lb 4 oz) crushed pineapple","⅔ cup pecans, coarsely chopped","1 cup heavy cream, whipped"]},
@@ -307,28 +307,28 @@ var R = [
     cardNotes:["Source written on the card: “A Fireman’s Wife,” Globe"],
     gaps:[] },
 
-  { slug:"strawberry-peach-sorbet", title:"Strawberry-Peach Sorbet", category:"Desserts", credit:"", serves:"8",
+  { slug:"strawberry-peach-sorbet", title:"Strawberry-Peach Sorbet", category:"Puddings & Desserts", credit:"", serves:"8",
     summary:"Strawberries, peach nectar and lemon whirled smooth, frozen flat in a bag, then kneaded soft to serve.",
     ingredients:[{items:["2 pints strawberries","2 cans (5½ oz each) peach nectar","1½ tbsp fresh lemon juice","⅔ cup sugar","Curled lemon peel strips, for garnish (optional)"]}],
     steps:["Whirl the strawberries, nectar, lemon juice and sugar in a blender or food processor until smooth.","Pour into a plastic bag and seal tightly. Lay the bag in a 13x9x2-inch dish and freeze at least 3 hours or overnight.","Take out of the freezer 30 minutes before serving. Gently pound the sealed bag with the bottom of a heavy skillet or a rolling pin to soften it, and knead through the bag until smooth.","Garnish with curled lemon peel if you like."],
     cardNotes:["Newspaper clipping; no source name on it."],
     gaps:[] },
 
-  { slug:"hawaiian-ambrosia-mom-g", title:"Hawaiian Ambrosia", category:"Desserts", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher", serves:"",
+  { slug:"hawaiian-ambrosia-mom-g", title:"Hawaiian Ambrosia", category:"Puddings & Desserts", credit:"Mom G.", creditNote:"Pat Goucher", creditNote:"Pat Goucher", serves:"",
     summary:"Sour cream mixed with mandarin oranges, pineapple, mini marshmallows and coconut, chilled.",
     ingredients:[{items:["1 pint sour cream","2 small cans mandarin oranges, drained and cut up","1 medium can crushed pineapple, drained","2 cups miniature marshmallows","2 cups shredded coconut"]}],
     steps:["Mix everything together.","Chill at least 2 hours before serving."],
     cardNotes:[],
     gaps:[] },
 
-  { slug:"plymale-bread-pudding", title:"Plymale Bread Pudding", category:"Desserts", credit:"", serves:"",
+  { slug:"plymale-bread-pudding", title:"Plymale Bread Pudding", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"Whole wheat bread soaked in a spiced evaporated milk custard with pineapple, bananas and raisins, baked until just set.",
     ingredients:[{items:["9 slices whole wheat bread (heels and crusts too), broken into pieces","6 cups evaporated milk","4 eggs","½ cup sugar","½ cup firmly packed brown sugar","2 tsp cinnamon","½ tsp salt","¼ tsp nutmeg","1 cup drained crushed pineapple","1 to 2 bananas, cut into pieces","½ cup raisins","Whipped cream, for serving"]}],
     steps:["Heat the oven to 375°. Butter and flour a 9x13-inch baking dish.","Combine the bread, milk, eggs, sugars, cinnamon, salt and nutmeg in a large bowl and let stand 30 minutes.","Stir in the pineapple, bananas and raisins and turn into the dish.","Bake about 30 minutes, until almost set. The center will be soft. Don’t overbake.","Cool and serve with whipped cream."],
     cardNotes:["Source written on the card: B.A. (Bon Appétit), Plymale Cottage, Jacksonville, Ore."],
     gaps:[] },
 
-  { slug:"almost-foolproof-chocolate-souffle-candy", title:"“Almost Foolproof” Chocolate Soufflé", category:"Desserts", credit:"Candy", serves:"",
+  { slug:"almost-foolproof-chocolate-souffle-candy", title:"“Almost Foolproof” Chocolate Soufflé", category:"Puddings & Desserts", credit:"Candy", serves:"",
     summary:"A baked chocolate soufflé with a splash of rum (or coffee liqueur or whiskey), baked in a water bath. Great with whipped cream.",
     ingredients:[{items:["2 squares unsweetened chocolate","3 tbsp butter","2 tbsp flour","¼ tsp salt","1 cup milk","½ cup sugar","1 tsp vanilla","2 tbsp rum (optional; coffee liqueur or whiskey, or even Scotch in a pinch)","4 eggs, separated","Butter and sugar for the dish"]}],
     steps:["Heat the oven to 375°. Butter a 2-quart soufflé dish or casserole and sprinkle with sugar.","Melt the chocolate and butter together. Blend in the flour and salt to make a smooth paste.","Gradually add the milk, sugar and vanilla. Cook, stirring all the time, until thick. This takes a while.","Cool a little. Add the rum, then the egg yolks one at a time, beating as you add them.","Beat the whites stiff and fold them into the chocolate mixture.","Pour into the dish and set it in a pan of hot water. Bake about 45 minutes at 375°."],
@@ -362,7 +362,7 @@ var R = [
     cardNotes:["Source written on the card: Gourmet","The filling uses raw eggs.","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"italian-frozen-custard-chocolate-sauce-bon-appetit", title:"Italian Frozen Custard with Chocolate Sauce", category:"Desserts", credit:"", serves:"6 to 8",
+  { slug:"italian-frozen-custard-chocolate-sauce-bon-appetit", title:"Italian Frozen Custard with Chocolate Sauce", category:"Puddings & Desserts", credit:"", serves:"6 to 8",
     summary:"A frozen meringue and whipped cream dessert flavored with Galliano, streaked with melted chocolate and almonds, and served with warm chocolate sauce.",
     ingredients:[
       {items:["4 egg whites, room temperature","⅛ tsp cream of tartar","⅛ tsp salt","¼ cup sugar","2 cups whipping cream","2 tbsp Galliano","1 tbsp vanilla","2 tsp sugar","1 cup chocolate chips","½ cup toasted slivered almonds"]},
@@ -371,14 +371,14 @@ var R = [
     cardNotes:["Source written on the card: Bon Appétit","Uses raw egg whites.","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"orange-bread-pudding-richard-sax", title:"Orange Bread Pudding", category:"Desserts", credit:"", serves:"6 to 8",
+  { slug:"orange-bread-pudding-richard-sax", title:"Orange Bread Pudding", category:"Puddings & Desserts", credit:"", serves:"6 to 8",
     summary:"Toasted bread cubes in an orange-zest custard, baked in a water bath, chilled, and finished with a broiled sugar crust.",
     ingredients:[{items:["2 cups crustless bread cubes, about 1 inch (Italian, French or a good white bread)","¾ cup sugar","6 whole eggs, lightly beaten","3 egg yolks","Dash of salt","3 cups milk","Grated zest of 2 oranges","2 tbsp orange liqueur (optional)","1 tsp vanilla","2 to 3 tbsp confectioners’ sugar"]}],
     steps:["Toast the bread cubes on a baking sheet at 350° until lightly golden, about 10 minutes. Set aside.","Whisk together the sugar, eggs, yolks, salt, milk, orange zest, liqueur and vanilla until smooth. Gently stir in the bread and let stand about 3 minutes until slightly softened.","Set a greased 11-inch oval gratin dish or 8-inch square pan inside a larger pan. Pour in the custard. Put on the center oven rack and pour hot water into the larger pan to come halfway up the custard.","Bake at 350° until set but still a little wobbly in the center, 50 to 55 minutes. Take the dish out of the water bath, cool on a rack, then refrigerate until chilled.","Sift an even layer of confectioners’ sugar over the top and broil until lightly caramelized, about 1 minute. Watch carefully."],
     cardNotes:["Source: newspaper clipping, Richard Sax, Los Angeles Times Syndicate, 1986"],
     gaps:[] },
 
-  { slug:"heavenly-hash-mary-lawless", title:"Heavenly Hash", category:"Desserts", credit:"Mary Lawless", serves:"6",
+  { slug:"heavenly-hash-mary-lawless", title:"Heavenly Hash", category:"Puddings & Desserts", credit:"Mary Lawless", serves:"6",
     summary:"Pineapple, Cool Whip, coconut, mini marshmallows and cherries stirred together and chilled.",
     ingredients:[{items:["1 can (8¼ oz) crushed pineapple, well drained","2 cups thawed Cool Whip","1 cup Baker’s Angel Flake coconut","1 cup miniature marshmallows","¼ cup maraschino cherries","3 tbsp milk"]}],
     steps:["Mix everything together thoroughly.","Chill 1 hour."],
@@ -386,7 +386,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"boccone-dolce-bon-appetit", title:"Boccone Dolce (Sweet Mouthful)", category:"Desserts", credit:"", serves:"6 to 8",
+  { slug:"boccone-dolce-bon-appetit", title:"Boccone Dolce (Sweet Mouthful)", category:"Puddings & Desserts", credit:"", serves:"6 to 8",
     summary:"Three crisp meringue rounds, two brushed with chocolate, stacked with whipped cream and fresh strawberries.",
     ingredients:[{items:["6 egg whites, room temperature","Pinch of salt","¼ tsp cream of tartar","1½ cups sugar","6 oz semisweet chocolate","3 tbsp water","2½ to 3 cups whipping cream, whipped","1½ pints fresh strawberries, hulled and sliced lengthwise","6 to 8 large whole strawberries, for garnish"]}],
     steps:["Heat the oven to 250°. Beat the egg whites with the salt until foamy. Add the cream of tartar and beat to soft peaks. Gradually beat in the sugar until the meringue is stiff and glossy.","Line baking sheets with waxed paper and trace three 8-inch circles. Spread or pipe the meringue evenly onto the circles.","Bake 1 hour. Turn off the oven and let the meringues dry inside another hour. Carefully peel off the paper and cool on racks.","Melt the chocolate with the water in a double boiler and stir until smooth. Spread it over 2 of the meringue layers and let set.","Put one chocolate layer, chocolate side up, on a plate. Spread with a ½-inch layer of whipped cream and cover with about half the sliced berries. Repeat with the second chocolate layer.","Top with the plain meringue and frost the whole cake with the rest of the cream. Garnish with whole strawberries and refrigerate 24 hours."],
@@ -394,28 +394,28 @@ var R = [
     cardNotes:["Source written on the card: Bon Appétit","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"chilled-strawberry-soup-womans-day", title:"Chilled Strawberry Soup", category:"Desserts", credit:"", serves:"4",
+  { slug:"chilled-strawberry-soup-womans-day", title:"Chilled Strawberry Soup", category:"Puddings & Desserts", credit:"", serves:"4",
     summary:"Puréed strawberries whisked with milk, yogurt and maple syrup and served cold.",
     ingredients:[{items:["1 bag (20 oz) unsweetened frozen strawberries, thawed","½ cup low-fat milk","½ cup plain low-fat yogurt","¼ cup maple syrup or sugar","⅛ tsp vanilla"]}],
     steps:["Purée the strawberries and milk in a blender or food processor. Pour into a serving bowl.","Whisk in the yogurt, maple syrup and vanilla.","Cover and chill at least 2 hours before serving."],
     cardNotes:["Source: Woman’s Day clipping, 9/1/93"],
     gaps:[] },
 
-  { slug:"raspberry-trifle-betty-howlett", title:"Raspberry Trifle", category:"Desserts", credit:"", serves:"10 to 12",
+  { slug:"raspberry-trifle-betty-howlett", title:"Raspberry Trifle", category:"Puddings & Desserts", credit:"", serves:"10 to 12",
     summary:"Jam-spread pound cake, raspberries and homemade vanilla pudding layered in a trifle bowl and topped with whipped cream and almonds.",
     ingredients:[{items:["¼ cup sugar","3 tbsp cornstarch","3 cups milk","4 egg yolks, beaten","2 tsp vanilla","1 loaf (1 lb) frozen pound cake, thawed","¾ cup raspberry jam","3 cups fresh or frozen unsweetened raspberries, thawed and drained","1 cup whipping cream","2 tbsp confectioners’ sugar","2 tbsp sliced almonds, toasted","Fresh raspberries (optional)"]}],
     steps:["In a heavy 2-quart saucepan, mix the sugar and cornstarch and gradually stir in the milk. Bring to a boil over medium heat, stirring, and boil 2 minutes. Take off the heat.","Stir about ½ cup into the egg yolks, then return it all to the pan. Cook and stir over medium-low heat about 15 minutes, until slightly thickened. Don’t boil.","Stir in the vanilla. Pour into a bowl, press waxed paper or plastic wrap on the surface and chill 20 minutes.","Cut the cake into ¾-inch slices, spread with jam and cut each slice in thirds. Arrange jam side up in a 3-quart trifle dish or deep salad bowl.","Cover with the berries, then the pudding. Cover and chill overnight.","Just before serving, whip the cream with the confectioners’ sugar until stiff and spread over the pudding. Garnish with almonds and berries if you like."],
     cardNotes:["Source: magazine clipping (“Free Recipe for You”), recipe from Betty Howlett, Elmira, Ontario"],
     gaps:[] },
 
-  { slug:"luscious-velvety-chocolate-fondue", title:"Luscious Velvety Chocolate Fondue", category:"Desserts", credit:"", serves:"6 to 8",
+  { slug:"luscious-velvety-chocolate-fondue", title:"Luscious Velvety Chocolate Fondue", category:"Puddings & Desserts", credit:"", serves:"6 to 8",
     summary:"Semisweet chocolate melted with cream and a splash of rum or Cointreau, for dipping cookies and fruit.",
     ingredients:[{items:["8 oz semisweet baking chocolate","1 cup heavy cream","3 to 4 tbsp rum or Cointreau","1 tbsp brown sugar (optional)","Cookies, strawberries and banana pieces, for dipping"]}],
     steps:["Break the chocolate into small pieces and put in the fondue pot with the cream, rum and sugar if using.","Cook over moderate heat, stirring often, until melted and smooth.","Move the pot to the lit burner and serve with cookies, strawberries and bananas on fondue forks."],
     cardNotes:["Source: book club clipping for The Fondue Cookbook by Gina Steer"],
     gaps:[] },
 
-  { slug:"milk-chocolate-mousse", title:"Milk Chocolate Mousse", category:"Desserts", credit:"", serves:"6",
+  { slug:"milk-chocolate-mousse", title:"Milk Chocolate Mousse", category:"Puddings & Desserts", credit:"", serves:"6",
     summary:"A cooked cocoa custard lightened with whipped cream and chilled in little pots.",
     ingredients:[{items:["1 quart half-and-half","1 cup sugar","½ cup flour","3 tbsp cocoa (the clipping prints “flour”)","⅛ tsp salt","2 eggs","1 tsp vanilla","1 cup whipping cream","2 tbsp powdered sugar","¼ tsp vanilla"]}],
     steps:["Heat the half-and-half in a double boiler.","Sift or mix the sugar, flour, cocoa and salt together, removing any lumps, in a medium bowl. Stir in 1½ cups of the hot half-and-half.","Return it to the rest of the half-and-half in the double boiler and cook, stirring, until thickened.","Beat the eggs until frothy and add 1 tsp vanilla. Blend a little of the hot mixture into the eggs, then return it all to the double boiler and cook 1 minute longer.","Pour into a bowl, cover the top with plastic wrap and refrigerate until cold.","Whip the cream to stiff peaks with the powdered sugar and ¼ tsp vanilla. Gently fold into the chocolate mixture. Spoon into individual pots and chill until serving."],
@@ -439,14 +439,14 @@ var R = [
     cardNotes:["The name “Adrienne” is written in red on the card."],
     gaps:[] },
 
-  { slug:"west-indian-bread-pudding-globe", title:"West Indian Bread Pudding", category:"Desserts", credit:"", serves:"",
+  { slug:"west-indian-bread-pudding-globe", title:"West Indian Bread Pudding", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"Buttered toast quarters with raisins and lemon peel, baked in a molasses and nutmeg custard.",
     ingredients:[{items:["4 slices thick toasting bread, lightly toasted","3 tbsp melted butter","½ cup raisins","1 tsp grated lemon peel","4 eggs","2 cups half-and-half or light cream","½ cup light molasses","⅛ tsp salt","½ tsp nutmeg","Plain or whipped cream, for serving (optional)"]}],
     steps:["Brush both sides of the toast with melted butter. Cut each slice in quarters and arrange on the bottom of a shallow baking dish.","Sprinkle with the raisins and lemon peel.","Beat together the eggs, half-and-half, molasses, salt and nutmeg. Pour into the dish and let stand 5 minutes.","Bake at 350° about 40 minutes, until a knife comes out clean.","Serve warm or cold, with plain or whipped cream if you like."],
     cardNotes:["Source written on the card: Globe"],
     gaps:[] },
 
-  { slug:"orange-charlotte-ann-peabody", title:"Orange Charlotte", category:"Desserts", credit:"Ann Peabody", serves:"",
+  { slug:"orange-charlotte-ann-peabody", title:"Orange Charlotte", category:"Puddings & Desserts", credit:"Ann Peabody", serves:"",
     summary:"A chilled orange and lemon gelatin mousse with whipped cream and egg whites, set in a springform lined with ladyfingers.",
     ingredients:[{items:["1½ tbsp gelatin","⅓ cup cold water","⅓ cup boiling water","1 cup sugar","3 tbsp fresh lemon juice","1 cup fresh orange juice (with pulp)","3 egg whites, beaten stiff","½ pint heavy cream, whipped","Ladyfingers (about 1½ packages)","Whipped cream rosettes, for garnish"]}],
     steps:["Soak the gelatin in the cold water 5 minutes, then dissolve in the boiling water.","Add the sugar and orange and lemon juices and mix. Refrigerate until slightly thickened.","Beat with a whisk until slightly frothy. Fold in the egg whites and whipped cream and blend well.","Pour into a springform pan lined with ladyfingers around the sides and bottom.","Chill until firm. Garnish with whipped cream rosettes."],
@@ -454,7 +454,7 @@ var R = [
     cardNotes:["Uses raw egg whites."],
     gaps:[] },
 
-  { slug:"applesauce-jello-lancaster-county", title:"Applesauce Jello", category:"Desserts", credit:"", serves:"4",
+  { slug:"applesauce-jello-lancaster-county", title:"Applesauce Jello", category:"Puddings & Desserts", credit:"", serves:"4",
     summary:"Strawberry Jello set with applesauce. Good as a side with pork chops or ham.",
     ingredients:[{items:["1 package (3 oz) strawberry Jello","1 cup boiling water","1 cup applesauce"]}],
     steps:["Dissolve the Jello in the boiling water.","Let it partly set, then add the applesauce and chill."],
@@ -462,21 +462,21 @@ var R = [
     cardNotes:["Source written on the card: Lancaster County Cookbook"],
     gaps:[] },
 
-  { slug:"pineapple-trifle-mrs-henry-colbath", title:"Pineapple Trifle", category:"Desserts", credit:"Mrs. Henry Colbath", serves:"",
+  { slug:"pineapple-trifle-mrs-henry-colbath", title:"Pineapple Trifle", category:"Puddings & Desserts", credit:"Mrs. Henry Colbath", serves:"",
     summary:"Hot pineapple syrup poured over strawberry Jello, then whipped cream and orange extract folded in and set in molds.",
     ingredients:[{items:["1 cup crushed pineapple","1 cup juice","2 tbsp water","½ cup sugar","1 package strawberry Jello","1 tsp orange extract","½ pint cream, whipped, plus more for serving"]}],
     steps:["Cook the pineapple, juice, water and sugar together.","While hot, pour over the Jello and stir to dissolve.","When cool and starting to thicken, add the orange extract and whipped cream.","Pour into molds. Serve with whipped cream."],
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook, Mrs. Henry Colbath"],
     gaps:[] },
 
-  { slug:"raspberries-and-bananas-cuisine", title:"Raspberries & Bananas", category:"Desserts", credit:"", serves:"4",
+  { slug:"raspberries-and-bananas-cuisine", title:"Raspberries & Bananas", category:"Puddings & Desserts", credit:"", serves:"4",
     summary:"Sliced bananas fanned on plates with a mound of raspberries and a lemony raspberry syrup, topped with almonds.",
     ingredients:[{items:["2 packages (10 oz each) frozen sweetened raspberries, thawed","4 ripe bananas","2 tsp lemon juice, plus 1 tsp","2 tbsp sliced unblanched almonds","Fresh mint leaves (optional)"]}],
     steps:["Drain the raspberries, saving ¼ cup of the liquid (keep the rest for another use).","Slice the bananas diagonally ¼ inch thick and fan them on 4 dessert plates in a sunburst. Brush or drizzle with 2 tsp lemon juice.","Mound the raspberries in the center of the bananas.","Mix the saved syrup with 1 tsp lemon juice and spoon over the berries. Cover and refrigerate.","At serving time, sprinkle with almonds and mint if you like."],
     cardNotes:["Source written on the card: Cuisine"],
     gaps:[] },
 
-  { slug:"lemon-blueberry-trifle", title:"Lemon-Blueberry Trifle", category:"Desserts", credit:"", serves:"12 to 16",
+  { slug:"lemon-blueberry-trifle", title:"Lemon-Blueberry Trifle", category:"Puddings & Desserts", credit:"", serves:"12 to 16",
     summary:"Lemon pound cake sprinkled with sherry, layered with almond vanilla pudding, blueberry pie filling and toasted almonds.",
     ingredients:[{items:["1 package (3¾ oz) instant vanilla pudding mix","1 cup whipping cream","1 cup milk","½ tsp almond extract","1 lemon pound cake, cut into ½-inch slices","Dry sherry","1 can (21 oz) blueberry pie filling","2 oz sliced almonds, toasted","1 cup whipping cream, whipped, for garnish"]}],
     steps:["Make the pudding following the package directions, using the cream and milk. Stir in the almond extract. Cover and refrigerate about 5 minutes.","Arrange half the cake slices in the bottom of a 9x13-inch dish and sprinkle lightly with sherry.","Spread half the pudding over the cake, top with half the pie filling and sprinkle with half the almonds.","Repeat the layers. Cover and chill at least 1 hour.","Spoon into dishes and garnish with whipped cream."],
@@ -492,7 +492,7 @@ var R = [
     cardNotes:["Printed “Here’s what’s cookin’” card. “Recipe from: Pam Sager.”","The pan size is hard to read on the card (a crossed-out word); read as 8×8."],
     gaps:[] },
 
-  { slug:"cherry-pudding-with-sauce", title:"Cherry Pudding", category:"Desserts", credit:"", serves:"",
+  { slug:"cherry-pudding-with-sauce", title:"Cherry Pudding", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"A batter poured over melted butter with stewed cherries spooned in the middle, baked until set and served with a warm cherry sauce.",
     ingredients:[
       {items:["2 cups stewed dark red cherries","⅓ cup butter","1 cup flour","¼ tsp baking soda","1 tsp cream of tartar (or 2 tsp baking powder)","Pinch of salt","¼ tsp nutmeg","1 cup milk"]},
@@ -501,14 +501,14 @@ var R = [
     cardNotes:["Printed recipe card; no source name on it."],
     gaps:[] },
 
-  { slug:"candied-brandied-fruit-mrs-ryan", title:"Candied Brandied Fruit", category:"Desserts", credit:"Mrs. Ryan", serves:"",
+  { slug:"candied-brandied-fruit-mrs-ryan", title:"Candied Brandied Fruit", category:"Puddings & Desserts", credit:"Mrs. Ryan", serves:"",
     summary:"A homemade fermented fruit topping kept in a jar on a sunny windowsill and fed with sugar and canned fruit twice a month. Served over vanilla ice cream.",
     ingredients:[{name:"Add on the 15th and 30th of each month", items:["1 cup sugar","1 cup (in all) canned, drained fruit: crushed pineapple or tidbits, cut-up peaches, halved maraschino cherries"]}],
     steps:["Add the sugar and fruit to the jar on the 15th and 30th of each month.","Keep it in a covered (not sealed) glass jar, such as an apothecary jar, in a sunny window. Don’t refrigerate.","Stir well every day.","Don’t let it get below 1½ cups, or the fermentation will stop.","Serve over vanilla ice cream."],
     cardNotes:["The card doesn’t say how to start the first batch; it assumes you already have some going."],
     gaps:["No starter is given on the card."] },
 
-  { slug:"strawberry-tiffany-torte-ann-peabody", title:"Strawberry Tiffany Torte", category:"Desserts", credit:"Ann Peabody", serves:"",
+  { slug:"strawberry-tiffany-torte-ann-peabody", title:"Strawberry Tiffany Torte", category:"Puddings & Desserts", credit:"Ann Peabody", serves:"",
     summary:"A vanilla wafer crust with a cream cheese and vanilla pudding layer, covered in strawberries and Cool Whip.",
     ingredients:[{items:["2½ cups vanilla wafer crumbs","⅓ cup margarine, melted","1¾ cups milk","1 package (8 oz) cream cheese, softened","1 package (3½ oz) instant vanilla pudding","1 tsp grated lemon peel (or lemon juice)","1 quart strawberries","1 package dessert topping or Cool Whip"]}],
     steps:["Mix the crumbs and margarine. Set aside ½ cup for the top and press the rest into a 13x9-inch pan.","Gradually add ½ cup milk to the cream cheese, mixing until well blended.","Add the pudding mix, the rest of the milk and the lemon peel. Beat slowly 1 minute. Pour over the crust.","Cover with strawberries, spread with Cool Whip and top with the saved crumbs.","Chill 12 to 15 hours, or put in the freezer."],
@@ -516,28 +516,28 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"mousse-au-chocolat-bakers", title:"Mousse au Chocolat", category:"Desserts", credit:"", serves:"8 to 10",
+  { slug:"mousse-au-chocolat-bakers", title:"Mousse au Chocolat", category:"Puddings & Desserts", credit:"", serves:"8 to 10",
     summary:"Classic chocolate mousse made with semisweet chocolate, cream, egg yolks and beaten whites.",
     ingredients:[{items:["6 squares semisweet chocolate","¼ cup light or heavy cream or milk","1 tsp vanilla (or 1 tbsp brandy)","Dash of salt","4 egg yolks, slightly beaten","4 egg whites","¼ cup sugar"]}],
     steps:["Melt the chocolate in a saucepan over very low heat, stirring all the time. Take off the heat and blend in the cream, vanilla and salt.","Gradually add to the egg yolks, beating with a whisk until thick and creamy.","Beat the egg whites until foamy. Gradually beat in the sugar and keep beating to stiff peaks.","Gently but thoroughly fold into the chocolate mixture.","Spoon into dessert dishes or a serving bowl. Chill at least 2 hours. Makes 4 cups."],
     cardNotes:["Source: Baker’s Chocolate / General Foods recipe card (1983)","Uses raw eggs."],
     gaps:[] },
 
-  { slug:"banana-chocolate-gratin-microwave", title:"Banana Chocolate Gratin (Microwave)", category:"Desserts", credit:"", serves:"1",
+  { slug:"banana-chocolate-gratin-microwave", title:"Banana Chocolate Gratin (Microwave)", category:"Puddings & Desserts", credit:"", serves:"1",
     summary:"A one-banana microwave dessert: sliced banana in sweetened cream, topped with melting chocolate chips.",
     ingredients:[{items:["1 large ripe banana, sliced diagonally ¼ inch thick","¼ cup heavy cream","1 tbsp brown sugar","1 tbsp chocolate chips"]}],
     steps:["Put the banana slices in a 6-inch oval gratin dish.","Stir the cream and sugar together and spoon over the banana.","Cover with plastic wrap and microwave on high 45 seconds.","Sprinkle with the chocolate chips and microwave, covered, 20 seconds longer. Serve hot."],
     cardNotes:["Source written on the card: Good Food magazine"],
     gaps:[] },
 
-  { slug:"lemon-ice-cream-in-lemon-shells", title:"Lemon Ice Cream in Lemon Shells", category:"Desserts", credit:"", serves:"4",
+  { slug:"lemon-ice-cream-in-lemon-shells", title:"Lemon Ice Cream in Lemon Shells", category:"Puddings & Desserts", credit:"", serves:"4",
     summary:"Softened vanilla ice cream stirred with fresh lemon juice and zest and frozen in hollowed lemon cups.",
     ingredients:[{items:["2 cups vanilla ice cream","4 large lemons","2 small lemons"]}],
     steps:["Take the ice cream out of the freezer to soften.","Cut a sliver off the bottom of each large lemon so it stands up. Cut off the top quarter and scrape out the pulp.","Squeeze 4 tbsp juice from the pulp. Grate the zest of the small lemons.","Stir the zest and juice into the ice cream and spoon it into the lemon shells.","Freeze until ready to serve."],
     cardNotes:["Source written on the card: Good Food magazine"],
     gaps:[] },
 
-  { slug:"angel-delight-lancaster-county", title:"Angel Delight", category:"Desserts", credit:"", serves:"",
+  { slug:"angel-delight-lancaster-county", title:"Angel Delight", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"Fruit cocktail and pineapple folded into a cooked fruit-juice custard and whipped cream. Keeps for days or can be frozen.",
     ingredients:[{items:["1 large can fruit cocktail, drained (save the juice)","1 medium can pineapple tidbits, drained (save the juice)","2 eggs, beaten","2 tbsp flour","⅓ cup sugar","1 pint cream, whipped","Optional: bananas, nuts, marshmallows, grapes, cherries or other fruit"]}],
     steps:["Cook the saved fruit juices, eggs, flour and sugar together until smooth and thick.","Cool, then add the fruit and any extras you like.","Mix in the whipped cream."],
@@ -545,7 +545,7 @@ var R = [
     cardNotes:["Source written on the card: Lancaster County Cookbook"],
     gaps:[] },
 
-  { slug:"raspberry-dessert-sue-wilson-goucher", title:"Raspberry Dessert", category:"Desserts", credit:"Sue Wilson Goucher", serves:"",
+  { slug:"raspberry-dessert-sue-wilson-goucher", title:"Raspberry Dessert", category:"Puddings & Desserts", credit:"Sue Wilson Goucher", serves:"",
     summary:"Raspberry or strawberry gelatin stirred with frozen berries and vanilla ice cream and chilled until set.",
     ingredients:[{items:["1 package (3 oz) raspberry or strawberry gelatin","1 cup hot water","½ package unthawed raspberries or strawberries (whole, not in syrup)","½ pint vanilla ice cream"]}],
     steps:["Dissolve the gelatin in the hot water.","Stir in the frozen fruit and the ice cream.","Refrigerate until set."],
@@ -553,7 +553,7 @@ var R = [
     cardNotes:["The name is written as “Sue Wilson” with “Goucher” underneath."],
     gaps:[] },
 
-  { slug:"best-homemade-vanilla-ice-cream", title:"Best Homemade Vanilla Ice Cream", category:"Desserts", credit:"", serves:"3 quarts",
+  { slug:"best-homemade-vanilla-ice-cream", title:"Best Homemade Vanilla Ice Cream", category:"Puddings & Desserts", credit:"", serves:"3 quarts",
     summary:"A cooked egg custard base with evaporated milk and vanilla, churned in a 1-gallon freezer.",
     ingredients:[{items:["4 eggs, beaten","3 cups milk","2 cups sugar","½ tsp salt","1 can (12 oz) evaporated milk, chilled","1 tbsp vanilla"]}],
     steps:["Combine the eggs, milk and sugar. Cook over low heat, stirring constantly, until thickened. Take off the heat and cool.","Stir in the salt, evaporated milk and vanilla.","Pour into the can of a 1-gallon hand-turned or electric freezer and freeze following its instructions.","Let it ripen at least 1 hour before serving."],
@@ -567,21 +567,21 @@ var R = [
     cardNotes:["Source: Salmon Falls Stoneware, Dover, NH (printed card)"],
     gaps:[] },
 
-  { slug:"toll-house-special-old-friendly-guild", title:"Toll House Special", category:"Desserts", credit:"", serves:"",
+  { slug:"toll-house-special-old-friendly-guild", title:"Toll House Special", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"A no-bake icebox roll of graham crumbs, dates, marshmallows and nuts, chilled, sliced and served with cream.",
     ingredients:[{items:["1 dozen graham crackers, crushed","¾ cup dates, cut fine","4 marshmallows, cut fine","1 cup nuts, cut fine","½ cup thin cream or evaporated milk","Cream, for serving"]}],
     steps:["Set aside ½ cup of the crumbs.","Mix everything else together and form into a roll. Cover with the saved crumbs.","Chill in the refrigerator. Slice and serve with cream."],
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook"],
     gaps:[] },
 
-  { slug:"gram-gouchers-bread-pudding", title:"Gram Goucher’s Bread Pudding", category:"Desserts", credit:"Gram Goucher", serves:"",
+  { slug:"gram-gouchers-bread-pudding", title:"Gram Goucher’s Bread Pudding", category:"Puddings & Desserts", credit:"Gram Goucher", serves:"",
     summary:"A small, slow-baked bread pudding with raisins and a little chocolate, cooked low at 225° for two hours.",
     ingredients:[{items:["1 slice bread, soaked in ½ cup water","½ cup milk","2 eggs, beaten","½ cup white or brown sugar, or a mix","2 cups milk","1 tbsp butter","Salt","Vanilla","⅓ cup raisins","1 square chocolate or ¼ cup chocolate bits"]}],
     steps:["Beat together the soaked bread, ½ cup milk, eggs and sugar.","Heat 2 cups milk and pour it in with the butter, salt and vanilla.","Add the raisins and the chocolate.","Bake 1 hour at 225°. Stir, then bake 1 more hour at the same temperature."],
     cardNotes:["The card doesn’t give the salt and vanilla amounts or the dish size."],
     gaps:["No amounts for the salt and vanilla."] },
 
-  { slug:"raisin-bread-pudding-old-friendly-guild", title:"Raisin Bread Pudding", category:"Desserts", credit:"", serves:"6",
+  { slug:"raisin-bread-pudding-old-friendly-guild", title:"Raisin Bread Pudding", category:"Puddings & Desserts", credit:"", serves:"6",
     summary:"Dry bread cubes soaked in scalded milk with eggs, raisins, cinnamon and vanilla, topped with nutmeg and baked.",
     ingredients:[{items:["2 cups milk, scalded","2 cups dry bread cubes","2 eggs, beaten","⅓ cup sugar","¼ tsp salt","½ tsp cinnamon","1 cup seedless raisins","½ tsp vanilla","Nutmeg"]}],
     steps:["Pour the milk over the bread and let stand until soft.","Add the eggs, sugar, salt, cinnamon, raisins and vanilla. Mix.","Pour into a greased baking dish and sprinkle with nutmeg.","Bake at 325° for 1 hour 15 minutes, until lightly browned and a knife comes out clean."],
@@ -589,7 +589,7 @@ var R = [
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook"],
     gaps:[] },
 
-  { slug:"strawberry-cheesecake-trifle-karen-cook", title:"Strawberry Cheesecake Trifle", category:"Desserts", credit:"Karen Cook", creditNote:"Daughter of Eleanor Cook (Mrs. Cook) of Cider Hill Farm in Amesbury, MA", serves:"",
+  { slug:"strawberry-cheesecake-trifle-karen-cook", title:"Strawberry Cheesecake Trifle", category:"Puddings & Desserts", credit:"Karen Cook", creditNote:"Daughter of Eleanor Cook (Mrs. Cook) of Cider Hill Farm in Amesbury, MA", serves:"",
     summary:"Angel food cake folded into a cream cheese and whipped cream filling, layered with almond-sugared strawberries.",
     ingredients:[
       {name:"Step one", items:["2 packages (8 oz each) cream cheese","2 cups confectioners’ sugar","1 cup sour cream","½ tsp vanilla","¼ tsp almond extract"]},
@@ -608,7 +608,7 @@ var R = [
     cardNotes:["Magazine clipping; no source name on it."],
     gaps:[] },
 
-  { slug:"baked-cranberry-pudding-ruth-mores", title:"Baked Cranberry Pudding", category:"Desserts", credit:"Ruth Mores", serves:"",
+  { slug:"baked-cranberry-pudding-ruth-mores", title:"Baked Cranberry Pudding", category:"Puddings & Desserts", credit:"Ruth Mores", serves:"",
     summary:"A simple cake batter studded with halved cranberries, served warm with a brown sugar sauce.",
     ingredients:[
       {items:["1½ cups halved cranberries, drained","1½ cups sifted flour","1½ tsp baking powder","¼ tsp salt","½ cup sugar","¼ cup melted butter","½ cup milk"]},
@@ -617,21 +617,21 @@ var R = [
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook, Ruth Mores"],
     gaps:[] },
 
-  { slug:"chocolate-christmas-pudding-bon-appetit", title:"Chocolate Christmas Pudding", category:"Desserts", credit:"", serves:"",
+  { slug:"chocolate-christmas-pudding-bon-appetit", title:"Chocolate Christmas Pudding", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"A small steamed pudding of cream-soaked bread, butter, eggs, chocolate and almonds, turned out and dusted with powdered sugar.",
     ingredients:[{items:["2 slices firm bread (homemade is best), crusts trimmed","¼ cup whipping cream","3 tbsp butter","1 egg","1 egg yolk","6 tbsp powdered sugar","2 tbsp melted chocolate bits or semisweet chocolate","2 tbsp ground almonds","¼ tsp almond extract","Boiling water","Powdered sugar, for dusting","Unsweetened whipped cream, for garnish"]}],
     steps:["Generously butter a 2-cup mold and a piece of waxed paper or foil.","Break the bread into small pieces in a small bowl. Add the cream and beat until it is absorbed.","Cream the butter in a large bowl on high speed until fluffy, about 5 minutes. Add the bread and keep beating until light.","Lightly beat the egg with the yolk. Add to the bread mixture alternately with the sugar, beating well after each. Blend in the chocolate, almonds and extract and mix thoroughly.","Turn into the mold. Cover with the buttered paper or foil and tie it on securely.","Set on a rack in a steamer (or a cake rack in a large saucepan). Pour in boiling water just to the bottom of the rack. Cover and steam over medium heat 2 hours, checking every 10 minutes to see if more water is needed.","Take the mold out and discard the paper. Let the pudding cool 5 minutes, then turn it out onto a platter. Dust with powdered sugar and garnish with whipped cream."],
     cardNotes:["Source written on the card: Bon Appétit","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"strawberry-delight-mary-lawless", title:"Strawberry Delight", category:"Desserts", credit:"Mary Lawless", serves:"4",
+  { slug:"strawberry-delight-mary-lawless", title:"Strawberry Delight", category:"Puddings & Desserts", credit:"Mary Lawless", serves:"4",
     summary:"Sugared whole strawberries folded into whipped cream flavored with almond and orange.",
     ingredients:[{items:["1 quart whole fresh strawberries, washed and hulled","1 cup powdered sugar","1 cup cream","1 tsp almond extract","2 tsp orange juice"]}],
     steps:["Sprinkle the sugar over the strawberries and toss gently.","Chill 1 hour, stirring now and then.","Whip the cream and add the almond extract and orange juice.","Fold the cream into the berries and serve right away."],
     cardNotes:[],
     gaps:[] },
 
-  { slug:"strawberries-romanoff-globe", title:"Strawberries Romanoff", category:"Desserts", credit:"", serves:"",
+  { slug:"strawberries-romanoff-globe", title:"Strawberries Romanoff", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"Sugared strawberries folded into whipped cream with Cointreau or orange juice.",
     ingredients:[{items:["1 quart strawberries, washed and hulled","½ cup confectioners’ sugar","1 cup chilled whipping cream","¼ cup Cointreau or orange juice"]}],
     steps:["Sprinkle the berries with the sugar and stir gently. Cover and refrigerate 2 hours.","Just before serving, beat the cream in a chilled bowl until stiff. Gradually stir in the Cointreau.","Fold in the berries and serve in a large glass bowl."],
@@ -639,7 +639,7 @@ var R = [
     cardNotes:["Source written on the card: Globe"],
     gaps:[] },
 
-  { slug:"baked-brownie-pudding-green-thumb-lady", title:"Baked Brownie Pudding", category:"Desserts", credit:"", serves:"6",
+  { slug:"baked-brownie-pudding-green-thumb-lady", title:"Baked Brownie Pudding", category:"Puddings & Desserts", credit:"", serves:"6",
     summary:"A self-saucing chocolate pudding cake: boiling water poured over the top bakes into a fudgy sauce underneath.",
     ingredients:[{items:["1 cup flour","2 tbsp unsweetened cocoa","2 tsp baking powder","1 tsp salt","⅔ cup sugar","2 tbsp shortening, melted","½ cup milk","1 tsp vanilla","1 cup brown sugar","4 tbsp unsweetened cocoa","1 cup boiling water"]}],
     steps:["Mix the sugar, flour, 2 tbsp cocoa, baking powder and salt in a medium bowl.","Add the melted shortening, milk and vanilla and mix with an electric mixer until smooth. Pour into a greased 9-inch square pan.","Mix the brown sugar and 4 tbsp cocoa and sprinkle over the top. Pour the boiling water over everything. Don’t mix it in.","Bake at 375° for 20 to 25 minutes. Let cool, then spoon into six dishes. Good with vanilla ice cream, whipped cream or plain."],
@@ -673,7 +673,7 @@ var R = [
     cardNotes:["The card says “fold in jar of heavy whipped cream” with “(1 pt.)” written after it."],
     gaps:[] },
 
-  { slug:"red-white-and-blue-dessert", title:"Red, White and Blue Dessert", category:"Desserts", credit:"", serves:"18",
+  { slug:"red-white-and-blue-dessert", title:"Red, White and Blue Dessert", category:"Puddings & Desserts", credit:"", serves:"18",
     summary:"Layers of sweetened cream cheese whipped cream, strawberries and blueberries, with berries arranged like a flag on top.",
     ingredients:[{items:["2 packages (8 oz each) cream cheese, softened","½ cup sugar","½ tsp vanilla extract","½ tsp almond extract","2 cups whipping cream, whipped","2 quarts strawberries, halved, divided","2 quarts blueberries, divided"]}],
     steps:["Beat the cream cheese, sugar and extracts until fluffy. Fold in the whipped cream.","Spoon a third of the mixture into a 4-quart bowl. Set aside 19 strawberry halves and ½ cup blueberries for the top.","Layer half the remaining berries over the cream. Top with another third of the cream and the rest of the berries.","Spread the last of the cream over the top and use the saved berries to make a flag.","Keep refrigerated."],
@@ -681,7 +681,7 @@ var R = [
     cardNotes:["Magazine clipping; no source name on it."],
     gaps:[] },
 
-  { slug:"queen-of-bread-puddings", title:"Queen of Bread Puddings", category:"Desserts", credit:"", serves:"",
+  { slug:"queen-of-bread-puddings", title:"Queen of Bread Puddings", category:"Puddings & Desserts", credit:"", serves:"",
     summary:"Buttered bread over a layer of brown sugar, soaked in a vanilla custard and baked until puffed, so it makes its own caramel sauce.",
     ingredients:[{items:["1 cup brown sugar, well packed","4 slices buttered bread","2 eggs","2½ cups milk","1 tsp vanilla","1 tsp nutmeg","½ tsp cinnamon","Raisins (optional; added in a note)"]}],
     steps:["Put the brown sugar in the bottom of a buttered baking dish.","Break up the buttered bread over it.","Beat the eggs, milk and vanilla and pour over everything. Sprinkle the nutmeg and cinnamon on top.","Bake at 350° until moderately brown and puffed up to the top of the dish, about 40 minutes."],
@@ -689,7 +689,7 @@ var R = [
     cardNotes:["A “K” (Kathy) is written in the top corner next to the note, in different handwriting."],
     gaps:[] },
 
-  { slug:"cranberry-bread-pudding-globe-chat", title:"Cranberry Bread Pudding", category:"Desserts", credit:"", serves:"12 small servings",
+  { slug:"cranberry-bread-pudding-globe-chat", title:"Cranberry Bread Pudding", category:"Puddings & Desserts", credit:"", serves:"12 small servings",
     summary:"A light bread pudding with fresh cranberries, baked in a water bath and served warm with a brown sugar and corn syrup sauce.",
     ingredients:[
       {items:["¼ cup margarine","½ tsp salt","½ cup sugar","2 well-beaten eggs","⅓ cup milk","2 cups soft white bread cubes","1 cup fresh cranberries"]},

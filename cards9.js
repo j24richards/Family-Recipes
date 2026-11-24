@@ -3,14 +3,14 @@
 // Anything missing or hard to read is listed in "gaps" and never invented. No photos of the cards.
 (function(){
 var R = [
-  { slug:"baked-pea-beans-kathryn-drown", title:"Baked Pea Beans", category:"Casseroles", credit:"Kathryn Drown", serves:"",
+  { slug:"baked-pea-beans-kathryn-drown", title:"Baked Pea Beans", category:"Vegetables & Sides", credit:"Kathryn Drown", serves:"",
     summary:"Slow-baked pea beans with brown sugar, molasses, dry mustard and salt pork.",
     ingredients:[{items:["1½ cups dried pea beans","3 tbsp brown sugar","3 tbsp molasses","Scant ½ tsp dry mustard","1 tsp salt","½ lb lean salt pork","Water"]}],
     steps:["Soak the beans overnight. Drain, cover with fresh water and parboil until the skins blow off. Rinse.","Put the beans, brown sugar, molasses, mustard, salt and salt pork in a bean pot.","Bake slowly at 250° for 8 hours. Keep the beans moist, adding water as needed.","Or start at 350° for 1 hour, then turn down to 250°–225° (this browns the top)."],
     cardNotes:["The name on the card is spelled “Kathyrn Drown.”"],
     gaps:["The card doesn’t say how much water to add while baking."] },
 
-  { slug:"chicken-vegetable-pie-hap-dudley", title:"Chicken Vegetable Pie", category:"Casseroles", credit:"", serves:"6",
+  { slug:"chicken-vegetable-pie-hap-dudley", title:"Chicken Vegetable Pie", category:"Casseroles & Main Dishes", credit:"", serves:"6",
     summary:"Creamy chicken and vegetables baked in a 3-quart casserole and topped with a pre-baked pie crust.",
     ingredients:[
       {name:"Crust", items:["1 recipe King Arthur pie crust (one crust)"]},
@@ -20,7 +20,7 @@ var R = [
     cardNotes:["Printed “Here’s what’s cookin’” card. Recipe from: Hap Dudley (Globe Chat).","The method continues on the back of the card.","The King Arthur Pie Crust recipe is also in the recipe box."],
     gaps:[] },
 
-  { slug:"broccoli-crescent-casserole-gail", title:"Broccoli Crescent Casserole", category:"Casseroles", credit:"Gail", serves:"",
+  { slug:"broccoli-crescent-casserole-gail", title:"Broccoli Crescent Casserole", category:"Casseroles & Main Dishes", credit:"Gail", serves:"",
     summary:"Chicken and broccoli in a creamy soup sauce, baked under a crescent roll lattice with cheddar and fried onions.",
     ingredients:[{items:["2 cups cooked chicken, cut up","½ tsp seasoned salt","1 cup milk","1 can cream of mushroom or cream of potato soup","16 oz frozen broccoli, thawed and drained","½ cup shredded cheddar cheese","1 large can Durkee French fried onion rings","1 package crescent rolls"]}],
     steps:["Mix the first 5 ingredients and half the can of onion rings. Spread in a 9x13 pan and bake at 375° for 20 minutes.","Separate the crescent dough into 2 rectangles and cut into long slices. Make a lattice on top of the casserole.","Bake uncovered 15 minutes more. Top with the cheese and the remaining onion rings, and bake just until the cheese melts."],
@@ -29,7 +29,7 @@ var R = [
     gaps:[],
     notes:["On the card, an extra bake time at the end is crossed out (decided against)."] },
 
-  { slug:"beef-and-cabbage-pasties", title:"Beef and Cabbage Pasties", category:"Casseroles", credit:"", serves:"6",
+  { slug:"beef-and-cabbage-pasties", title:"Beef and Cabbage Pasties", category:"Beef, Pork & Ham", credit:"", serves:"6",
     summary:"Cornish-style hand pies filled with beef, browned cabbage and onion. Good hot with soup, or cold on a picnic.",
     ingredients:[
       {name:"Pastry", items:["3 cups sifted all-purpose flour","½ tsp salt","½ cup (1 stick) chilled unsalted butter, cut in thin slices","½ cup vegetable shortening","7 to 8 tbsp ice water"]},
@@ -40,14 +40,14 @@ var R = [
     cardNotes:["Printed clipping."],
     gaps:[] },
 
-  { slug:"bavarian-style-chicken-jane", title:"Bavarian-Style Chicken", category:"Casseroles", credit:"Jane", serves:"3",
+  { slug:"bavarian-style-chicken-jane", title:"Bavarian-Style Chicken", category:"Chicken & Turkey", credit:"Jane", serves:"3",
     summary:"Quick skillet chicken with Birds Eye Bavarian-style beans and spaetzle in a paprika sour cream sauce.",
     ingredients:[{items:["1 whole chicken breast, boned, skinned and cut into strips","2 tbsp oil","¼ tsp salt","1 package Birds Eye Bavarian Style Beans & Spaetzle with a seasoned sauce","¼ cup chicken broth","½ cup sour cream","1 tbsp flour","½ tsp paprika"]}],
     steps:["Sauté the chicken in the oil in a skillet until the meat just turns white, about 5 minutes. Sprinkle with the salt.","Add the vegetables and broth. Bring to a full boil over medium heat, separating the vegetables with a fork and stirring often. Reduce the heat, cover and simmer 3 minutes.","Combine the sour cream, flour and paprika. Stir into the vegetables and heat gently."],
     cardNotes:[],
     gaps:[] },
 
-  { slug:"mothers-quick-chicken", title:"Mother’s Quick Chicken", category:"Casseroles", credit:"", serves:"4",
+  { slug:"mothers-quick-chicken", title:"Mother’s Quick Chicken", category:"Chicken & Turkey", credit:"", serves:"4",
     summary:"Chicken breasts baked over quartered potatoes and onion with stewed tomatoes and oregano.",
     ingredients:[{items:["8 medium potatoes","1 large onion","4 medium chicken breasts","1 can stewed tomatoes","1 tsp salt","Dash pepper","Dash oregano","½ cup water","⅓ cup oil"]}],
     steps:["Place the quartered potatoes in a baking pan and sprinkle with the slivered onion.","Place the chicken on top and spoon the stewed tomatoes over it. Add the seasonings over the tomatoes, along with the water and oil.","Cover with foil and bake at 375° for 1½ hours. Remove the foil and brown as desired."],
@@ -55,7 +55,7 @@ var R = [
     cardNotes:["Source written on the card: Lawrence Baptist Church Cookbook"],
     gaps:[] },
 
-  { slug:"porcupines-mom", title:"Porcupines", category:"Casseroles", credit:"Mom", serves:"",
+  { slug:"porcupines-mom", title:"Porcupines", category:"Beef, Pork & Ham", credit:"Mom", serves:"",
     summary:"Hamburg and rice meatballs simmered in tomato soup with onion and green pepper.",
     ingredients:[{items:["1 lb hamburg","½ cup uncooked rice","Salt and pepper","1 tbsp grated onion","1 can tomato soup","½ can water","2 tbsp chopped green pepper"]}],
     steps:["Mix the meat, rice and seasonings. Shape into balls.","Drop into the soup with the onion, pepper and water.","Cook slowly about 40 minutes (or in a pressure cooker 10 minutes, and let the pressure go down by itself)."],
@@ -63,7 +63,7 @@ var R = [
     cardNotes:[],
     gaps:["The card doesn’t say whether the onion goes in the meatballs or the soup; it reads as the soup."] },
 
-  { slug:"italian-zucchini-crescent-pie", title:"Italian Zucchini Crescent Pie", category:"Casseroles", credit:"", serves:"6",
+  { slug:"italian-zucchini-crescent-pie", title:"Italian Zucchini Crescent Pie", category:"Casseroles & Main Dishes", credit:"", serves:"6",
     summary:"A crescent roll crust spread with Dijon and filled with herbed zucchini, onion, eggs and mozzarella.",
     ingredients:[{items:["4 cups thinly sliced zucchini","1 cup chopped onion","¼ to ½ cup margarine","½ cup chopped parsley","½ tsp salt","½ tsp black pepper","¼ tsp garlic powder","¼ tsp basil","¼ tsp oregano","2 eggs, well beaten","8 oz (2 cups) shredded mozzarella or muenster cheese","1 can (8 oz) refrigerated quick crescent dinner rolls","2 tsp Dijon mustard"]}],
     steps:["Heat the oven to 375°. In a 10-inch skillet, cook the zucchini and onion in the margarine until tender, about 10 minutes. Stir in the parsley and seasonings.","In a large bowl, blend the eggs and cheese. Stir in the vegetable mixture.","Separate the dough into 8 triangles. Place in an ungreased 10-inch pie pan, 12x8-inch baking dish or 11-inch quiche pan; press over the bottom and up the sides to form a crust. Spread the crust with the mustard.","Pour the vegetable mixture evenly into the crust.","Bake at 375° for 18 to 20 minutes, or until a knife inserted near the center comes out clean. If the crust gets too brown, cover with foil for the last 10 minutes. Let stand 10 minutes before serving.","To reheat, cover loosely with foil and heat at 375° for 12 to 15 minutes."],
@@ -71,14 +71,14 @@ var R = [
     cardNotes:["Source written on the card: Salem Evening News","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"hot-tamale-pie-salmon-falls", title:"Hot Tamale Pie", category:"Casseroles", credit:"", serves:"6",
+  { slug:"hot-tamale-pie-salmon-falls", title:"Hot Tamale Pie", category:"Casseroles & Main Dishes", credit:"", serves:"6",
     summary:"A cornmeal and kidney bean pie with corn, chili powder and cumin, topped with cheese and served with salsa.",
     ingredients:[{items:["2 tablespoons butter","½ cup chopped onions","½ cup chopped green pepper","1 can (19 oz) kidney beans, drained and rinsed","1 can (8 oz) tomato sauce","2 teaspoons chili powder","½ teaspoon oregano","½ teaspoon cumin","1 cup cornmeal","½ teaspoon salt","½ teaspoon ground pepper","1 egg, beaten","1 can niblet corn","⅓ cup milk","½ cup grated cheese","½ cup salsa"]}],
     steps:["Sauté the onions and green pepper in the melted butter until tender.","Stir in the beans, tomato sauce, chili powder, oregano and cumin. Set aside.","Mix the cornmeal, salt, pepper, corn, egg and milk. Press the mixture into a greased 10-inch pie plate.","Spoon the bean mixture into the crust and bake at 350° for 20 minutes.","Remove from the oven and sprinkle with the cheese. Bake 5 minutes more to melt the cheese.","Let stand 5 minutes. Cut into 6 wedges and serve with salsa to taste."],
     cardNotes:["Printed recipe from Salmon Falls Stoneware, Dover, NH, for their 10-inch pie plate, pasted on the card."],
     gaps:[] },
 
-  { slug:"steak-pizzaiola-mom-r", title:"Steak Pizzaiola", category:"Casseroles", credit:"Mom R.", creditNote:"Barbara Richards", serves:"",
+  { slug:"steak-pizzaiola-mom-r", title:"Steak Pizzaiola", category:"Beef, Pork & Ham", credit:"Mom R.", creditNote:"Barbara Richards", serves:"",
     summary:"Chuck steak baked under chopped Italian tomatoes, onion, garlic, oregano and olive oil, served with the pan sauce.",
     ingredients:[{items:["1½ to 2 lbs chuck steak","1 small onion, chopped","1 can (14 oz) Italian tomatoes, drained and chopped","1 tsp oregano","2 cloves garlic","2 tbsp olive oil","½ tsp salt","Pinch hot pepper flakes"]}],
     steps:["Heat the oven to 350°. Place the steak in a shallow glass baking dish with plenty of space around the meat.","In a medium bowl combine the onion, tomatoes, oregano, garlic, salt, pepper flakes and olive oil. Spread over the top of the steak.","Bake uncovered 45 minutes to an hour, or until tender.","Slice the steak and serve with the sauce from the pan."],
@@ -86,14 +86,14 @@ var R = [
     cardNotes:["There are two cards for this recipe in the box: this one (Mom R.) and an identical one in block capitals signed Barbara Richards, marked “Star 10/2/93.”"],
     gaps:[] },
 
-  { slug:"seven-seas-casserole-mom-r", title:"Seven Seas Casserole", category:"Casseroles", credit:"Mom R.", creditNote:"Barbara Richards", serves:"",
+  { slug:"seven-seas-casserole-mom-r", title:"Seven Seas Casserole", category:"Casseroles & Main Dishes", credit:"Mom R.", creditNote:"Barbara Richards", serves:"",
     summary:"Layered tuna, minute rice and peas baked in cream of celery soup with cheese and paprika.",
     ingredients:[{items:["1 can (10½ oz) cream of celery soup","1⅓ cups water","¼ tsp salt","¼ cup chopped onion","Dash pepper","1⅓ cups Minute Rice","1½ cups cooked peas","1 can (7 oz) tuna","½ cup grated cheese","Paprika"]}],
     steps:["Combine the soup, water, salt, onion and pepper. Bring to a boil.","Pour half into a greased casserole.","Make 3 layers, using the rice right from the box: rice, peas, tuna. Add the rest of the soup.","Sprinkle with the grated cheese and paprika.","Bake covered at 375° for 15 to 20 minutes. Cut through with a knife after baking 10 minutes."],
     cardNotes:[],
     gaps:[] },
 
-  { slug:"stuffed-summer-squash-with-cheese-sauce", title:"Stuffed Summer Squash with Cheese Sauce", category:"Casseroles", credit:"", serves:"6",
+  { slug:"stuffed-summer-squash-with-cheese-sauce", title:"Stuffed Summer Squash with Cheese Sauce", category:"Casseroles & Main Dishes", credit:"", serves:"6",
     summary:"Yellow squash halves filled with beef, rice and stewed tomatoes, baked under a Parmesan cheese sauce.",
     ingredients:[
       {name:"Squash", items:["3 yellow squash (2 lbs)","Salt","1 tbsp salad oil","1 clove garlic, crushed","½ lb ground beef","½ cup raw long-grain white rice","⅛ tsp pepper","1 can (16 oz) stewed tomatoes"]},
@@ -103,7 +103,7 @@ var R = [
     cardNotes:["The method and the cheese sauce continue on the back of the card."],
     gaps:[] },
 
-  { slug:"chili-teresa", title:"Chili", category:"Casseroles", credit:"Teresa Byrd", serves:"",
+  { slug:"chili-teresa", title:"Chili", category:"Soups & Stews", credit:"Teresa Byrd", serves:"",
     summary:"A quick stovetop beef and kidney bean chili with green pepper and tomatoes. Noodles can be added.",
     ingredients:[{items:["2 lbs ground beef","1 tbsp Crisco","1 cup diced green pepper","3½ cups tomatoes","½ cup onion","2 tsp salt","4 cups kidney beans","2 tbsp chili powder","2 tsp oregano","½ tsp garlic powder","½ tsp pepper"]}],
     steps:["Brown the meat in the Crisco. Add the green pepper and cook until limp.","Stir in the tomatoes, onion and salt. Cook slowly 15 minutes.","Add the beans, chili powder, oregano, garlic powder and pepper. Cook 10 minutes."],
@@ -111,7 +111,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"chicken-with-hot-pepper-planters", title:"Chicken with Hot Pepper", category:"Casseroles", credit:"", serves:"",
+  { slug:"chicken-with-hot-pepper-planters", title:"Chicken with Hot Pepper", category:"Chicken & Turkey", credit:"", serves:"",
     summary:"Quick stir-fried chicken cubes with dried red pepper, scallions, ginger and peanuts.",
     ingredients:[{items:["3 tbsp soy sauce, divided","1 tbsp cornstarch","2 large chicken breasts, boned, skinned and cut into ½-inch cubes","1 tbsp sherry","2 tsp sugar","1 tsp white vinegar","¼ cup peanut oil","1 tsp crushed red pepper","⅓ cup sliced scallions","½ tsp ground ginger","½ cup peanuts","Hot cooked rice, if desired"]}],
     steps:["Blend 1 tbsp of the soy sauce and the cornstarch in a bowl. Mix in the chicken and set aside.","Combine the remaining 2 tbsp soy sauce, the sherry, sugar and vinegar; set aside.","Heat the oil in a wok or large skillet over high heat. Add the red pepper and cook until it turns black.","Add the chicken and stir-fry 2 minutes. Remove and set aside.","Stir-fry the scallions and ginger 1 minute. Return the chicken to the wok and cook 2 minutes, stirring constantly.","Add the soy mixture and cook 1 minute longer, stirring constantly. Mix in the peanuts. Serve with hot cooked rice, if desired."],
@@ -119,7 +119,7 @@ var R = [
     cardNotes:["Source written on the card: Planters Peanuts","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"ground-beef-in-sour-cream", title:"Ground Beef in Sour Cream", category:"Casseroles", credit:"", serves:"6",
+  { slug:"ground-beef-in-sour-cream", title:"Ground Beef in Sour Cream", category:"Beef, Pork & Ham", credit:"", serves:"6",
     summary:"A one-skillet supper of beef and noodles simmered in seasoned tomato juice, finished with sour cream and mushrooms.",
     ingredients:[{items:["1 cup chopped onion","2 tbsp fat","1 lb ground beef","3 cups medium noodles","3 cups tomato juice","1 tsp salt","1½ tsp celery salt","Dash pepper","2 tsp Worcestershire sauce","¼ to ½ cup chopped green pepper","1 cup dairy sour cream","1 can (3 oz) broiled sliced mushrooms, drained"]}],
     steps:["Cook the onion in the hot fat until tender but not brown. Add the beef and brown lightly.","Place the noodles in a layer over the meat. Combine the tomato juice and seasonings and pour over the noodles.","Bring to boiling, cover and simmer over low heat 20 minutes.","Add the green pepper, cover and continue cooking 10 minutes or until the noodles are tender.","Stir in the sour cream and mushrooms. Heat to just boiling. Season to taste."],
@@ -127,7 +127,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"swedish-meatballs-sue-campbell", title:"Swedish Meatballs", category:"Casseroles", credit:"Sue Campbell", serves:"",
+  { slug:"swedish-meatballs-sue-campbell", title:"Swedish Meatballs", category:"Beef, Pork & Ham", credit:"Sue Campbell", serves:"",
     summary:"Easy slow cooker meatballs in mushroom soup and brown gravy, served over noodles or potatoes.",
     ingredients:[{items:["1 can mushroom soup","1 can Heinz brown gravy","1 lb hamburg","About ½ cup unflavored bread crumbs","1 egg","Sprinkle of garlic powder"]}],
     steps:["Make little meatballs from the hamburg, bread crumbs, egg and garlic powder.","Put the soup, gravy and ½ soup can of water in a slow cooker and mix well.","Add the meatballs. Cook on medium 1½ to 2 hours.","Serve over noodles or potatoes."],
@@ -135,7 +135,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"layered-beef-and-zucchini-bisquick", title:"Layered Beef and Zucchini", category:"Casseroles", credit:"", serves:"6",
+  { slug:"layered-beef-and-zucchini-bisquick", title:"Layered Beef and Zucchini", category:"Casseroles & Main Dishes", credit:"", serves:"6",
     summary:"Zucchini, beef and spaghetti sauce under a Bisquick and cottage cheese topping with Parmesan.",
     ingredients:[{items:["1 pound ground beef","3 or 4 small zucchini, cut into ¼-inch slices","¼ cup Bisquick baking mix","2 cups spaghetti sauce","1 cup Bisquick baking mix","1 cup small curd creamed cottage cheese","1 egg","½ cup grated Parmesan cheese"]}],
     steps:["Heat the oven to 350°. Grease an 8x8x2-inch baking dish.","Cook and stir the beef in a 10-inch skillet until brown; drain.","Place the zucchini slices in a single layer in the baking dish and sprinkle with ¼ cup baking mix. Top with the beef and spaghetti sauce.","Mix the 1 cup baking mix, the cottage cheese and the egg until a soft dough forms; spread over the sauce. Sprinkle with the Parmesan.","Bake uncovered until hot and bubbly, about 30 minutes. Let stand 10 minutes before serving."],
@@ -143,21 +143,21 @@ var R = [
     cardNotes:["Printed Bisquick recipe card (Main Dishes / Side Dishes). Something next to the topping ingredients is blacked out."],
     gaps:[] },
 
-  { slug:"mexican-chicken-in-crust-bisquick", title:"Mexican Chicken in Crust", category:"Casseroles", credit:"", serves:"4",
+  { slug:"mexican-chicken-in-crust-bisquick", title:"Mexican Chicken in Crust", category:"Casseroles & Main Dishes", credit:"", serves:"4",
     summary:"Chicken, green chilies and a creamy sour cream sauce baked inside a folded Bisquick crust.",
     ingredients:[{items:["2 cups Bisquick baking mix","½ cup boiling water","2 to 3 cups cut-up cooked chicken","1 can (10¾ oz) condensed cream of chicken soup","1 can (4 oz) whole green chilies, drained, seeded and chopped","¾ cup dairy sour cream","⅓ cup sliced green onions (with tops)","1 cup shredded Monterey Jack cheese (about 4 oz)"]}],
     steps:["Mix the baking mix and boiling water until a soft dough forms. Let stand until cool, about 10 minutes.","Heat the oven to 400°. Turn the dough onto a floured cloth-covered board and knead until smooth, 12 to 15 times. Roll into an 18x11-inch rectangle.","Fold crosswise into thirds and place in an ungreased 8x8x2-inch baking dish. Unfold, letting the long sides hang over the edges of the dish.","Sprinkle the chicken in the crust. Heat the soup, chilies, sour cream and onions over medium heat, stirring occasionally, until hot; pour over the chicken. Sprinkle with the cheese.","Fold the sides of the dough over the filling to the center of the dish; pinch the edges to seal. Cut slits in the top to let steam escape.","Bake uncovered until the crust is golden brown, about 45 minutes."],
     cardNotes:["Printed Bisquick recipe card (Main Dishes / Side Dishes)."],
     gaps:[] },
 
-  { slug:"chicken-in-sour-cream-gail-farmer", title:"Chicken in Sour Cream and Sherry", category:"Casseroles", credit:"Gail Farmer", serves:"",
+  { slug:"chicken-in-sour-cream-gail-farmer", title:"Chicken in Sour Cream and Sherry", category:"Chicken & Turkey", credit:"Gail Farmer", serves:"",
     summary:"Chicken breasts cooked in a creamy sauce of cream of celery and mushroom soups, sour cream and sherry.",
     ingredients:[{items:["1 can cream of celery soup","1 can cream of mushroom soup","1 can (3 oz) mushrooms, liquid poured off","3 cups sour cream","½ cup sherry or white wine","2 or 3 chicken breasts"]}],
     steps:["Mix everything together.","Cook at least 1 hour, stirring occasionally."],
     cardNotes:["Written in red pen."],
     gaps:["The title is covered by another card in the photo, so this name is descriptive.","The card doesn’t say whether to cook it in the oven or on the stove, or at what temperature."] },
 
-  { slug:"baked-ziti-and-italian-sausage-casserole", title:"Baked Ziti and Italian Sausage Casserole", category:"Casseroles", credit:"", serves:"6",
+  { slug:"baked-ziti-and-italian-sausage-casserole", title:"Baked Ziti and Italian Sausage Casserole", category:"Casseroles & Main Dishes", credit:"", serves:"6",
     summary:"Ziti in a creamy Parmesan sauce layered with a cottage cheese filling and sliced Italian sausage, topped with mozzarella.",
     ingredients:[
       {items:["½ package (1-lb size) ziti macaroni","2 tablespoons salad oil","½ lb sweet or hot Italian sausage (3 links)"]},
@@ -168,7 +168,7 @@ var R = [
     cardNotes:["Printed clipping kept in a plastic sleeve, front and back."],
     gaps:[] },
 
-  { slug:"calico-beans-kay-scimone", title:"Calico Beans", category:"Casseroles", credit:"Kay Scimone", serves:"",
+  { slug:"calico-beans-kay-scimone", title:"Calico Beans", category:"Vegetables & Sides", credit:"Kay Scimone", serves:"",
     summary:"Baked beans with hamburg, onions, brown sugar and ketchup, using kidney and yellow-eye beans.",
     ingredients:[{items:["1½ lbs hamburg","1½ cups chopped onions","1 cup dark brown sugar","1 cup ketchup","2 tsp mustard","2 tsp salt","2 cans (16 oz) red kidney beans","2 cans (16 oz) yellow-eye beans"]}],
     steps:["Brown the meat and onions. Drain the fat and set aside.","Mix all the other ingredients in a baking dish. Add the meat and onions.","Cover and cook 1 hour in a 350° oven."],
@@ -176,7 +176,7 @@ var R = [
     cardNotes:["Printed “Recipe for / from the kitchen of” card, folded."],
     gaps:["The variation is cut off on the card after “cook in…”; the oven instructions at the end of it are a best guess (same as the main recipe)."] },
 
-  { slug:"sweet-n-sour-chicken-minute-rice", title:"Sweet ’n Sour Chicken", category:"Casseroles", credit:"", serves:"4",
+  { slug:"sweet-n-sour-chicken-minute-rice", title:"Sweet ’n Sour Chicken", category:"Chicken & Turkey", credit:"", serves:"4",
     summary:"A one-pan chicken, pepper, carrot and pineapple dish cooked with Minute Rice.",
     ingredients:[{items:["1 lb boneless chicken, cut in cubes","2 tbsp oil","1 garlic clove, minced","1 cup green pepper strips","1 cup carrot strips","1¼ cups chicken bouillon","¼ cup soy sauce","2 tbsp sherry (optional)","3 tbsp vinegar","3 tbsp brown sugar","½ tsp ginger","1 can (8 oz) chunk pineapple in juice","1½ cups Minute Rice"]}],
     steps:["Brown the chicken in the oil.","Add the garlic, green pepper and carrots; sauté briefly.","Add the bouillon, soy sauce, sherry, vinegar, sugar, ginger and pineapple with its juice. Bring to a full boil.","Stir in the rice. Cover, remove from the heat and let stand 5 minutes. Stir before serving."],
@@ -184,21 +184,21 @@ var R = [
     cardNotes:["Printed Minute Rice clipping."],
     gaps:[] },
 
-  { slug:"corned-beef-n-cabbage-casserole", title:"Corned Beef ’n’ Cabbage Casserole", category:"Casseroles", credit:"", serves:"6",
+  { slug:"corned-beef-n-cabbage-casserole", title:"Corned Beef ’n’ Cabbage Casserole", category:"Beef, Pork & Ham", credit:"", serves:"6",
     summary:"Cabbage and onion simmered tender, then finished with hominy and chopped corned beef.",
     ingredients:[{items:["1 medium head cabbage, shredded (about 8 cups)","1 small onion, chopped","1 cup water","1 can (15½ oz) white hominy, rinsed and drained","¾ lb thinly sliced corned beef, chopped","¼ tsp salt","¼ tsp pepper","¼ tsp hot pepper sauce"]}],
     steps:["In a large Dutch oven or saucepan, combine the cabbage, onion and water; bring to a boil.","Reduce the heat, cover and simmer 15 minutes, or until the cabbage is tender.","Add the remaining ingredients and simmer 5 minutes."],
     cardNotes:["Printed clipping."],
     gaps:[] },
 
-  { slug:"baked-beans-salmon-falls", title:"Baked Beans (Bean Pot)", category:"Casseroles", credit:"", serves:"8",
+  { slug:"baked-beans-salmon-falls", title:"Baked Beans (Bean Pot)", category:"Vegetables & Sides", credit:"", serves:"8",
     summary:"Navy beans slow-baked 5 hours in a covered bean pot with molasses, chili sauce, onion and dry mustard.",
     ingredients:[{items:["3 cups navy beans","Water","¼ cup chili sauce","1½ tsp vinegar","2 onions, thinly sliced","3 cups bean juice (the cooking liquid)","¾ tsp dry mustard","½ cup dark molasses"]}],
     steps:["Cover the beans with water and soak overnight in a large pot.","In the morning, simmer for 1 hour.","Combine the remaining ingredients with the beans in a 2½-quart bean pot.","Bake in a preheated 300° oven for 5 hours. The cover must be on the whole time.","Check occasionally and add more water if the liquid evaporates."],
     cardNotes:["Printed recipe from Salmon Falls Stoneware, Dover, NH, for their 2½-quart bean pot. Adapted from an American Heart Association recipe."],
     gaps:[] },
 
-  { slug:"tomato-chicken-pilaf", title:"Tomato Chicken Pilaf", category:"Casseroles", credit:"", serves:"",
+  { slug:"tomato-chicken-pilaf", title:"Tomato Chicken Pilaf", category:"Chicken & Turkey", credit:"", serves:"",
     summary:"Cooked chicken and rice simmered with stewed tomatoes, mushrooms and thyme.",
     ingredients:[{items:["1 can (4 oz) sliced mushrooms, drained, liquid reserved","½ cup chopped onion","1 small clove garlic, chopped","2 tbsp vegetable oil","2 cups cut-up cooked chicken","½ cup uncooked regular rice","½ tsp salt","Dash pepper","¼ tsp leaf thyme","2 cans (16 oz) stewed tomatoes"]}],
     steps:["Cook the mushrooms, onion and garlic in the oil until lightly browned.","Stir in the reserved mushroom liquid and the remaining ingredients, cutting the tomatoes into pieces.","Bring to a boil. Reduce the heat, cover tightly and simmer about 30 minutes, or until the rice is tender."],
@@ -206,7 +206,7 @@ var R = [
     cardNotes:["The rice amount is written over in darker ink (½ cup)."],
     gaps:[] },
 
-  { slug:"beef-and-biscuit-bake", title:"Beef & Biscuit Bake", category:"Casseroles", credit:"", serves:"6",
+  { slug:"beef-and-biscuit-bake", title:"Beef & Biscuit Bake", category:"Casseroles & Main Dishes", credit:"", serves:"6",
     summary:"Seasoned ground beef baked between two layers of biscuit dough, cut in squares and served with brown gravy.",
     ingredients:[
       {items:["1 lb ground beef","2 tbsp minced onion","¼ cup mayonnaise (for the beef)","½ tsp salt","2 cups biscuit mix","⅓ cup milk","¼ cup mayonnaise (for the dough)"]},
@@ -216,7 +216,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"broccoli-beef-bon-appetit", title:"Broccoli Beef", category:"Casseroles", credit:"", serves:"4",
+  { slug:"broccoli-beef-bon-appetit", title:"Broccoli Beef", category:"Beef, Pork & Ham", credit:"", serves:"4",
     summary:"Stir-fried beef and broccoli with pearl onions and pimento in an oyster sauce, served over noodles or rice.",
     ingredients:[
       {items:["1 lb fresh broccoli, trimmed and peeled","1 tbsp oil","2 cloves garlic, minced","½ lb lean beef, thinly sliced","½ cup frozen whole pearl onions, thawed and drained","¼ cup diced pimento","Chow mein noodles or freshly steamed rice"]},
@@ -225,21 +225,21 @@ var R = [
     cardNotes:["Source written on the card: Bon Appétit"],
     gaps:["The card uses half the garlic and doesn’t say when to add the rest."] },
 
-  { slug:"eggplant-and-sausage-casserole-mom-r", title:"Eggplant & Sausage Casserole", category:"Casseroles", credit:"Mom R.", creditNote:"Barbara Richards", serves:"12",
+  { slug:"eggplant-and-sausage-casserole-mom-r", title:"Eggplant & Sausage Casserole", category:"Casseroles & Main Dishes", credit:"Mom R.", creditNote:"Barbara Richards", serves:"12",
     summary:"Sweet sausage and eggplant in a paprika tomato sauce, layered with penne, ricotta and mozzarella.",
     ingredients:[{items:["2 lb sweet sausage","2 tbsp olive oil or vegetable oil","1 medium eggplant (1½ lb)","1 large Spanish onion, chopped","1 clove garlic, chopped","2 tsp paprika","1 can (28 oz) crushed tomatoes","1 can (6 oz) tomato paste","1 tbsp chopped fresh basil, or 1 tsp dried basil leaves, crushed","Salt","1 box (1 lb) penne","1 container (15 oz) ricotta cheese","1 package (16 oz) mozzarella, shredded"]}],
     steps:["Cut the sausage diagonally into 1-inch pieces. Heat the oil over medium-high heat. Add the sausage and cook 8 minutes or until browned, stirring frequently.","Cut the eggplant into ½-inch cubes. Add the eggplant, onion and garlic to the sausage in the skillet; cook 5 minutes or until the eggplant is tender.","Stir in the paprika and cook 1 minute longer. Add the tomatoes, tomato paste, basil and 1 tsp salt; bring to boiling over moderately high heat.","Reduce the heat to low, partially cover and simmer 35 minutes or until the sauce is slightly thickened, stirring occasionally with a wooden spoon.","Preheat the oven to 350°. Cook the penne until al dente. Drain and stir into the sauce.","Spread half the eggplant mixture in a shallow 2½-quart baking dish or large roasting pan. Top with the ricotta, spreading evenly. Sprinkle with half the mozzarella. Top with the remaining eggplant mixture and sprinkle with the rest of the mozzarella.","Bake 40 minutes or until heated through. Let stand 10 minutes before serving."],
     cardNotes:["Source written on the card: McCall’s","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"greek-macaroni-barbara-richards", title:"Greek Macaroni", category:"Casseroles", credit:"Barbara Richards", serves:"",
+  { slug:"greek-macaroni-barbara-richards", title:"Greek Macaroni", category:"Casseroles & Main Dishes", credit:"Barbara Richards", serves:"",
     summary:"Layers of cinnamon-spiced hamburg in tomato sauce, macaroni and grated cheese, baked under a milk and egg custard.",
     ingredients:[{items:["1 lb hamburg","Salt, plenty","Cinnamon","2 cans (16 oz each) tomato sauce","1 lb macaroni","¾ quart milk (later changed to 1½ to 2 cups)","3 to 4 eggs, beaten","Grated cheese"]}],
     steps:["Cook the hamburg with a lot of salt and cinnamon. Add the tomato sauce after the meat is cooked. Simmer while preparing the other ingredients.","Boil the macaroni in plenty of salted water until ⅔ cooked. Drain.","Heat the milk. Add the beaten eggs.","In a greased pan, layer: grated cheese to cover the bottom of the pan, macaroni, the hamburg mixture, macaroni, grated cheese.","Pour the milk and egg mixture over all. Bake 45 minutes in a 350° oven."],
     cardNotes:["The card is in two pieces taped together.","The tomato sauce line has “16 oz” written twice (once in parentheses), and the milk amount has a later note: “1½ cup – 2 cups.”"],
     gaps:["The amounts of cinnamon and grated cheese aren’t given."] },
 
-  { slug:"noodle-pudding-kugel-barbara-richards", title:"Noodle Pudding (Kugel)", category:"Casseroles", credit:"Barbara Richards", serves:"",
+  { slug:"noodle-pudding-kugel-barbara-richards", title:"Noodle Pudding (Kugel)", category:"Casseroles & Main Dishes", credit:"Barbara Richards", serves:"",
     summary:"A sweet baked noodle kugel with cottage cheese, cream cheese and sour cream under a corn flake topping.",
     ingredients:[
       {items:["12 oz medium noodles","4 eggs, well beaten","½ cup sugar","1 tsp salt","1 lb (16 oz) cottage cheese","½ lb (8 oz) cream cheese","1½ pints sour cream (1 pint for the pudding, ½ pint for the topping)","3 tbsp melted butter, for the dish"]},
@@ -248,7 +248,7 @@ var R = [
     cardNotes:["Printed “My Favorite Recipe” card. Written on the card: “from Marcia Cohen.”","The method is on the back of the card."],
     gaps:[] },
 
-  { slug:"tuna-noodle-casserole-campbells", title:"Tuna Noodle Casserole", category:"Casseroles", credit:"Barbara Richards", serves:"6",
+  { slug:"tuna-noodle-casserole-campbells", title:"Tuna Noodle Casserole", category:"Casseroles & Main Dishes", credit:"Barbara Richards", serves:"6",
     summary:"The classic: cream of mushroom soup, tuna, peas and egg noodles with a buttered crumb top.",
     ingredients:[{items:["2 cans (10¾ oz each) Campbell’s Cream of Mushroom Soup","1 cup milk","2 cups frozen peas","2 cans (about 12 oz each) tuna, drained","4 cups hot cooked medium egg noodles","2 tbsp dry bread crumbs","1 tbsp butter, melted"]}],
     steps:["Stir the soup, milk, peas, tuna and noodles in a 3-quart casserole.","Bake at 400° for 30 minutes, or until hot. Stir.","Mix the bread crumbs with the butter and sprinkle over the tuna mixture. Bake 5 minutes more."],
@@ -256,7 +256,7 @@ var R = [
     cardNotes:["Printed Campbell’s clipping with “Barbara Richards” written on it."],
     gaps:[] },
 
-  { slug:"sweet-and-sour-meatballs-barbara-richards", title:"Sweet & Sour Meatballs", category:"Casseroles", credit:"Barbara Richards", serves:"",
+  { slug:"sweet-and-sour-meatballs-barbara-richards", title:"Sweet & Sour Meatballs", category:"Beef, Pork & Ham", credit:"Barbara Richards", serves:"",
     summary:"Browned meatballs simmered with green peppers and pineapple in a soy and vinegar sweet and sour sauce.",
     ingredients:[
       {name:"Meatballs", items:["1 lb hamburg","¼ cup bread crumbs","½ cup onion, chopped","⅛ tsp pepper"]},
@@ -265,7 +265,7 @@ var R = [
     cardNotes:["Written on the card: “Barbara Richards’ favorite sweet & sour recipe.” The card is signed Janette McDonald.","Written in pink ink, front and back."],
     gaps:[] },
 
-  { slug:"macaroni-peas-and-tomatoes-womans-day", title:"Macaroni, Peas & Tomatoes", category:"Casseroles", credit:"", serves:"4",
+  { slug:"macaroni-peas-and-tomatoes-womans-day", title:"Macaroni, Peas & Tomatoes", category:"Pasta & Rice", credit:"", serves:"4",
     summary:"Macaroni tossed with peas, tomatoes, basil and Parmesan.",
     ingredients:[{items:["1 medium onion, sliced (½ cup)","3 tbsp oil","2 cups frozen or fresh peas","⅔ cup chopped, drained canned tomatoes","1 tsp basil","1 tsp salt","⅛ tsp pepper","1 package (8 oz) macaroni, cooked and drained","¼ cup grated Parmesan cheese"]}],
     steps:["Sauté the onion in the oil over low heat in a saucepan until tender.","Stir in the peas; cover and cook over moderate heat 5 minutes, or until crisp-tender.","Add the tomatoes, basil, salt and pepper. Cook, stirring occasionally, 5 minutes more or until bubbling.","Add to the hot macaroni, sprinkle with the cheese and toss."],
@@ -273,7 +273,7 @@ var R = [
     cardNotes:["Source written on the card: Woman’s Day"],
     gaps:[] },
 
-  { slug:"beef-n-egg-loaves", title:"Beef ’n’ Egg Loaves", category:"Casseroles", credit:"", serves:"6",
+  { slug:"beef-n-egg-loaves", title:"Beef ’n’ Egg Loaves", category:"Beef, Pork & Ham", credit:"", serves:"6",
     summary:"Six little wheat germ meat loaves, each wrapped around a hard-cooked egg, with a sweet-sour ketchup glaze.",
     ingredients:[
       {items:["1½ pounds ground beef","¼ cup wheat germ","¼ cup finely chopped onion","¼ cup chopped fresh parsley","1 teaspoon salt","¼ teaspoon dried thyme leaves","¼ teaspoon dry mustard","¼ teaspoon paprika","⅛ teaspoon pepper","1 egg","¼ cup milk","¼ cup ketchup","6 hard-cooked eggs, peeled"]},
@@ -283,7 +283,7 @@ var R = [
     cardNotes:["Newspaper clipping titled “A lot of protein in a little loaf,” from Farm Journal."],
     gaps:[] },
 
-  { slug:"danish-meatballs", title:"Danish Meatballs", category:"Casseroles", credit:"", serves:"6",
+  { slug:"danish-meatballs", title:"Danish Meatballs", category:"Beef, Pork & Ham", credit:"", serves:"6",
     summary:"Ground pork meatballs flavored with grated lemon peel, simmered in a creamy pan gravy.",
     ingredients:[{items:["1 small lemon","1½ pounds ground pork","1 egg","½ cup seasoned dried bread crumbs","1 tablespoon grated onion","Salt","2 tablespoons butter or margarine","2 tablespoons all-purpose flour","¼ teaspoon pepper","1 cup milk","1 cup water"]}],
     steps:["Cut a thin slice from the lemon and set aside for garnish. Grate 2 teaspoons peel from the remaining lemon.","In a large bowl, mix the lemon peel, pork, egg, bread crumbs, onion and 1 teaspoon salt. Shape into 1-inch meatballs.","In a 12-inch skillet over medium-high heat, in hot butter, cook the meatballs a few at a time until well browned on all sides, removing them to a bowl as they brown. Pour off all but 2 tablespoons of drippings.","Into the drippings, stir the flour, pepper and 1 teaspoon salt over medium heat. Gradually stir in the milk and water and cook until slightly thickened, stirring constantly.","Return the meatballs to the skillet and heat to boiling. Reduce the heat to low, cover and simmer 10 minutes.","Spoon the meatballs and sauce onto a warm deep platter and garnish with the lemon slice."],
@@ -291,7 +291,7 @@ var R = [
     cardNotes:["Printed clipping (Good Housekeeping style)."],
     gaps:[] },
 
-  { slug:"macaroni-and-tuna-casserole", title:"Macaroni & Tuna Casserole", category:"Casseroles", credit:"", serves:"",
+  { slug:"macaroni-and-tuna-casserole", title:"Macaroni & Tuna Casserole", category:"Casseroles & Main Dishes", credit:"", serves:"",
     summary:"Macaroni and tuna in a Velveeta and cream of celery cheese sauce, with fresh tomato and buttered crumbs.",
     ingredients:[{items:["½ lb cheese (Velveeta)","1 can cream of celery soup","½ cup milk","2 cups cooked macaroni","1 tsp dry mustard","1 small can tuna, flaked","1 tomato, cut up small","Dash pepper","½ cup buttered bread crumbs"]}],
     steps:["Combine the cheese, soup, milk, pepper and mustard in a saucepan and cook over low heat until the cheese melts.","Cook the macaroni and add it and the tuna to the cheese mixture.","Pour into a 2-quart casserole and add the tomato. Sprinkle the bread crumbs on top.","Bake at 325° for 20 to 25 minutes."],
@@ -299,7 +299,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"stuffed-shells-diet", title:"Stuffed Shells (Light)", category:"Casseroles", credit:"", serves:"4",
+  { slug:"stuffed-shells-diet", title:"Stuffed Shells (Light)", category:"Casseroles & Main Dishes", credit:"", serves:"4",
     summary:"Jumbo shells filled with lean beef, spinach and cheese, baked in a basil tomato sauce.",
     ingredients:[{items:["8 jumbo macaroni shells (2 oz)","1½ cups tomato purée","1 tsp basil, crushed","1¼ tsp salt, divided","1 tsp sugar","½ lb lean ground beef","1 small onion, chopped","1 garlic clove, finely minced","1 package (10 oz) frozen chopped spinach, thawed and well drained","2 tbsp grated Parmesan cheese","½ cup low-fat cottage cheese"]}],
     steps:["Cook the shells for 20 minutes in 6 quarts of rapidly boiling water; drain.","In a small bowl, combine the tomato purée, basil, 1 tsp salt and the sugar; set aside.","In a nonstick skillet (or use nonstick cooking spray), brown the beef with the onion and garlic. Drain off and discard all drippings.","Preheat the oven to 350°. To the meat in the skillet, add ⅓ cup of the tomato mixture, the spinach, the cheeses and ¼ tsp salt.","Fill each cooked shell with ¼ cup of the meat mixture. Place the stuffed shells in a 9-inch square pan.","Combine the remaining meat mixture with the remaining sauce and pour over the shells.","Cover with foil and bake 40 to 45 minutes, until hot and bubbly."],
@@ -307,21 +307,21 @@ var R = [
     cardNotes:["The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"linguine-broccoli-cauliflower-mushrooms", title:"Linguine with Broccoli, Cauliflower & Mushrooms", category:"Casseroles", credit:"", serves:"",
+  { slug:"linguine-broccoli-cauliflower-mushrooms", title:"Linguine with Broccoli, Cauliflower & Mushrooms", category:"Pasta & Rice", credit:"", serves:"",
     summary:"Linguine cooked in the vegetable water, tossed with garlicky sautéed broccoli, cauliflower and mushrooms, and topped with ricotta and Romano.",
     ingredients:[{items:["1 cup ricotta cheese","⅓ cup grated Romano cheese, plus more to dust","1 tsp salt (for the cooking water)","1 medium head cauliflower, trimmed and cut into florets","Broccoli florets","1 cup olive oil","6 garlic cloves, minced","1 lb mushrooms, thickly sliced","2 tsp salt","½ tsp crushed red pepper","1 lb linguine"]}],
     steps:["Combine the ricotta and Romano and set aside.","Bring a large pot of water to a rolling boil. Add the salt, cauliflower and broccoli. Cover and return to a boil. Uncover and cook until the vegetables are tender-crisp, about 7 minutes. Remove the vegetables with a slotted spoon; save the liquid for cooking the linguine.","Heat the olive oil and garlic in a large skillet. When the garlic is lightly browned, stir in the mushrooms, salt and red pepper and sauté about 5 minutes.","Stir in the broccoli and cauliflower and continue cooking 10 minutes. If the mixture gets too dry, add some of the reserved cooking liquid.","Bring the cooking liquid to a boil, adding water if needed. Add the linguine, stirring with a fork to prevent sticking, and cook until al dente, about 10 to 12 minutes. Drain well.","Reheat the vegetable mixture and stir in the linguine. Divide among shallow bowls, top with the cheese mixture and dust with more Romano."],
     cardNotes:["Written on the card: “Selena’s in Tampa.”","The method continues on the back of the card."],
     gaps:["The card doesn’t list an amount for the broccoli (the ingredient line isn’t on the card, though the method uses it)."] },
 
-  { slug:"chicken-almond-puffs", title:"Chicken-Almond Puffs", category:"Appetizers", credit:"", serves:"4 dozen",
+  { slug:"chicken-almond-puffs", title:"Chicken-Almond Puffs", category:"Appetizers & Dips", credit:"", serves:"4 dozen",
     summary:"Bite-size cream puffs with diced chicken, toasted almonds and paprika baked into the dough. Serve hot.",
     ingredients:[{items:["1 cup chicken broth","½ cup butter or margarine","1 cup flour","¼ tsp salt","4 eggs","½ cup diced cooked chicken","2 tbsp chopped blanched almonds, toasted","⅛ tsp paprika"]}],
     steps:["Combine the broth and butter and bring to a boil.","Combine the flour and salt and add all at once to the broth mixture, stirring vigorously over low heat until the mixture leaves the sides of the pan and forms a smooth ball. Remove from the heat and cool slightly.","Add the eggs one at a time, beating with a wooden spoon after each, until the batter is smooth.","Stir in the chicken, almonds and paprika.","Drop by heaping teaspoons 2 inches apart on greased sheets. Bake at 450° for 10 minutes, then reduce the heat to 350° for 5 to 10 minutes, or until golden. Serve immediately."],
     cardNotes:["Source written on the card: America’s Best Recipes ’89","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"turkey-broccoli-noodle-casserole-leslie-levine", title:"Turkey, Broccoli & Noodle Casserole", category:"Casseroles", credit:"", serves:"",
+  { slug:"turkey-broccoli-noodle-casserole-leslie-levine", title:"Turkey, Broccoli & Noodle Casserole", category:"Casseroles & Main Dishes", credit:"", serves:"",
     summary:"Noodles, turkey or chicken and broccoli under a cheese sauce with toasted slivered almonds.",
     ingredients:[{items:["1 small bunch fresh broccoli, cut into florets","½ tsp salt (for the broccoli water)","1 tbsp butter","1 tbsp flour","½ cup milk","½ cup light cream","½ tsp salt, or to taste","¼ tsp pepper","½ cup grated Parmesan cheese (or cheddar)","1 cup cooked medium-width noodles","1 cup cooked diced turkey or chicken, or 1 can tuna","2 tbsp slivered toasted almonds","Sprinkle of paprika"]}],
     steps:["Cook the broccoli in boiling salted water until tender, about 15 minutes.","Melt the butter and stir in the flour. Cook 1 minute. Gradually stir in the milk and cream. Cook, stirring constantly, until smooth and thickened. Season with salt and pepper.","Add the cheese and simmer over very low heat until melted. (Parmesan has a strong flavor; you can use grated cheddar or Swiss, or 3 to 4 slices of processed cheese, for a milder flavor.)","Spread the cooked noodles in a greased 1-quart baking dish. Top with the turkey and the broccoli, then pour the cheese sauce over everything. Sprinkle with the toasted almonds and a little paprika. Bake at 350° for about 20 minutes, until hot and bubbly. (This last step is a best guess; see note.)"],
@@ -329,14 +329,14 @@ var R = [
     cardNotes:["Newspaper clipping by Donna Lee: Leslie Levine of South Weymouth won $25 in the Favorite Recipe Contest for this casserole."],
     gaps:["The clipping is cut off at “Spread the cooked noodles in.” The last step (layering, 350°, about 20 minutes) is a best guess from the ingredients, not from the card; the rest may be on the back of the clipping."] },
 
-  { slug:"margaret-tonellos-chicken-cacciatore", title:"Margaret Tonello’s Chicken Cacciatore", category:"Casseroles", credit:"", serves:"4 to 6",
+  { slug:"margaret-tonellos-chicken-cacciatore", title:"Margaret Tonello’s Chicken Cacciatore", category:"Chicken & Turkey", credit:"", serves:"4 to 6",
     summary:"Chicken browned in butter and olive oil, then simmered with onions, peppers, mushrooms, wine, herbs and plum tomatoes.",
     ingredients:[{items:["1 chicken (3 pounds), cut up","2 tablespoons butter","2 tablespoons olive oil","2 medium cloves garlic, chopped","⅛ teaspoon salt","¼ teaspoon fresh ground pepper","2 medium onions, chopped","1 medium green pepper, diced","½ cup wine","1 cup mushrooms, cut up","1 teaspoon fresh rosemary leaves","1 teaspoon fresh sage","4 tablespoons finely chopped parsley","1 can (28 oz) whole plum tomatoes with purée"]}],
     steps:["Remove excess fat from the chicken.","In a large skillet over medium heat, melt the butter in the olive oil and add the garlic. Add the chicken pieces, salt and pepper and brown about 10 minutes.","Add the onions, green pepper and mushrooms and lightly brown.","Add the wine, rosemary, sage and parsley and mix through the chicken. Cook another 5 minutes.","Add the tomatoes. Cook uncovered on low heat about 45 minutes, until done. Do not overcook."],
     cardNotes:["Newspaper clipping."],
     gaps:[] },
 
-  { slug:"baked-macaroni-and-cheese-muellers", title:"Baked Macaroni & Cheese", category:"Casseroles", credit:"", serves:"4 to 6",
+  { slug:"baked-macaroni-and-cheese-muellers", title:"Baked Macaroni & Cheese", category:"Casseroles & Main Dishes", credit:"", serves:"4 to 6",
     summary:"Classic elbows in a cheddar cheese sauce, topped with buttered crumbs and paprika.",
     ingredients:[{items:["2 tbsp margarine or butter","2 tbsp flour","1 tsp salt","1 tsp dry mustard","2½ cups milk","2 cups (8 oz) shredded cheese, divided","8 oz (2 cups) elbows","¼ cup buttered bread crumbs","Paprika"]}],
     steps:["In a saucepan, melt the butter. Remove from the heat and blend in the flour, salt and mustard.","Add the milk; heat, stirring constantly, until the sauce thickens a little and is smooth.","Add 1½ cups of the cheese and heat until melted, stirring occasionally.","Meanwhile, cook the macaroni as directed and drain.","Combine with the sauce in a 2-quart casserole. Top with the remaining cheese, the bread crumbs and paprika.","Bake at 375° for 20 to 25 minutes, or until nicely browned and bubbly."],
@@ -344,7 +344,7 @@ var R = [
     cardNotes:["Source written on the card: Mueller’s"],
     gaps:[] },
 
-  { slug:"tuna-pie-with-cheese-sauce-lowell-sun", title:"Tuna Pie with Cheese Sauce", category:"Casseroles", credit:"", serves:"",
+  { slug:"tuna-pie-with-cheese-sauce-lowell-sun", title:"Tuna Pie with Cheese Sauce", category:"Casseroles & Main Dishes", credit:"", serves:"",
     summary:"A tuna custard pie baked in a pastry shell, served in wedges with a quick cheddar cheese sauce and tomato slices.",
     ingredients:[
       {items:["2 cans (6½ oz) tuna","½ cup chopped onions","2 tbsp butter, margarine or oil","2 tbsp flour","Salt","Dash of pepper","1½ cups undiluted evaporated milk","2 eggs, beaten","9-inch unbaked pastry shell","Tomato slices, to garnish"]},
@@ -354,7 +354,7 @@ var R = [
     cardNotes:["Source written on the card: Lowell Sun","The cheese sauce is on the back of the card."],
     gaps:[] },
 
-  { slug:"marthas-beef-burgundy", title:"Martha’s Beef Burgundy", category:"Meats & Seafood", credit:"Martha", serves:"",
+  { slug:"marthas-beef-burgundy", title:"Martha’s Beef Burgundy", category:"Beef, Pork & Ham", credit:"Martha", serves:"",
     summary:"Easy stew beef simmered low with consommé, onion soup, V-8, burgundy and celery. Makes a lot of gravy.",
     ingredients:[{items:["2 to 4 lbs stew beef, fat removed","1 can beef consommé","1 can onion soup","1 (24 oz) V-8 juice","1 cup burgundy wine","½ cup firmly packed brown sugar","3 stalks chopped celery","1 tsp oregano","Cornstarch and water, to thicken"]}],
     steps:["Combine everything in a pot.","Simmer, covered, on really low heat for 2 hours.","Thicken with cornstarch mixed with water."],
@@ -362,14 +362,14 @@ var R = [
     cardNotes:["The V-8 amount (24 oz) and the celery are written in later in blue ink."],
     gaps:["The name in the title is just “Martha.”"] },
 
-  { slug:"ham-rolls-with-cottage-cheese-aunt-bev", title:"Ham Rolls with Cottage Cheese", category:"Casseroles", credit:"Aunt Beve", serves:"8",
+  { slug:"ham-rolls-with-cottage-cheese-aunt-bev", title:"Ham Rolls with Cottage Cheese", category:"Casseroles & Main Dishes", credit:"Aunt Beve", serves:"8",
     summary:"Ham slices rolled around a spinach, cottage cheese and green onion filling, baked under a mushroom sour cream sauce.",
     ingredients:[{items:["2 cans cream of mushroom soup","1 pint sour cream, divided","2 cups (1 lb) country-style cottage cheese, sieved","2 eggs, slightly beaten","½ cup finely chopped spring onions","1 package (10 oz) chopped frozen spinach, cooked and well drained","½ tsp salt","1 tsp dry mustard","24 slices (1½ lb) cooked ham"]}],
     steps:["Combine the soup and ½ cup of the sour cream in a bowl and set aside for the sauce.","Combine the remaining sour cream with the cottage cheese, eggs, spring onions, spinach, mustard and salt. Mix well.","Spoon about 2 tbsp filling onto each piece of ham. Roll up the ham and fold in the edges. Place in a shallow baking dish.","Cover with the sour cream sauce. Bake at 350° for 20 to 25 minutes."],
     cardNotes:["The title on the card looks like “Ham Balls”; the method rolls the ham, so it is probably “Ham Rolls.”","The name is written “Aunt Beve.”","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"stuffed-green-peppers-micro-jane", title:"Stuffed Green Peppers (Microwave)", category:"Meats & Seafood", credit:"Jane", serves:"4 to 6",
+  { slug:"stuffed-green-peppers-micro-jane", title:"Stuffed Green Peppers (Microwave)", category:"Beef, Pork & Ham", credit:"Jane", serves:"4 to 6",
     summary:"Green pepper halves filled with beef, rice and tomato sauce, cooked in the microwave.",
     ingredients:[{items:["4 large green peppers","1 lb ground beef","1 medium onion, finely chopped","1 tsp salt","¼ tsp pepper","1½ cups cooked rice","1 can (16 oz) tomato sauce, divided"]}],
     steps:["Wash the peppers. Cut in half lengthwise and remove the seeds and white membrane.","Crumble the beef into a 1½-quart casserole. Add the onion. Cook uncovered on High about 5 minutes, stirring once, until the meat loses its red color.","Stir in the salt, pepper, rice and half the tomato sauce. Fill the pepper halves, mounding the mixture on top. Place in a glass baking dish.","Top each pepper with a dribble of the remaining tomato sauce.","Cook, covered, on High for 8 to 10 minutes, or just until the peppers are tender."],
@@ -377,7 +377,7 @@ var R = [
     cardNotes:["Written at the top right: “MICRO.” The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"italian-sausage-supper-herald", title:"Italian Sausage Supper", category:"Dinner", credit:"", serves:"4",
+  { slug:"italian-sausage-supper-herald", title:"Italian Sausage Supper", category:"Beef, Pork & Ham", credit:"", serves:"4",
     summary:"Italian sausage, peppers, onions and whole potatoes cooked together in one skillet, or in foil on the grill.",
     ingredients:[{items:["1 lb hot or sweet Italian sausage, or some of each","3 green peppers, or red peppers, or some of each","4 medium onions, peeled and sliced","2 cans (16 oz each) whole potatoes, drained and rinsed"]}],
     steps:["Cut the sausage into thirds. Brown it in a skillet and drain off most of the fat.","Add the cut-up peppers, the onions and the whole potatoes. Cover and cook 20 to 30 minutes over low heat, stirring occasionally.","For a cookout: brown the whole sausages on the grill, then cut them up and place on a double layer of foil. Add the peppers, onions and potatoes, seal the foil and cook on the grill 20 to 30 minutes, turning halfway through."],
@@ -385,7 +385,7 @@ var R = [
     cardNotes:["Source written on the card: Herald"],
     gaps:[] },
 
-  { slug:"lasagna-mccalls-cooking-school", title:"Lasagna", category:"Casseroles", credit:"", serves:"1 pan",
+  { slug:"lasagna-mccalls-cooking-school", title:"Lasagna", category:"Casseroles & Main Dishes", credit:"", serves:"1 pan",
     summary:"Sausage and hamburg lasagna with a fennel-scented tomato sauce, cottage cheese, mozzarella and Parmesan.",
     ingredients:[
       {name:"Sauce", items:["1 lb sweet sausage","½ lb hamburg","½ cup chopped onion","2 cloves garlic, crushed","2 tbsp sugar","1½ tsp basil","½ tsp fennel","¼ tsp pepper","¼ cup parsley","4 cups canned tomatoes, undrained (or 2 lb 3 oz Italian style)","2 cans tomato paste","1 tbsp salt"]},
@@ -395,7 +395,7 @@ var R = [
     cardNotes:["Printed “Here’s what’s cookin’” card. Recipe from: McCall’s Cooking School.","The tomato paste line is corrected; it reads “2 c tomato paste” with “c” changed to “cans” (hard to read)."],
     gaps:["The card is very short on method: it doesn’t say how long to simmer the sauce, what size pan to use, or the layer order. The steps above fill in the usual way."] },
 
-  { slug:"pizza-casserole-stop-and-shop", title:"Pizza Casserole", category:"Casseroles", credit:"", serves:"6",
+  { slug:"pizza-casserole-stop-and-shop", title:"Pizza Casserole", category:"Casseroles & Main Dishes", credit:"", serves:"6",
     summary:"Layers of brown rice and mozzarella with a seasoned beef and tomato sauce.",
     ingredients:[{items:["1 cup brown rice, uncooked","¾ lb lean ground beef","3 cups tomato sauce (one 26-oz can)","1 tsp pepper","1 tsp oregano","½ tsp garlic powder","1¼ cups part-skim mozzarella, grated, divided"]}],
     steps:["Preheat the oven to 350°. Cook the rice according to the directions.","Meanwhile, brown the beef in a large nonstick skillet. Add the tomato sauce, pepper, oregano and garlic. Cover and cook 15 minutes.","Add 1 cup of the mozzarella to the cooked rice and mix together.","Lightly oil a casserole dish. Place about ⅓ of the rice and cheese mixture in the dish, then about ⅓ of the beef mixture. Repeat the layers, ending with the sauce.","Sprinkle the top with the remaining cheese. Bake 30 minutes."],
@@ -403,7 +403,7 @@ var R = [
     cardNotes:["Stop & Shop recipe card (Source: Healthnotes)."],
     gaps:[] },
 
-  { slug:"baked-macaroni-and-cheese-stop-and-shop", title:"Baked Macaroni & Cheese (Stop & Shop)", category:"Casseroles", credit:"", serves:"8",
+  { slug:"baked-macaroni-and-cheese-stop-and-shop", title:"Baked Macaroni & Cheese (Stop & Shop)", category:"Casseroles & Main Dishes", credit:"", serves:"8",
     summary:"A rich, creamy cheddar mac and cheese with cayenne and a buttery crumb top.",
     ingredients:[{items:["8 tbsp butter, divided","6 tbsp flour","½ tsp cayenne","Salt","Freshly ground white pepper","3¾ cups hot milk","4 cups grated cheddar cheese (or 2 cups Mexican blend shredded cheese and 2 cups Swiss)","1 lb elbow macaroni, cooked","½ cup heavy cream","½ cup fresh breadcrumbs"]}],
     steps:["Preheat the oven to 350°. Melt 6 tbsp of the butter in a heavy saucepan over low heat. Add the flour and stir constantly for 4 minutes (it must foam as it cooks, or the sauce will taste of raw flour).","Stir in the cayenne, salt and white pepper to taste. Whisk in the hot milk ¼ cup at a time, whisking constantly until the sauce thickens.","Reduce the heat to low and stir in 2 cups of the cheese. Cook and stir until the cheese melts, about 2 minutes.","Combine the cheese sauce and cooked macaroni in a large bowl. Salt to taste.","Sprinkle ½ cup cheese over the bottom of a buttered 8x11-inch baking dish. Make 3 layers of pasta mixture and grated cheese, starting with pasta and ending with cheese on top.","Pour the cream over the macaroni and cheese. Melt the remaining 2 tbsp butter in a skillet, add the breadcrumbs and stir to coat. Sprinkle over the top.","Bake until the crust is golden, about 30 minutes. Let stand 15 minutes before serving."],
@@ -411,21 +411,21 @@ var R = [
     cardNotes:["Stop & Shop recipe card (Source: Giant Food), printed with the Pizza Casserole."],
     gaps:[] },
 
-  { slug:"non-stop-no-chop-chili-cooking-light", title:"Non-Stop, No-Chop Chili", category:"Soups", credit:"", serves:"6",
+  { slug:"non-stop-no-chop-chili-cooking-light", title:"Non-Stop, No-Chop Chili", category:"Soups & Stews", credit:"", serves:"6",
     summary:"A quick, lean chili made with ground round, salsa, frozen corn and chili beans, with nothing to chop.",
     ingredients:[{items:["¾ lb ground round","Cooking spray","2 cups water","1½ cups frozen whole-kernel corn","1 cup bottled salsa","2 tbsp chili powder","1 tbsp sugar","2½ tsp ground cumin","1½ tsp dried oregano","¼ tsp salt","1 can (16 oz) chili beans, undrained","1 can (14.5 oz) no-salt-added diced tomatoes, undrained"]}],
     steps:["Cook the ground round in a large Dutch oven coated with cooking spray over medium-high heat for 4 minutes, or until browned, stirring occasionally.","Stir in the water and the remaining ingredients and bring to a boil.","Reduce the heat and simmer 25 minutes, stirring occasionally."],
     cardNotes:["Source written on the card: Cooking Light, 9/01. Serving size about 1 cup."],
     gaps:[] },
 
-  { slug:"orzo-with-chicken-broccoli-and-pesto", title:"Orzo with Chicken, Broccoli & Pesto", category:"Dinner", credit:"", serves:"5",
+  { slug:"orzo-with-chicken-broccoli-and-pesto", title:"Orzo with Chicken, Broccoli & Pesto", category:"Chicken & Turkey", credit:"", serves:"5",
     summary:"Orzo and shredded chicken tossed with crisp broccoli and a fresh parsley-mint pesto.",
     ingredients:[{items:["2 cups small broccoli florets","2 tbsp pine nuts, toasted","1 garlic clove, peeled","1 cup fresh flat-leaf parsley leaves","¼ cup fresh mint leaves","¼ cup (1 oz) grated fresh Parmesan cheese","1 tbsp extra-virgin olive oil","1 tbsp fresh lemon juice","1 tbsp water","½ tsp salt","⅛ tsp coarsely ground black pepper","2 cups hot cooked orzo (1 cup uncooked) or rice-shaped pasta","1½ cups shredded cooked chicken breast (about 6 oz)"]}],
     steps:["Steam the broccoli, covered, 2 minutes or until crisp-tender. Rinse with cold water, drain and place in a large bowl.","Drop the pine nuts and garlic through the food chute with the food processor on, and process until minced. Add the parsley, mint and cheese and process until finely minced.","With the processor on, slowly pour the oil, lemon juice, water, salt and pepper through the food chute and process until well blended.","Add the parsley mixture, orzo and chicken to the broccoli and stir well."],
     cardNotes:["Source written on the card: Cooking Light, 9/01. Serving size 1 cup.","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"old-time-chicken-pie", title:"Old-Time Chicken Pie", category:"Casseroles", credit:"", serves:"8",
+  { slug:"old-time-chicken-pie", title:"Old-Time Chicken Pie", category:"Casseroles & Main Dishes", credit:"", serves:"8",
     summary:"Creamy chicken in a lemony sauce under a light, puffy egg batter topping. Ham or turkey work too.",
     ingredients:[
       {name:"Filling", items:["¾ cup butter or margarine","¾ cup flour","⅛ tsp each salt and pepper","3 cups chicken stock","1 cup evaporated milk","1 tbsp lemon juice","4 cups diced cooked chicken"]},
@@ -435,7 +435,7 @@ var R = [
     cardNotes:["Newspaper clipping (“Dear Sinfonia” column), signed “Remember Me,” pasted on the card."],
     gaps:[] },
 
-  { slug:"lasagna-roll-ups-good-housekeeping", title:"Lasagna Roll-Ups", category:"Casseroles", credit:"", serves:"6",
+  { slug:"lasagna-roll-ups-good-housekeeping", title:"Lasagna Roll-Ups", category:"Casseroles & Main Dishes", credit:"", serves:"6",
     summary:"Lasagna noodles spread with a broccoli and ricotta filling, rolled up and baked in Italian sauce with mozzarella.",
     ingredients:[{items:["12 lasagna noodles","1 tbsp salad oil","1 package (10 oz) frozen chopped broccoli, thawed and squeezed dry","2 tbsp minced green onion","2 cups ricotta or cottage cheese","¼ cup Parmesan cheese","½ tsp salt","1 egg","1 jar (21 oz) Italian sauce","4 oz shredded mozzarella cheese"]}],
     steps:["Cook the noodles.","In a medium saucepan over medium heat, in the hot oil, cook the broccoli and green onion until tender, about 5 minutes, stirring frequently. Remove from the heat.","Stir in the cottage cheese, Parmesan, salt and egg. Preheat the oven to 375°.","Drain the noodles. Spread the cheese mixture on each noodle and roll up like a jelly roll.","Spoon about ¾ of the sauce into a 12x8 baking dish. Arrange the rolled noodles, seam side down, in the sauce.","Top with the mozzarella and the remaining sauce. Cover loosely with foil and bake 30 minutes, or until hot and bubbly and the cheese is melted."],
@@ -443,14 +443,14 @@ var R = [
     cardNotes:["Source written on the card: Good Housekeeping","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"steak-and-tomatoes-herald", title:"Steak & Tomatoes", category:"Casseroles", credit:"", serves:"5",
+  { slug:"steak-and-tomatoes-herald", title:"Steak & Tomatoes", category:"Casseroles & Main Dishes", credit:"", serves:"5",
     summary:"Floured, browned beef layered with onion and carrots, baked slowly under tomatoes.",
     ingredients:[{items:["1 lb steak or stew beef","Flour","Butter (or bacon fat)","1 onion, sliced","2 to 3 carrots, peeled and diced","Salt and pepper","2 cups fresh peeled tomatoes or canned tomatoes"]}],
     steps:["Cut the steak into cubes, or use stew beef. Dip into flour and fry in butter or bacon fat until brown.","Slice the onion into a 2-quart casserole, add a layer of carrots, then a layer of meat. Season with salt and pepper. Repeat the layers until the dish is full or everything is added.","Pour the tomatoes over all and dot with butter.","Cover and bake 1 hour at 350°. Remove the cover and bake until the meat is tender, about 1 to 1½ hours more."],
     cardNotes:["Source written on the card: Herald"],
     gaps:[] },
 
-  { slug:"stir-fried-beef-with-broccoli", title:"Stir-Fried Beef with Broccoli", category:"Dinner", credit:"", serves:"4",
+  { slug:"stir-fried-beef-with-broccoli", title:"Stir-Fried Beef with Broccoli", category:"Beef, Pork & Ham", credit:"", serves:"4",
     summary:"Thin-sliced marinated flank steak stir-fried with blanched broccoli, celery and mushrooms.",
     ingredients:[{items:["1 lb flank steak","2 tbsp soy sauce","1 tbsp sherry (or red cooking wine)","1 tsp sugar","1 garlic clove, minced","1 tbsp cornstarch","¼ cup water","1 beef bouillon cube, mashed","1 tbsp salt (for the blanching water)","1 bunch broccoli, cut into florets","1 cup (2 ribs) thinly sliced celery","½ cup mushrooms","1 tbsp salad oil","1 tbsp pimento"]}],
     steps:["Cut the flank steak into thirds lengthwise. Freeze about 30 minutes for easier slicing. Slice across the grain into very thin diagonal pieces. Set aside.","In a medium bowl combine the soy sauce, sherry, sugar and garlic until smooth. Add the beef and toss until well coated; marinate 30 minutes.","In a small cup combine the cornstarch, water and bouillon cube.","In a large saucepan bring 3 quarts water and 1 tbsp salt to a boil. Blanch the broccoli 1 minute, then add the celery and mushrooms and blanch 1 minute more. Drain and set aside.","In a medium skillet heat the oil until hot but not smoking. Add the beef and stir-fry until it loses its pink color, about 3 minutes.","Stir in the cornstarch mixture and cook 1 minute. Add the blanched vegetables and pimento and cook 1 more minute, or until hot."],
@@ -458,14 +458,14 @@ var R = [
     cardNotes:["The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"classic-chicken-divan-marilyn-landau", title:"Classic Chicken Divan", category:"Casseroles", credit:"Marilyn Landau", serves:"",
+  { slug:"classic-chicken-divan-marilyn-landau", title:"Classic Chicken Divan", category:"Casseroles & Main Dishes", credit:"Marilyn Landau", serves:"",
     summary:"Broccoli and chicken layered under a sherry cream sauce with Parmesan, baked and browned on top.",
     ingredients:[{items:["2 bunches fresh broccoli or 2 packages frozen broccoli spears","¼ cup butter or margarine","6 tbsp flour","½ tsp salt","Pepper","2 cups chicken broth","½ cup whipping cream (milk will work fine if you don’t have cream)","3 tbsp sherry","3 chicken breasts, cooked, boned and cut in half","¼ cup grated Parmesan cheese, plus extra for the top"]}],
     steps:["Cook the broccoli until barely tender. Don’t overcook.","Melt the butter and blend in the flour, salt and pepper. Add the broth all at once and cook until it thickens and bubbles. Stir in the cream and wine.","Layer the broccoli in a baking dish (about 12x7 inches). Pour half the sauce over it. Layer the chicken on top.","Add the Parmesan to the remaining sauce and pour over the chicken. Sprinkle with extra Parmesan.","Bake at 350° for 20 minutes, or until heated. Then broil until the top is lightly brown."],
     cardNotes:["The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"barbecue-sloppy-joes-jane", title:"Barbecue (Sloppy Joes)", category:"Meats & Seafood", credit:"Jane", serves:"",
+  { slug:"barbecue-sloppy-joes-jane", title:"Barbecue (Sloppy Joes)", category:"Sandwiches & Pizza", credit:"Jane", serves:"",
     summary:"Ground beef simmered in a tangy tomato, ketchup and brown sugar barbecue sauce. Can be made in a crock pot.",
     ingredients:[{items:["1 lb ground beef","5 tbsp onion, finely chopped","1 can (8 oz) tomato sauce","½ cup ketchup","2 tbsp vinegar","2 tbsp brown sugar","1½ tsp salt","⅛ tsp pepper","1 tsp mustard","1 tsp lemon","1 tbsp Worcestershire sauce"]}],
     steps:["Brown the onions. Add the beef, brown and drain.","Add the other ingredients and simmer. This can also be done in a crock pot."],
@@ -473,7 +473,7 @@ var R = [
     cardNotes:["The card is titled just “Barbecue.”"],
     gaps:[] },
 
-  { slug:"pork-chop-potato-casserole-globe-chat", title:"Pork Chop Potato Casserole", category:"Casseroles", credit:"", serves:"4",
+  { slug:"pork-chop-potato-casserole-globe-chat", title:"Pork Chop Potato Casserole", category:"Casseroles & Main Dishes", credit:"", serves:"4",
     summary:"Pork chops baked on layered potatoes and onions in milk, so they brown on top and stay juicy.",
     ingredients:[{items:["4 lean pork chops, most of the fat trimmed","5 raw potatoes, sliced not too thin","2 onions, thinly sliced","2 tbsp butter","Milk","Salt and pepper"]}],
     steps:["Butter a round glass casserole large enough to hold the chops in a single layer on top.","Arrange the potatoes and onions in alternate layers, sprinkling with salt and pepper. Dot with the remaining butter and pour in milk until it just shows between the potato slices.","Fit the chops on top. There should be about an inch between the chops and the top of the dish, because the milk bubbles up.","Cover the casserole and put it in a preheated 400° oven. After 10 minutes, turn the heat down to 350° and bake about 1¼ hours, until the chops are brown and tender.","Do not turn the chops or remove the cover. They brown nicely on top and stay juicy, and the potato starch thickens the milk just enough."],
@@ -481,21 +481,21 @@ var R = [
     cardNotes:["Source written on the card: Globe Chat","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"macaroni-tomato-and-green-pepper-casserole", title:"Macaroni, Tomato & Green Pepper Casserole", category:"Casseroles", credit:"", serves:"",
+  { slug:"macaroni-tomato-and-green-pepper-casserole", title:"Macaroni, Tomato & Green Pepper Casserole", category:"Casseroles & Main Dishes", credit:"", serves:"",
     summary:"Macaroni baked with sautéed onion, green peppers and tomatoes under grated cheese.",
     ingredients:[{items:["1 package (7 or 8 oz) macaroni","3 tbsp chopped onion","2 tsp butter","1 #2 can tomatoes","1 tsp salt","3 green peppers","½ cup grated cheese"]}],
     steps:["Cook the macaroni in salted water until tender; drain.","Sauté the onion and shredded peppers in the butter until soft. Add the tomatoes and salt.","Mix with the drained macaroni and sprinkle the cheese on top.","Bake at 400° for 15 minutes, or until the cheese is golden brown."],
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook"],
     gaps:[] },
 
-  { slug:"chicken-with-rice-salem-news", title:"Chicken with Rice", category:"Casseroles", credit:"", serves:"4",
+  { slug:"chicken-with-rice-salem-news", title:"Chicken with Rice", category:"Casseroles & Main Dishes", credit:"", serves:"4",
     summary:"Browned chicken baked over rice with tomatoes, peppers, oregano and a little heat, topped with peas and pimiento.",
     ingredients:[{items:["1 broiler-fryer chicken, in pieces","1 tsp salt","¼ tsp pepper","3 tbsp corn oil","½ cup finely chopped onion","½ cup finely chopped green pepper","2 tomatoes, peeled and cut in eighths","2 cloves garlic, minced","1½ cups chicken bouillon","1 bay leaf","½ tsp oregano","½ tsp crushed dry red pepper","1 cup uncooked rice (not instant)","1 package (10 oz) frozen peas, cooked and drained","1 whole pimiento, cut in strips"]}],
     steps:["Sprinkle the chicken with salt and pepper. In a large skillet, heat the oil over medium heat. Add the chicken and brown on all sides, about 20 minutes. Remove from the skillet.","Add the onion, green pepper, tomatoes and garlic. Sauté 5 minutes, stirring frequently, until lightly brown.","Stir in the bouillon, bay leaf, oregano and red pepper. Bring to a boil and stir in the rice.","Pour into an 11¾ x 7½ x 1¾-inch baking dish. Arrange the chicken on top. Cover with aluminum foil.","Bake at 375° for 25 minutes, or until the chicken is tender. Top with the hot peas and garnish with pimiento."],
     cardNotes:["Source written on the card: Salem News","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"e-z-as-pie-hamburg-casserole", title:"E-Z as Pie Hamburg Casserole", category:"Casseroles", credit:"", serves:"4",
+  { slug:"e-z-as-pie-hamburg-casserole", title:"E-Z as Pie Hamburg Casserole", category:"Casseroles & Main Dishes", credit:"", serves:"4",
     summary:"A meat loaf pressed into a pie plate and topped with chili sauce, thin zucchini, crumbs and cheddar.",
     ingredients:[
       {items:["1 lb hamburg","2 eggs","½ cup bread crumbs","⅓ cup water","⅓ cup chili sauce or ketchup","1 tsp prepared mustard","½ medium onion, chopped"]},
@@ -505,28 +505,28 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"chicken-and-broccoli-casserole-marilyn-landau", title:"Chicken & Broccoli Casserole", category:"Casseroles", credit:"Marilyn Landau", serves:"",
+  { slug:"chicken-and-broccoli-casserole-marilyn-landau", title:"Chicken & Broccoli Casserole", category:"Casseroles & Main Dishes", credit:"Marilyn Landau", serves:"",
     summary:"A quick chicken and broccoli bake in a cream of chicken sauce with Parmesan.",
     ingredients:[{items:["1 can cream of chicken soup","½ cup light cream","¼ tsp salt","⅛ tsp dry mustard","Dash of pepper","About ¼ lb cooked chicken","1 package frozen broccoli or ½ bunch fresh broccoli","Parmesan cheese"]}],
     steps:["Sauce: thin the soup with the light cream. Add the salt, mustard and pepper. When the sauce is heated, add the chicken.","Cook the broccoli until tender. Arrange in a casserole and pour the sauce over.","Sprinkle with Parmesan. Heat at 350° until hot and the cheese melts."],
     cardNotes:[],
     gaps:[] },
 
-  { slug:"noodle-hamburger-bake-phyllis-drown", title:"Noodle Hamburger Bake", category:"Casseroles", credit:"Phylis Drown", serves:"",
+  { slug:"noodle-hamburger-bake-phyllis-drown", title:"Noodle Hamburger Bake", category:"Casseroles & Main Dishes", credit:"Phylis Drown", serves:"",
     summary:"Layers of noodles, a creamy cottage cheese and scallion mixture, and a beef tomato sauce, topped with cheddar.",
     ingredients:[{items:["2 tbsp butter","1 lb ground beef","1 clove garlic, crushed","1 tsp salt, pepper to taste","1 tsp sugar","2 cans (8 oz) tomato sauce","1 package (8 oz) medium noodles","1 package (3 oz) cream cheese, softened","1 cup dairy sour cream","6 scallions, chopped","1 cup cottage cheese","½ cup grated cheddar cheese"]}],
     steps:["Melt the butter in a 10-inch pan, add the beef and sauté until brown, breaking it into small pieces.","Add the garlic, salt and pepper, sugar and tomato sauce. Blend well. Cover and simmer 15 to 20 minutes.","Cook the noodles in boiling salted water 10 minutes, then drain.","Blend the cream cheese, cottage cheese and sour cream with an electric mixer until smooth. Add the scallions.","Grease a casserole well. Place a layer of noodles in the bottom, spread on ⅓ of the cheese mixture, then ⅓ of the meat. Repeat twice.","Sprinkle with the grated cheddar and bake in a 350° oven 30 to 40 minutes."],
     cardNotes:["The name on the card is spelled “Phyles Drown” or “Phylis Drown.”","The card says a “20-inch casserole,” which is probably a 2-quart casserole.","The method continues on the back of the card."],
     gaps:[] },
 
-  { slug:"zucchini-and-mushroom-fettuccine", title:"Zucchini & Mushroom Fettuccine", category:"Dinner", credit:"", serves:"8",
+  { slug:"zucchini-and-mushroom-fettuccine", title:"Zucchini & Mushroom Fettuccine", category:"Pasta & Rice", credit:"", serves:"8",
     summary:"Fettuccine tossed with julienned zucchini and mushrooms in a butter, cream and Parmesan sauce.",
     ingredients:[{items:["1 package (8 oz) fettuccine","½ lb fresh mushrooms, sliced","¼ cup butter or margarine, melted","1½ lbs zucchini, cut into julienne strips","1 cup whipping cream","½ cup butter or margarine","¾ cup Parmesan cheese","½ cup chopped fresh parsley","Additional grated Parmesan cheese"]}],
     steps:["Cook the fettuccine, drain well and set aside.","Sauté the mushrooms in the ¼ cup butter for 2 minutes.","Add the zucchini, cream and ½ cup butter; simmer 3 minutes. Remove from the heat.","Stir in the ¾ cup Parmesan and the parsley, add the fettuccine and toss gently. Serve immediately with additional cheese."],
     cardNotes:["Source written on the card: America’s Best Recipes ’89"],
     gaps:["The card doesn’t say when the fettuccine goes back in; it’s tossed in with the sauce at the end."] },
 
-  { slug:"smorgasbord-casserole-wanda", title:"Smorgasbord Casserole", category:"Casseroles", credit:"Wanda", serves:"",
+  { slug:"smorgasbord-casserole-wanda", title:"Smorgasbord Casserole", category:"Casseroles & Main Dishes", credit:"Wanda", serves:"",
     summary:"Hamburg, peppers, celery, onion, olives and mushrooms in Ragu with melted American cheese, mixed into egg noodles.",
     ingredients:[{items:["½ lb butter","1 good-sized green pepper, diced","1 stalk celery, sliced","1 large onion, sliced","1 small bottle Spanish olives, halved","1 can mushrooms, drained","1 jar (15 oz) Ragu","¼ tsp garlic powder","½ lb American cheese, sliced","1½ lb hamburg","1 package (12 oz) broad egg noodles"]}],
     steps:["Fry the pepper, celery, onion and olives in the butter.","Add the hamburg and fry.","Add the Ragu, garlic powder and cheese. Simmer until the cheese melts.","Pour over the cooked noodles and mix."],
@@ -534,7 +534,7 @@ var R = [
     cardNotes:["The method finishes on the back of the card."],
     gaps:["The card doesn’t say when to add the mushrooms; they probably go in with the vegetables."] },
 
-  { slug:"beef-choufleur", title:"Beef Choufleur", category:"Dinner", credit:"", serves:"6",
+  { slug:"beef-choufleur", title:"Beef Choufleur", category:"Beef, Pork & Ham", credit:"", serves:"6",
     summary:"Round steak and cauliflower simmered with green pepper, soy and garlic in a thickened beef sauce, served over rice.",
     ingredients:[{items:["1 lb boneless round steak, cut ⅓ inch thick","1 small head cauliflower","2 tbsp butter or margarine","1 green pepper, cut in ¾-inch pieces","¼ cup soy sauce","1 clove garlic, minced","2 tbsp cornstarch","½ tsp sugar","1½ cups beef broth or water","1 cup sliced green onions with tops","3 cups hot cooked rice"]}],
     steps:["Cut the meat into ½-inch squares. Separate the cauliflower into florets (about 4 cups).","Brown the meat in the butter about 5 minutes.","Add the cauliflower, green pepper, soy sauce and garlic. Stir lightly to coat the vegetables with soy sauce. Cover and simmer until the vegetables are barely tender, about 10 minutes.","Blend the cornstarch, sugar and beef broth. Add to the meat mixture with the green onions. Cook, stirring constantly, until heated through and the sauce is thickened.","Serve over beds of fluffy rice."],
@@ -542,21 +542,21 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"hamburg-potato-pie-old-friendly-guild", title:"Hamburg Potato Pie", category:"Casseroles", credit:"", serves:"",
+  { slug:"hamburg-potato-pie-old-friendly-guild", title:"Hamburg Potato Pie", category:"Casseroles & Main Dishes", credit:"", serves:"",
     summary:"A shepherd’s-pie style casserole of hamburg, peas and tomatoes under mashed potatoes.",
     ingredients:[{items:["1 medium onion, chopped","2 tbsp fat","1 lb hamburg","½ tsp salt","¼ tsp pepper","1 cup cooked peas","1 cup canned tomatoes","½ cup catsup","3 cups hot, seasoned mashed potatoes","1 beaten egg"]}],
     steps:["Cook the onion in the fat until golden. Add the meat, salt, pepper, peas, tomatoes and catsup. Mix well.","Pour into a greased 2-quart casserole.","Combine the potatoes and egg. Spoon into mounds or spread over the meat mixture.","Bake at 350° for 20 to 30 minutes."],
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook"],
     gaps:["The card doesn’t say to brown the hamburg first; it is probably cooked with the onion before adding the rest."] },
 
-  { slug:"zucchini-casserole-debby-zampell", title:"Zucchini Casserole", category:"Sides", credit:"Debby Zampell", serves:"",
+  { slug:"zucchini-casserole-debby-zampell", title:"Zucchini Casserole", category:"Vegetables & Sides", credit:"Debby Zampell", serves:"",
     summary:"Zucchini and carrot in a sour cream and cream of chicken sauce, baked between layers of buttered herb stuffing.",
     ingredients:[{items:["1 can cream of chicken soup","1 cup grated carrot","¼ cup chopped onion","1 cup sour cream","2 lb zucchini, drained very well","1 package (8 oz) Pepperidge Farm herb stuffing","1 stick margarine"]}],
     steps:["Cook the squash 5 minutes. Mix the soup, onion, sour cream, carrots and squash.","Melt the butter and add the stuffing mix to it.","Put half the stuffing mix in the bottom of a casserole, add the squash mixture, then the rest of the stuffing.","Bake at 350° about 50 minutes, until bubbly."],
     cardNotes:[],
     gaps:[] },
 
-  { slug:"california-chicken-tuna-old-friendly-guild", title:"California Chicken (Tuna & Vegetables in Cream Sauce)", category:"Casseroles", credit:"", serves:"",
+  { slug:"california-chicken-tuna-old-friendly-guild", title:"California Chicken (Tuna & Vegetables in Cream Sauce)", category:"Casseroles & Main Dishes", credit:"", serves:"",
     summary:"Carrots, potatoes, onions and peas in a cream sauce with a can of tuna.",
     ingredients:[{items:["1½ cups diced carrots","1½ cups diced potatoes","½ cup onions","1 cup peas","Salt and pepper","2 cups milk","½ cup flour (changed from 2 tbsp)","6 tbsp butter","1 can tuna fish"]}],
     steps:["Cook the carrots, potatoes and onions until nearly done. Drain and add the peas, salt and pepper. Cook until done.","Have ready a cream sauce made from the milk, flour and butter.","Add the vegetables and the can of tuna."],
@@ -564,14 +564,14 @@ var R = [
     cardNotes:["Source written on the card: Old Friendly Guild Cookbook","The flour was changed from “2 tbsp” to “½ c,” and “6 tbsp” was added for the butter."],
     gaps:["Despite the title, the card uses tuna, not chicken.","The card doesn’t say whether to bake it; it reads as a stovetop dish."] },
 
-  { slug:"chop-suey-a-la-burke-mary-lawless", title:"Chop Suey à la Burke", category:"Dinner", credit:"Mary Lawless", serves:"",
+  { slug:"chop-suey-a-la-burke-mary-lawless", title:"Chop Suey à la Burke", category:"Beef, Pork & Ham", credit:"Mary Lawless", serves:"",
     summary:"Diced pork chops browned with soy sauce, then cooked down with lots of onion and celery and finished with bean sprouts.",
     ingredients:[{items:["4 tenderloin pork chops, diced","Butter","Soy sauce (about 1 tbsp, or more for darker)","2 lbs onions, cut up","1 bunch celery, cut up","Bean sprouts","Cornstarch, to thicken","Salt to taste"]}],
     steps:["Sauté the diced chops in butter until brown, adding some soy sauce while browning.","Put the meat, onions and celery in a pot with very little water (the vegetables make their own liquid while cooking).","Add about 1 tbsp soy sauce while cooking, or more if you like it darker. Cook until fairly tender.","Add the bean sprouts and cook a few minutes. Thicken with cornstarch to the thickness you like. Salt to taste."],
     cardNotes:[],
     gaps:["No amount of bean sprouts is given."] },
 
-  { slug:"beef-casserole-mary-lawless", title:"Beef Casserole", category:"Casseroles", credit:"Mary Lawless", serves:"",
+  { slug:"beef-casserole-mary-lawless", title:"Beef Casserole", category:"Casseroles & Main Dishes", credit:"Mary Lawless", serves:"",
     summary:"Bow-knot noodles layered with mozzarella and an oregano meat sauce, baked under Parmesan.",
     ingredients:[{items:["1 lb hamburg","Garlic powder","1 small onion","2 tbsp oil","1 package (8 oz) mozzarella","1 can (15 oz) stewed tomatoes","1 can (8 oz) tomato sauce","½ tsp salt","½ tsp pepper","1½ tsp oregano","8 oz bow-knot noodles","½ cup Parmesan cheese"]}],
     steps:["Brown the beef, garlic and onion in the oil. Add the tomato sauce, tomatoes and seasonings. Simmer until thick, about 20 minutes.","Cook the noodles 8 minutes in boiling water and drain.","Layer in a buttered 1-quart casserole: noodles, mozzarella and meat sauce. Sprinkle Parmesan over all.","Bake at 375° for 20 to 25 minutes."],
@@ -579,14 +579,14 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"tomato-casserole-better-homes", title:"Tomato Casserole", category:"Sides", credit:"", serves:"6",
+  { slug:"tomato-casserole-better-homes", title:"Tomato Casserole", category:"Vegetables & Sides", credit:"", serves:"6",
     summary:"Sliced tomatoes layered with onion, sharp cheese and soft crumbs under a sour cream and egg topping.",
     ingredients:[{items:["1 medium onion, chopped","2 tablespoons butter","4 ripe medium tomatoes, sliced","1 cup shredded sharp cheese","1 cup fine soft bread crumbs","1 cup dairy sour cream","2 well-beaten eggs","½ tsp salt"]}],
     steps:["Cook the onions in the butter until tender.","Place half the tomatoes in a 10x6x1½-inch baking dish. Top with half the onions, cheese and crumbs; repeat.","Mix the remaining ingredients and pour over the top; cover.","Bake at 350° for 30 minutes. Uncover and bake 10 minutes more."],
     cardNotes:["Source written on the card: Better Homes & Gardens"],
     gaps:[] },
 
-  { slug:"chicken-casserole-for-two-ann-peabody", title:"Chicken Casserole for Two", category:"Casseroles", credit:"Ann Peabody", serves:"2",
+  { slug:"chicken-casserole-for-two-ann-peabody", title:"Chicken Casserole for Two", category:"Casseroles & Main Dishes", credit:"Ann Peabody", serves:"2",
     summary:"Simmered chicken layered with mushroom soup and topped with Pepperidge Farm stuffing. Easily doubled.",
     ingredients:[{items:["2 chicken breasts","¼ cup chopped celery","¼ cup chopped onion","Salt and pepper","1 can cream of mushroom soup","1 small package Pepperidge Farm stuffing mix","1 cup milk or chicken stock"]}],
     steps:["Cover the chicken, celery and onion with water. Bring to a boil and simmer until the meat loosens from the bones. Remove all skin and bones.","Place a layer of chicken in a greased casserole and cover with undiluted soup. Sprinkle with onion, salt and pepper. Continue to layer until all the chicken is used.","Sprinkle the dry stuffing on top. Pour the milk or stock over all to dampen the crumbs.","Bake at 350° for 45 minutes."],
@@ -594,7 +594,7 @@ var R = [
     cardNotes:[],
     gaps:[] },
 
-  { slug:"four-cheese-spaghetti", title:"4 Cheese Spaghetti", category:"Dinner", credit:"", serves:"6",
+  { slug:"four-cheese-spaghetti", title:"4 Cheese Spaghetti", category:"Pasta & Rice", credit:"", serves:"6",
     summary:"Spaghetti tossed in a creamy sauce of Edam or Gouda, provolone, Swiss and Parmesan.",
     ingredients:[{items:["1 package (12 oz) spaghetti","3 tbsp butter or margarine","1½ tsp flour","1 cup half-and-half","¾ cup (3 oz) shredded Edam or Gouda","¾ cup (3 oz) shredded provolone","¾ cup (3 oz) shredded Swiss","¼ cup grated Parmesan","½ tsp salt","⅛ tsp ground white pepper","1 tbsp chopped fresh parsley or basil"]}],
     steps:["Cook the spaghetti; set aside and keep warm.","Melt the butter over low heat; add the flour, stirring until smooth. Cook 1 minute, stirring constantly.","Gradually add the half-and-half; cook over medium heat, stirring constantly, until thickened and bubbly.","Stir in the cheeses, salt and pepper. Cook, stirring constantly, until the cheeses melt.","Pour the cheese over the spaghetti and toss until coated. Garnish with fresh parsley and serve immediately."],
@@ -602,7 +602,7 @@ var R = [
     cardNotes:["Source written on the card: America’s Best Recipes ’89"],
     gaps:[] },
 
-  { slug:"chicken-nuggets-mary-lawless", title:"Chicken Nuggets", category:"Meats & Seafood", credit:"Mary Lawless", serves:"4 or 5",
+  { slug:"chicken-nuggets-mary-lawless", title:"Chicken Nuggets", category:"Chicken & Turkey", credit:"Mary Lawless", serves:"4 or 5",
     summary:"Baked chicken nuggets dipped in butter and a Parmesan, herb and seasoned crumb coating.",
     ingredients:[{items:["3 boneless chicken breasts","½ cup seasoned bread crumbs","¼ cup grated Parmesan cheese","½ tsp Accent (MSG)","1 tsp salt","1 tsp dry thyme leaves (or ¼ tsp powdered)","1 tsp dry basil leaf","½ cup butter or oleo, melted"]}],
     steps:["Cut each chicken breast into 6 or 8 nuggets, about 1½ inches square.","Combine the crumbs, cheese and seasonings.","Dip the chicken in the butter, then into the crumb mixture.","Place in a single layer on a foil-lined baking sheet. Bake at 400° for 20 minutes on the middle rack."],
@@ -611,7 +611,7 @@ var R = [
     gaps:[] },
 
 ];
-var CAT = {"baked-pea-beans-kathryn-drown": "Sides", "baked-beans-salmon-falls": "Sides", "calico-beans-kay-scimone": "Sides", "chili-teresa": "Soups", "chicken-almond-puffs": "Appetizers", "steak-pizzaiola-mom-r": "Meats & Seafood", "porcupines-mom": "Meats & Seafood", "swedish-meatballs-sue-campbell": "Meats & Seafood", "sweet-and-sour-meatballs-barbara-richards": "Meats & Seafood", "danish-meatballs": "Meats & Seafood", "beef-n-egg-loaves": "Meats & Seafood", "beef-and-cabbage-pasties": "Meats & Seafood", "bavarian-style-chicken-jane": "Dinner", "mothers-quick-chicken": "Meats & Seafood", "chicken-with-hot-pepper-planters": "Dinner", "broccoli-beef-bon-appetit": "Dinner", "sweet-n-sour-chicken-minute-rice": "Dinner", "margaret-tonellos-chicken-cacciatore": "Meats & Seafood", "chicken-in-sour-cream-gail-farmer": "Meats & Seafood", "ground-beef-in-sour-cream": "Dinner", "tomato-chicken-pilaf": "Dinner", "corned-beef-n-cabbage-casserole": "Dinner", "linguine-broccoli-cauliflower-mushrooms": "Dinner", "macaroni-peas-and-tomatoes-womans-day": "Sides", "stuffed-summer-squash-with-cheese-sauce": "Casseroles", "italian-sausage-supper-herald": "Dinner", "stir-fried-beef-with-broccoli": "Dinner", "barbecue-sloppy-joes-jane": "Meats & Seafood", "chop-suey-a-la-burke-mary-lawless": "Dinner", "beef-choufleur": "Dinner", "chicken-nuggets-mary-lawless": "Meats & Seafood"};
+var CAT = {"baked-pea-beans-kathryn-drown": "Vegetables & Sides", "baked-beans-salmon-falls": "Vegetables & Sides", "calico-beans-kay-scimone": "Vegetables & Sides", "chili-teresa": "Soups & Stews", "chicken-almond-puffs": "Appetizers & Dips", "steak-pizzaiola-mom-r": "Beef, Pork & Ham", "porcupines-mom": "Beef, Pork & Ham", "swedish-meatballs-sue-campbell": "Beef, Pork & Ham", "sweet-and-sour-meatballs-barbara-richards": "Beef, Pork & Ham", "danish-meatballs": "Beef, Pork & Ham", "beef-n-egg-loaves": "Beef, Pork & Ham", "beef-and-cabbage-pasties": "Beef, Pork & Ham", "bavarian-style-chicken-jane": "Chicken & Turkey", "mothers-quick-chicken": "Chicken & Turkey", "chicken-with-hot-pepper-planters": "Chicken & Turkey", "broccoli-beef-bon-appetit": "Beef, Pork & Ham", "sweet-n-sour-chicken-minute-rice": "Chicken & Turkey", "margaret-tonellos-chicken-cacciatore": "Chicken & Turkey", "chicken-in-sour-cream-gail-farmer": "Chicken & Turkey", "ground-beef-in-sour-cream": "Beef, Pork & Ham", "tomato-chicken-pilaf": "Chicken & Turkey", "corned-beef-n-cabbage-casserole": "Beef, Pork & Ham", "linguine-broccoli-cauliflower-mushrooms": "Pasta & Rice", "macaroni-peas-and-tomatoes-womans-day": "Pasta & Rice", "stuffed-summer-squash-with-cheese-sauce": "Casseroles & Main Dishes", "italian-sausage-supper-herald": "Beef, Pork & Ham", "stir-fried-beef-with-broccoli": "Beef, Pork & Ham", "barbecue-sloppy-joes-jane": "Sandwiches & Pizza", "chop-suey-a-la-burke-mary-lawless": "Beef, Pork & Ham", "beef-choufleur": "Beef, Pork & Ham", "chicken-nuggets-mary-lawless": "Chicken & Turkey"};
 R.forEach(function(r){
   r.section = "family"; r.fromBox = true; r.box = "2"; r.subtitle = "";
   if (CAT[r.slug]) r.category = CAT[r.slug];
