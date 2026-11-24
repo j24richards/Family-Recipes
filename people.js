@@ -3,15 +3,15 @@
 // say which spellings are the same person. Everyone else is grouped by the name as written.
 (function(){
 var DEFS = [
-  { key:'mom-g', name:'Mom G.', full:'Pat Goucher', relation:'Jimmie’s mom’s mom. Cards call her Mom G., Mom Goucher or Pat Goucher.', family:true,
+  { key:'mom-g', name:'Mom G.', full:'Pat Goucher', relation:'Cards call her Mom G., Mom Goucher or Pat Goucher.', family:true,
     credit:[/^mom\.?\s*g\.?$/i, /^mom goucher$/i, /^pat goucher$/i, /gram goucher \/ mom goucher/i, /^pat & don goucher$/i],
     mention:[/\bmom\.?\s*g\b\.?/i, /\bmom goucher\b/i, /\bpat goucher\b/i] },
   { key:'mom-r', name:'Mom R.', full:'Barbara Richards (Nana Richards)', relation:'Cards call her Mom R., Mom Richards, Nana Richards or Barbara Richards.', family:true,
     credit:[/^mom\.?\s*r\.?$/i, /^mom richards$/i, /^barbara richards$/i, /^nana richards$/i, /^barbara richards \/ margaret lefave/i],
     mention:[/\bmom\.?\s*r\b\.?/i, /\bnana richards\b/i, /\bbarbara richards\b/i, /\bmom richards\b/i] },
-  { key:'gram-goucher', name:'Gram Goucher', full:'Harriett Goucher', relation:'Jimmie’s mom’s grandmother (his great-grandmother).', family:true,
+  { key:'gram-goucher', name:'Gram Goucher', full:'Harriett Goucher', relation:'', family:true,
     credit:[/^gram goucher$/i, /^gram goucher \/ mom goucher/i, /^harriett goucher$/i], mention:[/\bgram goucher\b/i, /\bharriett\b/i] },
-  { key:'dad-g', name:'Dad G.', full:'Dad G.', relation:'Jimmie’s grandfather, his mom’s dad.', family:true,
+  { key:'dad-g', name:'Dad G.', full:'Dad G.', relation:'', family:true,
     credit:[/^dad g\.?$/i], mention:[/\bdad g\b\.?/i] },
   { key:'nana-lefave', name:'Nana LeFave', full:'Margaret LeFave', relation:'', family:true,
     credit:[/^margaret lefave$/i, /^nana lefave$/i, /^barbara richards \/ margaret lefave/i], mention:[/\blefave\b/i] },
