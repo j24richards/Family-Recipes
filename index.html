@@ -1271,12 +1271,19 @@ function recipe(slug){
     const mark = () => lis().forEach((li,k) => li.classList.toggle('speaking', on && k === i));
     const hint = () => listening ? ' · listening: say “next”, “repeat”, “back” or “what is step 2”' : '';
     const pauseRec = () => { const x = rec; rec = null; if (x) { try { x.abort(); } catch(e){} } };
+    const ERRS = {'not-allowed':'The microphone is blocked. Allow it in your browser or phone settings, then tap 🎤 Voice again.','service-not-allowed':'This browser won’t let the page use the microphone. Try Chrome (Android) or Safari (iPhone), and check Settings → microphone access.','audio-capture':'No microphone was found or it is in use by another app.','network':'Voice needs an internet connection. Check your signal and tap 🎤 Voice again.','language-not-supported':'Voice isn’t available in this language setting.'};
+    const turnOff = msg => { listening = false; pauseRec(); mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Voice'; if (msg) where.textContent = msg; };
     const startRec = () => { if (!SR || rec || !listening || !on || speaking) return;
-      const x = new SR(); rec = x; x.lang = 'en-US'; x.continuous = true; x.interimResults = false;
-      x.onresult = e => { for (let k = e.resultIndex; k < e.results.length; k++) if (e.results[k].isFinal) cmd(e.results[k][0].transcript); };
-      x.onerror = e => { if (e.error === 'not-allowed' || e.error === 'service-not-allowed') { listening = false; mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Voice'; where.textContent = 'The microphone is blocked. Allow it in your browser settings to use your voice.'; } };
-      x.onend = () => { if (rec === x) rec = null; if (listening && on && !speaking) setTimeout(startRec, 250); };
-      try { x.start(); } catch(e) { rec = null; } };
+      const x = new SR(); rec = x; x.lang = 'en-US'; x.continuous = false; x.interimResults = true; x.maxAlternatives = 3;
+      x.onstart = () => { where.textContent = '🎤 Listening… say “next”, “repeat” or “what is step 2”'; };
+      x.onresult = e => { const res = e.results[e.results.length - 1]; const tx = res[0].transcript;
+        if (!res.isFinal) { where.textContent = '🎤 Hearing: “' + tx.slice(0,50) + '”'; return; }
+        const alts = [...res].map(a => a.transcript); let done = false;
+        for (const t of alts) { if (cmd(t, true)) { done = true; break; } }
+        if (!done) cmd(tx); };
+      x.onerror = e => { if (ERRS[e.error]) turnOff(ERRS[e.error]); };
+      x.onend = () => { if (rec === x) rec = null; if (listening && on && !speaking) setTimeout(startRec, 200); };
+      try { x.start(); } catch(e) { rec = null; setTimeout(startRec, 400); } };
     const speak = (text, after) => { const my = ++tok; speechSynthesis.cancel(); speaking = true; pauseRec();
       const u = new SpeechSynthesisUtterance(text); u.rate = 0.95;
       const fin = () => { if (my !== tok) return; speaking = false; if (after) after(); setTimeout(startRec, 300); };
@@ -1291,26 +1298,27 @@ function recipe(slug){
     const CMD_SPOKEN = 'You can say: next. Repeat. Back. What is step, and a number, like step 3. Last step. Start over. Read the ingredients. How many steps. And stop.';
     const showCmds = on_ => { const c = document.getElementById('rdCmds'), hb = document.getElementById('rdHelp'); c.hidden = !on_; hb.setAttribute('aria-expanded', on_ ? 'true' : 'false'); };
     const WORDS = {one:1,first:1,two:2,second:2,three:3,third:3,four:4,fourth:4,five:5,fifth:5,six:6,sixth:6,seven:7,seventh:7,eight:8,eighth:8,nine:9,ninth:9,ten:10,tenth:10,eleven:11,twelve:12,'for':4,to:2,too:2,won:1};
-    function cmd(raw){ const t = String(raw).toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim(); if (!t) return;
+    function cmd(raw, quiet){ const t = String(raw).toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim(); if (!t) return false;
       let m = t.match(/(?:step|number|go to|read)\s+(\d+|[a-z]+)\b/) || t.match(/\b(\d+|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth)\s+step\b/);
-      if (m) { const n = /^\d+$/.test(m[1]) ? +m[1] : WORDS[m[1]]; if (n && n <= steps.length) { say(n - 1); return; } if (n) { where.textContent = 'This recipe has ' + steps.length + ' steps.'; speak('This recipe has ' + steps.length + ' steps.'); return; } }
-      if (/\b(help|commands?|what can i say|what do i say|options)\b/.test(t)) { showCmds(true); where.textContent = 'Here are the commands you can say.'; speak(CMD_SPOKEN); return; }
-      if (/\b(stop|quit|exit|done|finished|that s all)\b/.test(t)) { stop(); return; }
-      if (/\b(repeat|again|say that|one more time|what was that)\b/.test(t)) { say(i); return; }
-      if (/\b(back|previous|before|go back|last one)\b/.test(t) && !/last step/.test(t)) { say(i - 1); return; }
-      if (/\b(start over|from the top|beginning|first one)\b/.test(t)) { say(0); return; }
-      if (/\blast step\b/.test(t)) { say(steps.length - 1); return; }
-      if (/\b(ingredient|ingredients)\b/.test(t)) { sayIngredients(); return; }
-      if (/\b(how many steps)\b/.test(t)) { speak('There are ' + steps.length + ' steps.'); return; }
-      if (/\b(next|continue|go on|go ahead|keep going|ready|okay|ok)\b/.test(t)) { next(); return; }
-      where.textContent = 'Didn’t catch “' + t.slice(0,40) + '”. Try “next”, “repeat”, or “what is step 2”.'; }
+      if (m) { const n = /^\d+$/.test(m[1]) ? +m[1] : WORDS[m[1]]; if (n && n <= steps.length) { say(n - 1); return true; } if (n) { where.textContent = 'This recipe has ' + steps.length + ' steps.'; speak('This recipe has ' + steps.length + ' steps.'); return true; } }
+      if (/\b(help|commands?|what can i say|what do i say|options)\b/.test(t)) { showCmds(true); where.textContent = 'Here are the commands you can say.'; speak(CMD_SPOKEN); return true; }
+      if (/\b(stop|quit|exit|done|finished|that s all)\b/.test(t)) { stop(); return true; }
+      if (/\b(repeat|again|say that|one more time|what was that)\b/.test(t)) { say(i); return true; }
+      if (/\b(back|previous|before|go back|last one)\b/.test(t) && !/last step/.test(t)) { say(i - 1); return true; }
+      if (/\b(start over|from the top|beginning|first one)\b/.test(t)) { say(0); return true; }
+      if (/\blast step\b/.test(t)) { say(steps.length - 1); return true; }
+      if (/\b(ingredient|ingredients)\b/.test(t)) { sayIngredients(); return true; }
+      if (/\b(how many steps)\b/.test(t)) { speak('There are ' + steps.length + ' steps.'); return true; }
+      if (/\b(next|continue|go on|go ahead|keep going|ready|okay|ok)\b/.test(t)) { next(); return true; }
+      if (quiet) return false;
+      where.textContent = 'Didn’t catch “' + t.slice(0,40) + '”. Try “next”, “repeat”, or “what is step 2”.';  return false; }
     rb.onclick = () => { if (on) { stop(); return; } on = true; bar.hidden = false; rb.setAttribute('aria-pressed','true'); rb.textContent = '⏹ Stop reading'; showCmds(true); say(0); };
     document.getElementById('rdNext').onclick = () => { if (on) next(); };
     document.getElementById('rdPrev').onclick = () => { if (on) say(i - 1); };
     document.getElementById('rdAgain').onclick = () => { if (on) say(i); };
     document.getElementById('rdStop').onclick = () => stop();
     document.getElementById('rdHelp').onclick = () => showCmds(document.getElementById('rdCmds').hidden);
-    mic.onclick = () => { if (!on) return; if (listening) { listening = false; pauseRec(); mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Voice'; where.textContent = 'Step ' + (i+1) + ' of ' + steps.length; } else { listening = true; mic.setAttribute('aria-pressed','true'); mic.textContent = '⏺ Listening'; where.textContent = 'Listening: say “next”, “repeat”, “back” or “what is step 2”.'; if (!speaking) startRec(); } };
+    mic.onclick = () => { if (!on) return; if (listening) { listening = false; pauseRec(); mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Voice'; where.textContent = 'Step ' + (i+1) + ' of ' + steps.length; } else { listening = true; mic.setAttribute('aria-pressed','true'); mic.textContent = '⏺ Listening'; where.textContent = 'Starting the microphone… tap Allow if your browser asks.'; if (!speaking) startRec(); } };
     window.addEventListener('hashchange', () => { tok++; listening = false; pauseRec(); try { speechSynthesis.cancel(); } catch(e){} }, {once:true});
   } }
   window.scrollTo(0,0);
