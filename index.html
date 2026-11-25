@@ -1107,6 +1107,50 @@ const GC_TIPS = [
   'If you cannot find every cheese in a recipe, use more of the ones you can find to make up the total.']}
 ];
 
+function turkeyPage(){
+  setNav('holidays');
+  document.title = 'Turkey Planner · Family Recipes';
+  var sv = {}; try { sv = JSON.parse(localStorage.getItem('turkeyPlan') || '{}'); } catch(e) {}
+  app.innerHTML = '<section class="sec-head"><a class="back" href="#/holidays">‹ Holidays</a><h1>Turkey Planner</h1><p class="tagline">Weight and dinner time in, a day-of schedule out</p></section>' +
+    '<section class="gf-guide" aria-label="Turkey planner"><label>Turkey weight (lb) <input id="tkW" type="number" inputmode="decimal" min="8" max="26" step="0.5"></label> ' +
+    '<label>Serve dinner at <input id="tkT" type="time"></label><div id="tkOut" aria-live="polite"></div></section>';
+  var wEl = document.getElementById('tkW'), tEl = document.getElementById('tkT'), out = document.getElementById('tkOut');
+  wEl.value = sv.w || 13.5; tEl.value = sv.t || '16:00';
+  function clock(m){ m = ((Math.round(m) % 1440) + 1440) % 1440; var h = Math.floor(m / 60), mi = m % 60, ap = h >= 12 ? 'PM' : 'AM'; h = h % 12; if (h === 0) h = 12; return h + ':' + (mi < 10 ? '0' : '') + mi + ' ' + ap; }
+  function amt(tsp){ tsp = Math.round(tsp * 4) / 4; var tb = Math.floor(tsp / 3); var rest = tsp - tb * 3; var fr = {0:'',0.25:'1/4',0.5:'1/2',0.75:'3/4'}; var parts = [];
+    if (tb > 0) { var tbs = tb; var rt = rest; if (rest >= 2.25) { tbs = tb + 1; rt = rest - 3; } } 
+    var whole = Math.floor(tsp / 3), rem = Math.round((tsp - whole * 3) * 4) / 4;
+    if (whole > 0) { var f3 = rem >= 2.25 ? 0 : -1; }
+    var fracT = {0:'',0.25:' 1/4',0.5:' 1/2',0.75:' 3/4'}; var s;
+    if (tsp >= 3) { var tbv = Math.round(tsp / 3 * 4) / 4; var wh = Math.floor(tbv), fp = tbv - wh; s = (wh > 0 ? wh : '') + (fp === 0 ? '' : (wh > 0 ? ' ' : '') + ({0.25:'1/4',0.5:'1/2',0.75:'3/4'})[fp]) + ' tbsp'; }
+    else { var w2 = Math.floor(tsp), fq = tsp - w2; s = (w2 > 0 ? w2 : '') + (fq === 0 ? '' : (w2 > 0 ? ' ' : '') + ({0.25:'1/4',0.5:'1/2',0.75:'3/4'})[fq]) + ' tsp'; }
+    return s; }
+  var RUB = [['olive oil', 7.5], ['garlic powder', 5.25], ['onion powder', 5.25], ['poultry seasoning or dried thyme', 2.5], ['dried rosemary or sage (optional)', 0.75], ['smoked paprika', 1.75], ['black pepper', 1.75], ['kosher salt', 2.5]];
+  function draw(){
+    var w = parseFloat(wEl.value), t = tEl.value;
+    try { localStorage.setItem('turkeyPlan', JSON.stringify({w:w, t:t})); } catch(e) {}
+    if (!(w >= 4 && w <= 30) || !t) { out.innerHTML = '<p class="hint">Enter a weight between 4 and 30 lb and a dinner time.</p>'; return; }
+    var p = t.split(':'), S = parseInt(p[0], 10) * 60 + parseInt(p[1], 10);
+    var R = Math.round(w * 14), Rlo = Math.round(w * 13), Rhi = Math.round(w * 15);
+    var outT = S - 30, inT = outT - R, hrs = function(m){ var h = Math.floor(m / 60), mi = m % 60; return h + ' hr' + (mi ? ' ' + mi + ' min' : ''); };
+    var steps = [
+      [inT - 90, 'Take the turkey out of the fridge', 'Let it sit about an hour before it goes in. Pat it dry and make the rub.'],
+      [inT - 20, 'Heat the oven to 325°F', 'Rack in the lower third. Rub under and over the skin.'],
+      [inT, 'Turkey goes in', 'Roasting about ' + hrs(R) + ' (' + hrs(Rlo) + ' to ' + hrs(Rhi) + ' depending on the bird and oven).'],
+      [outT - 45, 'Start checking the temperature', 'Thickest part of the thigh, not touching bone. Tent with foil if the skin is dark.'],
+      [outT, 'Out of the oven at 165°F', 'Tent with foil and let it rest 30 minutes while the sides finish.'],
+      [S - 10, 'Carve', 'Save the carcass, neck and giblets for stock.'],
+      [S, 'Dinner', 'Enjoy it.']
+    ];
+    var h = '<h2>Schedule</h2><ol class="tk-steps">' + steps.map(function(s){ return '<li><strong>' + clock(s[0]) + '</strong> · ' + esc(s[1]) + '<br><span class="hint">' + esc(s[2]) + '</span></li>'; }).join('') + '</ol>';
+    var k = w / 13.5;
+    h += '<h2>Rub for a ' + esc(String(w)) + ' lb turkey</h2><ul>' + RUB.map(function(r){ return '<li>' + amt(r[1] * k) + ' ' + esc(r[0]) + '</li>'; }).join('') + '</ul>';
+    h += '<p class="hint">Rub amounts scale from the 13 to 14 lb recipe. Full directions: <a href="#/recipe/herb-roasted-turkey-thanksgiving">Herb-Roasted Turkey</a> and <a href="#/recipe/herb-turkey-rub">Herb Turkey Rub</a>. Times are a guide, so go by the thermometer.</p>';
+    out.innerHTML = h;
+  }
+  wEl.addEventListener('input', draw); tEl.addEventListener('input', draw); draw();
+}
+
 function grilledPage(){
   setNav('gc');
   document.title = 'Grilled Cheese · Family Recipes';
@@ -2409,6 +2453,7 @@ function morePage(){
       ['#/gluten-free','🌾','Gluten-free','No wheat, barley, rye or oats'],
       ['#/healthy','🥗','Healthy eating','Light, simple, five ingredients or less'],
       ['#/grilled-cheese','🧀','Grilled cheese','Sandwiches, melts, and the sides to go with them'],
+      ['#/turkey','🦃','Turkey planner','Weight and dinner time in, schedule out'],
       ['#/people','👪','Look up a name','Every recipe from one person'],
       ['#/random','🎲','Surprise me','A random family recipe']
     ])}
@@ -2863,7 +2908,8 @@ function route(){
   else if(h === 'people' || h.startsWith('people/')) peoplePage(h.split('/')[1]);
   else if(h === 'gluten-free') gfPage();
   else if(h === 'healthy') healthyPage();
-  else if(h === 'grilled-cheese') grilledPage();
+  else if(h === 'grilled-cheese') grilledPage()
+  else if(h === 'turkey') turkeyPage();
   else if(h === 'family') sectionPage('family');
   else if(h === 'shelf') sectionPage('found');
   else if(h === 'holidays' || h.startsWith('holidays/')) holidaysPage(h.split('/')[1]);
