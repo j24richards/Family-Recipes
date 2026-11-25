@@ -346,7 +346,7 @@ var R = [
     ingredients:[{items:["1 can sweetened condensed milk","4 egg yolks","½ cup lime juice","1 egg white, beaten stiff","3 egg whites (for the meringue)","6 tbsp sugar","½ tsp cream of tartar","Baked pie shell"]}],
     steps:["Mix the condensed milk, egg yolks and lime juice.","Beat 1 egg white stiff and fold into the mixture. Pour into the baked pie shell.","Beat 3 egg whites stiff, gradually adding the sugar and cream of tartar.","Spread over the pie and bake at 350° until the meringue is golden brown."],
     notes:["The postcard says key lime pie was created by thrifty “conch” settlers’ wives in the early days of the Florida Keys, using juice from wild limes."],
-    cardNotes:["This is a postcard from Florida with the recipe printed on the front. It was mailed to Mr. & Mrs. Earl Richards in Tewksbury, Mass., with a handwritten note to the family on the back. The note begins “Hi Kathy, Earl, Joshua & Spirit” (Spirit is the family dog) and is signed “Love, Mom + Dad” (we think Pat and Don Goucher).","The filling isn’t cooked, so the yolks stay raw."],
+    cardNotes:["This is a postcard from Florida with the recipe printed on the front. It was mailed to the family in Tewksbury, Mass., with a handwritten note on the back, signed “Love, Mom + Dad” (we think Pat and Don Goucher).","The filling isn’t cooked, so the yolks stay raw."],
     gaps:[] },
 
   { slug:"cranberry-delight-shepherd-girl", title:"Cranberry Delight", category:"Pies & Crisps", credit:"", serves:"6",
