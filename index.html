@@ -1273,7 +1273,7 @@ function recipe(slug){
     const pauseRec = () => { const x = rec; rec = null; if (x) { try { x.abort(); } catch(e){} } };
     const ERRS = {'not-allowed':'The microphone is blocked. Allow it in your browser or phone settings, then tap 🎤 Voice again.','service-not-allowed':'Voice typing is turned off or not allowed. On iPhone: Settings → General → Keyboard → turn on Enable Dictation, and Settings → Safari → Microphone → Allow. On Android: use Chrome and allow the microphone for this site.','audio-capture':'No microphone was found or it is in use by another app.','network':'Voice needs an internet connection. Check your signal and tap 🎤 Voice again.','language-not-supported':'Voice isn’t available in this language setting.'};
     const turnOff = msg => { listening = false; pauseRec(); mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Voice'; if (msg) where.textContent = msg; };
-    let fails = 0, lastErr = '', heard = false, trail = [];
+    let fails = 0, lastErr = '', heard = false, trail = [], tapMode = false;
     const tr = s => { trail.push(s); if (trail.length > 8) trail.shift(); };
     const standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
     const startRec = () => { if (!SR || rec || !listening || !on) return;
@@ -1289,8 +1289,9 @@ function recipe(slug){
         if (!done) cmd(tx); };
       x.onerror = e => { lastErr = e.error || 'unknown'; tr('error: ' + lastErr); if (ERRS[lastErr]) turnOff(ERRS[lastErr] + ' [' + trail.join(' → ') + ']'); };
       x.onend = () => { tr('ended'); if (rec === x) rec = null; if (!listening || !on) return;
+        if (tapMode) { listening = false; mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Tap to speak'; if (!heard) where.textContent = 'Didn’t hear anything. Tap 🎤 again and speak right away. [' + trail.join(' → ') + ']'; return; }
         if (!heard && Date.now() - t0 < 1500 && lastErr !== 'no-speech') { fails++; }
-        if (fails >= 3) { turnOff('The browser keeps turning the microphone off right away [' + trail.join(' → ') + ']. ' + (standalone ? 'You’re using the home-screen app, which often can’t use voice. Open the site in Safari or Chrome instead. ' : 'Check the microphone permission for this site, and close other apps that might be using the mic. ') + 'The Back, Repeat and Next buttons still work.'); return; }
+        if (fails >= 3) { tapMode = true; listening = false; mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Tap to speak'; where.textContent = 'Hands-free listening keeps stopping on this phone, so tap 🎤 before each command instead, then say “next”, “repeat” or “what is step 2”. [' + trail.join(' → ') + ']'; return; }
         setTimeout(startRec, 350); };
       try { x.start(); } catch(e) { rec = null; fails++; if (fails >= 3) turnOff('Could not start the microphone (' + (e && e.name || 'error') + ').'); else setTimeout(startRec, 500); } };
     let spokenWords = null, spokenUntil = 0;
@@ -1333,7 +1334,10 @@ function recipe(slug){
     document.getElementById('rdAgain').onclick = () => { if (on) say(i); };
     document.getElementById('rdStop').onclick = () => stop();
     document.getElementById('rdHelp').onclick = () => showCmds(document.getElementById('rdCmds').hidden);
-    mic.onclick = () => { if (!on) return; if (listening) { listening = false; fails = 0; pauseRec(); mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Voice'; where.textContent = 'Step ' + (i+1) + ' of ' + steps.length; } else { listening = true; fails = 0; mic.setAttribute('aria-pressed','true'); mic.textContent = '⏺ Listening'; where.textContent = 'Starting the microphone… tap Allow if your browser asks.'; startRec(); } };
+    mic.onclick = () => { if (!on) return;
+      tok++; try { speechSynthesis.cancel(); } catch(e){} speaking = false; // free the audio so the microphone can hear
+      if (listening) { listening = false; fails = 0; pauseRec(); mic.setAttribute('aria-pressed','false'); mic.textContent = tapMode ? '🎤 Tap to speak' : '🎤 Voice'; where.textContent = 'Step ' + (i+1) + ' of ' + steps.length; return; }
+      listening = true; fails = 0; trail = []; mic.setAttribute('aria-pressed','true'); mic.textContent = '⏺ Listening'; where.textContent = tapMode ? 'Listening… say your command now.' : 'Starting the microphone… tap Allow if your browser asks.'; startRec(); };
     window.addEventListener('hashchange', () => { tok++; listening = false; pauseRec(); try { speechSynthesis.cancel(); } catch(e){} }, {once:true});
   } }
   window.scrollTo(0,0);
