@@ -1293,7 +1293,7 @@ function recipe(slug){
     const startRec = () => { if (gone || !SR || !listening) return;
       if (rec) { if (rec._fresh && Date.now() - rec._fresh < 2500) return; pauseRec(); setTimeout(startRec, 300); return; }
       const x = new SR(); rec = x; x._fresh = Date.now(); heard = false; lastErr = ''; const t0 = Date.now();
-      x.lang = 'en-US'; x.continuous = !tapMode; x.interimResults = true; x.maxAlternatives = 3;
+      x.lang = 'en-US'; x.continuous = false; x.interimResults = true; // same settings that passed the microphone test
       x.onstart = () => { tr('started'); where.textContent = capture ? '🎤 Listening… say your idea now' : '🎤 Listening… try “read directions”, “next” or “what is step 2”'; };
       x.onaudiostart = () => { tr('mic on'); heard = true; fails = 0; };
       x.onspeechstart = () => tr('heard speech');
