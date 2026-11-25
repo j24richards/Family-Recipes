@@ -612,13 +612,14 @@ const CAT_GROUPS = [
   {key:'starters', name:'Starters, Soups & Salads', cats:['Appetizers & Dips','Soups & Stews','Salads & Dressings']},
   {key:'mains', name:'Main Dishes', cats:['Chicken & Turkey','Beef, Pork & Ham','Fish & Seafood','Casseroles & Main Dishes','Pasta & Rice','Sandwiches & Pizza']},
   {key:'sides', name:'Sides & Sauces', cats:['Vegetables & Sides','Sauces & Gravies']},
+  {key:'rubs', name:'Rubs & Seasonings', cats:['Rubs & Seasonings']},
   {key:'breads', name:'Breads & Muffins', cats:['Breads & Muffins']},
   {key:'sweets', name:'Desserts & Sweets', cats:['Cookies','Bars & Brownies','Cakes','Pies & Crisps','Puddings & Desserts','Candy & Treats','Frostings, Fillings & Sweet Sauces']},
   {key:'extras', name:'Drinks, Canning & Gifts', cats:['Drinks','Jams, Pickles & Relishes','Gifts from the Kitchen','Kitchen Tips']}
 ];
 const groupByKey = k => CAT_GROUPS.find(g=>g.key===k);
 const groupOfCat = c => CAT_GROUPS.find(g=>g.cats.includes(c));
-const CAT_ORDER = ['Breakfast & Brunch','Appetizers & Dips','Soups & Stews','Salads & Dressings','Chicken & Turkey','Beef, Pork & Ham','Fish & Seafood','Casseroles & Main Dishes','Pasta & Rice','Sandwiches & Pizza','Vegetables & Sides','Sauces & Gravies','Breads & Muffins','Cookies','Bars & Brownies','Cakes','Pies & Crisps','Puddings & Desserts','Candy & Treats','Frostings, Fillings & Sweet Sauces','Jams, Pickles & Relishes','Drinks','Gifts from the Kitchen','Kitchen Tips'];
+const CAT_ORDER = ['Breakfast & Brunch','Appetizers & Dips','Soups & Stews','Salads & Dressings','Chicken & Turkey','Beef, Pork & Ham','Fish & Seafood','Casseroles & Main Dishes','Pasta & Rice','Sandwiches & Pizza','Vegetables & Sides','Sauces & Gravies','Rubs & Seasonings','Breads & Muffins','Cookies','Bars & Brownies','Cakes','Pies & Crisps','Puddings & Desserts','Candy & Treats','Frostings, Fillings & Sweet Sauces','Jams, Pickles & Relishes','Drinks','Gifts from the Kitchen','Kitchen Tips'];
 const SWEETS = ['Cookies','Bars & Brownies','Cakes','Frostings, Fillings & Sweet Sauces','Pies & Crisps','Candy & Treats','Puddings & Desserts'];
 const BOXES = { 'A': ['Gift Ideas','Appetizers & Dips','Biscuits & Breads','Cookies & Cakes'], '2': ['Casseroles','Desserts & Puddings','Egg & Cheese','Fish & Seafood','Frostings & Fillings','Meats','Pasta & Rice','Pies & Pastries'], '3': ['Front of the box','Poultry & Stuffing','Preserves & Jellies, Canning','Salads & Dressings','Sandwiches','Sauces & Syrups','Soups & Stews','Vegetables','Miscellaneous'] };
 const BOX_SECTIONS = BOXES['A'];
