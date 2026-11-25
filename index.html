@@ -1290,17 +1290,19 @@ function recipe(slug){
     const pauseRec = () => { const x = rec; rec = null; if (x) { try { x.abort(); } catch(e){} } };
     const ERRS = {'not-allowed':'The microphone is blocked. Allow it in your browser or phone settings, then tap 🎤 Voice again.','service-not-allowed':'Voice typing is turned off or not allowed. On iPhone: Settings → General → Keyboard → turn on Enable Dictation, and Settings → Safari → Microphone → Allow. On Android: use Chrome and allow the microphone for this site.','audio-capture':'No microphone was found or it is in use by another app.','network':'Voice needs an internet connection. Check your signal and tap 🎤 Voice again.','language-not-supported':'Voice isn’t available in this language setting.'};
     const turnOff = msg => { listening = false; capture = null; pauseRec(); setMicUI(); if (msg) where.textContent = msg; };
-    const startRec = () => { if (gone || !SR || rec || !listening) return;
-      const x = new SR(); rec = x; heard = false; lastErr = ''; const t0 = Date.now();
-      x.lang = 'en-US'; x.continuous = false; x.interimResults = true; x.maxAlternatives = 3;
+    const startRec = () => { if (gone || !SR || !listening) return;
+      if (rec) { if (rec._fresh && Date.now() - rec._fresh < 2500) return; pauseRec(); setTimeout(startRec, 300); return; }
+      const x = new SR(); rec = x; x._fresh = Date.now(); heard = false; lastErr = ''; const t0 = Date.now();
+      x.lang = 'en-US'; x.continuous = !tapMode; x.interimResults = true; x.maxAlternatives = 3;
       x.onstart = () => { tr('started'); where.textContent = capture ? '🎤 Listening… say your idea now' : '🎤 Listening… try “read directions”, “next” or “what is step 2”'; };
       x.onaudiostart = () => { tr('mic on'); heard = true; fails = 0; };
       x.onspeechstart = () => tr('heard speech');
-      x.onresult = e => { heard = true; fails = 0; const res = e.results[e.results.length - 1]; const tx = res[0].transcript; if (isEcho(tx)) return;
-        if (!res.isFinal) { where.textContent = '🎤 Hearing: “' + tx.slice(0,60) + '”'; return; }
-        const alts = [...res].map(a => a.transcript); let done = false;
-        for (const t of alts) { if (cmd(t, true)) { done = true; break; } }
-        if (!done) cmd(tx); };
+      x.onresult = e => { heard = true; fails = 0;
+        for (let k = e.resultIndex; k < e.results.length; k++) { const res = e.results[k]; const tx = res[0].transcript; if (isEcho(tx)) continue;
+          if (!res.isFinal) { where.textContent = '🎤 Hearing: “' + tx.slice(0,60) + '”'; continue; }
+          const alts = [...res].map(a => a.transcript); let done = false;
+          for (const t of alts) { if (cmd(t, true)) { done = true; break; } }
+          if (!done) cmd(tx); } };
       x.onerror = e => { lastErr = e.error || 'unknown'; tr('error: ' + lastErr); if (ERRS[lastErr]) turnOff(ERRS[lastErr] + ' [' + trail.join(' → ') + ']'); };
       x.onend = () => { tr('ended'); if (rec === x) rec = null; if (!listening || gone) return;
         if (tapMode) { if (capture) { setTimeout(startRec, 300); return; } listening = false; setMicUI(); if (!heard) where.textContent = 'Didn’t hear anything. Tap 🎤 again and speak right away. [' + trail.join(' → ') + ']'; return; }
@@ -1403,6 +1405,7 @@ function recipe(slug){
     document.getElementById('rdStop').onclick = () => stopReading();
     document.getElementById('rdHelp').onclick = () => showCmds(document.getElementById('rdCmds').hidden);
     mic.onclick = () => {
+      pauseRec();
       tok++; try { if (canSpeak) speechSynthesis.cancel(); } catch(e){} speaking = false;
       if (listening) { stopListening(reading ? 'Step ' + (i+1) + ' of ' + steps.length : 'Microphone off.'); return; }
       listening = true; fails = 0; trail = []; setMicUI(); where.textContent = tapMode ? 'Listening… say your command now.' : 'Starting the microphone… tap Allow if your browser asks.'; startRec(); };
