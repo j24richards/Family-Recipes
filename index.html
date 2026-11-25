@@ -1205,7 +1205,7 @@ function recipe(slug){
       <button class="btn" id="moreBtn" aria-haspopup="dialog">⋯ More</button>
     </div>
     <p class="hint" id="madeLine" style="margin:6px 2px 0" hidden></p>
-    <div id="readBar" class="readbar" hidden><button class="btn" id="rdPrev" aria-label="Previous step">⏮ Back</button><button class="btn" id="rdAgain" aria-label="Repeat this step">🔁 Repeat</button><button class="btn primary" id="rdNext" aria-label="Next step">Next ⏭</button><button class="btn" id="rdMic" aria-pressed="false" hidden title="Say next, repeat, or what is step 2">🎤 Voice</button><button class="btn" id="rdHelp" aria-expanded="false" title="What can I say?">❓ Commands</button><button class="btn" id="rdStop" aria-label="Stop reading">✕ Stop</button><span class="hint" id="rdWhere" style="flex-basis:100%"></span><div id="rdCmds" class="hint" style="flex-basis:100%;line-height:1.6" hidden><strong>Tap 🎤 Voice, then say:</strong><br>“Next” or “continue” · “Repeat” or “again” · “Back” or “previous”<br>“What is step 3” (any step number) · “Last step” · “Start over”<br>“Read the ingredients” · “How many steps” · “Stop”<br>“What can I say” reads this list out loud.</div></div>
+    <div id="readBar" class="readbar" hidden><button class="btn" id="rdPrev" aria-label="Previous step">⏮ Back</button><button class="btn" id="rdAgain" aria-label="Repeat this step">🔁 Repeat</button><button class="btn" id="rdDone" aria-label="Mark this step done">✓ Done</button><button class="btn primary" id="rdNext" aria-label="Next step">Next ⏭</button><button class="btn" id="rdMic" aria-pressed="false" hidden title="Say next, repeat, or what is step 2">🎤 Voice</button><button class="btn" id="rdHelp" aria-expanded="false" title="What can I say?">❓ Commands</button><button class="btn" id="rdStop" aria-label="Stop reading">✕ Stop</button><span class="hint" id="rdWhere" style="flex-basis:100%"></span><div id="rdCmds" class="hint" style="flex-basis:100%;line-height:1.6" hidden><strong>Tap 🎤 Voice, then say:</strong><br>“Next” or “continue” · “Repeat” or “again” · “Back” or “previous”<br>“Done” or “step complete” checks off the step you’re on<br>“What is step 3” (any step number) · “Last step” · “Start over”<br>“Read the ingredients” · “How many steps” · “Stop”<br>“What can I say” reads this list out loud.</div></div>
     ${r.tip ? `<div class="tip">${md(r.tip)}</div>` : ''}
     ${r.glutenFree ? `<div class="gf-note"><strong>🌾 Gluten-free as written.</strong> ${r.gfCheck && r.gfCheck.length ? `Check the label and buy these labeled gluten-free: ${r.gfCheck.map(x=>esc(x)).join('; ')}.` : 'No ingredients here normally contain gluten.'} <a href="#/gluten-free">More gluten-free recipes</a></div>` : ''}
     <div class="r-body">
@@ -1305,20 +1305,22 @@ function recipe(slug){
       setTimeout(() => { if (my === tok && speaking && !speechSynthesis.speaking && !speechSynthesis.pending) fin(); }, 4000 + text.length * 90);
       speechSynthesis.speak(u); };
     const say = n => { i = Math.max(0, Math.min(steps.length - 1, n)); mark();
-      where.textContent = 'Step ' + (i+1) + ' of ' + steps.length + ' · tap Next when you’re ready' + hint();
+      where.textContent = 'Step ' + (i+1) + ' of ' + steps.length + ' · tap ✓ Done when finished, then Next' + hint();
       speak('Step ' + (i+1) + '. ' + steps[i]);
       const li = lis()[i]; if (li && li.scrollIntoView) li.scrollIntoView({block:'center', behavior:'smooth'}); };
     const sayIngredients = () => { const items = (r.ingredients||[]).flatMap(g => g.items).map(x => String(x).replace(/[†*_`]/g,'')); where.textContent = 'Reading the ingredients' + hint(); speak('Ingredients. ' + items.join('. ')); };
     function stop(){ showCmds(false); tok++; speechSynthesis.cancel(); on = false; listening = false; speaking = false; pauseRec(); bar.hidden = true; mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Voice'; rb.setAttribute('aria-pressed','false'); rb.textContent = '🔊 Read steps'; mark(); }
+    const markDone = () => { const li = lis()[i]; if (li && !li.classList.contains('done')) li.click(); where.textContent = 'Step ' + (i+1) + ' checked off. Say or tap Next when you’re ready.'; speak('Step ' + (i+1) + ' done.'); };
     const next = () => { if (i >= steps.length - 1) { where.textContent = 'That was the last step.' + hint(); speak('That was the last step.'); } else say(i + 1); };
-    const CMD_SPOKEN = 'You can say: next. Repeat. Back. What is step, and a number, like step 3. Last step. Start over. Read the ingredients. How many steps. And stop.';
+    const CMD_SPOKEN = 'You can say: next. Repeat. Back. Done, to check off the step.  What is step, and a number, like step 3. Last step. Start over. Read the ingredients. How many steps. And stop.';
     const showCmds = on_ => { const c = document.getElementById('rdCmds'), hb = document.getElementById('rdHelp'); c.hidden = !on_; hb.setAttribute('aria-expanded', on_ ? 'true' : 'false'); };
     const WORDS = {one:1,first:1,two:2,second:2,three:3,third:3,four:4,fourth:4,five:5,fifth:5,six:6,sixth:6,seven:7,seventh:7,eight:8,eighth:8,nine:9,ninth:9,ten:10,tenth:10,eleven:11,twelve:12,'for':4,to:2,too:2,won:1};
     function cmd(raw, quiet){ const t = String(raw).toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim(); if (!t) return false;
       let m = t.match(/(?:step|number|go to|read)\s+(\d+|[a-z]+)\b/) || t.match(/\b(\d+|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth)\s+step\b/);
       if (m) { const n = /^\d+$/.test(m[1]) ? +m[1] : WORDS[m[1]]; if (n && n <= steps.length) { say(n - 1); return true; } if (n) { where.textContent = 'This recipe has ' + steps.length + ' steps.'; speak('This recipe has ' + steps.length + ' steps.'); return true; } }
       if (/\b(help|commands?|what can i say|what do i say|options)\b/.test(t)) { showCmds(true); where.textContent = 'Here are the commands you can say.'; speak(CMD_SPOKEN); return true; }
-      if (/\b(stop|quit|exit|done|finished|that s all)\b/.test(t)) { stop(); return true; }
+      if (/\b(done|finished|complete|completed|check it off|checked off|mark it)\b/.test(t)) { markDone(); return true; }
+      if (/\b(stop|quit|exit|that s all)\b/.test(t)) { stop(); return true; }
       if (/\b(repeat|again|say that|one more time|what was that)\b/.test(t)) { say(i); return true; }
       if (/\b(back|previous|before|go back|last one)\b/.test(t) && !/last step/.test(t)) { say(i - 1); return true; }
       if (/\b(start over|from the top|beginning|first one)\b/.test(t)) { say(0); return true; }
@@ -1331,6 +1333,7 @@ function recipe(slug){
     rb.onclick = () => { if (on) { stop(); return; } on = true; bar.hidden = false; rb.setAttribute('aria-pressed','true'); rb.textContent = '⏹ Stop reading'; showCmds(true); say(0); };
     document.getElementById('rdNext').onclick = () => { if (on) next(); };
     document.getElementById('rdPrev').onclick = () => { if (on) say(i - 1); };
+    document.getElementById('rdDone').onclick = () => { if (on) markDone(); };
     document.getElementById('rdAgain').onclick = () => { if (on) say(i); };
     document.getElementById('rdStop').onclick = () => stop();
     document.getElementById('rdHelp').onclick = () => showCmds(document.getElementById('rdCmds').hidden);
