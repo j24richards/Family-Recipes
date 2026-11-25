@@ -562,7 +562,7 @@ ol.steps li.mine::after{content:' (your addition)';font-size:.78rem;color:var(--
 </div></footer>
 
 <script src="recipes.js?v=20261127"></script>
-<script src="cards.js?v=20261127"></script>
+<script src="cards.js?v=20261201"></script>
 <script src="gifts.js?v=20261127"></script>
 <script src="cards2.js?v=20261127"></script>
 <script src="cards3.js?v=20261127"></script>
@@ -1216,7 +1216,7 @@ function recipe(slug){
       <button class="btn" id="moreBtn" aria-haspopup="dialog">⋯ More</button>
     </div>
     <p class="hint" id="madeLine" style="margin:6px 2px 0" hidden></p>
-    <div id="readBar" class="readbar"><button class="btn primary" id="rdRead" title="Reads the steps out loud" aria-label="Read steps">🔊<span class="t"> Read steps</span><span class="s">Read</span></button><button class="btn" id="rdMic" aria-pressed="false" hidden title="Say read directions, next, repeat, or add a step" aria-label="Voice">🎤<span class="t"> Voice</span><span class="s">Mic off</span></button><button class="btn" id="rdHelp" aria-expanded="false" title="What can I say?" aria-label="Commands">❓<span class="t"> Commands</span></button><button class="btn" id="rdSugg" title="Review ideas you have saved for this recipe" aria-label="Suggestions">💡<span class="t"> Suggestions</span></button><span id="rdCtl" class="rdctl" hidden><button class="btn" id="rdPrev" aria-label="Previous step">⏮<span class="t"> Back</span><span class="s">Back</span></button><button class="btn" id="rdAgain" aria-label="Repeat this step">↻<span class="t"> Repeat</span><span class="s">Repeat</span></button><button class="btn" id="rdDone" aria-label="Mark this step done">✓<span class="t"> Done</span><span class="s">Done</span></button><button class="btn primary" id="rdNext" aria-label="Next step"><span class="t">Next </span>⏭<span class="s">Next</span></button><button class="btn" id="rdStop" aria-label="Stop reading">✕<span class="t"> Stop reading</span></button></span><span class="hint" id="rdWhere" style="flex-basis:100%"></span><form id="rdCmdForm" class="sugg-form" style="flex-basis:100%;margin-top:0"><input id="rdCmdText" type="text" autocomplete="off" enterkeyhint="go" placeholder="Type, or tap your keyboard’s 🎤: “next”, “add a step…”" aria-label="Type or dictate a command"><button class="btn sm" type="submit">Go</button></form><div id="rdCmds" class="hint" style="flex-basis:100%;line-height:1.7" hidden><strong>Tap 🎤 Voice, then say:</strong><br>“Read directions” starts reading · “Next” · “Repeat” · “Back”<br>“Step 3”, “go to step 3” or just “3” jumps to that step · “Last step” · “Start over”<br>“Done” checks off the step you’re on · “Read the ingredients” · “How many steps”<br><strong>To save an idea for later:</strong> “Add a step” (then say the step) · “Too much salt” · “Not enough sugar” · “Note …”<br>These go in <em>Suggestions</em> below, and nothing in the recipe changes until you approve it.<br>“Stop” ends reading · “Stop listening” turns the microphone off · “What can I say” reads this list.<br><strong>If 🎤 Voice won’t stay on:</strong> type in the box above, or tap the microphone key on your phone’s keyboard and speak into the box. · <a href="#/mic-test">Run the microphone test</a></div></div>
+    <div id="readBar" class="readbar"><button class="btn primary" id="rdRead" title="Reads the steps out loud" aria-label="Read steps">🔊<span class="t"> Read steps</span><span class="s">Read</span></button><button class="btn" id="rdMic" aria-pressed="false" hidden title="Say read directions, next, repeat, or add a step" aria-label="Voice">🎤<span class="t"> Voice</span><span class="s">Mic off</span></button><button class="btn" id="rdHelp" aria-expanded="false" title="What can I say?" aria-label="Commands">❓<span class="t"> Commands</span></button><button class="btn" id="rdSugg" title="Review ideas you have saved for this recipe" aria-label="Suggestions">💡<span class="t"> Suggestions</span></button><span id="rdCtl" class="rdctl" hidden><button class="btn" id="rdPrev" aria-label="Previous step">⏮<span class="t"> Back</span><span class="s">Back</span></button><button class="btn" id="rdAgain" aria-label="Repeat this step">↻<span class="t"> Repeat</span><span class="s">Repeat</span></button><button class="btn" id="rdDone" aria-label="Mark this step done">✓<span class="t"> Done</span><span class="s">Done</span></button><button class="btn primary" id="rdNext" aria-label="Next step"><span class="t">Next </span>⏭<span class="s">Next</span></button><button class="btn" id="rdStop" aria-label="Stop reading">✕<span class="t"> Stop reading</span></button></span><span class="hint" id="rdWhere" style="flex-basis:100%"></span><form id="rdCmdForm" class="sugg-form" style="flex-basis:100%;margin-top:0"><input id="rdCmdText" type="text" autocomplete="off" enterkeyhint="go" placeholder="Type, or tap your keyboard’s 🎤: “next”, “add a step…”" aria-label="Type or dictate a command"><button class="btn sm" type="submit">Go</button></form><div id="rdCmds" class="hint" style="flex-basis:100%;line-height:1.7" hidden><strong>Tap 🎤 Voice, then say:</strong><br>“Read directions” starts reading · “Next” · “Repeat” · “Back”<br>“Step 3”, “go to step 3” or just “3” jumps to that step · “Last step” · “Start over”<br>“Done” checks off the step you’re on · “Read the ingredients” · “How many steps”<br>“How much butter?” reads that amount (at the size you picked)<br>“Set a timer for 10 minutes” · “Start the timer” (uses the time in the step) · “How much time is left?” · “Stop the timer”<br><strong>To save an idea for later:</strong> “Add a step” (then say the step) · “Too much salt” · “Not enough sugar” · “Note …”<br>These go in <em>Suggestions</em> below, and nothing in the recipe changes until you approve it.<br>“Stop” ends reading · “Stop listening” turns the microphone off · “What can I say” reads this list.<br><strong>If 🎤 Voice won’t stay on:</strong> type in the box above, or tap the microphone key on your phone’s keyboard and speak into the box. · <a href="#/mic-test">Run the microphone test</a></div></div>
     ${r.tip ? `<div class="tip">${md(r.tip)}</div>` : ''}
     ${r.glutenFree ? `<div class="gf-note"><strong>🌾 Gluten-free as written.</strong> ${r.gfCheck && r.gfCheck.length ? `Check the label and buy these labeled gluten-free: ${r.gfCheck.map(x=>esc(x)).join('; ')}.` : 'No ingredients here normally contain gluten.'} <a href="#/gluten-free">More gluten-free recipes</a></div>` : ''}
     <div class="r-body">
@@ -1235,7 +1235,7 @@ function recipe(slug){
         ${!r.fromBox && r.cardNotes && r.cardNotes.length ? `<div class="panel notes"><h2>On the card</h2><ul>${r.cardNotes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
         ${r.nutrition ? `<div class="panel notes nutri"><h2>Per serving</h2><p class="hint">${esc(r.nutrition.per)}</p><p><strong>${r.nutrition.points} SmartPoints</strong> · ${r.nutrition.cal} cal · ${[['protein','g protein'],['carb','g carbs'],['fat','g fat']].filter(x=>r.nutrition[x[0]]!=null).map(x=>r.nutrition[x[0]]+' '+x[1]).join(' · ')}</p><p class="hint">${[['satFat','Saturated fat','g'],['sodium','sodium','mg'],['sugar','sugar','g'],['fiber','fiber','g']].filter(x=>r.nutrition[x[0]]!=null).map(x=>x[1]+' '+r.nutrition[x[0]]+' '+x[2]).join(' · ')}</p></div>` : ''}
         ${r.notes && r.notes.length ? `<div class="panel notes"><h2>Notes</h2><ul>${r.notes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
-        <div class="panel sugg" id="suggPanel"><h2>💡 Suggestions</h2><p class="hint">Ideas for this recipe, saved on this phone. Say “add a step” or “too much salt” with 🎤 Voice, or type one here. Nothing changes in the recipe until you add it.</p><div id="suggList"></div><form id="suggForm" class="sugg-form"><select id="suggType" aria-label="Kind of suggestion"><option value="step">New step</option><option value="ingredient">Ingredient amount</option><option value="note">Note</option></select><input id="suggText" type="text" placeholder="Type your idea…" autocomplete="off" aria-label="Your suggestion"><button class="btn primary sm" type="submit">Save idea</button></form><div class="row"><button type="button" class="btn sm" id="suggCopy">📋 Copy my ideas to send</button></div></div>
+        <div class="panel sugg" id="suggPanel"><h2>💡 Suggestions</h2><p class="hint">Ideas for this recipe, saved on this phone. Say “add a step” or “too much salt” with 🎤 Voice, or type one here. Nothing changes in the recipe until you add it. “Send my ideas” passes them to the family recipe keeper.</p><div id="suggList"></div><form id="suggForm" class="sugg-form"><select id="suggType" aria-label="Kind of suggestion"><option value="step">New step</option><option value="ingredient">Ingredient amount</option><option value="note">Note</option></select><input id="suggText" type="text" placeholder="Type your idea…" autocomplete="off" aria-label="Your suggestion"><button class="btn primary sm" type="submit">Save idea</button></form><div class="row"><button type="button" class="btn sm primary" id="suggSend">📨 Send my ideas</button><button type="button" class="btn sm" id="suggCopy">📋 Copy</button></div></div>
         ${tipsHtml(r, slug)}
     </div>
     ${(r.photos && r.photos.length) ? `<h2 class="gal-h">How it turned out</h2><div class="gallery">${r.photos.map(p=>`<button type="button" class="photo-btn" data-zoom="${esc(p.src)}" data-cap="${esc((p.caption||'')+(p.by?' — '+p.by:''))}"><img src="${esc(p.src)}" alt="${esc(p.caption||('Photo of '+r.title))}" loading="lazy"></button>`).join('')}</div>` : ''}
@@ -1331,7 +1331,7 @@ function recipe(slug){
     function stopListening(msg){ capture = null; listening = false; fails = 0; pauseRec(); setMicUI(); where.textContent = msg || 'Microphone off.'; }
     const markDone = () => { if (!reading) { where.textContent = 'Say “read directions” first, then “done” when you finish a step.'; return; } const li = lis()[i]; if (li && !li.classList.contains('done')) li.click(); where.textContent = 'Step ' + (i+1) + ' checked off. Say or tap Next when you’re ready.'; speak('Step ' + (i+1) + ' done.'); };
     const next = () => { if (!reading) { say(0); return; } if (i >= steps.length - 1) { where.textContent = 'That was the last step.'; speak('That was the last step.'); } else say(i + 1); };
-    const CMD_SPOKEN = 'You can say: read directions. Next. Repeat. Back. What is step, and a number. Last step. Start over. Done, to check off a step. Read the ingredients. To save an idea, say add a step, too much salt, or note. Stop ends reading. Stop listening turns off the microphone.';
+    const CMD_SPOKEN = 'You can say: read directions. Next. Repeat. Back. What is step, and a number. Last step. Start over. Done, to check off a step. Read the ingredients. How much butter, or any ingredient. Set a timer for 10 minutes. How much time is left. Stop the timer. To save an idea, say add a step, too much salt, or note. Stop ends reading. Stop listening turns off the microphone.';
     const showCmds = on_ => { const c = document.getElementById('rdCmds'), hb = document.getElementById('rdHelp'); c.hidden = !on_; hb.setAttribute('aria-expanded', on_ ? 'true' : 'false'); };
     // ---- suggestions (kept on this device; the recipe itself is not changed until you add one) ----
     const SK = 'sugg:'+slug, EK = 'edits:'+slug;
@@ -1363,6 +1363,12 @@ function recipe(slug){
     document.getElementById('suggCopy').onclick = () => { const all = getS(), E = getE(); const lines = []; all.forEach(x => lines.push('- ' + (KIND[x.type]||'Note') + (x.ctx ? ' (' + x.ctx + ')' : '') + ': ' + x.text)); E.steps.forEach(s => lines.push('- New step (added to my copy): ' + s)); E.notes.forEach(s => lines.push('- Note (added to my copy): ' + s));
       if (!lines.length) { toast('No ideas to copy yet'); return; } const txt = 'Ideas for “' + r.title + '”:\n' + lines.join('\n');
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => toast('Copied. Paste it to send.'), () => window.prompt('Copy this:', txt)); else window.prompt('Copy this:', txt); };
+    document.getElementById('suggSend').onclick = () => { const all = getS(), E = getE(); const lines = []; all.forEach(x => lines.push('- ' + (KIND[x.type]||'Note') + (x.ctx ? ' (' + x.ctx + ')' : '') + ': ' + x.text)); E.steps.forEach(s => lines.push('- New step (added to my copy): ' + s)); E.notes.forEach(s => lines.push('- Note (added to my copy): ' + s));
+      if (!lines.length) { toast('No ideas to send yet'); return; } const txt = 'Ideas for “' + r.title + '”:\n' + lines.join('\n');
+      try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {}); } catch(e){}
+      const w = window.open(suggestLink(r), '_blank', 'noopener');
+      where.textContent = '📨 Your ideas are copied. In the form, tap the “What do you know?” box, paste, and tap Submit.';
+      toast('Ideas copied. Paste them into the form and tap Submit.'); if (!w) window.prompt('Copy this, then open the “Tell us” form:', txt); };
     sBtn.onclick = () => { const p = document.getElementById('suggPanel'); if (p && p.scrollIntoView) p.scrollIntoView({behavior:'smooth', block:'start'}); };
     renderSugg();
     // what the voice said → a suggestion?
@@ -1387,10 +1393,47 @@ function recipe(slug){
       if ((m = t.match(/\b(\d+(?:st|nd|rd|th)?|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|eleventh|twelfth)\s+step\b/)) && (n = toN(m[1]) || {eleventh:11, twelfth:12}[m[1]])) return n;
       if ((m = t.match(/^(\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)$/))) return toN(m[1]);
       return 0; }
+    // ---- timers and ingredient questions by voice ----
+    const NUM_WORDS = {a:1, an:1, one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8, nine:9, ten:10, eleven:11, twelve:12, fifteen:15, twenty:20, thirty:30, forty:40, 'forty five':45, fifty:50, sixty:60, ninety:90};
+    const minsText = s => { const h = Math.floor(s/3600), m = Math.round(s%3600/60); return (h ? h + (h === 1 ? ' hour' : ' hours') : '') + (h && m ? ' and ' : '') + (m ? m + (m === 1 ? ' minute' : ' minutes') : (!h ? s + ' seconds' : '')); };
+    function parseDuration(t){
+      let m = t.match(/\b(half an hour|half hour)\b/); if (m) return 1800;
+      m = t.match(/\b(\d+(?:\.\d+)?|forty five|an|a|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fifteen|twenty|thirty|forty|fifty|sixty|ninety)\s*(and a half\s*)?(seconds?|secs?|minutes?|mins?|hours?|hrs?)\b(\s+and a half)?/);
+      if (!m) return 0; let v = /^\d/.test(m[1]) ? parseFloat(m[1]) : NUM_WORDS[m[1]]; if (!v) return 0; if (m[2] || m[4]) v += .5;
+      const u = m[3]; return Math.round(v * (/^h/.test(u) ? 3600 : /^s/.test(u) ? 1 : 60)); }
+    function stepDuration(n){ const s = steps[n] || ''; const m = s.match(/(\d+(?:\s*[½¼¾])?)\s*(?:(?:to|-|–|or)\s*(\d+)\s*)?(minutes?|mins?\.?|hours?|hrs?\.?)\b/i); if (!m) return 0;
+      const f = {'½':.5,'¼':.25,'¾':.75}; const raw = (m[2] || m[1]).trim(); const mm = raw.match(/^(\d+)?\s*([½¼¾])?$/); const v = mm ? (+(mm[1]||0) + (f[mm[2]]||0)) : parseFloat(raw); return Math.round(v * (/^h/i.test(m[3]) ? 3600 : 60)); }
+    function timerCmd(t){
+      if (!/\btimers?\b|\btime left\b|\bhow much time\b|\bhow long (?:is )?left\b/.test(t)) return false;
+      if (/\b(stop|cancel|clear|end|turn off|silence|kill)\b/.test(t)) { if (!TIMERS.length) { speak('There are no timers running.'); return true; }
+        const ringing = TIMERS.filter(x => x.done); if (ringing.length) ringing.forEach(x => TIMERS.splice(TIMERS.indexOf(x), 1)); else TIMERS.splice(TIMERS.length - 1, 1); drawTimers(); where.textContent = '⏱ Timer stopped.'; speak('Timer stopped.'); return true; }
+      if (/\b(left|how much time|how long|check|status|remaining)\b/.test(t) && !parseDuration(t)) { const live = TIMERS.filter(x => !x.done); if (!live.length) { speak(TIMERS.length ? 'Your timer is done.' : 'There are no timers running.'); return true; }
+        const msg = live.map(x => minsText(Math.max(1, Math.round((x.end - Date.now())/1000))) + ' left' + (live.length > 1 ? ' on ' + x.label.replace(/^.*?:\s*/, '') : '')).join(', and '); where.textContent = '⏱ ' + msg; speak(msg); return true; }
+      let secs = parseDuration(t), fromStep = false;
+      if (!secs) { secs = reading ? stepDuration(i) : 0; fromStep = !!secs; }
+      if (!secs) { where.textContent = 'How long? Try “set a timer for 10 minutes”.'; speak('How long? Say, set a timer for 10 minutes.'); return true; }
+      if (secs < 5 || secs > 12 * 3600) { speak('That timer is too long or too short.'); return true; }
+      const label = r.title + ': ' + minsText(secs).replace(' minutes', ' min').replace(' minute', ' min'); startTimer(secs, label);
+      const msg = 'Timer set for ' + minsText(secs) + (fromStep ? ', from step ' + (i+1) : '') + '.'; where.textContent = '⏱ ' + msg; speak(msg); return true; }
+    const SAY_UNITS = [[/\btbsp\.?\b|\btbs\.?\b|\bT\b/g,'tablespoons'],[/\btsp\.?\b/g,'teaspoons'],[/\blbs?\.?\b/g,'pounds'],[/\boz\.?\b/g,'ounces'],[/\bqt\.?\b/g,'quarts'],[/\bpt\.?\b/g,'pints'],[/\bpkg\.?\b/g,'package'],[/\bc\.\s/g,'cups '],[/\bml\b/g,'milliliters'],[/\bg\b/g,'grams'],[/°F?/g,' degrees']];
+    const sayable = s => { let x = String(s).replace(/[†*_`]/g,''); SAY_UNITS.forEach(([re, w]) => x = x.replace(re, w)); return x.replace(/(\d)\s*([¼½¾⅓⅔⅛])/g, '$1 and $2').replace(/¼/g,' a quarter').replace(/½/g,' a half').replace(/¾/g,' three quarters').replace(/⅓/g,' a third').replace(/⅔/g,' two thirds').replace(/⅛/g,' an eighth').replace(/\s+/g,' ').replace(/\b(1|one|a)\s+(tablespoon|teaspoon|pound|ounce|quart|pint|cup|gram|milliliter)s\b/g,'$1 $2').trim(); };
+    const sing = w => w.replace(/ies$/,'y').replace(/(ch|sh|ss|x)es$/,'$1').replace(/oes$/,'o').replace(/s$/,'');
+    function ingredientCmd(t){
+      const m = t.match(/\bhow (?:much|many)\s+(.+)$/) || t.match(/\b(?:do i need|amount of|quantity of)\s+(.+)$/); if (!m) return false;
+      let term = m[1].replace(/\b(do i need|do we need|does it (?:need|take|call for|use)|is (?:there|in it|in this|in the recipe)|goes in|go in|in (?:it|this|the recipe|this recipe)|should i (?:use|add|put in)|for this|of|the|some|any)\b/g, ' ').replace(/\s+/g,' ').trim();
+      if (!term || /^steps?$/.test(term)) return false;
+      const words = term.split(' ').filter(w => w.length > 2).map(sing); if (!words.length) return false;
+      const lines = [...document.querySelectorAll('#ingList li span')].map(e => e.textContent);
+      let best = 0, hits = [];
+      lines.forEach(l => { const lw = l.toLowerCase().replace(/[^a-z ]/g,' ').split(/\s+/).map(sing); const score = words.filter(w => lw.includes(w)).length; if (score > best) { best = score; hits = [l]; } else if (score === best && score > 0) hits.push(l); });
+      if (!best) { where.textContent = 'I don’t see “' + term + '” in this recipe.'; speak('I don’t see ' + term + ' in this recipe.'); return true; }
+      hits = hits.slice(0, 3); where.textContent = '🥄 ' + hits.join(' · '); speak(hits.map(sayable).join('. And ') + '.'); return true; }
     function cmd(raw, quiet, typed){ const t = String(raw).toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim(); if (!t) return false;
       if (capture) { const ty = capture.type; if (/^(cancel|never mind|nevermind|forget it|stop)$/.test(t)) { capture = null; clearTimeout(capT); where.textContent = 'Cancelled.'; speak('Cancelled.'); return true; }
         capture = null; clearTimeout(capT); const ok = saveSugg(ty, raw, ctxNow()); speak(ok ? 'Saved to suggestions. Nothing in the recipe changed.' : 'I didn’t catch that.'); return true; }
       if (/\bstop (?:listening|listen)\b|\b(?:turn|switch) off (?:the |my )?(?:mic|microphone|voice|listening)\b|\bmute\b|\bquit listening\b|\bstop the (?:mic|microphone)\b/.test(t)) { stopListening('Microphone off. Tap 🎤 Voice to turn it back on.'); return true; }
+      if (timerCmd(t)) return true;
+      if (!/^how many steps\b/.test(t) && ingredientCmd(t)) return true;
       const sg = parseSuggestion(raw);
       if (sg) { if (sg.text && sg.text.length > 2) { const ok = saveSugg(sg.type, sg.text, ctxNow()); speak(ok ? 'Saved to suggestions. Nothing in the recipe changed.' : 'I didn’t catch that.'); } else beginCapture(sg.type, typed); return true; }
       if (/\b(?:show|open|review|see) (?:my |the )?(?:suggestions|ideas)\b/.test(t)) { sBtn.click(); where.textContent = 'Here are your suggestions.'; return true; }
@@ -1431,12 +1474,55 @@ function recipe(slug){
   window.scrollTo(0,0);
 }
 
+// ---- Shopping list: combine the same ingredient across recipes ----
+const SHOP_VOL = {tsp:1, teaspoon:1, tbsp:3, tablespoon:3, tbs:3, cup:48, c:48, pint:96, pt:96, quart:192, qt:192, gallon:768};
+const SHOP_WT = {oz:1, ounce:1, lb:16, pound:16};
+const SHOP_DROP = /\b(chopped|finely|coarsely|minced|diced|sliced|thinly|thickly|grated|shredded|melted|softened|cubed|crushed|beaten|fresh|freshly|large|small|medium|packed|firmly|lightly|divided|peeled|seeded|cored|halved|quartered|rinsed|drained|cooked|uncooked|cold|warm|hot|room temperature|at room temperature|optional|about|plus more|or more|to taste|split|skinned|skinless|boned|boneless|trimmed|lg|lge|med|sm|extra)\b\.?/g;
+function shopParse(it){
+  let s = String(it).replace(/[†*]/g,'').trim(), q = null, unit = '', fam = '';
+  const qm = s.match(/^((?:\d+\s+)?\d+\/\d+|\d*\s*[¼½¾⅓⅔⅛⅜⅝⅞]|\d+(?:\.\d+)?)(?:\s*(?:-|–|to)\s*[\d¼½¾⅓⅔]+)?\s*/);
+  if (qm) { const t = qm[1].trim(); let v = 0, m;
+    if ((m = t.match(/^(\d+)\s+(\d+)\/(\d+)$/))) v = +m[1] + m[2]/m[3]; else if ((m = t.match(/^(\d+)\/(\d+)$/))) v = m[1]/m[2]; else if ((m = t.match(/^(\d*)\s*([¼½¾⅓⅔⅛⅜⅝⅞])$/))) v = (+m[1]||0) + UF[m[2]]; else v = parseFloat(t);
+    if (v > 0) { q = v; s = s.slice(qm[0].length); } }
+  s = s.replace(/^\([^)]*\)\s*/, '');
+  if (q !== null) { const um = s.match(/^(tsp|teaspoons?|tbsp|tbs|tablespoons?|cups?|c\.|c|pints?|pt|quarts?|qt|gallons?|oz|ounces?|lbs?|pounds?|sticks?|cans?|packages?|pkgs?|jars?|envelopes?|boxes|box|bags?|cloves?|heads?|bunch(?:es)?|slices?|bottles?|cartons?|containers?)\.?(?=\s|$)/i);
+    if (um) { const u = um[1].toLowerCase().replace(/\.$/,''); s = s.slice(um[0].length);
+      const base = u.replace(/^(teaspoon|tablespoon|cup|pint|quart|gallon|ounce|pound|stick|can|package|jar|envelope|bag|clove|head|slice|bottle|carton|container)s$/,'$1').replace(/^lbs$/,'lb').replace(/^pkgs?$/,'package').replace(/^boxes$/,'box').replace(/^bunches$/,'bunch');
+      const isButter = /butter|margarine|marg\b|oleo/i.test(s) && !/peanut|apple|cocoa/i.test(s);
+      if (SHOP_VOL[base]) { fam = 'vol'; q *= SHOP_VOL[base]; } else if (SHOP_WT[base] && isButter) { fam = 'vol'; q *= SHOP_WT[base] * 6; } else if (SHOP_WT[base]) { fam = 'wt'; q *= SHOP_WT[base]; } else if (base === 'stick' && /butter|margarine|oleo/i.test(s)) { fam = 'vol'; q *= 24; } else { fam = 'n:' + base; unit = base; } }
+    else fam = 'n:'; }
+  const segs = s.split('(')[0].split(/,|;/).map(x => x.toLowerCase().replace(/\bmarg\.?(?=\s|$)/g,'margarine').replace(/^of\s+/,'').replace(SHOP_DROP,' ').replace(/[.&]/g,' ').replace(/^\s*(and|or)\b/,'').replace(/\s+/g,' ').trim());
+  let name = segs.find(x => x) || '';
+  const key = name.split(' ').map(w => w.replace(/ies$/,'y').replace(/(ch|sh|ss|x)es$/,'$1').replace(/oes$/,'o').replace(/s$/,'')).join(' ');
+  return {q, fam, unit, name: name || String(it), key: key || String(it).toLowerCase()};
+}
+function shopAmount(q, fam, unit){
+  if (fam === 'vol') { if (q >= 12) return fmtQty(q/48) + ' cup' + (q/48 > 1 ? 's' : ''); if (q >= 3 && Math.abs(q/3 - Math.round(q/3*4)/4) < .01) return fmtQty(q/3) + ' tbsp'; return fmtQty(q) + ' tsp'; }
+  if (fam === 'wt') return q >= 16 ? fmtQty(q/16) + ' lb' : fmtQty(q) + ' oz';
+  return fmtQty(q) + (unit ? ' ' + unit + (q > 1 && !/s$/.test(unit) ? (/(ch|sh|x)$/.test(unit) ? 'es' : 's') : '') : '');
+}
+const shopPlural = (name, q) => q > 1 && !/s$/.test(name) ? name.replace(/(\w+)$/, w => /[^aeiou]y$/.test(w) ? w.slice(0,-1) + 'ies' : /(ch|sh|x)$/.test(w) ? w + 'es' : w + 's') : name;
+function shopCombined(slugs){
+  const groups = new Map();
+  slugs.forEach(s => { const r = R.find(x => x.slug === s); if (!r) return; r.ingredients.flatMap(g => g.items).forEach(it => { if (/^\s*$/.test(it)) return; const p = shopParse(it);
+    let g = groups.get(p.key); if (!g) { g = {name: p.name, amts: {}, loose: [], from: new Set(), lines: []}; groups.set(p.key, g); }
+    g.from.add(r.title); g.lines.push(it + ' (' + r.title + ')');
+    if (p.q !== null) { const k = p.fam + '|' + p.unit; g.amts[k] = (g.amts[k] || 0) + p.q; } else g.loose.push(it); }); });
+  return [...groups.entries()].map(([key, g]) => { const parts = Object.entries(g.amts).map(([k, q]) => { const [fam, unit] = k.split('|'); return shopAmount(q, fam, unit); });
+    const name = g.name.charAt(0).toUpperCase() + g.name.slice(1);
+    const onlyCount = Object.keys(g.amts).length === 1 && Object.keys(g.amts)[0] === 'n:|';
+    let text = parts.length ? parts.join(' + ') + ' ' + (onlyCount ? shopPlural(g.name, g.amts['n:|']) : g.name) : (g.loose[0] || name);
+    if (parts.length && g.loose.length) text += ' (plus ' + g.loose.length + ' more without an amount)';
+    return {key, text, from: [...g.from], lines: g.lines}; }).sort((a, b) => a.key.localeCompare(b.key));
+}
+
 function shopping(){
   document.title = 'Shopping list · Family Recipes';
   const slugs = shopList().filter(s => R.some(r=>r.slug===s));
   const got = store.get('shopchk', {});
   const extra = store.get('shopextra', []);
   const total = slugs.length + extra.length;
+  const view = slugs.length > 1 ? store.get('shopview', 'combined') : 'recipe';
   app.innerHTML = `
     <a class="back" href="#/">← Home</a>
     <div class="r-head"><h1>Shopping list</h1><p class="summary">${slugs.length ? `Ingredients from ${slugs.length} recipe${slugs.length>1?'s':''}` : 'No recipes added yet'}${extra.length ? ` plus ${extra.length} of your own item${extra.length>1?'s':''}` : ''}. Open any recipe and tap “Add to shopping list” to add more. Check things off as you go.</p></div>
@@ -1444,16 +1530,18 @@ function shopping(){
       <label for="ownItem">Add your own item <a href="#/staples" style="font-weight:400;font-size:.9rem;margin-left:6px">or run a pantry check →</a></label>
       <div class="addown-row"><input id="ownItem" type="text" placeholder="e.g. paper towels, milk, 2 lemons"><button class="btn primary" type="submit">Add</button></div>
     </form>
+    ${slugs.length > 1 ? `<div class="seg" role="group" aria-label="Shopping list view" style="margin:4px 0 8px"><button type="button" data-view="combined" aria-pressed="${view==='combined'}">Combined</button><button type="button" data-view="recipe" aria-pressed="${view!=='combined'}">By recipe</button></div>` : ''}
     ${total ? `<div class="actions"><button class="btn" id="clearChecks">Uncheck all</button><button class="btn" id="clearAll">Clear list</button><button class="btn" onclick="window.print()">Print</button></div>` : ''}
     <div class="panel" style="margin:16px 0 48px">
       ${extra.length ? `<div class="shop-group"><h3>My own items</h3><ul class="checklist">${extra.map((x,n)=>`<li><label><input type="checkbox" data-x="${n}" ${x.done?'checked':''}><span>${esc(x.t)}</span></label> <button class="linkbtn" data-xrm="${n}" aria-label="Remove ${esc(x.t)}">Remove</button></li>`).join('')}</ul></div>` : ''}
-      ${slugs.map(s => { const r = R.find(x=>x.slug===s); let n=0; return `
+      ${view === 'combined' ? `<div class="shop-group"><h3>Everything you need <span class="muted" style="font-weight:400;font-size:.85rem">(same items added together from ${slugs.length} recipes)</span></h3><ul class="checklist">${shopCombined(slugs).map(c => { const k = 'c:' + c.key; return `<li><label><input type="checkbox" data-k="${esc(k)}" ${got[k]?'checked':''}><span>${esc(c.text)}${c.from.length > 1 ? ` <span class="muted" style="font-size:.82rem" title="${esc(c.lines.join('\n'))}">· ${c.from.length} recipes</span>` : ''}</span></label></li>`; }).join('')}</ul><p class="hint">Recipes on this list: ${slugs.map(s => { const r = R.find(x=>x.slug===s); return `<a href="#/recipe/${s}">${esc(r.title)}</a> <button class="linkbtn" data-rm="${s}">Remove</button>`; }).join(' · ')}</p></div>` : slugs.map(s => { const r = R.find(x=>x.slug===s); let n=0; return `
         <div class="shop-group">
           <h3><a href="#/recipe/${s}">${esc(r.title)}</a> <button class="linkbtn" data-rm="${s}">Remove</button></h3>
           <ul class="checklist">${r.ingredients.flatMap(g=>g.items).map(it => { const k = s+':'+(n++); return `<li><label><input type="checkbox" data-k="${esc(k)}" ${got[k]?'checked':''}><span>${esc(it)}</span></label></li>`; }).join('')}</ul>
         </div>`; }).join('')}
       ${total ? '' : `<p class="empty" style="margin:0">Your list is empty. Add recipes from any recipe page, or type your own items above.</p>`}
     </div>`;
+  app.querySelectorAll('[data-view]').forEach(b => b.onclick = () => { store.set('shopview', b.dataset.view); shopping(); });
   app.querySelectorAll('.checklist input[data-k]').forEach(i => i.onchange = () => { got[i.dataset.k] = i.checked; store.set('shopchk', got); });
   app.querySelectorAll('.checklist input[data-x]').forEach(i => i.onchange = () => { const e = store.get('shopextra', []); if (e[+i.dataset.x]) { e[+i.dataset.x].done = i.checked; store.set('shopextra', e); } });
   app.querySelectorAll('[data-xrm]').forEach(b => b.onclick = () => { const e = store.get('shopextra', []); e.splice(+b.dataset.xrm, 1); store.set('shopextra', e); updateShopCount(); shopping(); });
