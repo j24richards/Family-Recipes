@@ -465,6 +465,9 @@ a.meal-item:hover{border-color:var(--accent)}
 .recent-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
 .recent-chip{flex:none;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--paper);text-decoration:none;font-weight:600;font-size:.95rem}
 .mynote textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);resize:vertical}
+ol.steps li.speaking{background:#fff3d6;border-radius:10px;box-shadow:0 0 0 2px #e8c36a}
+.readbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0;position:sticky;top:8px;z-index:20;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:8px 10px}
+@media print{.readbar{display:none!important}}
 @media print{.mynote:has(textarea:placeholder-shown),#shareBtn,.tabbar,.tsbtn{display:none!important}}
 /* ---- Shopping list: your own items ---- */
 .addown{margin:16px 0 4px}
@@ -1196,8 +1199,12 @@ function recipe(slug){
       <button class="btn ${isFav(slug)?'faved':''}" id="favBtn" aria-pressed="${isFav(slug)}">${isFav(slug)?'♥ Favorited':'♡ Favorite'}</button>
       <button class="btn ${inList?'':'primary'}" id="addShop">${inList ? '✓ On shopping list' : '+ Shopping list'}</button>
       <button class="btn" id="cook" aria-pressed="${!!wakeLock}" title="Keeps your screen from going to sleep while you cook">Cook mode</button>
+      ${r.steps && r.steps.length && 'speechSynthesis' in window ? '<button class="btn" id="readBtn" aria-pressed="false" title="Reads the steps out loud">🔊 Read steps</button>' : ''}
+      <button class="btn" id="madeBtn" title="Keep a count of how many times you have made this">🍳 I made this</button>
       <button class="btn" id="moreBtn" aria-haspopup="dialog">⋯ More</button>
     </div>
+    <p class="hint" id="madeLine" style="margin:6px 2px 0" hidden></p>
+    <div id="readBar" class="readbar" hidden><button class="btn" id="rdPrev" aria-label="Previous step">⏮</button><button class="btn primary" id="rdPlay" aria-label="Pause or resume">⏸ Pause</button><button class="btn" id="rdNext" aria-label="Next step">⏭</button><button class="btn" id="rdStop" aria-label="Stop reading">✕ Stop</button><span class="hint" id="rdWhere"></span></div>
     ${r.tip ? `<div class="tip">${md(r.tip)}</div>` : ''}
     ${r.glutenFree ? `<div class="gf-note"><strong>🌾 Gluten-free as written.</strong> ${r.gfCheck && r.gfCheck.length ? `Check the label and buy these labeled gluten-free: ${r.gfCheck.map(x=>esc(x)).join('; ')}.` : 'No ingredients here normally contain gluten.'} <a href="#/gluten-free">More gluten-free recipes</a></div>` : ''}
     <div class="r-body">
@@ -1247,6 +1254,32 @@ function recipe(slug){
     }catch(e){ wakeLock = null; }
     cookBtn.setAttribute('aria-pressed', !!wakeLock);
   };
+  // I made this (kept on this device only)
+  { const mb = document.getElementById('madeBtn'), ml = document.getElementById('madeLine');
+    const showMade = () => { const m = store.get('made:'+slug, null); if (m && m.n) { ml.hidden = false; ml.innerHTML = `🍳 You’ve made this ${m.n} time${m.n===1?'':'s'}${m.last?' · last on '+esc(m.last):''}. <button class="linkbtn" id="madeUndo" type="button">Undo last</button>`; document.getElementById('madeUndo').onclick = () => { const x = store.get('made:'+slug, null); if (!x) return; if (x.n <= 1) { try{ localStorage.removeItem('fr:made:'+slug); }catch(e){} } else { x.n--; store.set('made:'+slug, x); } showMade(); }; } else { ml.hidden = true; ml.innerHTML = ''; } };
+    mb.onclick = () => { const x = store.get('made:'+slug, {n:0}); x.n = (x.n||0) + 1; x.last = new Date().toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'}); store.set('made:'+slug, x); showMade(); toast('Nice! Added to your count'); };
+    showMade(); }
+  // Read steps out loud
+  { const rb = document.getElementById('readBtn'); if (rb) {
+    const bar = document.getElementById('readBar'), play = document.getElementById('rdPlay'), where = document.getElementById('rdWhere');
+    const steps = r.steps.map(s => String(s).replace(/[*_`#]/g,'').replace(/\s+/g,' ').trim());
+    let i = 0, on = false, paused = false, tok = 0;
+    const lis = () => [...document.querySelectorAll('ol.steps li')];
+    const mark = () => lis().forEach((li,k) => li.classList.toggle('speaking', on && k === i));
+    const say = () => { const my = ++tok; speechSynthesis.cancel(); if (i >= steps.length) { stop(true); return; }
+      where.textContent = 'Step ' + (i+1) + ' of ' + steps.length; mark();
+      const u = new SpeechSynthesisUtterance('Step ' + (i+1) + '. ' + steps[i]); u.rate = 0.95;
+      u.onend = () => { if (my === tok && on && !paused) { i++; say(); } };
+      u.onerror = () => {};
+      speechSynthesis.speak(u); const li = lis()[i]; if (li && li.scrollIntoView) li.scrollIntoView({block:'center', behavior:'smooth'}); };
+    function stop(done){ tok++; speechSynthesis.cancel(); on = false; paused = false; bar.hidden = true; rb.setAttribute('aria-pressed','false'); rb.textContent = '🔊 Read steps'; mark(); if (done) toast('That’s the last step'); }
+    rb.onclick = () => { if (on) { stop(); return; } on = true; paused = false; i = 0; bar.hidden = false; play.textContent = '⏸ Pause'; rb.setAttribute('aria-pressed','true'); rb.textContent = '⏹ Stop reading'; say(); };
+    play.onclick = () => { if (!on) return; if (paused) { paused = false; play.textContent = '⏸ Pause'; say(); } else { paused = true; tok++; speechSynthesis.cancel(); play.textContent = '▶ Resume'; } };
+    document.getElementById('rdNext').onclick = () => { if (!on) return; i = Math.min(steps.length - 1, i + 1); paused = false; play.textContent = '⏸ Pause'; say(); };
+    document.getElementById('rdPrev').onclick = () => { if (!on) return; i = Math.max(0, i - 1); paused = false; play.textContent = '⏸ Pause'; say(); };
+    document.getElementById('rdStop').onclick = () => stop();
+    window.addEventListener('hashchange', () => { tok++; try { speechSynthesis.cancel(); } catch(e){} }, {once:true});
+  } }
   window.scrollTo(0,0);
 }
 
@@ -2351,12 +2384,35 @@ function askAnswer(raw){
   if (!cards.length) { fin = askFinder(q, toks); if (!fin && rec) cards.push(askRecipeFacts(rec, q)); }
   return {cards, fin, q: raw};
 }
+const ASK_AI_URL = 'https://recipe-ask.j9richards.workers.dev';  // set to the Cloudflare Worker address to turn on the AI helper
+function askAiContext(rawQ, last){
+  const q = rawQ.toLowerCase(), toks = askTokens(q);
+  let list = askFindRecipes(q, toks);
+  if (!list.length && last && last.fin && last.fin.results) list = last.fin.results.slice(0, 4);
+  if (!list.length) { const f = askFinder(q, toks); if (f && f.results) list = f.results.slice(0, 4); }
+  return list.slice(0, 4);
+}
+async function askAiCall(question, recs){
+  const body = { question, recipes: recs.map(r => ({ title: r.title, serves: r.serves || '', ingredients: (r.ingredients||[]).flatMap(g=>g.items).slice(0, 40), steps: (r.steps||[]).slice(0, 14) })) };
+  const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 25000);
+  try {
+    const res = await fetch(ASK_AI_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body), signal: ctl.signal });
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok || !j.answer) return { err: j.error || 'error' };
+    return { answer: j.answer };
+  } catch (e) { return { err: 'error' }; }
+  finally { clearTimeout(to); }
+}
+function askAiBudget(){
+  try { const d = new Date().toISOString().slice(0,10), s = JSON.parse(localStorage.getItem('askAi')||'{}'); if (s.d !== d) return {d, n:0, t:0}; return s; } catch(e) { return {d:'', n:0, t:0}; }
+}
 function askPage(qs){
   setNav(''); document.title = 'Ask · Family Recipes';
   const eg = ['What can I make with chicken and rice?','Quick gluten-free dessert','Substitute for buttermilk','350°F in Celsius','How many tablespoons in ¾ cup?','Double 2/3 cup','Safe temperature for pork','Does the apple pie have nuts?','Healthy soup','Easy make-ahead breakfast'];
   app.innerHTML = `<a class="back" href="#/">← Home</a>
     <div class="r-head"><h1>💬 Ask the recipe box</h1><p class="summary">Type a question and get an answer right away: what to cook with what you have, swaps, conversions, safe cooking temperatures, and questions about a particular recipe. Answers come from the recipes on this site and a short list of kitchen basics.</p></div>
-    <form id="askForm" role="search" style="display:flex;gap:8px;align-items:center;max-width:640px"><input id="askQ" type="text" autocomplete="off" enterkeyhint="search" placeholder="Ask anything about the recipes or the kitchen…" aria-label="Your question" value="${esc(qs||'')}" style="flex:1;min-width:0;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--paper);font:inherit;color:inherit"><button class="btn primary" type="submit">Ask</button></form>
+    <form id="askForm" role="search" style="display:flex;gap:8px;align-items:center;max-width:640px"><input id="askQ" type="text" autocomplete="off" enterkeyhint="search" placeholder="Ask anything about the recipes or the kitchen…" aria-label="Your question" value="${esc(qs||'')}" style="flex:1;min-width:0;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--paper);font:inherit;color:inherit"><button class="btn" type="button" id="askMic" aria-label="Ask by voice" title="Ask by voice" hidden>🎤</button><button class="btn primary" type="submit">Ask</button></form>
+    <p class="hint" id="askMicNote" hidden style="margin:6px 2px 0"></p>
     <div class="chips" id="askEg" style="margin:12px 0 18px">${eg.map(x=>`<button type="button" class="chip">${esc(x)}</button>`).join('')}</div>
     <div id="askRes" aria-live="polite" style="margin-bottom:48px"></div>`;
   const res = document.getElementById('askRes'), inp = document.getElementById('askQ');
@@ -2371,12 +2427,37 @@ function askPage(qs){
       else h += `<div class="panel" style="margin-bottom:14px"><h2>${results.length} recipe${results.length===1?'':'s'}${what?' for “'+esc(what)+'”':''}</h2>${relaxed?'<p class="hint">Nothing had every word, so these match some of them, best first.</p>':''}${softNote?'<p class="hint">No recipes were tagged '+esc(softNote)+' in that group, so I left that part out.</p>':''}</div><div class="grid">${results.slice(0, shown).map(r=>cardHTML(r,true)).join('')}</div>${results.length>shown?'<p style="text-align:center;margin:18px 0"><button class="btn" id="askMore">Show more</button></p>':''}`;
     }
     if (!cards.length && !fin) h = `<div class="panel"><h2>Hmm, I’m not sure about that one</h2><p>I can answer things like swaps, conversions, cooking temperatures, and “what can I make with…”. Try rewording, or <a href="#/search">search all recipes</a>.</p></div>`;
+    if (ASK_AI_URL && last && last.q) h = `<div class="panel" id="askAi" style="margin-bottom:14px;background:var(--paper)"><h2>✨ Want a fuller answer?</h2><p class="hint" style="margin-top:0">The AI helper reads the matching recipes and answers in plain words. It only talks about cooking, it can make mistakes, and the question and those recipes are sent to an outside service.</p><button class="btn" id="askAiBtn" type="button">Ask the AI helper</button><div id="askAiOut" aria-live="polite" style="margin-top:12px"></div></div>` + h;
     res.innerHTML = h;
+    const ab = document.getElementById('askAiBtn');
+    if (ab) ab.onclick = async () => {
+      const out = document.getElementById('askAiOut'), st = askAiBudget();
+      if (st.n >= 25) { out.innerHTML = '<p class="hint">That’s plenty of AI questions for one day on this device. The instant answers still work, and the helper is back tomorrow.</p>'; return; }
+      if (Date.now() - (st.t||0) < 4000) { out.innerHTML = '<p class="hint">One moment, then try again.</p>'; return; }
+      ab.disabled = true; out.innerHTML = '<p class="hint">Thinking…</p>';
+      const recs = askAiContext(last.q, last);
+      const r = await askAiCall(last.q, recs);
+      ab.disabled = false;
+      if (r.answer) {
+        try { localStorage.setItem('askAi', JSON.stringify({d:new Date().toISOString().slice(0,10), n:(st.n||0)+1, t:Date.now()})); } catch(e) {}
+        out.innerHTML = '<p>' + esc(r.answer).replace(/\n+/g,'<br>') + '</p>' + (recs.length ? '<p class="hint">Recipes it looked at: ' + recs.map(x => '<a href="#/recipe/'+x.slug+'">'+esc(x.title)+'</a>').join(', ') + '</p>' : '') + '<p class="hint">AI answers can be wrong. Check the recipe itself before relying on it, especially for allergies.</p>';
+      } else out.innerHTML = '<p class="hint">The AI helper is resting right now (it has a free daily limit). The instant answers above still work, and it should be back tomorrow.</p>';
+    };
     const mb = document.getElementById('askMore'); if (mb) mb.onclick = () => { shown += 12; draw(); };
   };
   const run = q => { q = (q||'').trim(); if (!q) { last = null; draw(); return; } shown = 12; last = askAnswer(q); draw(); };
   document.getElementById('askForm').onsubmit = e => { e.preventDefault(); const q = inp.value.trim(); history.replaceState(null, '', '#/ask' + (q ? '/' + encodeURIComponent(q) : '')); run(q); };
   document.getElementById('askEg').onclick = e => { const b = e.target.closest('.chip'); if (!b) return; inp.value = b.textContent; document.getElementById('askForm').requestSubmit(); };
+  { const SR = window.SpeechRecognition || window.webkitSpeechRecognition, mic = document.getElementById('askMic'), note = document.getElementById('askMicNote');
+    if (SR && mic) { mic.hidden = false; let rec = null;
+      mic.onclick = () => { if (rec) { try { rec.stop(); } catch(e){} return; }
+        rec = new SR(); rec.lang = 'en-US'; rec.interimResults = true; rec.maxAlternatives = 1;
+        mic.textContent = '⏺'; mic.setAttribute('aria-pressed','true'); note.hidden = false; note.textContent = 'Listening… ask your question.';
+        let text = '';
+        rec.onresult = e => { text = [...e.results].map(x => x[0].transcript).join(' '); inp.value = text; };
+        rec.onerror = e => { note.hidden = false; note.textContent = e.error === 'not-allowed' ? 'The microphone is blocked. Allow it in your browser settings to ask by voice.' : 'Didn’t catch that. Try again.'; };
+        rec.onend = () => { mic.textContent = '🎤'; mic.setAttribute('aria-pressed','false'); rec = null; if (text.trim()) { note.hidden = true; document.getElementById('askForm').requestSubmit(); } };
+        try { rec.start(); } catch(e) { rec = null; mic.textContent = '🎤'; } }; } }
   if (qs) run(qs); else inp.focus();
   window.scrollTo(0,0);
 }
