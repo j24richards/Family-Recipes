@@ -1193,7 +1193,7 @@ function recipe(slug){
       ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `${r.section==='found' ? 'From' : 'From the kitchen of'} ${(()=>{ const pk = window.PEOPLE_API ? PEOPLE_API.keyFor(r) : ''; return pk ? `<a class="personlink" href="#/people/${pk}"><strong>${esc(r.credit)}</strong></a>` : `<strong>${esc(r.credit)}</strong>`; })()}${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}${r.box ? `<br><a class="boxlabel" href="#/${boxRoute(r.box)}${r.boxSection ? '/'+boxKey(r.boxSection) : ''}">📇 Original card: Box ${esc(r.box)}${r.boxSection ? ', behind the “'+esc(r.boxSection)+'” divider' : ''}</a>` : ''}</p>` : ''}
       ${r.source ? `<p class="credit">Source: ${r.source.url ? `<a href="${esc(r.source.url)}" target="_blank" rel="noopener">${esc(r.source.text)}</a>` : esc(r.source.text)}</p>` : ''}
       ${(r.holidays||[]).length ? `<p class="hol-line">${r.holidays.map(x=>HOLIDAY_BY_KEY[x]?`<a href="#/holidays/${x}">${HOLIDAY_BY_KEY[x].emoji} ${esc(HOLIDAY_BY_KEY[x].name)}</a>`:"").join(" ")}</p>` : ""}
-      <div class="facts">${r.serves?`<span><strong>Serves</strong> ${esc(r.serves)}</span>`:''}${easeTags(r).map(t=>`<a class="tag ease" href="#/quick/${t.key}">${t.label}</a>`).join('')}${r.time?`<span>${esc(r.time)}</span>`:''}</div>
+      <div class="facts"><span id="yieldFact">${yieldFactHtml(r,1)}</span>${easeTags(r).map(t=>`<a class="tag ease" href="#/quick/${t.key}">${t.label}</a>`).join('')}${r.time?`<span>${esc(r.time)}</span>`:''}</div>
     </div>
     <div class="actions">
       <button class="btn ${isFav(slug)?'faved':''}" id="favBtn" aria-pressed="${isFav(slug)}">${isFav(slug)?'♥ Favorited':'♡ Favorite'}</button>
@@ -1394,10 +1394,39 @@ function scaleItem(it, k){
   if (/^\s+(?:[a-z-]+\s+)?egg/i.test(rest) && Math.abs(v - Math.round(v)) > .01) rest += ' (beat, then use part)';
   return out + rest;
 }
-function baseServes(r){
-  const s = String(r.serves || '');
-  if (!/^\d+/.test(s) || /loaf|loaves|doz|crust|qt|calor/i.test(s)) return 0;
-  return parseInt(s, 10) || 0;
+const Y_WORDS={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,twelve:12};
+const Y_FR={'¼':.25,'½':.5,'¾':.75,'⅓':1/3,'⅔':2/3,'⅛':.125};
+function yNum(t){
+  t=String(t).trim(); let m;
+  if (/^\d+(?:\.\d+)?$/.test(t)) return +t;
+  if ((m=t.match(/^(\d+)?\s*([¼½¾⅓⅔⅛])$/))) return (+m[1]||0)+Y_FR[m[2]];
+  if ((m=t.match(/^(?:(\d+)\s+)?(\d+)\/(\d+)$/))) return (+m[1]||0)+(+m[2])/(+m[3]);
+  return Y_WORDS[t.toLowerCase()]||null;
+}
+// What the card says it makes or serves, split into numbers so it can be scaled.
+function parseYield(r){
+  const s = String(r.serves || '').trim(); if (!s) return null;
+  if (/\b\d+-inch\s+(?!pieces|squares|cookies|balls)|\d\s*x\s*\d|crust|calor|\bpan\b|\bpie\b/i.test(s)) return {fixed:true, text:s};
+  const NUM = '(\\d+\\s*[¼½¾⅓⅔⅛]|\\d+\\s+\\d+\\/\\d+|\\d+\\/\\d+|\\d+(?:\\.\\d+)?|[¼½¾⅓⅔⅛]|one|two|three|four|five|six|seven|eight|nine|ten|twelve)';
+  const m = s.match(new RegExp('^(.*?)'+NUM+'(?:\\s*(?:to|-|–|or)\\s*'+NUM+')?(?![\\d/])(.*)$','i'));
+  if (!m) return {fixed:true, text:s};
+  const lo = yNum(m[2]), hi = m[3] ? yNum(m[3]) : null;
+  if (!lo || /[A-Za-z]$/.test(m[1]) ) return {fixed:true, text:s};
+  const pre = m[1].replace(/^\s*(?:serves|makes|yield:?)\s*/i, ''), post = m[4];
+  const label = /serv|people|person/i.test(s) || /^\s*(?:with|$)/i.test(post) ? 'Serves' : 'Makes';
+  const step = /dozen|cup|qt|quart/i.test(post) ? .5 : 1;
+  return {lo, hi, pre, post, label, step};
+}
+function yieldText(y, k){
+  const f = v => y.step === 1 ? String(Math.max(1, Math.round(v))) : fmtQty(v);
+  if (!y.hi) return y.pre + f(y.lo*k) + y.post;
+  return y.pre + f(y.lo*k) + '–' + f(y.hi*k) + y.post;
+}
+function yieldFactHtml(r, k){
+  const y = parseYield(r);
+  if (!y) return k === 1 ? '' : `<strong>Batch</strong> ×${fmtQty(k)} <em class="muted">(the card doesn’t say how many it serves)</em>`;
+  if (y.fixed) return `<strong>Makes</strong> ${k === 1 ? '' : fmtQty(k) + ' × '}${esc(y.text.replace(/^\s*(?:serves|makes|yield:?)\s*/i,''))}`;
+  return `<strong>${y.label}</strong> ${esc(yieldText(y, k))}`;
 }
 function ingListHtml(r, checks, k){
   let n = 0;
@@ -1406,27 +1435,30 @@ function ingListHtml(r, checks, k){
     <ul class="checklist">${g.items.map(it => { const id = 'i'+(n++); return `<li><label><input type="checkbox" data-k="${id}" ${checks[id]?'checked':''}><span>${esc(toUnits(scaleItem(it, k)))}</span></label></li>`; }).join('')}</ul>`).join('');
 }
 function scaleBarHtml(r){
-  const base = baseServes(r);
   return `<div class="scale" id="scale"><span class="scale-label">Scale</span>
     <div class="seg" role="group" aria-label="Recipe size">${[['½×',.5],['1×',1],['2×',2],['3×',3]].map(([l,k])=>`<button type="button" data-k="${k}" aria-pressed="${k===1}">${l}</button>`).join('')}</div>
-    ${base ? `<span class="serv">Serves <button type="button" id="servDn" aria-label="Fewer servings">−</button><b id="servN">${base}</b><button type="button" id="servUp" aria-label="More servings">+</button></span>` : ''}
+    ${(y => y && !y.fixed ? `<span class="serv">${y.label} <button type="button" id="servDn" aria-label="Fewer">−</button><b id="servN">${esc(yieldText(y,1).trim())}</b><button type="button" id="servUp" aria-label="More">+</button></span>` : '')(parseYield(r))}
     <div class="seg" role="group" aria-label="Units"><button type="button" data-units="us" aria-pressed="${store.get('units','us')!=='metric'}">US</button><button type="button" data-units="metric" aria-pressed="${store.get('units','us')==='metric'}">Metric</button></div>
     <p class="scale-note" id="scaleNote" hidden>Amounts are adjusted automatically. Baking times, pan sizes and seasoning may need a little judgment.</p></div>`;
 }
 function bindScale(r, checks, bindChecks){
-  const base = baseServes(r); let k = 1;
+  const y = parseYield(r); let k = 1;
   const box = document.getElementById('ingList'); if (!box) return;
   const apply = () => {
     box.innerHTML = ingListHtml(r, checks, k); bindChecks();
     document.querySelectorAll('#scale .seg button[data-k]').forEach(b => b.setAttribute('aria-pressed', Math.abs(+b.dataset.k - k) < 1e-6));
-    const sn = document.getElementById('servN'); if (sn) sn.textContent = fmtQty(base * k);
+    const sn = document.getElementById('servN'); if (sn && y && !y.fixed) sn.textContent = yieldText(y, k).trim();
+    const yf = document.getElementById('yieldFact'); if (yf) yf.innerHTML = yieldFactHtml(r, k);
     document.getElementById('scaleNote').hidden = k === 1;
   };
   document.querySelectorAll('#scale .seg button[data-k]').forEach(b => b.onclick = () => { k = +b.dataset.k; apply(); });
   document.querySelectorAll('#scale [data-units]').forEach(b => b.onclick = () => { store.set('units', b.dataset.units); recipe(r.slug); });
   const dn = document.getElementById('servDn'), up = document.getElementById('servUp');
-  if (dn) dn.onclick = () => { const n = Math.round(base * k * 2) / 2 - 1; if (n >= 1) { k = n / base; apply(); } };
-  if (up) up.onclick = () => { k = (Math.round(base * k * 2) / 2 + 1) / base; apply(); };
+  if (y && !y.fixed) {
+    const cur = () => Math.round(y.lo * k / y.step) * y.step;
+    if (dn) dn.onclick = () => { const n = cur() - y.step; if (n >= y.step) { k = n / y.lo; apply(); } };
+    if (up) up.onclick = () => { k = (cur() + y.step) / y.lo; apply(); };
+  }
 }
 
 // ---- Photos: zoom ----
