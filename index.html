@@ -1331,7 +1331,7 @@ function recipe(slug){
     function stopListening(msg){ capture = null; listening = false; fails = 0; pauseRec(); setMicUI(); where.textContent = msg || 'Microphone off.'; }
     const markDone = () => { if (!reading) { where.textContent = 'Say “read directions” first, then “done” when you finish a step.'; return; } const li = lis()[i]; if (li && !li.classList.contains('done')) li.click(); where.textContent = 'Step ' + (i+1) + ' checked off. Say or tap Next when you’re ready.'; speak('Step ' + (i+1) + ' done.'); };
     const next = () => { if (!reading) { say(0); return; } if (i >= steps.length - 1) { where.textContent = 'That was the last step.'; speak('That was the last step.'); } else say(i + 1); };
-    const CMD_SPOKEN = 'You can say: read directions. Next. Repeat. Back. What is step, and a number. Last step. Start over. Done, to check off a step. Read the ingredients. How much butter, or any ingredient. Set a timer for 10 minutes. How much time is left. Stop the timer. To save an idea, say add a step, too much salt, or note. Stop ends reading. Stop listening turns off the microphone.';
+    const CMD_SPOKEN = 'You can say: read directions. Next. Repeat. Back. What is step, and a number. Last step. Start over. Done, to check off a step. Read the ingredients. How much butter, or any ingredient. Set a timer for 10 minutes. How much time is left. Stop the timer. To save an idea, say add a step, too much salt, or note. Stop ends reading. Stop listening turns off the microphone. After you say a suggestion, I read it back: say save, add more, redo, or cancel.';
     const showCmds = on_ => { const c = document.getElementById('rdCmds'), hb = document.getElementById('rdHelp'); c.hidden = !on_; hb.setAttribute('aria-expanded', on_ ? 'true' : 'false'); };
     // ---- suggestions (kept on this device; the recipe itself is not changed until you add one) ----
     const SK = 'sugg:'+slug, EK = 'edits:'+slug;
@@ -1428,9 +1428,41 @@ function recipe(slug){
       lines.forEach(l => { const lw = l.toLowerCase().replace(/[^a-z ]/g,' ').split(/\s+/).map(sing); const score = words.filter(w => lw.includes(w)).length; if (score > best) { best = score; hits = [l]; } else if (score === best && score > 0) hits.push(l); });
       if (!best) { where.textContent = 'I don’t see “' + term + '” in this recipe.'; speak('I don’t see ' + term + ' in this recipe.'); return true; }
       hits = hits.slice(0, 3); where.textContent = '🥄 ' + hits.join(' · '); speak(hits.map(sayable).join('. And ') + '.'); return true; }
-    function cmd(raw, quiet, typed){ const t = String(raw).toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim(); if (!t) return false;
+    function canonCmd(raw){
+      const t = String(raw).toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim().replace(/^(?:okay|ok|please|hey|now|alright) /, '');
+      const M = [
+        ['next', ['go on','continue','keep going','whats next','what is next','next one','next step','move on','go ahead','forward','move forward','proceed','advance','next please']],
+        ['back', ['go back','previous','previous step','previous one','last one','step back','back up','go to the previous step','rewind','backwards']],
+        ['repeat', ['say that again','say it again','say again','again','read it again','what was that','repeat that','repeat step','repeat the step','one more time','pardon','come again','what did you say']],
+        ['read directions', ['start','begin','start cooking','lets cook','let us cook','lets begin','let us begin','read the recipe','read it','read the steps','read steps','read the directions','read me the directions','read directions to me','walk me through it']],
+        ['done', ['finished','all done','all set','thats done','that is done','check it off','got it','im done','i am done','ive finished','i have finished','i am finished','im finished','completed','complete','step done','step complete']],
+        ['start over', ['from the top','restart','go to the beginning','start again','back to the start','begin again','reset','go back to the start']],
+        ['read the ingredients', ['what do i need','what do i need for this','ingredient list','what goes in','ingredients','read ingredients','list the ingredients','read me the ingredients','what are the ingredients','ingredients please']],
+        ['last step', ['final step','the last step','go to the last step','go to the end','final one']],
+        ['how much time is left', ['how long is left','how long left','time left','how much longer','time check','how much time left','how much time do i have left']],
+        ['stop the timer', ['stop timer','cancel the timer','cancel timer','turn off the timer','end the timer','kill the timer','silence the timer']],
+        ['stop', ['pause','hold on','wait','quiet','be quiet','shush','thats enough','that is enough']]
+      ];
+      for (const e of M) { if (e[1].includes(t)) return e[0]; }
+      let r = String(raw);
+      r = r.replace(/^\s*(?:okay |ok )?(?:i want to add (?:a )?step|i would like to add (?:a )?step|i['’]?d like to add (?:a )?step|new step|add (?:a )?new direction|add (?:a )?direction|save (?:a )?step)\b[\s,:]*/i, 'add a step ');
+      r = r.replace(/^\s*(?:okay |ok )?(?:i want to add (?:an )?ingredient|new ingredient)\b[\s,:]*/i, 'add an ingredient ');
+      r = r.replace(/^\s*(?:okay |ok )?(?:make a note|save a note|take a note|remember this|note to self)\b[\s,:]*/i, 'note ');
+      r = r.replace(/^\s*(?:okay |ok )?(?:start|begin) (?:a )?timer(?: for)? /i, 'set a timer for ').replace(/^\s*(?:okay |ok )?(?:timer for|remind me in) /i, 'set a timer for ');
+      r = r.replace(/^\s*(?:okay |ok )?(?:go to|jump to|show me|read me|read) step (?=\S)/i, 'what is step ');
+      return r; }
+    function capWait(ms){ clearTimeout(capT); capT = setTimeout(() => { if (capture) { capture = null; where.textContent = 'Suggestion cancelled. Say add a step to try again.'; } }, ms); }
+    function cmd(raw, quiet, typed){ if (!capture) raw = canonCmd(raw); const t = String(raw).toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim(); if (!t) return false;
       if (capture) { const ty = capture.type; if (/^(cancel|never mind|nevermind|forget it|stop)$/.test(t)) { capture = null; clearTimeout(capT); where.textContent = 'Cancelled.'; speak('Cancelled.'); return true; }
-        capture = null; clearTimeout(capT); const ok = saveSugg(ty, raw, ctxNow()); speak(ok ? 'Saved to suggestions. Nothing in the recipe changed.' : 'I didn’t catch that.'); return true; }
+        if (typed) { capture = null; clearTimeout(capT); const okT = saveSugg(ty, raw, ctxNow()); speak(okT ? 'Saved to suggestions. Nothing in the recipe changed.' : 'I did not catch that.'); return true; }
+        if (capture.stage === 'review') {
+          if (/^(?:save|save it|yes|yeah|yep|correct|thats right|that is right|looks good|sounds good|good|ok|okay|all set|done|thats it|that is it|keep it)$/.test(t)) { const txt = capture.text; capture = null; clearTimeout(capT); const okS = saveSugg(ty, txt, ctxNow()); where.textContent = okS ? 'Saved to suggestions.' : 'Could not save that.'; speak(okS ? 'Saved to suggestions. Nothing in the recipe changed.' : 'I did not catch that.'); return true; }
+          if (/^(?:add more|add to it|add on|keep going|continue|more|and|go on)$/.test(t)) { capture.stage = 'append'; capWait(30000); where.textContent = 'Okay, keep going. I will add it on.'; speak('Okay, keep going.'); return true; }
+          if (/^(?:redo|re do|try again|start over|again|no|nope|wrong|change it|thats wrong|that is wrong|not right|thats not right)$/.test(t)) { capture.text = ''; capture.stage = 'listen'; capWait(30000); where.textContent = 'Okay, say it again.'; speak('Okay, say it again.'); return true; }
+          where.textContent = 'Say save, add more, redo, or cancel.'; speak('Say save, add more, redo, or cancel.'); capWait(60000); return true; }
+        const heardTxt = String(raw).trim(); capture.text = (capture.stage === 'append' && capture.text) ? (capture.text + ' ' + heardTxt) : heardTxt; capture.stage = 'review'; capWait(60000);
+        where.textContent = 'I heard: ' + capture.text + '  (say save, add more, redo, or cancel)';
+        speak('I heard: ' + capture.text + '. Say save, add more, redo, or cancel.'); return true; }
       if (/\bstop (?:listening|listen)\b|\b(?:turn|switch) off (?:the |my )?(?:mic|microphone|voice|listening)\b|\bmute\b|\bquit listening\b|\bstop the (?:mic|microphone)\b/.test(t)) { stopListening('Microphone off. Tap 🎤 Voice to turn it back on.'); return true; }
       if (timerCmd(t)) return true;
       if (!/^how many steps\b/.test(t) && ingredientCmd(t)) return true;
