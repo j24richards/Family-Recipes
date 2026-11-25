@@ -468,6 +468,7 @@ a.meal-item:hover{border-color:var(--accent)}
 ol.steps li.speaking{background:#fff3d6;border-radius:10px;box-shadow:0 0 0 2px #e8c36a}
 .readbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:8px 10px}
 .readbar.live{position:sticky;top:8px;z-index:20}
+@media (max-width:640px){.readbar.live{gap:6px;padding:6px 8px;top:4px;box-shadow:0 2px 10px rgba(0,0,0,.12)}.readbar.live .btn{flex:1 1 0;min-width:0;padding:8px 0;font-size:1.05rem;text-align:center}.readbar.live .btn .t,.readbar.live #rdHelp,.readbar.live #rdSugg,.readbar.live #rdStop,.readbar.live #rdCmdForm,.readbar.live #rdCmds{display:none}.readbar.live #rdWhere{font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}}
 .rdctl{display:contents}
 .btn.sm{padding:6px 10px;font-size:.85rem}
 .sugg-form{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.sugg-form input{flex:1 1 180px;min-width:0;padding:8px 10px;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--paper);color:var(--ink)}.sugg-form select{padding:8px;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--paper);color:var(--ink)}
@@ -1214,7 +1215,7 @@ function recipe(slug){
       <button class="btn" id="moreBtn" aria-haspopup="dialog">⋯ More</button>
     </div>
     <p class="hint" id="madeLine" style="margin:6px 2px 0" hidden></p>
-    <div id="readBar" class="readbar"><button class="btn primary" id="rdRead" title="Reads the steps out loud">🔊 Read steps</button><button class="btn" id="rdMic" aria-pressed="false" hidden title="Say read directions, next, repeat, or add a step">🎤 Voice</button><button class="btn" id="rdHelp" aria-expanded="false" title="What can I say?">❓ Commands</button><button class="btn" id="rdSugg" title="Review ideas you have saved for this recipe">💡 Suggestions</button><span id="rdCtl" class="rdctl" hidden><button class="btn" id="rdPrev" aria-label="Previous step">⏮ Back</button><button class="btn" id="rdAgain" aria-label="Repeat this step">🔁 Repeat</button><button class="btn" id="rdDone" aria-label="Mark this step done">✓ Done</button><button class="btn primary" id="rdNext" aria-label="Next step">Next ⏭</button><button class="btn" id="rdStop" aria-label="Stop reading">✕ Stop reading</button></span><span class="hint" id="rdWhere" style="flex-basis:100%"></span><form id="rdCmdForm" class="sugg-form" style="flex-basis:100%;margin-top:0"><input id="rdCmdText" type="text" autocomplete="off" enterkeyhint="go" placeholder="Type, or tap your keyboard’s 🎤: “next”, “add a step…”" aria-label="Type or dictate a command"><button class="btn sm" type="submit">Go</button></form><div id="rdCmds" class="hint" style="flex-basis:100%;line-height:1.7" hidden><strong>Tap 🎤 Voice, then say:</strong><br>“Read directions” starts reading · “Next” · “Repeat” · “Back”<br>“Step 3”, “go to step 3” or just “3” jumps to that step · “Last step” · “Start over”<br>“Done” checks off the step you’re on · “Read the ingredients” · “How many steps”<br><strong>To save an idea for later:</strong> “Add a step” (then say the step) · “Too much salt” · “Not enough sugar” · “Note …”<br>These go in <em>Suggestions</em> below, and nothing in the recipe changes until you approve it.<br>“Stop” ends reading · “Stop listening” turns the microphone off · “What can I say” reads this list.<br><strong>If 🎤 Voice won’t stay on:</strong> type in the box above, or tap the microphone key on your phone’s keyboard and speak into the box. · <a href="#/mic-test">Run the microphone test</a></div></div>
+    <div id="readBar" class="readbar"><button class="btn primary" id="rdRead" title="Reads the steps out loud" aria-label="Read steps">🔊<span class="t"> Read steps</span></button><button class="btn" id="rdMic" aria-pressed="false" hidden title="Say read directions, next, repeat, or add a step" aria-label="Voice">🎤<span class="t"> Voice</span></button><button class="btn" id="rdHelp" aria-expanded="false" title="What can I say?" aria-label="Commands">❓<span class="t"> Commands</span></button><button class="btn" id="rdSugg" title="Review ideas you have saved for this recipe" aria-label="Suggestions">💡<span class="t"> Suggestions</span></button><span id="rdCtl" class="rdctl" hidden><button class="btn" id="rdPrev" aria-label="Previous step">⏮<span class="t"> Back</span></button><button class="btn" id="rdAgain" aria-label="Repeat this step">🔁<span class="t"> Repeat</span></button><button class="btn" id="rdDone" aria-label="Mark this step done">✓<span class="t"> Done</span></button><button class="btn primary" id="rdNext" aria-label="Next step"><span class="t">Next </span>⏭</button><button class="btn" id="rdStop" aria-label="Stop reading">✕<span class="t"> Stop reading</span></button></span><span class="hint" id="rdWhere" style="flex-basis:100%"></span><form id="rdCmdForm" class="sugg-form" style="flex-basis:100%;margin-top:0"><input id="rdCmdText" type="text" autocomplete="off" enterkeyhint="go" placeholder="Type, or tap your keyboard’s 🎤: “next”, “add a step…”" aria-label="Type or dictate a command"><button class="btn sm" type="submit">Go</button></form><div id="rdCmds" class="hint" style="flex-basis:100%;line-height:1.7" hidden><strong>Tap 🎤 Voice, then say:</strong><br>“Read directions” starts reading · “Next” · “Repeat” · “Back”<br>“Step 3”, “go to step 3” or just “3” jumps to that step · “Last step” · “Start over”<br>“Done” checks off the step you’re on · “Read the ingredients” · “How many steps”<br><strong>To save an idea for later:</strong> “Add a step” (then say the step) · “Too much salt” · “Not enough sugar” · “Note …”<br>These go in <em>Suggestions</em> below, and nothing in the recipe changes until you approve it.<br>“Stop” ends reading · “Stop listening” turns the microphone off · “What can I say” reads this list.<br><strong>If 🎤 Voice won’t stay on:</strong> type in the box above, or tap the microphone key on your phone’s keyboard and speak into the box. · <a href="#/mic-test">Run the microphone test</a></div></div>
     ${r.tip ? `<div class="tip">${md(r.tip)}</div>` : ''}
     ${r.glutenFree ? `<div class="gf-note"><strong>🌾 Gluten-free as written.</strong> ${r.gfCheck && r.gfCheck.length ? `Check the label and buy these labeled gluten-free: ${r.gfCheck.map(x=>esc(x)).join('; ')}.` : 'No ingredients here normally contain gluten.'} <a href="#/gluten-free">More gluten-free recipes</a></div>` : ''}
     <div class="r-body">
@@ -1283,18 +1284,19 @@ function recipe(slug){
     const lis = () => [...document.querySelectorAll('ol.steps li')];
     lis().forEach((li, k) => { if (k >= baseSteps) li.classList.add('mine'); });
     const mark = () => lis().forEach((li,k) => li.classList.toggle('speaking', reading && k === i));
-    const live = () => bar.classList.toggle('live', reading || listening);
-    const setMicUI = () => { mic.setAttribute('aria-pressed', listening ? 'true' : 'false'); mic.textContent = listening ? '⏺ Listening' : (tapMode ? '🎤 Tap to speak' : '🎤 Voice'); live(); };
-    const setReadUI = () => { ctl.hidden = !reading; rdRead.textContent = reading ? '⏹ Stop reading' : '🔊 Read steps'; live(); };
+    const live = () => { const on_ = reading || listening; bar.classList.toggle('live', on_); if (on_ && window.matchMedia && matchMedia('(max-width: 640px)').matches) showCmds(false); };
+    const setMicUI = () => { mic.setAttribute('aria-pressed', listening ? 'true' : 'false'); mic.innerHTML = listening ? '⏺<span class="t"> Listening</span>' : (tapMode ? '🎤<span class="t"> Tap to speak</span>' : '🎤<span class="t"> Voice</span>'); live(); };
+    const setReadUI = () => { ctl.hidden = !reading; rdRead.innerHTML = reading ? '⏹<span class="t"> Stop reading</span>' : '🔊<span class="t"> Read steps</span>'; live(); };
     const tr = s => { trail.push(s); if (trail.length > 8) trail.shift(); };
-    const pauseRec = () => { const x = rec; rec = null; if (x) { try { x.abort(); } catch(e){} } };
+    const pauseRec = () => { const x = rec; rec = null; if (x) { x._killed = true; try { x.abort(); } catch(e){} } };
+    const isAndroid = /Android/i.test(navigator.userAgent);
     const ERRS = {'not-allowed':'The microphone is blocked. Allow it in your browser or phone settings, then tap 🎤 Voice again.','service-not-allowed':'Voice typing is turned off or not allowed. On iPhone: Settings → General → Keyboard → turn on Enable Dictation, and Settings → Safari → Microphone → Allow. On Android: use Chrome and allow the microphone for this site.','audio-capture':'No microphone was found or it is in use by another app.','network':'Voice needs an internet connection. Check your signal and tap 🎤 Voice again.','language-not-supported':'Voice isn’t available in this language setting.'};
     const turnOff = msg => { listening = false; capture = null; pauseRec(); setMicUI(); if (msg) where.innerHTML = esc(msg) + ' You can still type in the box below, or use your keyboard’s 🎤 there. <a href="#/mic-test">Run the microphone test</a>'; };
-    const startRec = () => { if (gone || !SR || !listening) return;
+    const startRec = () => { if (gone || !SR || !listening) return; if (isAndroid && speaking) return;
       if (rec) { if (rec._fresh && Date.now() - rec._fresh < 2500) return; pauseRec(); setTimeout(startRec, 300); return; }
       const x = new SR(); rec = x; x._fresh = Date.now(); heard = false; lastErr = ''; const t0 = Date.now();
       x.lang = 'en-US'; x.continuous = false; x.interimResults = true; // same settings that passed the microphone test
-      x.onstart = () => { tr('started'); where.textContent = capture ? '🎤 Listening… say your idea now' : '🎤 Listening… try “read directions”, “next” or “what is step 2”'; };
+      x.onstart = () => { tr('started'); where.textContent = capture ? '🎤 Listening… say your idea now' : reading ? 'Step ' + (i+1) + ' of ' + steps.length + ' · 🎤 listening: say “next”, “repeat” or “done”' : '🎤 Listening… try “read directions”, “next” or “what is step 2”'; };
       x.onaudiostart = () => { tr('mic on'); heard = true; fails = 0; };
       x.onspeechstart = () => tr('heard speech');
       x.onresult = e => { heard = true; fails = 0;
@@ -1303,8 +1305,8 @@ function recipe(slug){
           const alts = [...res].map(a => a.transcript); let done = false;
           for (const t of alts) { if (cmd(t, true)) { done = true; break; } }
           if (!done) cmd(tx); } };
-      x.onerror = e => { lastErr = e.error || 'unknown'; tr('error: ' + lastErr); if (ERRS[lastErr]) turnOff(ERRS[lastErr] + ' [' + trail.join(' → ') + ']'); };
-      x.onend = () => { tr('ended'); if (rec === x) rec = null; if (!listening || gone) return;
+      x.onerror = e => { if (x._killed) return; lastErr = e.error || 'unknown'; tr('error: ' + lastErr); if (ERRS[lastErr]) turnOff(ERRS[lastErr] + ' [' + trail.join(' → ') + ']'); };
+      x.onend = () => { tr('ended'); if (rec === x) rec = null; if (x._killed || !listening || gone) return; if (isAndroid && speaking) return; // restarts after the voice finishes
         if (tapMode) { if (capture) { setTimeout(startRec, 300); return; } listening = false; setMicUI(); if (!heard) where.textContent = 'Didn’t hear anything. Tap 🎤 again and speak right away. [' + trail.join(' → ') + ']'; return; }
         if (!heard && Date.now() - t0 < 1500 && lastErr !== 'no-speech') { fails++; }
         if (fails >= 3) { tapMode = true; listening = false; setMicUI(); where.innerHTML = 'Hands-free listening keeps stopping on this phone. Tap 🎤 before each command, or type in the box below (your keyboard’s own 🎤 works there). <a href="#/mic-test">Run the microphone test</a> <span class="muted">[' + esc(trail.join(' → ')) + ']</span>'; return; }
@@ -1313,14 +1315,14 @@ function recipe(slug){
     let spokenWords = null, spokenUntil = 0;
     const normW = s => String(s).toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(Boolean);
     const isEcho = tx => { if (!spokenWords || Date.now() > spokenUntil) return false; const w = normW(tx); return w.length > 0 && w.every(x => spokenWords.has(x)); };
-    const speak = (text, after) => { if (!canSpeak) { if (after) after(); return; } const my = ++tok; speechSynthesis.cancel(); speaking = true; spokenWords = new Set(normW(text)); spokenUntil = Infinity;
+    const speak = (text, after) => { if (!canSpeak) { if (after) after(); return; } const my = ++tok; speechSynthesis.cancel(); speaking = true; if (isAndroid) pauseRec(); spokenWords = new Set(normW(text)); spokenUntil = Infinity;
       const u = new SpeechSynthesisUtterance(text); u.rate = 0.95;
       const fin = () => { if (my !== tok) return; speaking = false; spokenUntil = Date.now() + 1500; if (after) after(); setTimeout(startRec, 300); };
       u.onend = fin; u.onerror = fin;
       setTimeout(() => { if (my === tok && speaking && !speechSynthesis.speaking && !speechSynthesis.pending) fin(); }, 4000 + text.length * 90);
       speechSynthesis.speak(u); };
     const say = n => { if (!steps.length) return; reading = true; setReadUI(); i = Math.max(0, Math.min(steps.length - 1, n)); mark();
-      where.textContent = 'Step ' + (i+1) + ' of ' + steps.length + ' · tap ✓ Done when finished, then Next';
+      where.textContent = 'Step ' + (i+1) + ' of ' + steps.length + (isAndroid && listening ? ' · reading… tap 🎤 to interrupt' : ' · tap ✓ Done when finished, then Next');
       speak('Step ' + (i+1) + '. ' + steps[i]);
       const li = lis()[i]; if (li && li.scrollIntoView) li.scrollIntoView({block:'center', behavior:'smooth'}); };
     const sayIngredients = () => { const items = (r.ingredients||[]).flatMap(g => g.items).map(x => String(x).replace(/[†*_`]/g,'')); where.textContent = 'Reading the ingredients'; speak('Ingredients. ' + items.join('. ')); };
@@ -1345,7 +1347,7 @@ function recipe(slug){
       if (kept.length) html += '<h3>Kept suggestions</h3>' + kept.map(x => item(x, `<button class="btn sm primary" data-sact="add" data-id="${x.id}">Add to this recipe</button><button class="btn sm" data-sact="del" data-id="${x.id}">Delete</button>`)).join('');
       if (E.steps.length || E.notes.length) html += '<h3>Added to your copy of this recipe</h3>' + E.steps.map((s,k) => `<div class="sugg-item"><span class="kind">New step (shows in the instructions)</span><div>${esc(s)}</div><div class="row"><button class="btn sm" data-sact="undostep" data-n="${k}">Take it back out</button></div></div>`).join('') + E.notes.map((s,k) => `<div class="sugg-item"><span class="kind">Your note</span><div>${esc(s)}</div><div class="row"><button class="btn sm" data-sact="undonote" data-n="${k}">Take it back out</button></div></div>`).join('');
       if (!html) html = '<p class="muted">No ideas saved yet.</p>';
-      sList.innerHTML = html; sBtn.textContent = '💡 Suggestions' + (fresh.length ? ' (' + fresh.length + ')' : '');
+      sList.innerHTML = html; sBtn.innerHTML = '💡<span class="t"> Suggestions</span>' + (fresh.length ? ' (' + fresh.length + ')' : '');
     }
     function saveSugg(type, text, ctx){ text = cap1(String(text).replace(/\s+/g,' ')); if (!text) return false;
       const all = getS(); all.push({id: Date.now().toString(36) + Math.random().toString(36).slice(2,5), type, text, ctx: ctx || '', status:'new', t: new Date().toISOString()}); setS(all); renderSugg();
@@ -1407,7 +1409,7 @@ function recipe(slug){
       if (quiet) return false;
       where.textContent = 'Didn’t catch “' + t.slice(0,40) + '”. Try “read directions”, “next”, or “add a step”.';  return false; }
     document.getElementById('rdCmdForm').onsubmit = e => { e.preventDefault(); const ci = document.getElementById('rdCmdText'); const v = ci.value.trim(); if (!v) return; ci.value = ''; if (!cmd(v, false, true)) ci.focus(); };
-    rdRead.onclick = () => { if (reading) { stopReading(); return; } showCmds(true); say(0); };
+    rdRead.onclick = () => { if (reading) { stopReading(); return; } showCmds(false); say(0); };
     document.getElementById('rdNext').onclick = () => next();
     document.getElementById('rdPrev').onclick = () => say(i - 1);
     document.getElementById('rdDone').onclick = () => markDone();
@@ -1415,8 +1417,9 @@ function recipe(slug){
     document.getElementById('rdStop').onclick = () => stopReading();
     document.getElementById('rdHelp').onclick = () => showCmds(document.getElementById('rdCmds').hidden);
     mic.onclick = () => {
-      pauseRec();
-      tok++; try { if (canSpeak) speechSynthesis.cancel(); } catch(e){} speaking = false;
+      // tapping 🎤 while the page is talking interrupts it and listens right away
+      let wasTalking = false; try { if (canSpeak && (speaking || speechSynthesis.speaking || speechSynthesis.pending)) { wasTalking = true; tok++; speechSynthesis.cancel(); } } catch(e){} speaking = false;
+      if (wasTalking && listening) { spokenUntil = Date.now() + 800; where.textContent = '🎤 Listening… say your command'; startRec(); return; }
       if (listening) { stopListening(reading ? 'Step ' + (i+1) + ' of ' + steps.length : 'Microphone off.'); return; }
       listening = true; fails = 0; trail = []; setMicUI(); where.textContent = tapMode ? 'Listening… say your command now.' : 'Starting the microphone… tap Allow if your browser asks.'; startRec(); };
     where.textContent = SR ? 'Tap 🎤 Voice and say “read directions”, or tap ❓ Commands to see what you can say.' : '';
