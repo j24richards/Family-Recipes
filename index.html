@@ -466,8 +466,14 @@ a.meal-item:hover{border-color:var(--accent)}
 .recent-chip{flex:none;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--paper);text-decoration:none;font-weight:600;font-size:.95rem}
 .mynote textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);resize:vertical}
 ol.steps li.speaking{background:#fff3d6;border-radius:10px;box-shadow:0 0 0 2px #e8c36a}
-.readbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0;position:sticky;top:8px;z-index:20;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:8px 10px}
-@media print{.readbar{display:none!important}}
+.readbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:8px 10px}
+.readbar.live{position:sticky;top:8px;z-index:20}
+.rdctl{display:contents}
+.btn.sm{padding:6px 10px;font-size:.85rem}
+.sugg-form{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.sugg-form input{flex:1 1 180px;min-width:0;padding:8px 10px;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--paper);color:var(--ink)}.sugg-form select{padding:8px;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--paper);color:var(--ink)}
+.sugg h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:14px 0 4px}.sugg-item{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0}.sugg-item .kind{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.sugg .row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+ol.steps li.mine::after{content:' (your addition)';font-size:.78rem;color:var(--muted)}
+@media print{.readbar,.sugg{display:none!important}}
 @media print{.mynote:has(textarea:placeholder-shown),#shareBtn,.tabbar,.tsbtn{display:none!important}}
 /* ---- Shopping list: your own items ---- */
 .addown{margin:16px 0 4px}
@@ -1178,7 +1184,11 @@ function renderGrid(){
 }
 
 function recipe(slug){
-  const r = R.find(x => x.slug === slug); setNav(r ? r.section : '');
+  const r0 = R.find(x => x.slug === slug);
+  const mine = store.get('edits:'+slug, {steps:[],notes:[]});
+  const baseSteps = r0 && r0.steps ? r0.steps.length : 0;
+  const r = (r0 && mine.steps && mine.steps.length) ? Object.assign({}, r0, {steps:(r0.steps||[]).concat(mine.steps)}) : r0;
+  setNav(r ? r.section : '');
   if(!r){ app.innerHTML = `<a class="back" href="#/">← Home</a><p class="empty">Recipe not found.</p>`; return; }
   document.title = r.title + ' · Family Recipes';
   const checks = store.get('chk:'+slug, {});
@@ -1200,12 +1210,11 @@ function recipe(slug){
       <button class="btn ${isFav(slug)?'faved':''}" id="favBtn" aria-pressed="${isFav(slug)}">${isFav(slug)?'♥ Favorited':'♡ Favorite'}</button>
       <button class="btn ${inList?'':'primary'}" id="addShop">${inList ? '✓ On shopping list' : '+ Shopping list'}</button>
       <button class="btn" id="cook" aria-pressed="${!!wakeLock}" title="Keeps your screen from going to sleep while you cook">Cook mode</button>
-      ${r.steps && r.steps.length && 'speechSynthesis' in window ? '<button class="btn" id="readBtn" aria-pressed="false" title="Reads the steps out loud">🔊 Read steps</button>' : ''}
       <button class="btn" id="madeBtn" title="Keep a count of how many times you have made this">🍳 I made this</button>
       <button class="btn" id="moreBtn" aria-haspopup="dialog">⋯ More</button>
     </div>
     <p class="hint" id="madeLine" style="margin:6px 2px 0" hidden></p>
-    <div id="readBar" class="readbar" hidden><button class="btn" id="rdPrev" aria-label="Previous step">⏮ Back</button><button class="btn" id="rdAgain" aria-label="Repeat this step">🔁 Repeat</button><button class="btn" id="rdDone" aria-label="Mark this step done">✓ Done</button><button class="btn primary" id="rdNext" aria-label="Next step">Next ⏭</button><button class="btn" id="rdMic" aria-pressed="false" hidden title="Say next, repeat, or what is step 2">🎤 Voice</button><button class="btn" id="rdHelp" aria-expanded="false" title="What can I say?">❓ Commands</button><button class="btn" id="rdStop" aria-label="Stop reading">✕ Stop</button><span class="hint" id="rdWhere" style="flex-basis:100%"></span><div id="rdCmds" class="hint" style="flex-basis:100%;line-height:1.6" hidden><strong>Tap 🎤 Voice, then say:</strong><br>“Next” or “continue” · “Repeat” or “again” · “Back” or “previous”<br>“Done” or “step complete” checks off the step you’re on<br>“What is step 3” (any step number) · “Last step” · “Start over”<br>“Read the ingredients” · “How many steps” · “Stop”<br>“What can I say” reads this list out loud.</div></div>
+    <div id="readBar" class="readbar"><button class="btn primary" id="rdRead" title="Reads the steps out loud">🔊 Read steps</button><button class="btn" id="rdMic" aria-pressed="false" hidden title="Say read directions, next, repeat, or add a step">🎤 Voice</button><button class="btn" id="rdHelp" aria-expanded="false" title="What can I say?">❓ Commands</button><button class="btn" id="rdSugg" title="Review ideas you have saved for this recipe">💡 Suggestions</button><span id="rdCtl" class="rdctl" hidden><button class="btn" id="rdPrev" aria-label="Previous step">⏮ Back</button><button class="btn" id="rdAgain" aria-label="Repeat this step">🔁 Repeat</button><button class="btn" id="rdDone" aria-label="Mark this step done">✓ Done</button><button class="btn primary" id="rdNext" aria-label="Next step">Next ⏭</button><button class="btn" id="rdStop" aria-label="Stop reading">✕ Stop reading</button></span><span class="hint" id="rdWhere" style="flex-basis:100%"></span><div id="rdCmds" class="hint" style="flex-basis:100%;line-height:1.7" hidden><strong>Tap 🎤 Voice, then say:</strong><br>“Read directions” starts reading · “Next” · “Repeat” · “Back”<br>“What is step 3” (any number) · “Last step” · “Start over”<br>“Done” checks off the step you’re on · “Read the ingredients” · “How many steps”<br><strong>To save an idea for later:</strong> “Add a step” (then say the step) · “Too much salt” · “Not enough sugar” · “Note …”<br>These go in <em>Suggestions</em> below, and nothing in the recipe changes until you approve it.<br>“Stop” ends reading · “Stop listening” turns the microphone off · “What can I say” reads this list.</div></div>
     ${r.tip ? `<div class="tip">${md(r.tip)}</div>` : ''}
     ${r.glutenFree ? `<div class="gf-note"><strong>🌾 Gluten-free as written.</strong> ${r.gfCheck && r.gfCheck.length ? `Check the label and buy these labeled gluten-free: ${r.gfCheck.map(x=>esc(x)).join('; ')}.` : 'No ingredients here normally contain gluten.'} <a href="#/gluten-free">More gluten-free recipes</a></div>` : ''}
     <div class="r-body">
@@ -1224,6 +1233,7 @@ function recipe(slug){
         ${!r.fromBox && r.cardNotes && r.cardNotes.length ? `<div class="panel notes"><h2>On the card</h2><ul>${r.cardNotes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
         ${r.nutrition ? `<div class="panel notes nutri"><h2>Per serving</h2><p class="hint">${esc(r.nutrition.per)}</p><p><strong>${r.nutrition.points} SmartPoints</strong> · ${r.nutrition.cal} cal · ${[['protein','g protein'],['carb','g carbs'],['fat','g fat']].filter(x=>r.nutrition[x[0]]!=null).map(x=>r.nutrition[x[0]]+' '+x[1]).join(' · ')}</p><p class="hint">${[['satFat','Saturated fat','g'],['sodium','sodium','mg'],['sugar','sugar','g'],['fiber','fiber','g']].filter(x=>r.nutrition[x[0]]!=null).map(x=>x[1]+' '+r.nutrition[x[0]]+' '+x[2]).join(' · ')}</p></div>` : ''}
         ${r.notes && r.notes.length ? `<div class="panel notes"><h2>Notes</h2><ul>${r.notes.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>` : ''}
+        <div class="panel sugg" id="suggPanel"><h2>💡 Suggestions</h2><p class="hint">Ideas for this recipe, saved on this phone. Say “add a step” or “too much salt” with 🎤 Voice, or type one here. Nothing changes in the recipe until you add it.</p><div id="suggList"></div><form id="suggForm" class="sugg-form"><select id="suggType" aria-label="Kind of suggestion"><option value="step">New step</option><option value="ingredient">Ingredient amount</option><option value="note">Note</option></select><input id="suggText" type="text" placeholder="Type your idea…" autocomplete="off" aria-label="Your suggestion"><button class="btn primary sm" type="submit">Save idea</button></form><div class="row"><button type="button" class="btn sm" id="suggCopy">📋 Copy my ideas to send</button></div></div>
         ${tipsHtml(r, slug)}
     </div>
     ${(r.photos && r.photos.length) ? `<h2 class="gal-h">How it turned out</h2><div class="gallery">${r.photos.map(p=>`<button type="button" class="photo-btn" data-zoom="${esc(p.src)}" data-cap="${esc((p.caption||'')+(p.by?' — '+p.by:''))}"><img src="${esc(p.src)}" alt="${esc(p.caption||('Photo of '+r.title))}" loading="lazy"></button>`).join('')}</div>` : ''}
@@ -1260,89 +1270,147 @@ function recipe(slug){
     const showMade = () => { const m = store.get('made:'+slug, null); if (m && m.n) { ml.hidden = false; ml.innerHTML = `🍳 You’ve made this ${m.n} time${m.n===1?'':'s'}${m.last?' · last on '+esc(m.last):''}. <button class="linkbtn" id="madeUndo" type="button">Undo last</button>`; document.getElementById('madeUndo').onclick = () => { const x = store.get('made:'+slug, null); if (!x) return; if (x.n <= 1) { try{ localStorage.removeItem('fr:made:'+slug); }catch(e){} } else { x.n--; store.set('made:'+slug, x); } showMade(); }; } else { ml.hidden = true; ml.innerHTML = ''; } };
     mb.onclick = () => { const x = store.get('made:'+slug, {n:0}); x.n = (x.n||0) + 1; x.last = new Date().toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'}); store.set('made:'+slug, x); showMade(); toast('Nice! Added to your count'); };
     showMade(); }
-  // Read steps out loud
-  { const rb = document.getElementById('readBtn'); if (rb) {
-    const bar = document.getElementById('readBar'), where = document.getElementById('rdWhere'), mic = document.getElementById('rdMic');
+  // Cook helper: read aloud, voice commands, and suggestions kept for review
+  { if (window.__cookCleanup) { try { window.__cookCleanup(); } catch(e){} }
+    const bar = document.getElementById('readBar'), where = document.getElementById('rdWhere'), mic = document.getElementById('rdMic'), rdRead = document.getElementById('rdRead'), ctl = document.getElementById('rdCtl');
     const steps = r.steps.map(s => String(s).replace(/[*_`#†]/g,'').replace(/\s+/g,' ').trim());
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    let i = 0, on = false, tok = 0, listening = false, speaking = false, rec = null;
+    const canSpeak = 'speechSynthesis' in window;
+    let i = 0, reading = false, tok = 0, listening = false, speaking = false, rec = null, capture = null, capT = null;
+    let fails = 0, lastErr = '', heard = false, trail = [], tapMode = false, gone = false;
     if (SR) mic.hidden = false;
+    if (!canSpeak || !steps.length) rdRead.hidden = true;
     const lis = () => [...document.querySelectorAll('ol.steps li')];
-    const mark = () => lis().forEach((li,k) => li.classList.toggle('speaking', on && k === i));
-    const hint = () => listening ? ' · listening: say “next”, “repeat”, “back” or “what is step 2”' : '';
+    lis().forEach((li, k) => { if (k >= baseSteps) li.classList.add('mine'); });
+    const mark = () => lis().forEach((li,k) => li.classList.toggle('speaking', reading && k === i));
+    const live = () => bar.classList.toggle('live', reading || listening);
+    const setMicUI = () => { mic.setAttribute('aria-pressed', listening ? 'true' : 'false'); mic.textContent = listening ? '⏺ Listening' : (tapMode ? '🎤 Tap to speak' : '🎤 Voice'); live(); };
+    const setReadUI = () => { ctl.hidden = !reading; rdRead.textContent = reading ? '⏹ Stop reading' : '🔊 Read steps'; live(); };
+    const tr = s => { trail.push(s); if (trail.length > 8) trail.shift(); };
     const pauseRec = () => { const x = rec; rec = null; if (x) { try { x.abort(); } catch(e){} } };
     const ERRS = {'not-allowed':'The microphone is blocked. Allow it in your browser or phone settings, then tap 🎤 Voice again.','service-not-allowed':'Voice typing is turned off or not allowed. On iPhone: Settings → General → Keyboard → turn on Enable Dictation, and Settings → Safari → Microphone → Allow. On Android: use Chrome and allow the microphone for this site.','audio-capture':'No microphone was found or it is in use by another app.','network':'Voice needs an internet connection. Check your signal and tap 🎤 Voice again.','language-not-supported':'Voice isn’t available in this language setting.'};
-    const turnOff = msg => { listening = false; pauseRec(); mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Voice'; if (msg) where.textContent = msg; };
-    let fails = 0, lastErr = '', heard = false, trail = [], tapMode = false;
-    const tr = s => { trail.push(s); if (trail.length > 8) trail.shift(); };
-    const standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
-    const startRec = () => { if (!SR || rec || !listening || !on) return;
+    const turnOff = msg => { listening = false; capture = null; pauseRec(); setMicUI(); if (msg) where.textContent = msg; };
+    const startRec = () => { if (gone || !SR || rec || !listening) return;
       const x = new SR(); rec = x; heard = false; lastErr = ''; const t0 = Date.now();
       x.lang = 'en-US'; x.continuous = false; x.interimResults = true; x.maxAlternatives = 3;
-      x.onstart = () => { tr('started'); where.textContent = '🎤 Listening… say “next”, “repeat” or “what is step 2”'; };
+      x.onstart = () => { tr('started'); where.textContent = capture ? '🎤 Listening… say your idea now' : '🎤 Listening… try “read directions”, “next” or “what is step 2”'; };
       x.onaudiostart = () => { tr('mic on'); heard = true; fails = 0; };
       x.onspeechstart = () => tr('heard speech');
       x.onresult = e => { heard = true; fails = 0; const res = e.results[e.results.length - 1]; const tx = res[0].transcript; if (isEcho(tx)) return;
-        if (!res.isFinal) { where.textContent = '🎤 Hearing: “' + tx.slice(0,50) + '”'; return; }
+        if (!res.isFinal) { where.textContent = '🎤 Hearing: “' + tx.slice(0,60) + '”'; return; }
         const alts = [...res].map(a => a.transcript); let done = false;
         for (const t of alts) { if (cmd(t, true)) { done = true; break; } }
         if (!done) cmd(tx); };
       x.onerror = e => { lastErr = e.error || 'unknown'; tr('error: ' + lastErr); if (ERRS[lastErr]) turnOff(ERRS[lastErr] + ' [' + trail.join(' → ') + ']'); };
-      x.onend = () => { tr('ended'); if (rec === x) rec = null; if (!listening || !on) return;
-        if (tapMode) { listening = false; mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Tap to speak'; if (!heard) where.textContent = 'Didn’t hear anything. Tap 🎤 again and speak right away. [' + trail.join(' → ') + ']'; return; }
+      x.onend = () => { tr('ended'); if (rec === x) rec = null; if (!listening || gone) return;
+        if (tapMode) { if (capture) { setTimeout(startRec, 300); return; } listening = false; setMicUI(); if (!heard) where.textContent = 'Didn’t hear anything. Tap 🎤 again and speak right away. [' + trail.join(' → ') + ']'; return; }
         if (!heard && Date.now() - t0 < 1500 && lastErr !== 'no-speech') { fails++; }
-        if (fails >= 3) { tapMode = true; listening = false; mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Tap to speak'; where.textContent = 'Hands-free listening keeps stopping on this phone, so tap 🎤 before each command instead, then say “next”, “repeat” or “what is step 2”. [' + trail.join(' → ') + ']'; return; }
+        if (fails >= 3) { tapMode = true; listening = false; setMicUI(); where.textContent = 'Hands-free listening keeps stopping on this phone, so tap 🎤 before each command instead. [' + trail.join(' → ') + ']'; return; }
         setTimeout(startRec, 350); };
       try { x.start(); } catch(e) { rec = null; fails++; if (fails >= 3) turnOff('Could not start the microphone (' + (e && e.name || 'error') + ').'); else setTimeout(startRec, 500); } };
     let spokenWords = null, spokenUntil = 0;
     const normW = s => String(s).toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(Boolean);
     const isEcho = tx => { if (!spokenWords || Date.now() > spokenUntil) return false; const w = normW(tx); return w.length > 0 && w.every(x => spokenWords.has(x)); };
-    const speak = (text, after) => { const my = ++tok; speechSynthesis.cancel(); speaking = true; spokenWords = new Set(normW(text)); spokenUntil = Infinity;
+    const speak = (text, after) => { if (!canSpeak) { if (after) after(); return; } const my = ++tok; speechSynthesis.cancel(); speaking = true; spokenWords = new Set(normW(text)); spokenUntil = Infinity;
       const u = new SpeechSynthesisUtterance(text); u.rate = 0.95;
       const fin = () => { if (my !== tok) return; speaking = false; spokenUntil = Date.now() + 1500; if (after) after(); setTimeout(startRec, 300); };
       u.onend = fin; u.onerror = fin;
-      // some phones never report the end of speech; do not wait for it forever
       setTimeout(() => { if (my === tok && speaking && !speechSynthesis.speaking && !speechSynthesis.pending) fin(); }, 4000 + text.length * 90);
       speechSynthesis.speak(u); };
-    const say = n => { i = Math.max(0, Math.min(steps.length - 1, n)); mark();
-      where.textContent = 'Step ' + (i+1) + ' of ' + steps.length + ' · tap ✓ Done when finished, then Next' + hint();
+    const say = n => { if (!steps.length) return; reading = true; setReadUI(); i = Math.max(0, Math.min(steps.length - 1, n)); mark();
+      where.textContent = 'Step ' + (i+1) + ' of ' + steps.length + ' · tap ✓ Done when finished, then Next';
       speak('Step ' + (i+1) + '. ' + steps[i]);
       const li = lis()[i]; if (li && li.scrollIntoView) li.scrollIntoView({block:'center', behavior:'smooth'}); };
-    const sayIngredients = () => { const items = (r.ingredients||[]).flatMap(g => g.items).map(x => String(x).replace(/[†*_`]/g,'')); where.textContent = 'Reading the ingredients' + hint(); speak('Ingredients. ' + items.join('. ')); };
-    function stop(){ showCmds(false); tok++; speechSynthesis.cancel(); on = false; listening = false; speaking = false; pauseRec(); bar.hidden = true; mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Voice'; rb.setAttribute('aria-pressed','false'); rb.textContent = '🔊 Read steps'; mark(); }
-    const markDone = () => { const li = lis()[i]; if (li && !li.classList.contains('done')) li.click(); where.textContent = 'Step ' + (i+1) + ' checked off. Say or tap Next when you’re ready.'; speak('Step ' + (i+1) + ' done.'); };
-    const next = () => { if (i >= steps.length - 1) { where.textContent = 'That was the last step.' + hint(); speak('That was the last step.'); } else say(i + 1); };
-    const CMD_SPOKEN = 'You can say: next. Repeat. Back. Done, to check off the step.  What is step, and a number, like step 3. Last step. Start over. Read the ingredients. How many steps. And stop.';
+    const sayIngredients = () => { const items = (r.ingredients||[]).flatMap(g => g.items).map(x => String(x).replace(/[†*_`]/g,'')); where.textContent = 'Reading the ingredients'; speak('Ingredients. ' + items.join('. ')); };
+    function stopReading(){ tok++; try { speechSynthesis.cancel(); } catch(e){} speaking = false; reading = false; setReadUI(); mark(); where.textContent = 'Reading stopped. Tap “Read steps” or say “read directions” to start again.'; }
+    function stopListening(msg){ capture = null; listening = false; fails = 0; pauseRec(); setMicUI(); where.textContent = msg || 'Microphone off.'; }
+    const markDone = () => { if (!reading) { where.textContent = 'Say “read directions” first, then “done” when you finish a step.'; return; } const li = lis()[i]; if (li && !li.classList.contains('done')) li.click(); where.textContent = 'Step ' + (i+1) + ' checked off. Say or tap Next when you’re ready.'; speak('Step ' + (i+1) + ' done.'); };
+    const next = () => { if (!reading) { say(0); return; } if (i >= steps.length - 1) { where.textContent = 'That was the last step.'; speak('That was the last step.'); } else say(i + 1); };
+    const CMD_SPOKEN = 'You can say: read directions. Next. Repeat. Back. What is step, and a number. Last step. Start over. Done, to check off a step. Read the ingredients. To save an idea, say add a step, too much salt, or note. Stop ends reading. Stop listening turns off the microphone.';
     const showCmds = on_ => { const c = document.getElementById('rdCmds'), hb = document.getElementById('rdHelp'); c.hidden = !on_; hb.setAttribute('aria-expanded', on_ ? 'true' : 'false'); };
+    // ---- suggestions (kept on this device; the recipe itself is not changed until you add one) ----
+    const SK = 'sugg:'+slug, EK = 'edits:'+slug;
+    const getS = () => store.get(SK, []), setS = v => store.set(SK, v);
+    const getE = () => { const e = store.get(EK, {steps:[],notes:[]}); e.steps = e.steps || []; e.notes = e.notes || []; return e; };
+    const KIND = {step:'New step', ingredient:'Ingredient amount', note:'Note'};
+    const sBtn = document.getElementById('rdSugg'), sList = document.getElementById('suggList');
+    const cap1 = s => { s = String(s).trim(); return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; };
+    function renderSugg(){
+      const all = getS(), E = getE(), fresh = all.filter(x => x.status !== 'kept'), kept = all.filter(x => x.status === 'kept');
+      const item = (x, acts) => `<div class="sugg-item"><span class="kind">${esc(KIND[x.type]||'Note')}${x.ctx ? ' · ' + esc(x.ctx) : ''}</span><div>${esc(x.text)}</div><div class="row">${acts}</div></div>`;
+      let html = '';
+      if (fresh.length) html += '<h3>To review</h3>' + fresh.map(x => item(x, `<button class="btn sm primary" data-sact="add" data-id="${x.id}">Add to this recipe</button><button class="btn sm" data-sact="keep" data-id="${x.id}">Keep as a suggestion</button><button class="btn sm" data-sact="del" data-id="${x.id}">Delete</button>`)).join('');
+      if (kept.length) html += '<h3>Kept suggestions</h3>' + kept.map(x => item(x, `<button class="btn sm primary" data-sact="add" data-id="${x.id}">Add to this recipe</button><button class="btn sm" data-sact="del" data-id="${x.id}">Delete</button>`)).join('');
+      if (E.steps.length || E.notes.length) html += '<h3>Added to your copy of this recipe</h3>' + E.steps.map((s,k) => `<div class="sugg-item"><span class="kind">New step (shows in the instructions)</span><div>${esc(s)}</div><div class="row"><button class="btn sm" data-sact="undostep" data-n="${k}">Take it back out</button></div></div>`).join('') + E.notes.map((s,k) => `<div class="sugg-item"><span class="kind">Your note</span><div>${esc(s)}</div><div class="row"><button class="btn sm" data-sact="undonote" data-n="${k}">Take it back out</button></div></div>`).join('');
+      if (!html) html = '<p class="muted">No ideas saved yet.</p>';
+      sList.innerHTML = html; sBtn.textContent = '💡 Suggestions' + (fresh.length ? ' (' + fresh.length + ')' : '');
+    }
+    function saveSugg(type, text, ctx){ text = cap1(String(text).replace(/\s+/g,' ')); if (!text) return false;
+      const all = getS(); all.push({id: Date.now().toString(36) + Math.random().toString(36).slice(2,5), type, text, ctx: ctx || '', status:'new', t: new Date().toISOString()}); setS(all); renderSugg();
+      where.textContent = '💡 Saved to Suggestions: “' + text.slice(0,70) + '”. Nothing in the recipe changed.'; return true; }
+    sList.onclick = e => { const b = e.target.closest('button[data-sact]'); if (!b) return; const act = b.dataset.sact, id = b.dataset.id; let all = getS(); const x = all.find(y => y.id === id);
+      if (act === 'keep' && x) { x.status = 'kept'; setS(all); renderSugg(); }
+      else if (act === 'del') { setS(all.filter(y => y.id !== id)); renderSugg(); }
+      else if (act === 'add' && x) { const E = getE(); if (x.type === 'step') E.steps.push(x.text); else E.notes.push((x.ctx ? x.ctx + ': ' : '') + x.text); store.set(EK, E); setS(all.filter(y => y.id !== id)); recipe(slug); const pnl = document.getElementById('suggPanel'); if (pnl && pnl.scrollIntoView) pnl.scrollIntoView({block:'start'}); toast(x.type === 'step' ? 'Added to the instructions on this phone' : 'Added to your copy of this recipe'); }
+      else if (act === 'undostep') { const E = getE(); E.steps.splice(+b.dataset.n, 1); store.set(EK, E); recipe(slug); const pnl = document.getElementById('suggPanel'); if (pnl && pnl.scrollIntoView) pnl.scrollIntoView({block:'start'}); }
+      else if (act === 'undonote') { const E = getE(); E.notes.splice(+b.dataset.n, 1); store.set(EK, E); renderSugg(); } };
+    document.getElementById('suggForm').onsubmit = e => { e.preventDefault(); const inp = document.getElementById('suggText'), ty = document.getElementById('suggType'); if (saveSugg(ty.value, inp.value, '')) { inp.value = ''; toast('Saved to your suggestions'); } };
+    document.getElementById('suggCopy').onclick = () => { const all = getS(), E = getE(); const lines = []; all.forEach(x => lines.push('- ' + (KIND[x.type]||'Note') + (x.ctx ? ' (' + x.ctx + ')' : '') + ': ' + x.text)); E.steps.forEach(s => lines.push('- New step (added to my copy): ' + s)); E.notes.forEach(s => lines.push('- Note (added to my copy): ' + s));
+      if (!lines.length) { toast('No ideas to copy yet'); return; } const txt = 'Ideas for “' + r.title + '”:\n' + lines.join('\n');
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => toast('Copied. Paste it to send.'), () => window.prompt('Copy this:', txt)); else window.prompt('Copy this:', txt); };
+    sBtn.onclick = () => { const p = document.getElementById('suggPanel'); if (p && p.scrollIntoView) p.scrollIntoView({behavior:'smooth', block:'start'}); };
+    renderSugg();
+    // what the voice said → a suggestion?
+    const strip = (raw, re) => String(raw).replace(re, '').replace(/^[\s:,.\-–]+/, '').trim();
+    function parseSuggestion(raw){ const t = String(raw).toLowerCase().replace(/[^a-z0-9' ]/g,' ').replace(/\s+/g,' ').trim(); let m;
+      if (/^(?:please )?(?:add|suggest|write|make|put|insert)\b(?: in)?(?: an?| this| the| new| another| one)* step\b/.test(t)) return {type:'step', text: strip(raw, /^\s*(?:please\s+)?(?:add|suggest|write|make|put|insert)\b(?:\s+in)?(?:\s+(?:an?|this|the|new|another|one))*\s+step\b/i)};
+      if (/^(?:please )?(?:add|suggest)\b.*\bingredient\b/.test(t)) return {type:'ingredient', text: strip(raw, /^\s*(?:please\s+)?(?:add|suggest)\b(?:\s+(?:an?|this|the|new|another|one))*\s+ingredient\b/i) || ''};
+      if (/\b(?:too much|too little|too many|too few|not enough|way too|a bit too|a little too)\b/.test(t) || /^(?:i think )?(?:it |this |there )?(?:needs?|should have|use|add) (?:a little |a bit |way )?(?:more|less)\b/.test(t)) return {type:'ingredient', text: strip(raw, /^\s*(?:i think\s+)?(?:there(?:\s+is|’s|'s)\s+|it(?:\s+has|\s+is)\s+|this(?:\s+has|\s+is)\s+)?/i)};
+      if (/^(?:please )?(?:add|make|leave|write|save)(?: an?| my| this)? (?:suggestion|note|comment|idea)\b/.test(t)) return {type:'note', text: strip(raw, /^\s*(?:please\s+)?(?:add|make|leave|write|save)(?:\s+(?:an?|my|this))?\s+(?:suggestion|note|comment|idea)\b/i)};
+      if ((m = t.match(/^(?:note|suggestion|suggest|idea)\b/))) return {type:'note', text: strip(raw, /^\s*(?:note|suggestion|suggest|idea)\b/i)};
+      return null; }
+    const PROMPT = {step:'Okay. What is the step?', ingredient:'Okay. What would you change about the ingredients?', note:'Okay. What is your note?'};
+    const ctxNow = () => reading ? 'Step ' + (i+1) : '';
+    const beginCapture = type => { capture = {type}; clearTimeout(capT); capT = setTimeout(() => { if (capture) { capture = null; where.textContent = 'Suggestion cancelled. Say “add a step” to try again.'; } }, 25000); listening = true; setMicUI(); where.textContent = PROMPT[type]; speak(PROMPT[type]); };
     const WORDS = {one:1,first:1,two:2,second:2,three:3,third:3,four:4,fourth:4,five:5,fifth:5,six:6,sixth:6,seven:7,seventh:7,eight:8,eighth:8,nine:9,ninth:9,ten:10,tenth:10,eleven:11,twelve:12,'for':4,to:2,too:2,won:1};
     function cmd(raw, quiet){ const t = String(raw).toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim(); if (!t) return false;
+      if (capture) { const ty = capture.type; if (/^(cancel|never mind|nevermind|forget it|stop)$/.test(t)) { capture = null; clearTimeout(capT); where.textContent = 'Cancelled.'; speak('Cancelled.'); return true; }
+        capture = null; clearTimeout(capT); const ok = saveSugg(ty, raw, ctxNow()); speak(ok ? 'Saved to suggestions. Nothing in the recipe changed.' : 'I didn’t catch that.'); return true; }
+      if (/\bstop (?:listening|listen)\b|\b(?:turn|switch) off (?:the |my )?(?:mic|microphone|voice|listening)\b|\bmute\b|\bquit listening\b|\bstop the (?:mic|microphone)\b/.test(t)) { stopListening('Microphone off. Tap 🎤 Voice to turn it back on.'); return true; }
+      const sg = parseSuggestion(raw);
+      if (sg) { if (sg.text && sg.text.length > 2) { const ok = saveSugg(sg.type, sg.text, ctxNow()); speak(ok ? 'Saved to suggestions. Nothing in the recipe changed.' : 'I didn’t catch that.'); } else beginCapture(sg.type); return true; }
+      if (/\b(?:show|open|review|see) (?:my |the )?(?:suggestions|ideas)\b/.test(t)) { sBtn.click(); where.textContent = 'Here are your suggestions.'; return true; }
+      if (/\b(?:read|start|begin)\b.*\b(?:directions|instructions|steps|recipe|reading)\b|^(?:read it|read|start reading|begin)$/.test(t) && !/ingredient/.test(t)) { say(0); return true; }
       let m = t.match(/(?:step|number|go to|read)\s+(\d+|[a-z]+)\b/) || t.match(/\b(\d+|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth)\s+step\b/);
       if (m) { const n = /^\d+$/.test(m[1]) ? +m[1] : WORDS[m[1]]; if (n && n <= steps.length) { say(n - 1); return true; } if (n) { where.textContent = 'This recipe has ' + steps.length + ' steps.'; speak('This recipe has ' + steps.length + ' steps.'); return true; } }
       if (/\b(help|commands?|what can i say|what do i say|options)\b/.test(t)) { showCmds(true); where.textContent = 'Here are the commands you can say.'; speak(CMD_SPOKEN); return true; }
       if (/\b(done|finished|complete|completed|check it off|checked off|mark it)\b/.test(t)) { markDone(); return true; }
-      if (/\b(stop|quit|exit|that s all)\b/.test(t)) { stop(); return true; }
+      if (/\b(stop|quit|exit|that s all)\b/.test(t)) { if (reading) stopReading(); else stopListening('Microphone off. Tap 🎤 Voice to turn it back on.'); return true; }
       if (/\b(repeat|again|say that|one more time|what was that)\b/.test(t)) { say(i); return true; }
-      if (/\b(back|previous|before|go back|last one)\b/.test(t) && !/last step/.test(t)) { say(i - 1); return true; }
+      if (/\b(back|previous|before|go back|last one)\b/.test(t) && !/last step/.test(t)) { say(reading ? i - 1 : 0); return true; }
       if (/\b(start over|from the top|beginning|first one)\b/.test(t)) { say(0); return true; }
       if (/\blast step\b/.test(t)) { say(steps.length - 1); return true; }
       if (/\b(ingredient|ingredients)\b/.test(t)) { sayIngredients(); return true; }
       if (/\b(how many steps)\b/.test(t)) { speak('There are ' + steps.length + ' steps.'); return true; }
       if (/\b(next|continue|go on|go ahead|keep going|ready|okay|ok)\b/.test(t)) { next(); return true; }
       if (quiet) return false;
-      where.textContent = 'Didn’t catch “' + t.slice(0,40) + '”. Try “next”, “repeat”, or “what is step 2”.';  return false; }
-    rb.onclick = () => { if (on) { stop(); return; } on = true; bar.hidden = false; rb.setAttribute('aria-pressed','true'); rb.textContent = '⏹ Stop reading'; showCmds(true); say(0); };
-    document.getElementById('rdNext').onclick = () => { if (on) next(); };
-    document.getElementById('rdPrev').onclick = () => { if (on) say(i - 1); };
-    document.getElementById('rdDone').onclick = () => { if (on) markDone(); };
-    document.getElementById('rdAgain').onclick = () => { if (on) say(i); };
-    document.getElementById('rdStop').onclick = () => stop();
+      where.textContent = 'Didn’t catch “' + t.slice(0,40) + '”. Try “read directions”, “next”, or “add a step”.';  return false; }
+    rdRead.onclick = () => { if (reading) { stopReading(); return; } showCmds(true); say(0); };
+    document.getElementById('rdNext').onclick = () => next();
+    document.getElementById('rdPrev').onclick = () => say(i - 1);
+    document.getElementById('rdDone').onclick = () => markDone();
+    document.getElementById('rdAgain').onclick = () => say(i);
+    document.getElementById('rdStop').onclick = () => stopReading();
     document.getElementById('rdHelp').onclick = () => showCmds(document.getElementById('rdCmds').hidden);
-    mic.onclick = () => { if (!on) return;
-      tok++; try { speechSynthesis.cancel(); } catch(e){} speaking = false; // free the audio so the microphone can hear
-      if (listening) { listening = false; fails = 0; pauseRec(); mic.setAttribute('aria-pressed','false'); mic.textContent = tapMode ? '🎤 Tap to speak' : '🎤 Voice'; where.textContent = 'Step ' + (i+1) + ' of ' + steps.length; return; }
-      listening = true; fails = 0; trail = []; mic.setAttribute('aria-pressed','true'); mic.textContent = '⏺ Listening'; where.textContent = tapMode ? 'Listening… say your command now.' : 'Starting the microphone… tap Allow if your browser asks.'; startRec(); };
-    window.addEventListener('hashchange', () => { tok++; listening = false; pauseRec(); try { speechSynthesis.cancel(); } catch(e){} }, {once:true});
-  } }
+    mic.onclick = () => {
+      tok++; try { if (canSpeak) speechSynthesis.cancel(); } catch(e){} speaking = false;
+      if (listening) { stopListening(reading ? 'Step ' + (i+1) + ' of ' + steps.length : 'Microphone off.'); return; }
+      listening = true; fails = 0; trail = []; setMicUI(); where.textContent = tapMode ? 'Listening… say your command now.' : 'Starting the microphone… tap Allow if your browser asks.'; startRec(); };
+    where.textContent = SR ? 'Tap 🎤 Voice and say “read directions”, or tap ❓ Commands to see what you can say.' : '';
+    const cleanup = () => { gone = true; tok++; listening = false; reading = false; capture = null; pauseRec(); try { if (canSpeak) speechSynthesis.cancel(); } catch(e){} };
+    window.__cookCleanup = cleanup;
+    window.addEventListener('hashchange', cleanup, {once:true});
+  }
   window.scrollTo(0,0);
 }
 
