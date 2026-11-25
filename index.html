@@ -514,6 +514,19 @@ ol.steps li.mine::after{content:' (your addition)';font-size:.78rem;color:var(--
   .tabbar a[aria-current=page]{color:var(--accent);background:var(--accent-soft)}
   .tabbar .tcount{position:absolute;top:0;right:18%;background:var(--accent);color:#fff;border-radius:999px;padding:0 6px;font-size:.7rem}
 }
+
+/* optional big buttons, section accents, story line */
+.bigbtn-opt{display:flex;gap:.6rem;align-items:center;margin-top:.8rem;padding-top:.7rem;border-top:1px solid var(--line);font-size:1rem;cursor:pointer}
+.bigbtn-opt input{width:1.3rem;height:1.3rem}
+html.bigbtn button,html.bigbtn .btn,html.bigbtn .navbtn,html.bigbtn .secnav a,html.bigbtn .tabbar a,html.bigbtn summary{min-height:48px;font-size:1.1rem}
+html.bigbtn .btn,html.bigbtn .secnav a{padding:.75rem 1.1rem}
+html.bigbtn .tabbar a{padding-top:.7rem;padding-bottom:.7rem}
+html.bigbtn #readBar button,html.bigbtn #readBar .btn{min-height:64px;font-size:1.2rem}
+html.bigbtn input[type=checkbox]{width:1.5rem;height:1.5rem}
+html[data-sec="found"],html[data-sec="hl"],html[data-sec="gc"]{--accent:#4d7a63;--accent-soft:#dcebe2}
+html[data-sec="family"],html[data-sec="boxa"]{--accent:#9a5a2c;--accent-soft:#f1e0cc}
+@media (prefers-color-scheme:dark){html[data-sec="found"],html[data-sec="hl"],html[data-sec="gc"]{--accent:#86bf9f;--accent-soft:#203329}html[data-sec="family"],html[data-sec="boxa"]{--accent:#e0a56a;--accent-soft:#3a2a1a}}
+.r-head .story{font-style:italic;color:var(--muted);border-left:3px solid var(--accent);padding:.4rem .8rem;margin:.7rem 0}
 </style>
 </head>
 <body>
@@ -544,6 +557,7 @@ ol.steps li.mine::after{content:' (your addition)';font-size:.78rem;color:var(--
 <div class="tspop" id="tsPop" hidden role="dialog" aria-label="Text size">
   <p>Text size</p>
   <div class="tsopts"><button type="button" data-ts="0" style="font-size:1rem">A<br><small>Normal</small></button><button type="button" data-ts="1" style="font-size:1.25rem">A<br><small>Bigger</small></button><button type="button" data-ts="2" style="font-size:1.5rem">A<br><small>Biggest</small></button></div>
+  <label class="bigbtn-opt"><input type="checkbox" id="bigBtn"> Big buttons (easier to tap)</label>
 </div>
 <main class="wrap" id="app"></main>
 <nav class="tabbar" aria-label="Main">
@@ -744,7 +758,7 @@ const SPINES = [['#5f7a5a',62,'Soups'],['#b4532a',78,'Breads'],['#2f4858',70,'']
 const secCount = k => R.filter(r=>r.section===k).length;
 const catsFor = list => ['All', ...Array.from(new Set(list.map(r=>r.category))).sort((a,b)=>{const i=CAT_ORDER.indexOf(a),j=CAT_ORDER.indexOf(b);return (i<0?99:i)-(j<0?99:j);})];
 
-function setNav(active){
+function setNav(active){ document.documentElement.setAttribute('data-sec', active || '');
   document.querySelectorAll('.secnav a').forEach(a => a.setAttribute('aria-current', a.dataset.sec === active ? 'page' : 'false'));
 }
 
@@ -1204,6 +1218,7 @@ function recipe(slug){
       <h1>${esc(r.title)}</h1>
       ${r.subtitle ? `<p class="sub">${esc(r.subtitle)}</p>` : ''}
       ${r.fromBox ? '' : `<p class="summary">${esc(r.summary)}</p>`}
+      ${r.story ? `<p class="story">${esc(r.story)}</p>` : ''}
       ${(r.fromBox || r.credit) ? `<p class="credit">${r.credit ? `${r.section==='found' ? 'From' : 'From the kitchen of'} ${(()=>{ const pk = window.PEOPLE_API ? PEOPLE_API.keyFor(r) : ''; return pk ? `<a class="personlink" href="#/people/${pk}"><strong>${esc(r.credit)}</strong></a>` : `<strong>${esc(r.credit)}</strong>`; })()}${r.creditUnsure?' <span class="unsure">(name hard to read)</span>':''}${r.creditNote?` <span class="unsure">· ${esc(r.creditNote)}</span>`:''}` : 'From the family recipe box'}${r.cardNote ? ` · card says <em>“${esc(r.cardNote)}”</em>` : ''}${r.box ? `<br><a class="boxlabel" href="#/${boxRoute(r.box)}${r.boxSection ? '/'+boxKey(r.boxSection) : ''}">📇 Original card: Box ${esc(r.box)}${r.boxSection ? ', behind the “'+esc(r.boxSection)+'” divider' : ''}</a>` : ''}</p>` : ''}
       ${r.source ? `<p class="credit">Source: ${r.source.url ? `<a href="${esc(r.source.url)}" target="_blank" rel="noopener">${esc(r.source.text)}</a>` : esc(r.source.text)}</p>` : ''}
       ${(r.holidays||[]).length ? `<p class="hol-line">${r.holidays.map(x=>HOLIDAY_BY_KEY[x]?`<a href="#/holidays/${x}">${HOLIDAY_BY_KEY[x].emoji} ${esc(HOLIDAY_BY_KEY[x].name)}</a>`:"").join(" ")}</p>` : ""}
@@ -1217,7 +1232,7 @@ function recipe(slug){
       <button class="btn" id="moreBtn" aria-haspopup="dialog">⋯ More</button>
     </div>
     <p class="hint" id="madeLine" style="margin:6px 2px 0" hidden></p>
-    <div id="readBar" class="readbar"><button class="btn primary" id="rdRead" title="Reads the steps out loud" aria-label="Read steps">🔊<span class="t"> Read steps</span><span class="s">Read</span></button><button class="btn" id="rdMic" aria-pressed="false" hidden title="Say read directions, next, repeat, or add a step" aria-label="Voice">🎤<span class="t"> Voice</span><span class="s">Mic off</span></button><button class="btn" id="rdHelp" aria-expanded="false" title="What can I say?" aria-label="Commands">❓<span class="t"> Commands</span></button><button class="btn" id="rdSugg" title="Review ideas you have saved for this recipe" aria-label="Suggestions">💡<span class="t"> Suggestions</span></button><span id="rdCtl" class="rdctl" hidden><button class="btn" id="rdPrev" aria-label="Previous step">⏮<span class="t"> Back</span><span class="s">Back</span></button><button class="btn" id="rdAgain" aria-label="Repeat this step">↻<span class="t"> Repeat</span><span class="s">Repeat</span></button><button class="btn" id="rdDone" aria-label="Mark this step done">✓<span class="t"> Done</span><span class="s">Done</span></button><button class="btn primary" id="rdNext" aria-label="Next step"><span class="t">Next </span>⏭<span class="s">Next</span></button><button class="btn" id="rdStop" aria-label="Stop reading">✕<span class="t"> Stop reading</span></button></span><span class="hint" id="rdWhere" style="flex-basis:100%"></span><form id="rdCmdForm" class="sugg-form" style="flex-basis:100%;margin-top:0"><input id="rdCmdText" type="text" autocomplete="off" enterkeyhint="go" placeholder="Type, or tap your keyboard’s 🎤: “next”, “add a step…”" aria-label="Type or dictate a command"><button class="btn sm" type="submit">Go</button></form><div id="rdCmds" class="hint" style="flex-basis:100%;line-height:1.7" hidden><strong>Tap 🎤 Voice, then say:</strong><br>“Read directions” starts reading · “Next” · “Repeat” · “Back”<br>“Step 3”, “go to step 3” or just “3” jumps to that step · “Last step” · “Start over”<br>“Done” checks off the step you’re on · “Read the ingredients” · “How many steps”<br>“How much butter?” reads that amount (at the size you picked)<br>“Set a timer for 10 minutes” · “Start the timer” (uses the time in the step) · “How much time is left?” · “Stop the timer”<br><strong>To save an idea for later:</strong> “Add a step” (then say the step) · “Too much salt” · “Not enough sugar” · “Note …”<br>These go in <em>Suggestions</em> below, and nothing in the recipe changes until you approve it.<br>“Stop” ends reading · “Stop listening” turns the microphone off · “What can I say” reads this list.<br><strong>If 🎤 Voice won’t stay on:</strong> type in the box above, or tap the microphone key on your phone’s keyboard and speak into the box. · <a href="#/mic-test">Run the microphone test</a></div></div>
+    <div id="readBar" class="readbar"><button class="btn primary" id="rdRead" title="Reads the steps out loud" aria-label="Read steps">🔊<span class="t"> Read steps</span><span class="s">Read</span></button><button class="btn" id="rdMic" aria-pressed="false" hidden title="Say read directions, next, repeat, or add a step" aria-label="Voice">🎤<span class="t"> Voice</span><span class="s">Mic off</span></button><button class="btn" id="rdHelp" aria-expanded="false" title="What can I say?" aria-label="Commands">❓<span class="t"> Commands</span></button><button class="btn" id="rdSugg" title="Review ideas you have saved for this recipe" aria-label="Suggestions">💡<span class="t"> Suggestions</span></button><span id="rdCtl" class="rdctl" hidden><button class="btn" id="rdPrev" aria-label="Previous step">⏮<span class="t"> Back</span><span class="s">Back</span></button><button class="btn" id="rdAgain" aria-label="Repeat this step">↻<span class="t"> Repeat</span><span class="s">Repeat</span></button><button class="btn" id="rdDone" aria-label="Mark this step done">✓<span class="t"> Done</span><span class="s">Done</span></button><button class="btn primary" id="rdNext" aria-label="Next step"><span class="t">Next </span>⏭<span class="s">Next</span></button><button class="btn" id="rdStop" aria-label="Stop reading">✕<span class="t"> Stop reading</span></button></span><span class="hint" id="rdWhere" style="flex-basis:100%"></span><form id="rdCmdForm" class="sugg-form" style="flex-basis:100%;margin-top:0"><input id="rdCmdText" type="text" autocomplete="off" enterkeyhint="go" placeholder="Type, or tap your keyboard’s 🎤: “next”, “add a step…”" aria-label="Type or dictate a command"><button class="btn sm" type="submit">Go</button></form><div id="rdCmds" class="hint" style="flex-basis:100%;line-height:1.7" hidden><strong>Tap 🎤 Voice, then say:</strong><br> Other ways to say it: "go on" or "continue" (Next) · "say that again" (Repeat) · "go back" or "previous" (Back) · "all set" or "finished" (Done) · "pause" or "hold on" (Stop)<br> After you say a step or note, I read it back. Say "save", "add more", "redo" or "cancel".<br>“Read directions” starts reading · “Next” · “Repeat” · “Back”<br>“Step 3”, “go to step 3” or just “3” jumps to that step · “Last step” · “Start over”<br>“Done” checks off the step you’re on · “Read the ingredients” · “How many steps”<br>“How much butter?” reads that amount (at the size you picked)<br>“Set a timer for 10 minutes” · “Start the timer” (uses the time in the step) · “How much time is left?” · “Stop the timer”<br><strong>To save an idea for later:</strong> “Add a step” (then say the step) · “Too much salt” · “Not enough sugar” · “Note …”<br>These go in <em>Suggestions</em> below, and nothing in the recipe changes until you approve it.<br>“Stop” ends reading · “Stop listening” turns the microphone off · “What can I say” reads this list.<br><strong>If 🎤 Voice won’t stay on:</strong> type in the box above, or tap the microphone key on your phone’s keyboard and speak into the box. · <a href="#/mic-test">Run the microphone test</a></div></div>
     ${r.tip ? `<div class="tip">${md(r.tip)}</div>` : ''}
     ${r.glutenFree ? `<div class="gf-note"><strong>🌾 Gluten-free as written.</strong> ${r.gfCheck && r.gfCheck.length ? `Check the label and buy these labeled gluten-free: ${r.gfCheck.map(x=>esc(x)).join('; ')}.` : 'No ingredients here normally contain gluten.'} <a href="#/gluten-free">More gluten-free recipes</a></div>` : ''}
     <div class="r-body">
@@ -1287,7 +1302,7 @@ function recipe(slug){
     lis().forEach((li, k) => { if (k >= baseSteps) li.classList.add('mine'); });
     const mark = () => lis().forEach((li,k) => li.classList.toggle('speaking', reading && k === i));
     const live = () => { const on_ = reading || listening; bar.classList.toggle('live', on_); if (on_ && window.matchMedia && matchMedia('(max-width: 640px)').matches) showCmds(false); };
-    const setMicUI = () => { mic.setAttribute('aria-pressed', listening ? 'true' : 'false'); mic.innerHTML = listening ? '🎤<span class="t"> Listening</span><span class="s">Mic on</span>' : (tapMode ? '🎤<span class="t"> Tap to speak</span><span class="s">Tap mic</span>' : '🎤<span class="t"> Voice</span><span class="s">Mic off</span>'); live(); };
+    const setMicUI = () => { try { var c0 = document.getElementById('rdCmds'); if (c0 && listening) c0.hidden = false; } catch(e){} mic.setAttribute('aria-pressed', listening ? 'true' : 'false'); mic.innerHTML = listening ? '🎤<span class="t"> Listening</span><span class="s">Mic on</span>' : (tapMode ? '🎤<span class="t"> Tap to speak</span><span class="s">Tap mic</span>' : '🎤<span class="t"> Voice</span><span class="s">Mic off</span>'); live(); };
     const setReadUI = () => { ctl.hidden = !reading; rdRead.innerHTML = reading ? '⏹<span class="t"> Stop reading</span><span class="s">Stop</span>' : '🔊<span class="t"> Read steps</span><span class="s">Read</span>'; live(); };
     const tr = s => { trail.push(s); if (trail.length > 8) trail.shift(); };
     const pauseRec = () => { const x = rec; rec = null; if (x) { x._killed = true; try { x.abort(); } catch(e){} } };
@@ -2866,6 +2881,9 @@ document.addEventListener('click', e => {
   document.querySelectorAll('[data-fav="'+slug+'"]').forEach(x => { x.setAttribute('aria-pressed', on); x.textContent = on ? '♥' : '♡'; x.setAttribute('aria-label', on ? 'Remove from favorites' : 'Add to favorites'); });
 }, true);
 holNavLabel();
+
+// ---- Big buttons (optional, off by default, remembered on this device) ----
+(function(){ var cb = document.getElementById('bigBtn'); if (!cb) return; function set(on){ document.documentElement.classList.toggle('bigbtn', on); cb.checked = on; } var saved = false; try { saved = localStorage.getItem('bigButtons') === '1'; } catch(e){} set(saved); cb.addEventListener('change', function(){ set(cb.checked); try { localStorage.setItem('bigButtons', cb.checked ? '1' : '0'); } catch(e){} }); })();
 
 // ---- Text size (remembered on this device) ----
 (function(){
