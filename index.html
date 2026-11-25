@@ -1275,12 +1275,12 @@ function recipe(slug){
     const turnOff = msg => { listening = false; pauseRec(); mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Voice'; if (msg) where.textContent = msg; };
     let fails = 0, lastErr = '', heard = false;
     const standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
-    const startRec = () => { if (!SR || rec || !listening || !on || speaking) return;
+    const startRec = () => { if (!SR || rec || !listening || !on) return;
       const x = new SR(); rec = x; heard = false; lastErr = ''; const t0 = Date.now();
       x.lang = 'en-US'; x.continuous = false; x.interimResults = true; x.maxAlternatives = 3;
       x.onstart = () => { where.textContent = '🎤 Listening… say “next”, “repeat” or “what is step 2”'; };
       x.onaudiostart = () => { heard = true; fails = 0; };
-      x.onresult = e => { heard = true; fails = 0; const res = e.results[e.results.length - 1]; const tx = res[0].transcript;
+      x.onresult = e => { heard = true; fails = 0; const res = e.results[e.results.length - 1]; const tx = res[0].transcript; if (isEcho(tx)) return;
         if (!res.isFinal) { where.textContent = '🎤 Hearing: “' + tx.slice(0,50) + '”'; return; }
         const alts = [...res].map(a => a.transcript); let done = false;
         for (const t of alts) { if (cmd(t, true)) { done = true; break; } }
@@ -1289,12 +1289,18 @@ function recipe(slug){
       x.onend = () => { if (rec === x) rec = null; if (!listening || !on) return;
         if (!heard && Date.now() - t0 < 1500 && lastErr !== 'no-speech') { fails++; }
         if (fails >= 3) { turnOff('The browser keeps turning the microphone off right away' + (lastErr ? ' (reason: ' + lastErr + ')' : '') + '. ' + (standalone ? 'You’re using the home-screen app, which often can’t use voice. Open the site in Safari or Chrome instead. ' : 'Check the microphone permission for this site, and close other apps that might be using the mic. ') + 'The Back, Repeat and Next buttons still work.'); return; }
-        if (!speaking) setTimeout(startRec, 350); };
+        setTimeout(startRec, 350); };
       try { x.start(); } catch(e) { rec = null; fails++; if (fails >= 3) turnOff('Could not start the microphone (' + (e && e.name || 'error') + ').'); else setTimeout(startRec, 500); } };
-    const speak = (text, after) => { const my = ++tok; speechSynthesis.cancel(); speaking = true; pauseRec();
+    let spokenWords = null, spokenUntil = 0;
+    const normW = s => String(s).toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(Boolean);
+    const isEcho = tx => { if (!spokenWords || Date.now() > spokenUntil) return false; const w = normW(tx); return w.length > 0 && w.every(x => spokenWords.has(x)); };
+    const speak = (text, after) => { const my = ++tok; speechSynthesis.cancel(); speaking = true; spokenWords = new Set(normW(text)); spokenUntil = Infinity;
       const u = new SpeechSynthesisUtterance(text); u.rate = 0.95;
-      const fin = () => { if (my !== tok) return; speaking = false; if (after) after(); setTimeout(startRec, 300); };
-      u.onend = fin; u.onerror = fin; speechSynthesis.speak(u); };
+      const fin = () => { if (my !== tok) return; speaking = false; spokenUntil = Date.now() + 1500; if (after) after(); setTimeout(startRec, 300); };
+      u.onend = fin; u.onerror = fin;
+      // some phones never report the end of speech; do not wait for it forever
+      setTimeout(() => { if (my === tok && speaking && !speechSynthesis.speaking && !speechSynthesis.pending) fin(); }, 4000 + text.length * 90);
+      speechSynthesis.speak(u); };
     const say = n => { i = Math.max(0, Math.min(steps.length - 1, n)); mark();
       where.textContent = 'Step ' + (i+1) + ' of ' + steps.length + ' · tap Next when you’re ready' + hint();
       speak('Step ' + (i+1) + '. ' + steps[i]);
@@ -1325,7 +1331,7 @@ function recipe(slug){
     document.getElementById('rdAgain').onclick = () => { if (on) say(i); };
     document.getElementById('rdStop').onclick = () => stop();
     document.getElementById('rdHelp').onclick = () => showCmds(document.getElementById('rdCmds').hidden);
-    mic.onclick = () => { if (!on) return; if (listening) { listening = false; fails = 0; pauseRec(); mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Voice'; where.textContent = 'Step ' + (i+1) + ' of ' + steps.length; } else { listening = true; fails = 0; mic.setAttribute('aria-pressed','true'); mic.textContent = '⏺ Listening'; where.textContent = 'Starting the microphone… tap Allow if your browser asks.'; if (!speaking) startRec(); } };
+    mic.onclick = () => { if (!on) return; if (listening) { listening = false; fails = 0; pauseRec(); mic.setAttribute('aria-pressed','false'); mic.textContent = '🎤 Voice'; where.textContent = 'Step ' + (i+1) + ' of ' + steps.length; } else { listening = true; fails = 0; mic.setAttribute('aria-pressed','true'); mic.textContent = '⏺ Listening'; where.textContent = 'Starting the microphone… tap Allow if your browser asks.'; startRec(); } };
     window.addEventListener('hashchange', () => { tok++; listening = false; pauseRec(); try { speechSynthesis.cancel(); } catch(e){} }, {once:true});
   } }
   window.scrollTo(0,0);
