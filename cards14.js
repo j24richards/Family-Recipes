@@ -8,13 +8,13 @@ var R = [
     cardNotes:["Source written on the card: Globe"],
     gaps:[] },
 
-  { slug:"apple-and-sausage-stuffing-globe", title:"Apple and Sausage Stuffing", category:"Vegetables & Sides", credit:"", serves:"",
+  { slug:"apple-and-sausage-stuffing-globe", title:"Apple and Sausage Stuffing", category:"Vegetables & Sides", credit:"", serves:"6",
     summary:"A moist stuffing of browned sausage, onion, red apples and bread cubes.",
-    ingredients:[{items:["2 tbsp butter or margarine","½ lb sausage meat","¼ cup chopped onions","2 cups unpeeled red apples, cut in small pieces","1 quart soft bread cubes","1 tsp salt","½ cup milk"]}],
-    steps:["Brown the sausage meat loose.","Add the onions, apples, bread cubes, salt and milk. Mix well."],
+    ingredients:[{items:["2 tbsp butter or margarine","½ lb sausage meat","¼ cup chopped onions","2 cups unpeeled red apples, cut in small pieces","1 quart soft bread cubes","1 tsp salt","½ cup milk","1 tsp rubbed sage †","½ tsp dried thyme †","¼ tsp pepper †"]}],
+    steps:["Heat the oven to 350° and butter a baking dish (or get the bird ready to stuff). †","Brown the sausage meat in a large skillet, breaking it up as it cooks. Lift it out and set aside, leaving the drippings in the pan. †","Melt the butter in the same pan and cook the onions 3 to 4 minutes, until soft. †","Add the apples and cook 2 to 3 minutes, just until they begin to soften. †","In a large bowl, toss the bread cubes with the sausage, the onion and apple mixture, salt, sage, thyme and pepper. Pour in the milk and mix well.","Spoon into the baking dish, cover and bake 30 to 40 minutes, uncovering for the last 10 minutes to brown the top. Or stuff loosely into a bird and cook until the stuffing reaches 165°. †"],
     holidays:["thanksgiving"],
     cardNotes:["Source written on the card: Globe (clipping on the same card as Pork and Apple Casserole)"],
-    gaps:["The clipping doesn’t say where the butter goes or how to bake it; use it to brown the sausage, then stuff a bird or bake covered at 350° about 30 to 40 minutes."] },
+    gaps:["† Added from a typical version of this recipe; it wasn’t on the original card. The clipping lists no herbs and says nothing about where the butter goes or how to bake it. Suggestions welcome."] },
 
   { slug:"marmalade-glazed-baked-ham-good-housekeeping", title:"Marmalade-Glazed Baked Ham", category:"Beef, Pork & Ham", credit:"", serves:"16",
     summary:"A canned ham baked and brushed with an orange marmalade, brown sugar and soy glaze.",

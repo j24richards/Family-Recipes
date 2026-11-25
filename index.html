@@ -572,7 +572,7 @@ ol.steps li.speaking{background:#fff3d6;border-radius:10px;box-shadow:0 0 0 2px 
 <script src="cards11.js?v=20261127"></script>
 <script src="cards12.js?v=20261127"></script>
 <script src="cards13.js?v=20261127"></script>
-<script src="cards14.js?v=20261127"></script>
+<script src="cards14.js?v=20261128"></script>
 <script src="cards15.js?v=20261127c"></script>
 <script src="cards16.js?v=20261127"></script>
 <script src="cards17.js?v=20261127"></script>
@@ -583,6 +583,7 @@ ol.steps li.speaking{background:#fff3d6;border-radius:10px;box-shadow:0 0 0 2px 
 <script src="family.js?v=20261127"></script>
 <script src="gluten-free.js?v=20261127"></script>
 <script src="people.js?v=20261127"></script>
+<script src="serves-est.js?v=20261125"></script>
 <script>
 (function(){
 const R = window.RECIPES || [];
@@ -1128,7 +1129,7 @@ function cardHTML(r, showSec){
   const credit = r.credit
     ? (fam ? `From the kitchen of ${esc(r.credit)}` : esc(r.credit))
     : (fam ? (r.fromBox ? 'From the family recipe box' : '') : '');
-  const meta = `${r.familyMember?'<span class="tag fam">👪 Family</span>':''}${r.glutenFree?'<span class="tag gf">Gluten-free</span>':''}${r.nutrition?`<span class="tag">${r.nutrition.points} SmartPoints · ${r.nutrition.cal} cal</span>`:''}${r.serves?`<span class="tag">Serves ${esc(r.serves)}</span>`:''}${(r.holidays||[]).map(x=>`<span class="tag hol">${esc(HOLIDAY_BY_KEY[x] ? HOLIDAY_BY_KEY[x].emoji+' '+HOLIDAY_BY_KEY[x].name : x)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}`;
+  const meta = `${r.familyMember?'<span class="tag fam">👪 Family</span>':''}${r.glutenFree?'<span class="tag gf">Gluten-free</span>':''}${r.nutrition?`<span class="tag">${r.nutrition.points} SmartPoints · ${r.nutrition.cal} cal</span>`:''}${r.serves?`<span class="tag">${/serv|^\d/i.test(r.serves)||!/[a-z]/i.test(r.serves.replace(/about|to|with leftovers/gi,''))?'Serves':'Makes'} ${esc(r.serves)}${r.servesEst?' (est.)':''}</span>`:''}${(r.holidays||[]).map(x=>`<span class="tag hol">${esc(HOLIDAY_BY_KEY[x] ? HOLIDAY_BY_KEY[x].emoji+' '+HOLIDAY_BY_KEY[x].name : x)}</span>`).join('')}${r.gaps&&r.gaps.length?'<span class="tag gap">needs a fill-in</span>':''}`;
   if (fam) return `
     <a class="card idx" href="#/recipe/${r.slug}">
       ${favBtn(r.slug)}
@@ -1423,6 +1424,10 @@ function yieldText(y, k){
   return y.pre + f(y.lo*k) + '–' + f(y.hi*k) + y.post;
 }
 function yieldFactHtml(r, k){
+  const est = r.servesEst ? ' <em class="muted">(our estimate; the card doesn’t say)</em>' : '';
+  return yieldFactCore(r, k) + (r.serves && r.servesEst ? est : '');
+}
+function yieldFactCore(r, k){
   const y = parseYield(r);
   if (!y) return k === 1 ? '' : `<strong>Batch</strong> ×${fmtQty(k)} <em class="muted">(the card doesn’t say how many it serves)</em>`;
   if (y.fixed) return `<strong>Makes</strong> ${k === 1 ? '' : fmtQty(k) + ' × '}${esc(y.text.replace(/^\s*(?:serves|makes|yield:?)\s*/i,''))}`;
@@ -1711,7 +1716,7 @@ function indexCardHtml(r){
   return `<div class="idxcard" aria-label="What the recipe card says">
     <div class="ic-head"><span class="ic-lbl">Recipe</span><span class="ic-title">${esc(r.title)}</span></div>
     <div class="ic-row"><span class="ic-lbl">From the kitchen of</span><span class="ic-hand">${r.credit ? esc(r.credit) : '<span class="ic-blank">(no name on the card)</span>'}</span></div>
-    ${r.serves ? `<div class="ic-row"><span class="ic-lbl">Serves</span><span class="ic-hand">${esc(r.serves)}</span></div>` : ''}
+    ${r.serves && !r.servesEst ? `<div class="ic-row"><span class="ic-lbl">Serves</span><span class="ic-hand">${esc(r.serves)}</span></div>` : ''}
     ${lines.length ? `<ul class="ic-lines">${lines.join('')}</ul>` : `<ul class="ic-lines"><li class="ic-blank">Nothing else written on this card.</li></ul>`}
     <p class="ic-foot">${r.box ? `Filed in Box ${esc(r.box)}${r.boxSection ? ', behind the “'+esc(r.boxSection)+'” divider' : ''}` : 'From the family recipe box'}. The card’s own notes, in handwriting. The recipe above is typed out in full.</p>
   </div>`;
