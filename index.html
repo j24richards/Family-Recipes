@@ -119,6 +119,7 @@ header.site .secnav{display:flex;justify-content:flex-start;gap:4px;height:auto;
 .sec-head{padding:8px 0 4px}
 .sec-head h1{font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,6vw,3rem);line-height:1.1;margin:6px 0 8px}
 .sec-head p{color:var(--muted);margin:0;max-width:620px}
+.sec-head .tagline{max-width:none;text-wrap:balance}
 .tagline{font-family:Fraunces,Georgia,serif;font-style:italic;font-size:1.15rem;color:var(--ink)!important;margin:-2px 0 6px!important}
 .sec-head.family h1{color:var(--accent)}
 .sec-head.found h1{color:var(--sage)}
@@ -596,7 +597,7 @@ html[data-sec="family"],html[data-sec="boxa"]{--accent:#9a5a2c;--accent-soft:#f1
 <script src="cards13.js?v=20261127"></script>
 <script src="cards14.js?v=20261130"></script>
 <script src="cards15.js?v=20261127c"></script>
-<script src="cards16.js?v=20261127"></script>
+<script src="cards16.js?v=20261128"></script>
 <script src="cards17.js?v=20261127"></script>
 <script src="cards18.js?v=20261127"></script>
 <script src="cards19.js?v=20261127"></script>
@@ -1116,7 +1117,7 @@ function turkeyPage(){
     '<label>Serve dinner at <input id="tkT" type="time"></label><div id="tkOut" aria-live="polite"></div></section>';
   var wEl = document.getElementById('tkW'), tEl = document.getElementById('tkT'), out = document.getElementById('tkOut');
   wEl.value = sv.w || 13.5; tEl.value = sv.t || '16:00';
-  function clock(m){ m = ((Math.round(m) % 1440) + 1440) % 1440; var h = Math.floor(m / 60), mi = m % 60, ap = h >= 12 ? 'PM' : 'AM'; h = h % 12; if (h === 0) h = 12; return h + ':' + (mi < 10 ? '0' : '') + mi + ' ' + ap; }
+  function clock(m){ m = ((Math.round(m / 5) * 5 % 1440) + 1440) % 1440; var h = Math.floor(m / 60), mi = m % 60, ap = h >= 12 ? 'PM' : 'AM'; h = h % 12; if (h === 0) h = 12; return h + ':' + (mi < 10 ? '0' : '') + mi + ' ' + ap; }
   function amt(tsp){ tsp = Math.round(tsp * 4) / 4; var tb = Math.floor(tsp / 3); var rest = tsp - tb * 3; var fr = {0:'',0.25:'1/4',0.5:'1/2',0.75:'3/4'}; var parts = [];
     if (tb > 0) { var tbs = tb; var rt = rest; if (rest >= 2.25) { tbs = tb + 1; rt = rest - 3; } } 
     var whole = Math.floor(tsp / 3), rem = Math.round((tsp - whole * 3) * 4) / 4;
